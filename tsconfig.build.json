@@ -1,8 +1,9 @@
 {
   "extends": "./tsconfig",
   "compilerOptions": {
-    "outDir": "./lib",
-    "declarationDir": "./lib",
+    "outDir": "./types",
+    "emitDeclarationOnly": true,
+    "declarationDir": "./types",
     "declaration": true,
     "sourceMap": false,
   },

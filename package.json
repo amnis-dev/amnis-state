@@ -9,23 +9,22 @@
   },
   "homepage": "https://github.com/amnis-dev/amnis-state",
   "files": [
-    "lib",
+    "types",
     "dist"
   ],
+  "types": "./types/index.d.ts",
   "main": "./dist/index.umd.cjs",
-  "module": "./dist/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
-      "require": "./dist/index.umd.cjs",
+      "types": "./types/index.d.ts",
       "import": "./dist/index.js",
-      "types": "./lib/index.d.ts"
+      "require": "./dist/index.umd.cjs"
     }
   },
   "scripts": {
-    "build": "pnpm build:lib && pnpm build:dist",
+    "build": "pnpm build:types && pnpm build:dist",
     "build:dist": "vite build --mode production",
-    "build:lib": "tsc -p tsconfig.build.json",
+    "build:types": "tsc -p tsconfig.build.json",
     "test": "vitest --run",
     "lint": "tsc --noEmit && eslint --ext .ts --ext .tsx \"./\"",
     "clean": "rimraf ./dist ./lib ./types ./tsconfig.build.tsbuildinfo"
@@ -37,11 +36,13 @@
     "@amnis/eslint-config-node": "^2.2.1",
     "@amnis/tsconfig-node": "^2.2.1",
     "@reduxjs/toolkit": "alpha",
+    "@types/fluent-ffmpeg": "^2.1.20",
     "@types/node": "^18.13.0",
     "eslint": "^8.34.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-import-resolver-typescript": "^3.5.3",
     "eslint-plugin-import": "^2.27.5",
+    "fluent-ffmpeg": "^2.1.2",
     "rimraf": "^4.1.2",
     "ts-json-schema-generator": "^1.2.0",
     "ts-node": "^10.9.1",

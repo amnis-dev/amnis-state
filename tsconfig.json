@@ -2,12 +2,13 @@
   "extends": "@amnis/tsconfig-node",
   "compilerOptions": {
     "types": ["node", "vitest/globals"],
+    "lib": ["DOM", "ES2022"],
+    "moduleResolution": "node",
     "outDir": "./dist",
     "composite": true,
     "sourceMap": false,
     "rootDir": "./src",
     "esModuleInterop": true,
-    "baseUrl": "./src",
   },
   "include": ["./src/**/*.ts*"]
 }
