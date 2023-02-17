@@ -34,13 +34,13 @@ jobs:
         cache: 'pnpm'
     
     - name: Install NodeJS Dependencies
-      run: ppnpm install --frozen-lockfile
+      run: pnpm install --frozen-lockfile
 
     - name: Lint for Code-Style Errors
-      run: ppnpm lint
+      run: pnpm lint
 
     - name: Run Unit Tests
-      run: ppnpm test
+      run: pnpm test
 
     - name: Run Build
-      run: ppnpm build
+      run: pnpm build
