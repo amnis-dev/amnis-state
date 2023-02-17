@@ -26,6 +26,7 @@
     "build": "pnpm build:lib && pnpm build:dist",
     "build:dist": "vite build",
     "build:lib": "tsc -p tsconfig.build.json",
+    "test": "vitest --run",
     "lint": "tsc --noEmit && eslint --ext .ts --ext .tsx \"./\"",
     "clean": "rimraf ./dist ./lib ./types ./tsconfig.build.tsbuildinfo"
   },
