@@ -12,6 +12,9 @@ export default defineConfig({
     rollupOptions: {
       output: {
         exports: 'named',
+        globals: {
+          '@reduxjs/toolkit': 'ReduxToolkit',
+        },
       },
       external: [
         '@reduxjs/toolkit',

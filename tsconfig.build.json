@@ -1,4 +1,10 @@
 {
   "extends": "./tsconfig",
+  "compilerOptions": {
+    "outDir": "./lib",
+    "declarationDir": "./lib",
+    "declaration": true,
+    "sourceMap": false,
+  },
   "exclude": ["./src/**/*.test.ts"]
 }

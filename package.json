@@ -24,7 +24,7 @@
   },
   "scripts": {
     "build": "pnpm build:lib && pnpm build:dist",
-    "build:dist": "vite build",
+    "build:dist": "vite build --mode production",
     "build:lib": "tsc -p tsconfig.build.json",
     "test": "vitest --run",
     "lint": "tsc --noEmit && eslint --ext .ts --ext .tsx \"./\"",
