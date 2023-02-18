@@ -10,6 +10,7 @@ specifiers:
   eslint-config-airbnb-base: ^15.0.0
   eslint-import-resolver-typescript: ^3.5.3
   eslint-plugin-import: ^2.27.5
+  eslint-plugin-require-extensions: ^0.1.2
   fluent-ffmpeg: ^2.1.2
   rimraf: ^4.1.2
   ts-json-schema-generator: ^1.2.0
@@ -28,6 +29,7 @@ devDependencies:
   eslint-config-airbnb-base: 15.0.0_mvgyw3chnqkp6sgfmmtihyjpnm
   eslint-import-resolver-typescript: 3.5.3_mvgyw3chnqkp6sgfmmtihyjpnm
   eslint-plugin-import: 2.27.5_rqjqogzte5mdcpd2pm24wlvzku
+  eslint-plugin-require-extensions: 0.1.2_eslint@8.34.0
   fluent-ffmpeg: 2.1.2
   rimraf: 4.1.2
   ts-json-schema-generator: 1.2.0
@@ -1185,6 +1187,15 @@ packages:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
       - supports-color
+    dev: true
+
+  /eslint-plugin-require-extensions/0.1.2_eslint@8.34.0:
+    resolution: {integrity: sha512-UtddVQMdE2SezgWwK7JO7eCBUDUqLg6jq8YGlz5RlSG06Sqlr+xcAaosho3wZYrOzfp6zKUseDFavWgoAgCimQ==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      eslint: '*'
+    dependencies:
+      eslint: 8.34.0
     dev: true
 
   /eslint-scope/5.1.1:
