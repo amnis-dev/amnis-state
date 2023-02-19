@@ -1,6 +1,6 @@
 import { dateNumeric } from '../../core.js';
-import { Session } from '../../data/index.js';
-import { CryptoSessionDecrypt, CryptoSessionEncrypt } from './crypto.types.js';
+import type { Session } from '../../data/index.js';
+import type { CryptoSessionDecrypt, CryptoSessionEncrypt } from './crypto.types.js';
 import { symDecrypt, symEncrypt } from './sym.js';
 
 /**

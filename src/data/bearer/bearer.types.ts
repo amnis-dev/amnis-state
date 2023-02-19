@@ -20,3 +20,8 @@ export interface Bearer {
    */
   access: string;
 }
+
+/**
+ * Bearer collection meta data.
+ */
+export type BearerMeta = Record<string, Bearer>;

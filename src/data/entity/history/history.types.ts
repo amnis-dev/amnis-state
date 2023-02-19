@@ -4,7 +4,7 @@ import type { UID } from '../../../core.types.js';
 import type {
   StateCreator, StateDeleter, StateUpdater,
 } from '../../../state.types.js';
-import { GrantTask } from '../../grant/index.js';
+import type { GrantTask } from '../../grant/index.js';
 
 /**
  * List of State Mutators history can log.

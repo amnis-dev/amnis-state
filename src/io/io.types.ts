@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { BaseQueryFn, FetchArgs } from '@reduxjs/toolkit/query';
-import type { Store } from '@reduxjs/toolkit';
+import type { EnhancedStore } from '@reduxjs/toolkit';
 
 import type {
   Bearer, Challenge, Otp, LogCreator, Session, Credential,
@@ -8,10 +8,10 @@ import type {
 
 import type { Database } from './database/database.types.js';
 import type { Filesystem } from './filesystem/filesystem.types.js';
-import { Crypto } from './crypto/crypto.types.js';
-import { JWTAccess } from '../jwt.types.js';
-import { Send } from './send/send.types.js';
-import { StateScope } from '../state.types.js';
+import type { Crypto } from './crypto/crypto.types.js';
+import type { JWTAccess } from '../jwt.types.js';
+import type { Send } from './send/send.types.js';
+import type { StateScope } from '../state.types.js';
 
 /**
  * Validator
@@ -33,7 +33,7 @@ export interface IoContext {
   /**
    * Predicable application state.
    */
-  store: Store;
+  store: EnhancedStore;
 
   /**
    * Interface for storing structured data.

@@ -2,8 +2,8 @@
 /* eslint-disable no-bitwise */
 // import type { Role } from '../../entity/index.js';
 import type { State, StateScope } from '../../state.types.js';
+import type { Grant } from './grant.types.js';
 import {
-  Grant,
   GrantTask,
 } from './grant.types.js';
 

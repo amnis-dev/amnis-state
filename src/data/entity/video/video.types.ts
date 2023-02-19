@@ -1,4 +1,4 @@
-import { EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
+import type { EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
 import type { File } from '../file/file.types.js';
 
 export interface Video extends File {

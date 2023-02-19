@@ -26,8 +26,12 @@
     "build:dist": "vite build --mode production",
     "build:types": "tsc -p tsconfig.build.json",
     "test": "vitest --run",
+    "gen:schema": "ts-node-esm -P scripts/tsconfig.json scripts/schema",
     "lint": "tsc --noEmit && eslint --ext .ts --ext .tsx \"./\"",
     "clean": "rimraf ./dist ./lib ./types ./tsconfig.build.tsbuildinfo"
+  },
+  "dependencies": {
+    "cross-fetch": "^3.1.5"
   },
   "peerDependencies": {
     "@reduxjs/toolkit": "*"
@@ -37,6 +41,8 @@
     "@amnis/tsconfig-node": "^2.2.1",
     "@reduxjs/toolkit": "alpha",
     "@types/fluent-ffmpeg": "^2.1.20",
+    "@types/fs-extra": "^11.0.1",
+    "@types/glob": "^8.0.1",
     "@types/node": "^18.13.0",
     "eslint": "^8.34.0",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -44,6 +50,8 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-require-extensions": "^0.1.2",
     "fluent-ffmpeg": "^2.1.2",
+    "fs-extra": "^11.1.0",
+    "glob": "^8.1.0",
     "rimraf": "^4.1.2",
     "ts-json-schema-generator": "^1.2.0",
     "ts-node": "^10.9.1",

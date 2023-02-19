@@ -1,5 +1,5 @@
 import { base64Decode, base64Encode } from '../../base64.js';
-import { CryptoPassCompare, CryptoPassHash } from './crypto.types.js';
+import type { CryptoPassCompare, CryptoPassHash } from './crypto.types.js';
 import { webcrypto } from './webcrypto.js';
 
 const saltLength = 16;

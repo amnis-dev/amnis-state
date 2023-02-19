@@ -1,13 +1,13 @@
+import type { Credential } from './data/index.js';
 import {
   credentialCreator,
   credentialKey,
-  Credential,
 } from './data/index.js';
 import {
   cryptoWeb,
 } from './io/index.js';
 import { localStorage } from './localstorage.js';
-import { UID } from './core.types.js';
+import type { UID } from './core.types.js';
 import { uid } from './uid.js';
 import {
   base64Encode,

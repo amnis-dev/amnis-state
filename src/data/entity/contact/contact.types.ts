@@ -1,7 +1,7 @@
 import type {
   EntityCreator, EntityCreatorBase, EntityCreatorParams,
 } from '../entity.types.js';
-import { SURL } from '../../../core.types.js';
+import type { SURL } from '../../../core.types.js';
 
 /**
  * Contact entity

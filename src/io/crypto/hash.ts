@@ -1,5 +1,5 @@
 import { base64Encode } from '../../base64.js';
-import { CryptoHashData } from './crypto.types.js';
+import type { CryptoHashData } from './crypto.types.js';
 import { webcrypto } from './webcrypto.js';
 
 /**

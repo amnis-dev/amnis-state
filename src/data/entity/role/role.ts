@@ -1,6 +1,7 @@
 import { nanoid } from '@reduxjs/toolkit';
 import { uid } from '../../../uid.js';
-import { Grant, grantCombine } from '../../grant/index.js';
+import type { Grant } from '../../grant/index.js';
+import { grantCombine } from '../../grant/index.js';
 import type {
   Role, RoleBase, RoleCombo, RoleCreator, RoleFsLimits,
 } from './role.types.js';

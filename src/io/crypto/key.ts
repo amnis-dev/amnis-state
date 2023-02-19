@@ -1,5 +1,5 @@
 import { base64Decode, base64Encode } from '../../base64.js';
-import {
+import type {
   CryptoKeyExport, CryptoKeyImport, CryptoKeyUnwrap, CryptoKeyWrap,
 } from './crypto.types.js';
 import { webcrypto } from './webcrypto.js';

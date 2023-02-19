@@ -1,8 +1,9 @@
-import { State } from '../../state.types.js';
+import type { State } from '../../state.types.js';
 import {
   grantCombine, grantStateFilter, grantStateScope, grantTask,
 } from './grant.js';
-import { Grant, GrantScope, GrantTask } from './grant.types.js';
+import type { Grant } from './grant.types.js';
+import { GrantScope, GrantTask } from './grant.types.js';
 
 /**
  * Begin test...

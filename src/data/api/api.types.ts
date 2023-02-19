@@ -35,3 +35,8 @@ export interface Api {
    */
   otp?: boolean | string[];
 }
+
+/**
+ * Api collection meta data.
+ */
+export type ApiMeta = Record<string, Api>;

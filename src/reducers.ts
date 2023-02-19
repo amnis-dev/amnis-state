@@ -4,13 +4,15 @@ import type {
   EntityAdapter,
   PayloadAction,
 } from '@reduxjs/toolkit';
-import {
+import type {
   Entity,
   MetaState,
-  entityCreate,
-  metaInitial,
   EntityCreator,
   EntityUpdater,
+} from './data/index.js';
+import {
+  entityCreate,
+  metaInitial,
 } from './data/index.js';
 import { coreActions } from './actions.js';
 import type { UID } from './core.types.js';
@@ -306,7 +308,7 @@ export function coreExtraReducers<C extends EntityCreator>(
         state.selection.length > 0
         && payload[key].some((id: UID) => state.selection.includes(id))
       ) {
-        state.selection = state.selection.filter((selectionId) => (
+        state.selection = state.selection.filter((selectionId: UID) => (
           payload[key].includes(selectionId)
         ));
       }

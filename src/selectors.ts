@@ -1,20 +1,23 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { createSelector, Dictionary, EntityState } from '@reduxjs/toolkit';
+import type { Dictionary, EntityState } from '@reduxjs/toolkit';
+import { createSelector } from '@reduxjs/toolkit';
 import type { State } from './state.types.js';
 import type { UID } from './core.types.js';
-import {
+import type {
   Bearer,
-  bearerKey,
   Grant,
   Entity,
   EntityCreatorBase,
   Role,
-  roleKey,
   Key,
-  keyKey,
   EntityCreator,
   MetaState,
   EntityUpdater,
+} from './data/index.js';
+import {
+  bearerKey,
+  roleKey,
+  keyKey,
 } from './data/index.js';
 
 /**
@@ -78,7 +81,7 @@ const genSelectSelectionIds = <E extends Entity>(sliceKey: string) => (state: St
 const genSelectActive = <E extends Entity = Entity>(sliceKey: string) => createSelector(
   genSelectActiveId<E>(sliceKey),
   genSelectEntities<E>(sliceKey),
-  (activeId, entities): E | undefined => {
+  (activeId: string, entities: Record<string, Entity>): E | undefined => {
     if (!activeId) {
       return undefined;
     }
@@ -103,7 +106,7 @@ export const selectActive = <E extends Entity>(
 const genSelectFocused = <E extends Entity = Entity>(sliceKey: string) => createSelector(
   genSelectFocusedId<E>(sliceKey),
   genSelectEntities<E>(sliceKey),
-  (focusedId, entities): E | undefined => {
+  (focusedId: string, entities: Record<string, Entity>): E | undefined => {
     if (!focusedId) {
       return undefined;
     }
@@ -130,7 +133,7 @@ const genSelectSelection = <E extends Entity = Entity>(
 ) => createSelector(
   genSelectSelectionIds<E>(sliceKey),
   genSelectEntities<E>(sliceKey),
-  (selectionIds, entities) => {
+  (selectionIds: string[], entities: Record<string, Entity>) => {
     const selections = selectionIds.map((selected) => entities[selected]) as E[];
 
     return selections;
@@ -156,12 +159,17 @@ const genSelectDifference = <C extends EntityCreator = EntityCreator>(
   sliceKey: string,
 ) => createSelector(
   [
-    (state, id: UID<C>) => id,
+    (state: State, id: UID<C>) => id,
     genSelectDifferences<Entity<C>>(sliceKey),
     genSelectOriginals<Entity<C>>(sliceKey),
     genSelectEntities<Entity<C>>(sliceKey),
   ],
-  (id, diffRecords, originalRecords, entities): EntityDifference<C> => {
+  (
+    id: UID,
+    diffRecords: Record<string, (keyof Entity<C>)[]>,
+    originalRecords: Record<string, Entity<C>>,
+    entities: Record<string, Entity<C>>,
+  ): EntityDifference<C> => {
     const current = entities[id] as Entity<C> | undefined;
     const original = originalRecords[id] as Entity<C> | undefined;
     const diffRecord = diffRecords[id];

@@ -1,8 +1,9 @@
-import { UID } from '../../core.types.js';
+import type { UID } from '../../core.types.js';
 import { uidList } from '../../uid.js';
-import { Entity, GrantScope } from '../../data/index.js';
-import { Database } from './database.types.js';
-import { State, StateDeleter, StateEntities } from '../../state.types.js';
+import { GrantScope } from '../../data/index.js';
+import type { Entity } from '../../data/index.js';
+import type { Database } from './database.types.js';
+import type { State, StateDeleter, StateEntities } from '../../state.types.js';
 
 /**
  * Storage type.

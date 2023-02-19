@@ -1,5 +1,5 @@
 import { roleKey, roleCreator, roleFsLimitsCompress } from './role.js';
-import { RoleFsLimits } from './role.types.js';
+import type { RoleFsLimits } from './role.types.js';
 
 /**
  * ============================================================

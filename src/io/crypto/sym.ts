@@ -1,5 +1,5 @@
 import { base64Decode, base64Encode } from '../../base64.js';
-import {
+import type {
   CryptoSymDecrypt,
   CryptoSymEncrypt,
   CryptoSymGenerate,

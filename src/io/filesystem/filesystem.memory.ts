@@ -2,7 +2,7 @@ import {
   imageCreator,
   entityCreate,
 } from '../../data/index.js';
-import { Filesystem } from './filesystem.types.js';
+import type { Filesystem } from './filesystem.types.js';
 import { Webp } from './filesystem.webp.js';
 
 const storage: Record<string, ArrayBuffer> = {};

@@ -1,6 +1,6 @@
 import { GrantTask } from '../../grant/index.js';
 import { uid } from '../../../uid.js';
-import { StateDeleter, StateUpdater } from '../../../state.types.js';
+import type { StateDeleter, StateUpdater } from '../../../state.types.js';
 import {
   historyKey, historyCreator, historyBase, historyMake,
 } from './history.js';

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { JWTAccess } from '../../jwt.types.js';
-import { CryptoAccessEncode, CryptoAccessVerify } from './crypto.types.js';
+import type { JWTAccess } from '../../jwt.types.js';
+import type { CryptoAccessEncode, CryptoAccessVerify } from './crypto.types.js';
 import { tokenSign, tokenVerify } from './token.js';
 
 /**

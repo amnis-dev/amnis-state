@@ -2,7 +2,7 @@ import {
   uid, uidList, uidListValidate, uidTree, uidTreeValidate, uidValidate,
 } from './uid.js';
 import { regexUuid } from './regex.js';
-import { UID } from './core.types.js';
+import type { UID } from './core.types.js';
 
 test('should generate a unique identifier', () => {
   const id = uid('identity');

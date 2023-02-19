@@ -1,4 +1,5 @@
-import { entityCreate, Entity, EntityCreator } from '../../data/index.js';
+import type { Entity, EntityCreator } from '../../data/entity/index.js';
+import { entityCreate } from '../../data/entity/index.js';
 import type { StateEntities } from '../../state.types.js';
 import { uid } from '../../uid.js';
 

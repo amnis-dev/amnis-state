@@ -1,0 +1,202 @@
+{
+  "$id": "state",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Core",
+  "definitions": {
+    "Core": {
+      "type": "object",
+      "properties": {
+        "insert": {
+          "$ref": "#/definitions/StateCreator"
+        },
+        "query": {
+          "$ref": "#/definitions/StateQuery"
+        },
+        "modify": {
+          "$ref": "#/definitions/StateUpdater"
+        },
+        "remove": {
+          "$ref": "#/definitions/StateDeleter"
+        }
+      },
+      "additionalProperties": false
+    },
+    "StateCreator": {
+      "$ref": "#/definitions/State%3Cdef-interface-444227139-175-361-444227139-0-25941081728679%5B%5D%3E",
+      "description": "A common stateful result from creations. A state object with entities to be created"
+    },
+    "State<def-interface-444227139-175-361-444227139-0-25941081728679[]>": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/EntityCreator"
+        }
+      },
+      "description": "An ambiguous state."
+    },
+    "EntityCreator": {
+      "type": "object",
+      "properties": {
+        "$id": {
+          "$ref": "#/definitions/UID",
+          "description": "All objects that can be composed into an entity must have an identifier."
+        }
+      },
+      "required": [
+        "$id"
+      ],
+      "additionalProperties": false,
+      "description": "Subset interface for an entity."
+    },
+    "UID": {
+      "type": "string",
+      "description": "A id identifier to another document.",
+      "pattern": "^[a-z]{1,24}:[A-Za-z0-9_-]{16,32}$",
+      "minLength": 18,
+      "maxLength": 56
+    },
+    "StateQuery": {
+      "$ref": "#/definitions/State%3CQuery%3E",
+      "description": "A query object to search for entities."
+    },
+    "State<Query>": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/Query"
+      },
+      "description": "An ambiguous state."
+    },
+    "Query": {
+      "type": "object",
+      "properties": {
+        "$query": {
+          "$ref": "#/definitions/QueryProps",
+          "description": "Query of keys."
+        },
+        "$range": {
+          "$ref": "#/definitions/Range",
+          "description": "Range of query."
+        },
+        "$depth": {
+          "type": "number",
+          "description": "Depth to query for other referenced entities.",
+          "minimum": 0,
+          "maximum": 3,
+          "multipleOf": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "QueryProps": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/Filter"
+      }
+    },
+    "Filter": {
+      "type": "object",
+      "properties": {
+        "$eq": {
+          "description": "Matches values that are equal to a specified value."
+        },
+        "$gt": {
+          "type": "number",
+          "description": "Matches values that are greater than a specified value."
+        },
+        "$gte": {
+          "type": "number",
+          "description": "Matches values that are greater than or equal to a specified value."
+        },
+        "$lt": {
+          "type": "number",
+          "description": "Matches values that are less than a specified value."
+        },
+        "$lte": {
+          "type": "number",
+          "description": "Matches values that are less than or equal to a specified value."
+        },
+        "$in": {
+          "type": "array",
+          "items": {},
+          "description": "Matches any of the values specified in an array."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Filter object for a query."
+    },
+    "Range": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "number",
+          "description": "Start query at record value.",
+          "minimum": 0,
+          "maximum": 4096,
+          "multipleOf": 1
+        },
+        "limit": {
+          "type": "number",
+          "description": "Limit results of the query.",
+          "minimum": 0,
+          "maximum": 64,
+          "multipleOf": 1
+        }
+      },
+      "additionalProperties": false,
+      "description": "StateQuery range"
+    },
+    "StateUpdater": {
+      "$ref": "#/definitions/State%3Cdef-alias-src_state.types.ts-2019-2212-src_state.types.ts-0-2601600678921%5B%5D%3E"
+    },
+    "State<def-alias-src_state.types.ts-2019-2212-src_state.types.ts-0-2601600678921[]>": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/StateUpdateEntity"
+        }
+      },
+      "description": "An ambiguous state."
+    },
+    "StateUpdateEntity": {
+      "type": "object",
+      "additionalProperties": {},
+      "properties": {
+        "$id": {
+          "$ref": "#/definitions/UID",
+          "description": "All objects that can be composed into an entity must have an identifier."
+        }
+      },
+      "required": [
+        "$id"
+      ],
+      "description": "A common stateful result from updates. A state object with parial entities to update."
+    },
+    "StateDeleter": {
+      "$ref": "#/definitions/State%3CUIDList%3E",
+      "description": "A common stateful result from deletions. A state object with delete ids."
+    },
+    "State<UIDList>": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/UIDList"
+      },
+      "description": "An ambiguous state."
+    },
+    "UIDList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/UID%3Cunknown%3E"
+      },
+      "description": "List of identifiers."
+    },
+    "UID<unknown>": {
+      "type": "string",
+      "description": "A id identifier to another document.",
+      "pattern": "^[a-z]{1,24}:[A-Za-z0-9_-]{16,32}$",
+      "minLength": 18,
+      "maxLength": 56
+    }
+  }
+}

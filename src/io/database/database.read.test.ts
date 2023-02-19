@@ -1,7 +1,8 @@
-import { Entity } from '../../data/index.js';
+import type { Entity } from '../../data/index.js';
 import { databaseMemory, databaseMemoryStorage } from './database.memory.js';
+import type { TestDataTodo } from './database.testdata.js';
 import {
-  testData, TestDataTodo, testDataTodoKey, testDataTodoPriorities,
+  testData, testDataTodoKey, testDataTodoPriorities,
 } from './database.testdata.js';
 
 beforeAll(() => {

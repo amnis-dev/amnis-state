@@ -1,6 +1,7 @@
 import { dateNumeric } from '../../core.js';
 import { uid } from '../../uid.js';
-import { Otp, OtpMethod } from './otp.types.js';
+import type { Otp } from './otp.types.js';
+import { OtpMethod } from './otp.types.js';
 
 export const otpKey = 'otp';
 

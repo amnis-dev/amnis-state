@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { EntityState } from '@reduxjs/toolkit';
-import {
+import type {
   Grant,
   GrantTask,
   Entity,
-  entityCreate,
   EntityCreator,
+} from './data/index.js';
+import {
+  entityCreate,
 } from './data/index.js';
 import type {
   State,
