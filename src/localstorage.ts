@@ -1,5 +1,5 @@
 import type { EntityAdapter, EntityState } from '@reduxjs/toolkit';
-import { base64JsonDecode, base64JsonEncode } from './base64.js';
+import { base64JsonDecode, base64JsonEncode } from './core/index.js';
 
 /**
  * Mocked memeory version of LocalStorage in case a form doesn't exist.

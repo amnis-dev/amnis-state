@@ -1,19 +1,16 @@
 import type { Credential } from './data/index.js';
-import {
-  credentialCreator,
-  credentialKey,
-} from './data/index.js';
+import { credentialKey, credentialCreator } from './data/entity/credential/index.js';
 import {
   cryptoWeb,
-} from './io/index.js';
+} from './io/crypto/index.js';
 import { localStorage } from './localstorage.js';
-import type { UID } from './core.types.js';
-import { uid } from './uid.js';
+import type { UID } from './core/index.js';
 import {
+  uid,
   base64Encode,
   base64JsonDecode,
   base64JsonEncode,
-} from './base64.js';
+} from './core/index.js';
 
 export interface Agent {
   name: string;

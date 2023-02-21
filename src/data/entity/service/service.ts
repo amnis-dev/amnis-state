@@ -1,5 +1,4 @@
-import { dateJSON } from '../../../core.js';
-import { uid } from '../../../uid.js';
+import { dateJSON, uid } from '../../../core/index.js';
 import type { Service, ServiceBase, ServiceCreator } from './service.types.js';
 
 export const serviceKey = 'service';

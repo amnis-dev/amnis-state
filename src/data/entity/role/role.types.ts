@@ -1,6 +1,6 @@
 import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
 import type { Grant } from '../../grant/index.js';
-import type { UID } from '../../../core.types.js';
+import type { UID } from '../../../core/index.js';
 
 /**
  * Role limits

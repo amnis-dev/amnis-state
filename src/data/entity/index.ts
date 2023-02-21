@@ -1,5 +1,6 @@
 export * from './entity.types.js';
 export * from './entity.js';
+export * from './diff.js';
 
 export * from './audit/index.js';
 export * from './contact/index.js';

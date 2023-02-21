@@ -1,7 +1,8 @@
-import { uid, uidList } from '../../uid.js';
-import { regexReference, regexUuid } from '../../regex.js';
-import { dateJSON } from '../../core.js';
-import type { UID } from '../../core.types.js';
+import {
+  uid, uidList, regexReference, regexUuid,
+  dateJSON,
+} from '../../core/index.js';
+import type { UID } from '../../core/index.js';
 import type {
   Entity,
   EntityCreator,

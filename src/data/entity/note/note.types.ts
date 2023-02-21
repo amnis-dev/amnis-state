@@ -1,5 +1,5 @@
 import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
-import type { UID } from '../../../core.types.js';
+import type { UID } from '../../../core/index.js';
 
 /**
  * A message to aid memory about the historic change.

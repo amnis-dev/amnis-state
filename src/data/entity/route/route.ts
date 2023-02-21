@@ -1,4 +1,4 @@
-import { uid } from '../../../uid.js';
+import { uid } from '../../../core/index.js';
 import type { Route, RouteBase, RouteCreator } from './route.types.js';
 
 export const routeKey = 'route';

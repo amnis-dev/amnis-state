@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { uid } from '../../../uid.js';
+import { uid } from '../../../core/index.js';
 import { GrantTask } from '../../grant/index.js';
-import type { UID } from '../../../core.types.js';
+import type { UID } from '../../../core/index.js';
 import type {
   History, HistoryBase, HistoryCreator, HistoryStateMutator,
 } from './history.types.js';

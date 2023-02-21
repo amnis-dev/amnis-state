@@ -1,4 +1,4 @@
-import { uid } from '../../../uid.js';
+import { uid } from '../../../core/index.js';
 import { systemKey, systemCreator } from './system.js';
 
 /**

@@ -1,7 +1,7 @@
 import type { Entity, EntityCreator } from '../../data/entity/index.js';
 import { entityCreate } from '../../data/entity/index.js';
 import type { StateEntities } from '../../state.types.js';
-import { uid } from '../../uid.js';
+import { uid } from '../../core/index.js';
 
 export interface TestDataTodo extends EntityCreator {
   title: string;

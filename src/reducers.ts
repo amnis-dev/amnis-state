@@ -13,10 +13,10 @@ import type {
 import {
   entityCreate,
   metaInitial,
+  diffCompare,
 } from './data/index.js';
 import { coreActions } from './actions.js';
-import type { UID } from './core.types.js';
-import { diffCompare } from './diff.js';
+import type { UID } from './core/index.js';
 
 export interface MetaOptions {
   active?: boolean;

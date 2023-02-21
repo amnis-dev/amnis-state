@@ -1,5 +1,5 @@
 import type { LogCreator } from '../log/index.js';
-import { uid } from '../../../uid.js';
+import { uid } from '../../../core/index.js';
 import type {
   Locale, LocaleBase, LocaleCreator, LocaleTranslationKey, LocaleTranslation,
 } from './locale.types.js';

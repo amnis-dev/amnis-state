@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-shadow */
 
-import type { JWTAccess } from '../../jwt.types.js';
+import type { JWTAccess } from '../../core/index.js';
 import type { Session } from '../../data/index.js';
 
 /**

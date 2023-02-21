@@ -1,4 +1,4 @@
-import { uid } from '../../../uid.js';
+import { uid } from '../../../core/index.js';
 import type { LogCreator } from '../log/index.js';
 import { roleKey } from '../role/index.js';
 import type { System, SystemBase, SystemCreator } from './system.types.js';

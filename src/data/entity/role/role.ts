@@ -1,5 +1,5 @@
 import { nanoid } from '@reduxjs/toolkit';
-import { uid } from '../../../uid.js';
+import { uid } from '../../../core/index.js';
 import type { Grant } from '../../grant/index.js';
 import { grantCombine } from '../../grant/index.js';
 import type {

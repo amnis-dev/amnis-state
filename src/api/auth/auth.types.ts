@@ -9,7 +9,7 @@ import type {
   Email,
   Password,
   Name,
-} from '../../core.types.js';
+} from '../../core/index.js';
 
 /**
  * OTP purposes

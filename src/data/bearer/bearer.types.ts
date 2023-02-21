@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import type { DateNumeric } from '../../core.types.js';
+import type { DateNumeric } from '../../core/index.js';
 
 /**
  * An interface for a bearer.

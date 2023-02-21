@@ -1,4 +1,4 @@
-import { dateNumeric } from '../../core.js';
+import { dateNumeric } from '../../core/index.js';
 import type { Session } from '../../data/index.js';
 import type { CryptoSessionDecrypt, CryptoSessionEncrypt } from './crypto.types.js';
 import { symDecrypt, symEncrypt } from './sym.js';

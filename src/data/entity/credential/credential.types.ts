@@ -1,6 +1,6 @@
 import type {
   DateJSON, Encoding, IP, Name,
-} from '../../../core.types.js';
+} from '../../../core/index.js';
 import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
 
 /**

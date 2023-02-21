@@ -1,5 +1,4 @@
-import { uid } from '../../../uid.js';
-import { dateNumeric } from '../../../core.js';
+import { uid, dateNumeric } from '../../../core/index.js';
 import { sessionKey, sessionCreator } from './session.js';
 
 /**

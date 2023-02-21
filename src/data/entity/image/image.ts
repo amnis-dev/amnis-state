@@ -1,5 +1,5 @@
 import type { Image, ImageBase, ImageCreator } from './image.types.js';
-import { uid } from '../../../uid.js';
+import { uid } from '../../../core/index.js';
 import { fileCreator } from '../file/file.js';
 
 export const imageKey = 'image';

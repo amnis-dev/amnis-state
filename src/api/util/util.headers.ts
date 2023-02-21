@@ -1,17 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import fetch from 'cross-fetch';
-import type { EntityState } from '@reduxjs/toolkit';
 import type { BaseQueryApi } from '@reduxjs/toolkit/query';
-import { selectBearer } from '../../selectors.js';
 import type { IoOutput } from '../../io/io.types.js';
-import type { Challenge, Otp } from '../../data/index.js';
-import {
-  apiSelectors, bearerKey, otpKey,
-} from '../../data/index.js';
+import type { Challenge } from '../../data/index.js';
 import type { State, StateEntities } from '../../state.types.js';
 import { agentSign } from '../../agent.js';
-import { base64JsonEncode } from '../../base64.js';
-import type { UID } from '../../core.types.js';
+import { base64JsonEncode } from '../../core/index.js';
+import { apiUtilSelectApi, apiUtilSelectBearer, apiUtilSelectLatestOtp } from './util.selectors.js';
 
 /**
  * Adds an authroization token to the header.
@@ -22,7 +17,7 @@ export const headersAuthorizationToken = async (
   state: State,
   bearerId: string,
 ): Promise<void> => {
-  const bearer = selectBearer(state, bearerId);
+  const bearer = apiUtilSelectBearer(state, bearerId);
 
   if (!bearer) {
     return;
@@ -32,7 +27,7 @@ export const headersAuthorizationToken = async (
    * If the bearer token expired, attempt to fetch it again.
    */
   if (bearer.exp <= Date.now()) {
-    const apiAuthMeta = apiSelectors.selectById(state as any, 'apiAuth');
+    const apiAuthMeta = apiUtilSelectApi(state, 'apiAuth');
     if (!apiAuthMeta) {
       console.error('Auth API must be defined to renew tokens.');
       return;
@@ -51,7 +46,7 @@ export const headersAuthorizationToken = async (
     }
 
     store.dispatch({
-      type: `${bearerKey}/updateMany`,
+      type: 'bearer/updateMany',
       payload: bearersNew,
     });
 
@@ -81,7 +76,7 @@ export const headersChallenge = async (
   headers: Headers,
   state: State,
 ) => {
-  const apiAuthMeta = apiSelectors.selectById(state as any, 'apiAuth');
+  const apiAuthMeta = apiUtilSelectApi(state, 'apiAuth');
   if (!apiAuthMeta) {
     console.error('Auth API must be defined to generate challenge object.');
     return;
@@ -116,17 +111,7 @@ export const headersOtp = (
   headers: Headers,
   state: State,
 ) => {
-  const slice = state[otpKey] as EntityState<Otp> & { latest: UID | null };
-  if (!slice) {
-    console.error('OTP reducer must be defined to attach OTP objects on requests.');
-    return;
-  }
-
-  if (!slice.latest) {
-    return;
-  }
-
-  const otp = slice.entities[slice.latest];
+  const otp = apiUtilSelectLatestOtp(state);
 
   if (!otp) {
     return;

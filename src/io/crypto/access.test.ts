@@ -1,6 +1,5 @@
-import { dateNumeric } from '../../core.js';
-import type { JWTAccess } from '../../jwt.types.js';
-import { uid } from '../../uid.js';
+import { dateNumeric, uid } from '../../core/index.js';
+import type { JWTAccess } from '../../core/index.js';
 import { accessEncode, accessVerify } from './access.js';
 import { asymGenerate } from './asym.js';
 

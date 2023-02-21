@@ -1,4 +1,4 @@
-import { uid } from '../../../uid.js';
+import { uid } from '../../../core/index.js';
 import type { Profile, ProfileBase, ProfileCreator } from './profile.types.js';
 import { userKey } from '../user/user.js';
 

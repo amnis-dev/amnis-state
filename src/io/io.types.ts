@@ -9,7 +9,7 @@ import type {
 import type { Database } from './database/database.types.js';
 import type { Filesystem } from './filesystem/filesystem.types.js';
 import type { Crypto } from './crypto/crypto.types.js';
-import type { JWTAccess } from '../jwt.types.js';
+import type { JWTAccess } from '../core/index.js';
 import type { Send } from './send/send.types.js';
 import type { StateScope } from '../state.types.js';
 

@@ -1,6 +1,6 @@
 import type {
   DateJSON, Email, Password, UIDList,
-} from '../../../core.types.js';
+} from '../../../core/index.js';
 import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
 import type { Permit } from '../permit/index.js';
 import type { Credential } from '../credential/index.js';

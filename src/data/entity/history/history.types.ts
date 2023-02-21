@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
-import type { UID } from '../../../core.types.js';
+import type { UID } from '../../../core/index.js';
 import type {
   StateCreator, StateDeleter, StateUpdater,
 } from '../../../state.types.js';

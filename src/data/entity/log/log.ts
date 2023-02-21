@@ -1,4 +1,4 @@
-import { uid } from '../../../uid.js';
+import { uid } from '../../../core/index.js';
 import type { Log, LogBase, LogCreator } from './log.types.js';
 
 export const logKey = 'log';

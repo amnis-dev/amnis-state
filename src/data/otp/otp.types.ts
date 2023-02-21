@@ -1,4 +1,4 @@
-import type { DateNumeric, UID } from '../../core.types.js';
+import type { DateNumeric, UID } from '../../core/index.js';
 
 /**
  * OTP send methods.
@@ -49,4 +49,14 @@ export interface Otp {
    * The method of sending the OTP value.
    */
   mth: OtpMethod;
+}
+
+/**
+ * Otp collection meta.
+ */
+export interface OtpMeta {
+  /**
+   * Latest OTP object generated.
+   */
+  latest: UID | null;
 }

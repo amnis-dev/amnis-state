@@ -1,5 +1,5 @@
 import { fileCreator } from '../file/file.js';
-import { uid } from '../../../uid.js';
+import { uid } from '../../../core/index.js';
 import type { Video, VideoBase, VideoCreator } from './video.types.js';
 
 export const videoKey = 'video';

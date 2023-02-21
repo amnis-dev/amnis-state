@@ -1,5 +1,4 @@
-import { dateNumeric } from '../../core.js';
-import { uid } from '../../uid.js';
+import { dateNumeric, uid } from '../../core/index.js';
 import type { Otp } from './otp.types.js';
 import { OtpMethod } from './otp.types.js';
 

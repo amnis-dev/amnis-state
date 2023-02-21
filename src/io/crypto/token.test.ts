@@ -1,4 +1,4 @@
-import { dateNumeric } from '../../core.js';
+import { dateNumeric } from '../../core/index.js';
 import { asymGenerate, asymVerify } from './asym.js';
 import { tokenDecode, tokenSign, tokenVerify } from './token.js';
 

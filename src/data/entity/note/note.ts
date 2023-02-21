@@ -1,4 +1,4 @@
-import { uid } from '../../../uid.js';
+import { uid } from '../../../core/index.js';
 import type { Note, NoteBase, NoteCreator } from './note.types.js';
 
 export const noteKey = 'note';

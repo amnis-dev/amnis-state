@@ -1,4 +1,4 @@
-import { uid } from '../../../uid.js';
+import { uid } from '../../../core/index.js';
 import type { Handle, HandleBase, HandleCreator } from './handle.types.js';
 
 export const handleKey = 'handle';

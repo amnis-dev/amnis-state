@@ -1,4 +1,4 @@
-import type { UID } from '../../../core.types.js';
+import type { UID } from '../../../core/index.js';
 import type { EntityCreator } from '../entity.types.js';
 import type { GrantString } from '../../grant/index.js';
 

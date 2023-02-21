@@ -1,6 +1,5 @@
 import type { LogCreator } from '../log/index.js';
-import { regexWebUrl } from '../../../regex.js';
-import { uid } from '../../../uid.js';
+import { regexWebUrl, uid } from '../../../core/index.js';
 import type { Contact, ContactBase, ContactCreator } from './contact.types.js';
 
 export const contactKey = 'contact';

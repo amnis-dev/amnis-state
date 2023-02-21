@@ -1,4 +1,4 @@
-import { uid } from '../../../uid.js';
+import { uid } from '../../../core/index.js';
 import type { Credential, CredentialBase, CredentialCreator } from './credential.types.js';
 
 export const credentialKey = 'credential';

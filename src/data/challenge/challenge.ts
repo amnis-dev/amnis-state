@@ -1,6 +1,5 @@
 import { nanoid } from '@reduxjs/toolkit';
-import { dateNumeric } from '../../core.js';
-import { uid } from '../../uid.js';
+import { dateNumeric, uid } from '../../core/index.js';
 import type { Challenge } from './challenge.types.js';
 
 export const challengeKey = 'challenge';

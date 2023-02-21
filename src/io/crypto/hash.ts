@@ -1,4 +1,4 @@
-import { base64Encode } from '../../base64.js';
+import { base64Encode } from '../../core/base64.js';
 import type { CryptoHashData } from './crypto.types.js';
 import { webcrypto } from './webcrypto.js';
 

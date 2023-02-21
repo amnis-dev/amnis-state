@@ -1,11 +1,11 @@
 module.exports = {
-  extends: ['@amnis/eslint-config-node', 'plugin:require-extensions/recommended'],
+  extends: ['@amnis/eslint-config-node'],
   rules: {
-    '@typescript-eslint/consistent-type-imports': [
+    'import/no-cycle': [
       'error',
       {
-        prefer: 'type-imports',
-        disallowTypeAnnotations: false,
+        maxDepth: 10,
+        ignoreExternal: true,
       },
     ],
   },

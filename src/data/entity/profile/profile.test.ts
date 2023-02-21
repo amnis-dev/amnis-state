@@ -1,4 +1,4 @@
-import { uid } from '../../../uid.js';
+import { uid } from '../../../core/index.js';
 import { userKey } from '../user/index.js';
 import { profileKey, profileCreator } from './profile.js';
 

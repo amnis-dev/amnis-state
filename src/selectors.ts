@@ -2,7 +2,7 @@
 import type { Dictionary, EntityState } from '@reduxjs/toolkit';
 import { createSelector } from '@reduxjs/toolkit';
 import type { State } from './state.types.js';
-import type { UID } from './core.types.js';
+import type { UID } from './core/index.js';
 import type {
   Bearer,
   Grant,

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { EntityState } from '@reduxjs/toolkit';
-import type { UID, UIDList, DateJSON } from '../../core.types.js';
+import type { UID, UIDList, DateJSON } from '../../core/index.js';
 
 /**
  * Subset interface for an entity.

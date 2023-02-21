@@ -1,8 +1,8 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@amnis/eslint-config-node': ^2.2.1
-  '@amnis/tsconfig-node': ^2.2.1
+  '@amnis/eslint-config-node': ^2.2.2
+  '@amnis/tsconfig-node': ^2.2.2
   '@reduxjs/toolkit': alpha
   '@types/fluent-ffmpeg': ^2.1.20
   '@types/fs-extra': ^11.0.1
@@ -28,8 +28,8 @@ dependencies:
   cross-fetch: 3.1.5
 
 devDependencies:
-  '@amnis/eslint-config-node': 2.2.1_7kw3g6rralp5ps6mg3uyzz6azm
-  '@amnis/tsconfig-node': 2.2.1_typescript@4.9.5
+  '@amnis/eslint-config-node': 2.2.2_7kw3g6rralp5ps6mg3uyzz6azm
+  '@amnis/tsconfig-node': 2.2.2_typescript@4.9.5
   '@reduxjs/toolkit': 2.0.0-alpha.2
   '@types/fluent-ffmpeg': 2.1.20
   '@types/fs-extra': 11.0.1
@@ -52,8 +52,8 @@ devDependencies:
 
 packages:
 
-  /@amnis/eslint-config-node/2.2.1_7kw3g6rralp5ps6mg3uyzz6azm:
-    resolution: {integrity: sha512-DJAWZkiUF2Gx3f9p760r4cvZSaKzIIxGR4yS8nQDVfkGcDp46DXW1AckzU1QAW/k9VpcaY9eQ6Gu3xUxdJNiKA==}
+  /@amnis/eslint-config-node/2.2.2_7kw3g6rralp5ps6mg3uyzz6azm:
+    resolution: {integrity: sha512-9A+aKDSGRGV5Af3mbGSKnORqg4NPg2G8Qcq7g6K0n0QiqV0bvLcPr0HU4TR/oX2/8E5i7xW+4NZsaF8n612UhQ==}
     peerDependencies:
       eslint: '>=8.0.0'
     dependencies:
@@ -63,14 +63,15 @@ packages:
       eslint-config-airbnb-base: 15.0.0_mvgyw3chnqkp6sgfmmtihyjpnm
       eslint-import-resolver-typescript: 2.7.1_mvgyw3chnqkp6sgfmmtihyjpnm
       eslint-plugin-import: 2.27.5_rs3vv57at3nmz4hqu5776jt7sm
+      eslint-plugin-require-extensions: 0.1.2_eslint@8.34.0
     transitivePeerDependencies:
       - eslint-import-resolver-webpack
       - supports-color
       - typescript
     dev: true
 
-  /@amnis/tsconfig-node/2.2.1_typescript@4.9.5:
-    resolution: {integrity: sha512-VdB950koG25vAy0l+zad6u9F2IRnEjVf9lSlqOOHuzdXmYD6YWQVhagCzeAst8DfFCuGQ0q/3xsBKHHEGwB8Rg==}
+  /@amnis/tsconfig-node/2.2.2_typescript@4.9.5:
+    resolution: {integrity: sha512-cPnZsloA6iQMZFVsGtWtpoS5HBVuL9VkmU088miYUVW/xF+0f8EMoHMqDERsHrnYXunRedc9AUGL461tB4n2tA==}
     peerDependencies:
       typescript: '>=4.6.3'
     dependencies:

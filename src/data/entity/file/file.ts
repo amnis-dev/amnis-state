@@ -1,4 +1,4 @@
-import { uid } from '../../../uid.js';
+import { uid } from '../../../core/index.js';
 import type { File, FileBase, FileCreator } from './file.types.js';
 
 export const fileKey = 'file';

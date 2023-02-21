@@ -1,5 +1,5 @@
-import type { UID } from '../../core.types.js';
-import { uidList } from '../../uid.js';
+import type { UID } from '../../core/index.js';
+import { uidList } from '../../core/index.js';
 import { GrantScope } from '../../data/index.js';
 import type { Entity } from '../../data/index.js';
 import type { Database } from './database.types.js';

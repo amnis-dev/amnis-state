@@ -1,5 +1,5 @@
 import type { Role } from '../role/index.js';
-import type { Email, UID, UIDList } from '../../../core.types.js';
+import type { Email, UID, UIDList } from '../../../core/index.js';
 import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
 import type { HandleName } from '../handle/index.js';
 

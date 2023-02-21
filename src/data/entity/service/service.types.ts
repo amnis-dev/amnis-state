@@ -1,5 +1,5 @@
 import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
-import type { DateJSON } from '../../../core.types.js';
+import type { DateJSON } from '../../../core/index.js';
 
 /**
  * Service entity

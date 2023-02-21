@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { UID } from '../../core.types.js';
+import type { UID } from '../../core/index.js';
 import type {
   StateScope,
   StateUpdater,

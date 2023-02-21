@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type { Entity } from './data/index.js';
-import { entityKeys } from './data/index.js';
+import type { Entity } from './entity.types.js';
+import { entityKeys } from './entity.js';
 
 type SameRecord<T> = { [N in keyof T]: T[N] }
 

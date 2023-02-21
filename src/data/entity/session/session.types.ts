@@ -1,4 +1,4 @@
-import type { UID, DateNumeric } from '../../../core.types.js';
+import type { UID, DateNumeric } from '../../../core/index.js';
 import type { EntityCreator } from '../entity.types.js';
 
 /**

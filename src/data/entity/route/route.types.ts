@@ -1,5 +1,5 @@
 import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
-import type { UID } from '../../../core.types.js';
+import type { UID } from '../../../core/index.js';
 
 /**
  * Data for routing to a resouce.

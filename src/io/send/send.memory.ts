@@ -1,6 +1,6 @@
 import { nanoid } from '@reduxjs/toolkit';
-import { dateJSON } from '../../core.js';
-import type { DateJSON } from '../../core.types.js';
+import { dateJSON } from '../../core/index.js';
+import type { DateJSON } from '../../core/index.js';
 import type { Send, SendEmailProps } from './send.types.js';
 
 export interface SendInboxItem extends SendEmailProps {

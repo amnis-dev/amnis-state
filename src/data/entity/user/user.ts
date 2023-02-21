@@ -1,7 +1,6 @@
 import type { LogCreator } from '../log/index.js';
-import { regexEmail } from '../../../regex.js';
+import { regexEmail, uid } from '../../../core/index.js';
 import type { User, UserBase, UserCreator } from './user.types.js';
-import { uid } from '../../../uid.js';
 
 export const userKey = 'user';
 

@@ -1,4 +1,4 @@
-import type { DateNumeric, UID } from '../../core.types.js';
+import type { DateNumeric, UID } from '../../core/index.js';
 
 /**
  * An object containing one-time data to prevent replay attacks.

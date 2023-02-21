@@ -1,6 +1,5 @@
-import { dateNumeric } from '../../core.js';
+import { dateNumeric, uid } from '../../core/index.js';
 import { sessionCreator, userKey } from '../../data/index.js';
-import { uid } from '../../uid.js';
 import { sessionDecrypt, sessionEncrypt } from './session.js';
 
 test('should encrypt a session', async () => {

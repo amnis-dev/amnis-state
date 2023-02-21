@@ -1,8 +1,8 @@
 import stream from 'node:stream';
 import ffmpeg from 'fluent-ffmpeg';
 import { filesystemMemory } from './filesystem.memory.js';
-import type { UID } from '../../core.types.js';
-import { uid } from '../../uid.js';
+import type { UID } from '../../core/index.js';
+import { uid } from '../../core/index.js';
 import type { Image } from '../../data/index.js';
 
 function imageLoad(path: string): Promise<Uint8Array> {

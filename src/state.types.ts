@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { GrantScope } from './data/index.js';
-import type { UID, UIDList } from './core.types.js';
+import type { UID, UIDList } from './core/index.js';
 import type { Entity, EntityCreator } from './data/entity/index.js';
 
 /**

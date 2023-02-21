@@ -1,4 +1,4 @@
-import type { DateJSON, UID, SURL } from '../../../core.types.js';
+import type { DateJSON, UID, SURL } from '../../../core/index.js';
 import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
 import type { User } from '../user/user.types.js';
 import type { Contact } from '../contact/index.js';

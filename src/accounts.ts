@@ -5,7 +5,7 @@ import {
 import type { Credential } from './data/index.js';
 import { credentialCreator } from './data/index.js';
 import { cryptoWeb } from './io/index.js';
-import { base64Encode } from './base64.js';
+import { base64Encode } from './core/index.js';
 
 export interface Account {
   handle: string;

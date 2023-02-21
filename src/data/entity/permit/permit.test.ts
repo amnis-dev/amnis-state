@@ -1,4 +1,4 @@
-import { uid } from '../../../uid.js';
+import { uid } from '../../../core/index.js';
 import { permitKey, permitCreator } from './permit.js';
 
 /**

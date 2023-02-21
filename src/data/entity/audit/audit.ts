@@ -1,4 +1,4 @@
-import { uid } from '../../../uid.js';
+import { uid } from '../../../core/index.js';
 import type { Audit, AuditBase, AuditCreator } from './audit.types.js';
 
 export const auditKey = 'audit';

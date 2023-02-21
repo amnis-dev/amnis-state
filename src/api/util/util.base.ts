@@ -5,9 +5,9 @@ import { fetchBaseQuery } from '@reduxjs/toolkit/query';
 import {
   headersAuthorizationToken, headersChallenge, headersOtp, headersSignature,
 } from './util.headers.js';
-import { apiSelectors } from '../../data/index.js';
 import { agentCredential, agentGet } from '../../agent.js';
 import type { State } from '../../state.types.js';
+import { apiUtilSelectApi } from './util.selectors.js';
 
 global.Headers = Headers;
 global.Request = Request;
@@ -23,7 +23,7 @@ type DynamicBaseQuerySetup = (reducerPath: string, bearerId?: string) => Dynamic
 export const dynamicBaseQuery: DynamicBaseQuerySetup = (
   reducerPath,
 ) => async (args, store, extraOptions) => {
-  const apiMeta = apiSelectors.selectById((store.getState() as any), reducerPath);
+  const apiMeta = apiUtilSelectApi(store.getState() as State, reducerPath);
 
   /**
    * Exception for apiAuth...
