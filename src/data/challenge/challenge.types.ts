@@ -24,3 +24,13 @@ export interface Challenge {
    */
   exp: DateNumeric;
 }
+
+/**
+ * Challenge collection meta.
+ */
+export interface ChallengeMeta {
+  /**
+   * Challenges that require OTP values.
+   */
+  otps: UID[];
+}
