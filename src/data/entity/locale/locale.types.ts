@@ -1,4 +1,9 @@
-import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
+import type {
+  EntityCreator,
+  EntityCreatorBase,
+  EntityCreatorParams,
+  Meta,
+} from '../entity.types.js';
 
 /**
  * Symbol to make a special locale type.
