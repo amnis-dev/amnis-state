@@ -1,7 +1,9 @@
 import type {
   DateJSON, Encoding, IP, Name,
 } from '../../../core/index.js';
-import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
+import type {
+  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+} from '../entity.types.js';
 
 /**
  * Entity that contains data to verify credentials.
@@ -37,3 +39,8 @@ export type CredentialBase = EntityCreatorBase<Credential>;
  * Minimal parameters for creation.
  */
 export type CredentialCreator = EntityCreatorParams<Credential, 'ip' | 'name' | 'publicKey'>;
+
+/**
+ * Credential collection meta data.
+ */
+export type CredentialMeta = Meta<Credential>;

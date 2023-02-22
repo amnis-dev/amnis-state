@@ -14,11 +14,6 @@ import type {
   MetaState,
   EntityUpdater,
 } from './data/index.js';
-import {
-  bearerKey,
-  roleKey,
-  keyKey,
-} from './data/index.js';
 
 /**
  * Creates a slice selector.
@@ -196,7 +191,7 @@ const genSelectDifference = <C extends EntityCreator = EntityCreator>(
  * Selects a bearer for a given api reducer name.
  */
 export function selectBearer(state: State, id: string): Bearer | undefined {
-  const bearerSlice = state[bearerKey] as EntityState<Bearer>;
+  const bearerSlice = state.bearer as EntityState<Bearer>;
 
   if (bearerSlice === undefined) {
     return undefined;
@@ -211,7 +206,7 @@ export function selectBearer(state: State, id: string): Bearer | undefined {
  * Selects a public key from the crypto slice.
  */
 export function selectKey(state: State, id: string): string | undefined {
-  const slice = state[keyKey] as EntityState<Key>;
+  const slice = state.key as EntityState<Key>;
 
   if (!slice?.entities) {
     return undefined;
@@ -234,7 +229,7 @@ export function selectKey(state: State, id: string): string | undefined {
 export function selectRoleGrants(state: State, roleRefs: UID<Role>[]): Grant[] {
   const grants: Grant[] = [];
 
-  const roleSlice = genSelectSlice<Role>(roleKey)(state);
+  const roleSlice = genSelectSlice<Role>('role')(state);
 
   if (!roleSlice) {
     return grants;

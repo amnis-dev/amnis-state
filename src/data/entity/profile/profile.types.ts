@@ -1,5 +1,7 @@
 import type { DateJSON, UID, SURL } from '../../../core/index.js';
-import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
+import type {
+  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+} from '../entity.types.js';
 import type { User } from '../user/user.types.js';
 import type { Contact } from '../contact/index.js';
 
@@ -59,6 +61,11 @@ export interface Profile extends EntityCreator {
 export type ProfileBase = EntityCreatorBase<Profile>;
 
 /**
-  * Base properties.
-  */
+ * Base properties.
+ */
 export type ProfileCreator = EntityCreatorParams<Profile, 'nameDisplay' | '$user'>;
+
+/**
+ * Profile collection meta data.
+ */
+export type ProfileMeta = Meta<Profile>;

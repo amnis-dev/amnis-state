@@ -1,4 +1,6 @@
-import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
+import type {
+  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+} from '../entity.types.js';
 import type { UID } from '../../../core/index.js';
 
 /**
@@ -25,3 +27,8 @@ export type NoteBase = EntityCreatorBase<Note>;
  * Base properties in order to create a log.
  */
 export type NoteCreator = EntityCreatorParams<Note, '$subject' | 'text'>;
+
+/**
+ * Note collection meta data.
+ */
+export type NoteMeta = Meta<Note>;

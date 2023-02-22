@@ -1,4 +1,6 @@
-import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
+import type {
+  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+} from '../entity.types.js';
 import type { DateJSON } from '../../../core/index.js';
 
 /**
@@ -35,3 +37,8 @@ export type ServiceBase = EntityCreatorBase<Service>;
  * Base properties in order to create a log.
  */
 export type ServiceCreator = EntityCreatorParams<Service, 'name'>;
+
+/**
+ * Service collection meta data.
+ */
+export type ServiceMeta = Meta<Service>;

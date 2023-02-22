@@ -1,5 +1,5 @@
 import type { UID, DateNumeric } from '../../../core/index.js';
-import type { EntityCreator } from '../entity.types.js';
+import type { EntityCreator, Meta } from '../entity.types.js';
 
 /**
  * A session object.
@@ -43,3 +43,8 @@ export interface Session extends EntityCreator {
    */
   prv: boolean;
 }
+
+/**
+ * Session collection meta data.
+ */
+export type SessionMeta = Meta<Session>;

@@ -1,5 +1,7 @@
 import type { UID } from '../../../core/index.js';
-import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
+import type {
+  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+} from '../entity.types.js';
 import type { User } from '../user/user.types.js';
 
 /**
@@ -46,3 +48,8 @@ export type LogBase = EntityCreatorBase<Log>;
  * Base properties in order to create a log.
  */
 export type LogCreator = EntityCreatorParams<Log, 'title' | 'description' | 'level'>;
+
+/**
+ * Log collection meta data.
+ */
+export type LogMeta = Meta<Log>;

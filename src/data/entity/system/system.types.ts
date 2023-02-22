@@ -1,6 +1,8 @@
 import type { Role } from '../role/index.js';
 import type { Email, UID, UIDList } from '../../../core/index.js';
-import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
+import type {
+  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+} from '../entity.types.js';
 import type { HandleName } from '../handle/index.js';
 
 export interface System extends EntityCreator {
@@ -119,3 +121,8 @@ export type SystemBase = EntityCreatorBase<System>;
  * System base properties for creation.
  */
 export type SystemCreator = EntityCreatorParams<System, 'name' | '$adminRole' | '$execRole'>;
+
+/**
+ * System collection meta data.
+ */
+export type SystemMeta = Meta<System>;

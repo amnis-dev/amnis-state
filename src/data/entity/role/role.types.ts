@@ -1,4 +1,6 @@
-import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
+import type {
+  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+} from '../entity.types.js';
 import type { Grant } from '../../grant/index.js';
 import type { UID } from '../../../core/index.js';
 
@@ -51,3 +53,13 @@ export type RoleCreator = EntityCreatorParams<Role, 'name'>;
  * A role combination.
  */
 export type RoleCombo = [string, UID<Role>[], Grant[]];
+
+/**
+ * Role collection meta data.
+ */
+export interface RoleMeta extends Meta<Role> {
+  /**
+   * UUID to a tuple of role UIDs and a list of grants.
+   */
+  combo: Record<string, RoleCombo>;
+}

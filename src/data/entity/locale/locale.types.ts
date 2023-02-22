@@ -53,3 +53,8 @@ export type LocaleBase = EntityCreatorBase<Locale>;
  * Base properties in order to create a log.
  */
 export type LocaleCreator = EntityCreatorParams<Locale, 'code' | 'set'>;
+
+/**
+ * Locale collection meta data.
+ */
+export type LocaleMeta = Meta<Locale>;

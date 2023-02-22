@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
+import type {
+  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+} from '../entity.types.js';
 import type { UID } from '../../../core/index.js';
 
 /**
@@ -46,3 +48,8 @@ export type AuditBase = EntityCreatorBase<Audit>;
  * Base properties in order to create a log.
  */
 export type AuditCreator = EntityCreatorParams<Audit, 'action' | 'completed'>;
+
+/**
+ * Audit collection meta data.
+ */
+export type AuditMeta = Meta<Audit>;

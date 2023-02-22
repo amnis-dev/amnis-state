@@ -1,7 +1,9 @@
 import type {
   DateJSON, Email, Password, UIDList,
 } from '../../../core/index.js';
-import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
+import type {
+  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+} from '../entity.types.js';
 import type { Permit } from '../permit/index.js';
 import type { Credential } from '../credential/index.js';
 import type { Role } from '../role/index.js';
@@ -86,3 +88,8 @@ export type UserBase = EntityCreatorBase<User>;
   * User base properties for creation.
   */
 export type UserCreator = EntityCreatorParams<User, 'handle'>;
+
+/**
+ * User collection meta data.
+ */
+export type UserMeta = Meta<User>;

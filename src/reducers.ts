@@ -13,8 +13,10 @@ import type {
 import {
   entityCreate,
   metaInitial,
+} from './data/entity/entity.js';
+import {
   diffCompare,
-} from './data/index.js';
+} from './data/entity/diff.js';
 import { coreActions } from './actions.js';
 import type { UID } from './core/index.js';
 

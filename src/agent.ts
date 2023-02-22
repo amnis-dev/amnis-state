@@ -1,5 +1,4 @@
 import type { Credential } from './data/index.js';
-import { credentialKey, credentialCreator } from './data/entity/credential/index.js';
 import {
   cryptoWeb,
 } from './io/crypto/index.js';
@@ -92,7 +91,7 @@ export const agentCreate = async (): Promise<Agent> => {
   /**
    * Create credentialId.
    */
-  const credentialId = uid(credentialKey);
+  const credentialId = uid('credential');
 
   /**
    * Create the new agent.
@@ -141,10 +140,11 @@ export const agentGet = async (): Promise<Agent> => {
  */
 export const agentCredential = async (): Promise<Credential> => {
   const agentCurrent = await agentGet();
-  const credential = credentialCreator({
+  const credential: Credential = {
+    $id: uid('credential'),
     name: agentCurrent.name,
     publicKey: agentCurrent.publicKey,
-  });
+  };
   credential.$id = agentCurrent.credentialId;
 
   return credential;

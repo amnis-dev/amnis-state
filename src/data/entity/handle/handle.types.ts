@@ -1,5 +1,7 @@
 import type { UID } from '../../../core/index.js';
-import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
+import type {
+  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+} from '../entity.types.js';
 
 /**
  * Human-freindly name to reference a particular subject.
@@ -44,3 +46,8 @@ export type HandleBase = EntityCreatorBase<Handle>;
  * Base properties.
  */
 export type HandleCreator = EntityCreatorParams<Handle, 'name' | '$subject'>;
+
+/**
+ * Handle collection meta data.
+ */
+export type HandleMeta = Meta<Handle>;

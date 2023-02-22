@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
+import type {
+  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+} from '../entity.types.js';
 import type { UID } from '../../../core/index.js';
 import type {
   StateCreator, StateDeleter, StateUpdater,
@@ -40,3 +42,8 @@ export type HistoryBase = EntityCreatorBase<History>;
  * Base properties in order to create a log.
  */
 export type HistoryCreator = EntityCreatorParams<History, '$subject' | 'task' | 'mutation'>;
+
+/**
+ * History collection meta data.
+ */
+export type HistoryMeta = Meta<History>;

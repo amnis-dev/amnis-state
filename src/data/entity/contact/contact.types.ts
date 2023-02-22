@@ -1,5 +1,5 @@
 import type {
-  EntityCreator, EntityCreatorBase, EntityCreatorParams,
+  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
 } from '../entity.types.js';
 import type { SURL } from '../../../core/index.js';
 
@@ -45,3 +45,8 @@ export type ContactBase = EntityCreatorBase<Contact>;
  * Base properties in order to create a log.
  */
 export type ContactCreator = EntityCreatorParams<Contact, 'name'>;
+
+/**
+ * Contact collection meta data.
+ */
+export type ContactMeta = Meta<Contact>;
