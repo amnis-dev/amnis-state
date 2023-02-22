@@ -9,7 +9,10 @@ test('should setup store with all reducers and state', () => {
   /**
    * All state keys should exist.
    */
-  expect(Object.keys(state)).toEqual(Object.keys(slices));
+  expect(Object.keys(state)).toEqual([
+    ...Object.keys(slices),
+    'apiAuth', 'apiCrud',
+  ]);
 
   /**
    * Inital state should match initial states.

@@ -1,4 +1,5 @@
 import {
+  apiSlice,
   auditSlice,
   bearerSlice,
   challengeSlice,
@@ -20,6 +21,7 @@ import {
 } from './data/index.js';
 
 export const slices = {
+  [apiSlice.name]: apiSlice,
   [auditSlice.name]: auditSlice,
   [bearerSlice.name]: bearerSlice,
   [challengeSlice.name]: challengeSlice,

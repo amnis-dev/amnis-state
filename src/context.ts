@@ -7,7 +7,7 @@ import {
   cryptoWeb, databaseMemory, filesystemMemory, sendMemory,
 } from './io/index.js';
 import type { StateEntities } from './state.types.js';
-import { storeContextSetup } from './store.js';
+import { storeSetup } from './store.js';
 
 export interface ContextOptions extends Partial<IoContext> {
   /**
@@ -35,7 +35,7 @@ export async function contextSetup(options: ContextOptions = {}): Promise<IoCont
     data,
     send,
   } = options;
-  const storeNext = store ?? storeContextSetup();
+  const storeNext = store ?? storeSetup();
   const validatorsNext = (validators || []) as Validators;
   const databaseNext = database ?? databaseMemory;
   const filesystemNext = filesystem ?? filesystemMemory;
