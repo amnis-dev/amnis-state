@@ -1,6 +1,6 @@
 import type { UID } from '../../core/index.js';
 import { uidList } from '../../core/index.js';
-import { GrantScope } from '../../data/index.js';
+import { GrantScope } from '../../data/grant/index.js';
 import type { Entity } from '../../data/index.js';
 import type { Database } from './database.types.js';
 import type { State, StateDeleter, StateEntities } from '../../state.types.js';

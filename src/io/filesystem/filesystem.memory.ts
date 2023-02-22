@@ -1,7 +1,7 @@
 import {
   imageCreator,
   entityCreate,
-} from '../../data/index.js';
+} from '../../data/entity/index.js';
 import type { Filesystem } from './filesystem.types.js';
 import { Webp } from './filesystem.webp.js';
 
