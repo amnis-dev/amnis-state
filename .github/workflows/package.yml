@@ -21,7 +21,7 @@ jobs:
         cache: 'pnpm'
 
     - name: Install NodeJS Dependencies
-      run: pnpm install
+      run: pnpm install --frozen-lockfile
 
     - name: Build Project
       run: pnpm build
