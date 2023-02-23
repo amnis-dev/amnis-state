@@ -38,6 +38,7 @@
     "**/*.code-search": true,
     "**/.dist": true,
     "**/.lib": true,
+    "**/.types": true,
     "**/.out": true,
     "**/.pkg": true,
     "**/.app": true,
@@ -45,6 +46,7 @@
     "**/.web": true,
     "**/dist": true,
     "**/lib": true,
+    "**/types": true,
     "**/out": true,
     "**/pkg": true,
     "**/app": true,
@@ -60,7 +62,7 @@
   },
   "html.format.unformatted": "wbr,%",
   "debug.internalConsoleOptions": "neverOpen",
-  "npm.packageManager": "yarn",
+  "npm.packageManager": "pnpm",
   "[typescriptreact]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },

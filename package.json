@@ -1,6 +1,7 @@
 {
   "name": "@amnis/state",
   "version": "0.13.1",
+  "description": "Core data managers, state reducers, and common interfaces for web applications.",
   "license": "MIT",
   "type": "module",
   "repository": {
@@ -8,6 +9,7 @@
     "url": "https://github.com/amnis-dev/amnis-state"
   },
   "homepage": "https://github.com/amnis-dev/amnis-state",
+  "author": "Eric Crowell <admin@amnis.dev>",
   "files": [
     "types",
     "dist"
@@ -33,9 +35,6 @@
     "lint": "tsc --noEmit && eslint --ext .ts --ext .tsx \"./\"",
     "clean": "rimraf ./dist ./lib ./types ./tsconfig.build.tsbuildinfo"
   },
-  "dependencies": {
-    "cross-fetch": "^3.1.5"
-  },
   "peerDependencies": {
     "@reduxjs/toolkit": "*"
   },
@@ -47,6 +46,7 @@
     "@types/fs-extra": "^11.0.1",
     "@types/glob": "^8.0.1",
     "@types/node": "^18.13.0",
+    "cross-fetch": "^3.1.5",
     "eslint": "^8.34.0",
     "fluent-ffmpeg": "^2.1.2",
     "fs-extra": "^11.1.0",

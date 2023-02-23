@@ -4,6 +4,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   build: {
+    target: 'modules',
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'AmnisState',
@@ -18,6 +19,7 @@ export default defineConfig({
       },
       external: [
         '@reduxjs/toolkit',
+        'node:crypto',
       ],
     },
   },
