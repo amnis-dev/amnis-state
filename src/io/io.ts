@@ -1,25 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { LogLevel } from '../data/index.js';
 import type {
-  IoMap, IoOutput, IoProcesses, IoContext,
+  IoMap, IoOutput, IoProcessMap, IoContext,
 } from './io.types.js';
 
 export function ioProcess<
-  P extends IoProcesses = IoProcesses,
+  P extends IoProcessMap = IoProcessMap,
 >(
   context: IoContext,
   processes: P,
 ) {
   const io = Object.keys(processes).reduce<IoMap<keyof P>>(
-    (record, method) => {
-      const m = method as keyof IoProcesses;
-      const processesMethods = processes[m];
-      if (!processesMethods) {
-        return record;
-      }
-      Object.keys(processesMethods).forEach((key) => {
-        record[key as keyof P] = processesMethods[key](context);
-      });
+    (record, key) => {
+      record[key as keyof P] = processes[key](context);
       return record;
     },
     {} as IoMap<keyof P>,

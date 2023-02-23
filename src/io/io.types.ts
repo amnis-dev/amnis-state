@@ -204,11 +204,16 @@ export type Io<Body = any, Result = any, Token = JWTAccess> = (
 export type IoProcess<P extends Io = Io> = (context: IoContext) => P;
 
 /**
-  * Object containing IO processors.
-  */
-export type IoProcesses = {
-  get?: Record<string, IoProcess>,
-  post?: Record<string, IoProcess>,
+ * Object containing IO processors.
+ */
+export type IoProcessMap = Record<string, IoProcess>;
+
+/**
+ * Processes categorized by HTTP methods.
+ */
+export type IoProcessMapMethods = {
+  get?: IoProcessMap,
+  post?: IoProcessMap,
 };
 
 /**
