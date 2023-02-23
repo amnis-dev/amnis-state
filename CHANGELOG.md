@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.4](https://github.com/amnis-dev/amnis-state/compare/v0.14.3...v0.14.4) (2023-02-23)
+
+
+### Features
+
+* **Processes:** Added new IO Process type for mapping process methods ([e265540](https://github.com/amnis-dev/amnis-state/commit/e2655405fc79e37eb6e52680abcd767e19dc8175))
+
 ### [0.14.3](https://github.com/amnis-dev/amnis-state/compare/v0.14.2...v0.14.3) (2023-02-23)
 
 
