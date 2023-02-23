@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.1](https://github.com/amnis-dev/amnis-state/compare/v0.14.0...v0.14.1) (2023-02-23)
+
+
+### Features
+
+* **Workflow:** Added package workflow for publishing on release ([20465d8](https://github.com/amnis-dev/amnis-state/commit/20465d8d0dab1a4a473104ab3bde3e37fd94ea85))
+* **Workflow:** Updated package action to use pnpm instead of yarn ([43ced49](https://github.com/amnis-dev/amnis-state/commit/43ced493f1ee68c821a2deba565458b1ddd09370))
+
 ## 0.14.0 (2023-02-23)
 
 
