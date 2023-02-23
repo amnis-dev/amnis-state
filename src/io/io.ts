@@ -11,8 +11,15 @@ export function ioProcess<
   processes: P,
 ) {
   const io = Object.keys(processes).reduce<IoMap<keyof P>>(
-    (record, key) => {
-      record[key as keyof P] = processes[key](context);
+    (record, method) => {
+      const m = method as keyof IoProcesses;
+      const processesMethods = processes[m];
+      if (!processesMethods) {
+        return record;
+      }
+      Object.keys(processesMethods).forEach((key) => {
+        record[key as keyof P] = processesMethods[key](context);
+      });
       return record;
     },
     {} as IoMap<keyof P>,
