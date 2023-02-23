@@ -206,7 +206,10 @@ export type IoProcess<P extends Io = Io> = (context: IoContext) => P;
 /**
   * Object containing IO processors.
   */
-export type IoProcesses = Record<string, IoProcess>;
+export type IoProcesses = {
+  get?: Record<string, IoProcess>,
+  post?: Record<string, IoProcess>,
+};
 
 /**
  * Object mapping of IO.
