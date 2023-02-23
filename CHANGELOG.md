@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.2](https://github.com/amnis-dev/amnis-state/compare/v0.14.1...v0.14.2) (2023-02-23)
+
+
+### Bug Fixes
+
+* **Workflow:** Publish workflow now sets up PNPM ([7672589](https://github.com/amnis-dev/amnis-state/commit/767258998d5c8a7c823bc0c6aac2788148640f89))
+
 ### [0.14.1](https://github.com/amnis-dev/amnis-state/compare/v0.14.0...v0.14.1) (2023-02-23)
 
 
