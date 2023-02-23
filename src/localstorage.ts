@@ -53,7 +53,7 @@ export const localstorageSetup = <T>(
         adapter.upsertMany(state, data);
       }
     } catch (e) {
-      console.log(`Error loading ${key} data from LocalStorage.`);
+      console.error(`Could not load ${key} data from LocalStorage.`);
     }
   },
   /**
@@ -62,13 +62,9 @@ export const localstorageSetup = <T>(
   save: async (data: T[]) => {
     try {
       const encoded = base64JsonEncode(data);
-      /**
-       * Encode the saved data.
-       */
-
       localStorage.setItem(`root-${key}`, encoded);
     } catch (e) {
-      console.log(`Error saving ${key} data to LocalStorage.`);
+      console.error(`Could not save ${key} data to LocalStorage.`);
     }
   },
 });

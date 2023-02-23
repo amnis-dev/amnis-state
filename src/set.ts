@@ -27,7 +27,7 @@ export const setState: Set<typeof reducerSlices> = {
   middleware: [],
 };
 
-export const setApi: Set<typeof reducerApi> = {
+export const setStateApi: Set<typeof reducerApi> = {
   reducers: reducerApi,
   middleware: [
     apiAuth.middleware,

@@ -1,16 +1,16 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { setState, setApi } from './set.js';
+import { setState, setStateApi } from './set.js';
 
 /**
  * Configures a default store.
  */
 export function storeSetup() {
-  const rootReducer = combineReducers({ ...setState.reducers, ...setApi.reducers });
+  const rootReducer = combineReducers({ ...setState.reducers, ...setStateApi.reducers });
 
   const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) => (
-      getDefaultMiddleware().concat([...setState.middleware, ...setApi.middleware])
+      getDefaultMiddleware().concat([...setState.middleware, ...setStateApi.middleware])
     ),
   });
 
