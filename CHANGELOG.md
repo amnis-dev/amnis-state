@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.3](https://github.com/amnis-dev/amnis-state/compare/v0.14.2...v0.14.3) (2023-02-23)
+
+
+### Features
+
+* **Processers:** Processers can now be identified as a get or post method for HTTP services ([82b1b25](https://github.com/amnis-dev/amnis-state/commit/82b1b25709724780161fd8fdc37ae365c8fea58e))
+
+
+### Bug Fixes
+
+* **IO:** Fixed issue with mapping new structure of processes ([7bfeaeb](https://github.com/amnis-dev/amnis-state/commit/7bfeaebdddd73b2d491d270ced1d92bece9fe951))
+
 ### [0.14.2](https://github.com/amnis-dev/amnis-state/compare/v0.14.1...v0.14.2) (2023-02-23)
 
 
