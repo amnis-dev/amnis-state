@@ -21,7 +21,17 @@
     ".": {
       "types": "./types/index.d.ts",
       "import": "./dist/index.js",
-      "require": "./dist/index.umd.cjs"
+      "require": "./dist/index.cjs"
+    },
+    "./schema": {
+      "types": "./types/schema/index.d.ts",
+      "import": "./dist/schema.js",
+      "require": "./dist/schema.cjs"
+    },
+    "./validate": {
+      "types": "./types/validate/index.d.ts",
+      "import": "./dist/validate.js",
+      "require": "./dist/validate.cjs"
     }
   },
   "scripts": {
@@ -47,6 +57,7 @@
     "@types/fs-extra": "^11.0.1",
     "@types/glob": "^8.0.1",
     "@types/node": "^18.13.0",
+    "ajv": "^8.12.0",
     "cross-fetch": "^3.1.5",
     "eslint": "^8.34.0",
     "fluent-ffmpeg": "^2.1.2",

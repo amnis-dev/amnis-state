@@ -6,9 +6,12 @@ export default defineConfig({
   build: {
     target: 'modules',
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: {
+        index: resolve(__dirname, 'src/index.ts'),
+        schema: resolve(__dirname, 'src/schema/index.ts'),
+        validate: resolve(__dirname, 'src/validate/index.ts'),
+      },
       name: 'AmnisState',
-      fileName: 'index',
     },
     rollupOptions: {
       output: {

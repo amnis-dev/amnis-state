@@ -14,4 +14,3 @@ export * from './api/index.js';
 export * from './core/index.js';
 export * from './data/index.js';
 export * from './io/index.js';
-export * from './schema/index.js';
