@@ -9,7 +9,17 @@ on:
 
 jobs:
 
-  build:
+  audit:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v3
+
+    - name: Audit Packages
+      run: pnpm audit --audit-level moderate
+
+  test:
     runs-on: ubuntu-latest
 
     steps:
