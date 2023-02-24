@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.5](https://github.com/amnis-dev/amnis-state/compare/v0.14.4...v0.14.5) (2023-02-24)
+
+
+### Features
+
+* **Audit:** Added package auditing to workflow ([2a279a9](https://github.com/amnis-dev/amnis-state/commit/2a279a93a8f254685a6854c8dd8704f7a8be8b3d))
+* **Splitting:** Split schema and validation tools into separate distributions ([5a1fc5c](https://github.com/amnis-dev/amnis-state/commit/5a1fc5c86eaea3981279b982f1916e4ba96e089f))
+* **Workflow:** Merged build with test job ([a1ebcf7](https://github.com/amnis-dev/amnis-state/commit/a1ebcf7528035384b1ee28ce84df5be05b5a1afe))
+* **Workflow:** Moved build taks to it's own job ([51a0002](https://github.com/amnis-dev/amnis-state/commit/51a000296b68f2718b93860d9a3ddc0bd50061c4))
+
+
+### Bug Fixes
+
+* **Audit:** Fixed missing PNPM in audit workflow ([e2d9d6c](https://github.com/amnis-dev/amnis-state/commit/e2d9d6cfb84838f51ca5f7ecd4af290830ed11e2))
+
 ### [0.14.4](https://github.com/amnis-dev/amnis-state/compare/v0.14.3...v0.14.4) (2023-02-23)
 
 
