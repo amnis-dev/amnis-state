@@ -1,0 +1,135 @@
+diff --git a/dist/core/finalize.d.ts b/dist/core/finalize.d.ts
+index 58c33caba64ab54e564fad4c791abcb0b82b6d07..bcde488d2804601e44f4825c550a3ff7a3bc16fb 100644
+--- a/dist/core/finalize.d.ts
++++ b/dist/core/finalize.d.ts
+@@ -1,3 +1,3 @@
+-import { ImmerScope } from "../internal";
++import { ImmerScope } from "../internal.js"
+ export declare function processResult(result: any, scope: ImmerScope): any;
+ //# sourceMappingURL=finalize.d.ts.map
+\ No newline at end of file
+diff --git a/dist/core/immerClass.d.ts b/dist/core/immerClass.d.ts
+index aff3f8aea2bc6400ca0cc261d285ccf46c43ff60..02ef3a56a1ef2acfcd778a94f27474b117f5840e 100644
+--- a/dist/core/immerClass.d.ts
++++ b/dist/core/immerClass.d.ts
+@@ -1,4 +1,4 @@
+-import { IProduceWithPatches, IProduce, ImmerState, Drafted, Patch, Objectish, Draft, PatchListener } from "../internal";
++import { IProduceWithPatches, IProduce, ImmerState, Drafted, Patch, Objectish, Draft, PatchListener } from "../internal.js"
+ interface ProducersFns {
+     produce: IProduce;
+     produceWithPatches: IProduceWithPatches;
+diff --git a/dist/core/proxy.d.ts b/dist/core/proxy.d.ts
+index 077eb9ca149d69f22b66344cf9ebf87d149bd499..f1029d0baf69f0a95b1a8b582b4431fcad48ada6 100644
+--- a/dist/core/proxy.d.ts
++++ b/dist/core/proxy.d.ts
+@@ -1,4 +1,4 @@
+-import { ImmerBaseState, ImmerState, Drafted, AnyObject, AnyArray, Objectish, ProxyType } from "../internal";
++import { ImmerBaseState, ImmerState, Drafted, AnyObject, AnyArray, Objectish, ProxyType } from "../internal.js"
+ interface ProxyBaseState extends ImmerBaseState {
+     assigned_: {
+         [property: string]: boolean;
+diff --git a/dist/core/scope.d.ts b/dist/core/scope.d.ts
+index 8cbd5667ef574d15cea950987e65d67e31a38dde..8d858a7280b19fd4ee77f5e9192096b260489138 100644
+--- a/dist/core/scope.d.ts
++++ b/dist/core/scope.d.ts
+@@ -1,4 +1,4 @@
+-import { Patch, PatchListener, Immer } from "../internal";
++import { Patch, PatchListener, Immer } from "../internal.js"
+ /** Each scope represents a `produce` call. */
+ export interface ImmerScope {
+     patches_?: Patch[];
+diff --git a/dist/immer.d.ts b/dist/immer.d.ts
+index c248d89764dc0760a16fc4e0c13cea354cf68473..d3c4625d94ce8758057039ff9713695e3865a672 100644
+--- a/dist/immer.d.ts
++++ b/dist/immer.d.ts
+@@ -1,5 +1,5 @@
+-import { IProduce, IProduceWithPatches, Immer, Draft, Immutable } from "./internal";
+-export { Draft, Immutable, Patch, PatchListener, original, current, isDraft, isDraftable, NOTHING as nothing, DRAFTABLE as immerable, freeze } from "./internal";
++import { IProduce, IProduceWithPatches, Immer, Draft, Immutable } from "./internal.js"
++export { Draft, Immutable, Patch, PatchListener, original, current, isDraft, isDraftable, NOTHING as nothing, DRAFTABLE as immerable, freeze } from "./internal.js"
+ /**
+  * The `produce` function takes a value and a "recipe function" (whose
+  * return value often depends on the base state). The recipe function is
+@@ -73,8 +73,8 @@ export declare function castDraft<T>(value: T): Draft<T>;
+  */
+ export declare function castImmutable<T>(value: T): Immutable<T>;
+ export { Immer };
+-export { enableES5 } from "./plugins/es5";
+-export { enablePatches } from "./plugins/patches";
+-export { enableMapSet } from "./plugins/mapset";
+-export { enableAllPlugins } from "./plugins/all";
++export { enableES5 } from "./plugins/es5.js"
++export { enablePatches } from "./plugins/patches.js"
++export { enableMapSet } from "./plugins/mapset.js"
++export { enableAllPlugins } from "./plugins/all.js"
+ //# sourceMappingURL=immer.d.ts.map
+\ No newline at end of file
+diff --git a/dist/internal.d.ts b/dist/internal.d.ts
+index fb2a91a0b68282504ba4b060b751b531f0f32d32..c8430ac9e2c2e90b461c7e66586a73cf802c84af 100644
+--- a/dist/internal.d.ts
++++ b/dist/internal.d.ts
+@@ -1,12 +1,12 @@
+-export * from "./utils/env";
+-export * from "./utils/errors";
+-export * from "./types/types-external";
+-export * from "./types/types-internal";
+-export * from "./utils/common";
+-export * from "./utils/plugins";
+-export * from "./core/scope";
+-export * from "./core/finalize";
+-export * from "./core/proxy";
+-export * from "./core/immerClass";
+-export * from "./core/current";
++export * from "./utils/env.js"
++export * from "./utils/errors.js"
++export * from "./types/types-external.js"
++export * from "./types/types-internal.js"
++export * from "./utils/common.js"
++export * from "./utils/plugins.js"
++export * from "./core/scope.js"
++export * from "./core/finalize.js"
++export * from "./core/proxy.js"
++export * from "./core/immerClass.js"
++export * from "./core/current.js"
+ //# sourceMappingURL=internal.d.ts.map
+\ No newline at end of file
+diff --git a/dist/types/types-external.d.ts b/dist/types/types-external.d.ts
+index 6ccac150fa537bf940ab52a3c97337803157f653..c5c9adfe65db2740aff9e53dc6925c5851f097dc 100644
+--- a/dist/types/types-external.d.ts
++++ b/dist/types/types-external.d.ts
+@@ -1,4 +1,4 @@
+-import { Nothing } from "../internal";
++import { Nothing } from "../internal.js"
+ declare type AnyFunc = (...args: any[]) => any;
+ declare type PrimitiveType = number | string | boolean;
+ /** Object types that should never be mapped */
+diff --git a/dist/types/types-internal.d.ts b/dist/types/types-internal.d.ts
+index 30c41c0cd8a982c86130a567da143135b212879d..cc94ec94bf4ded9090193e0e6a28bf654e4956fc 100644
+--- a/dist/types/types-internal.d.ts
++++ b/dist/types/types-internal.d.ts
+@@ -1,4 +1,4 @@
+-import { SetState, ImmerScope, ProxyObjectState, ProxyArrayState, ES5ObjectState, ES5ArrayState, MapState, DRAFT_STATE } from "../internal";
++import { SetState, ImmerScope, ProxyObjectState, ProxyArrayState, ES5ObjectState, ES5ArrayState, MapState, DRAFT_STATE } from "../internal.js"
+ export declare type Objectish = AnyObject | AnyArray | AnyMap | AnySet;
+ export declare type ObjectishNoSet = AnyObject | AnyArray | AnyMap;
+ export declare type AnyObject = {
+diff --git a/dist/utils/common.d.ts b/dist/utils/common.d.ts
+index 8d69a41b3b2aba0c957f668b00f0457a79a727f9..5ccaa351326d4dca376293b1f6676609a39f1696 100644
+--- a/dist/utils/common.d.ts
++++ b/dist/utils/common.d.ts
+@@ -1,4 +1,4 @@
+-import { Objectish, AnyObject, AnyMap, AnySet, ImmerState, Archtype } from "../internal";
++import { Objectish, AnyObject, AnyMap, AnySet, ImmerState, Archtype } from "../internal.js"
+ /** Returns true if the given value is an Immer draft */
+ export declare function isDraft(value: any): boolean;
+ /** Returns true if the given value can be drafted by Immer */
+diff --git a/dist/utils/plugins.d.ts b/dist/utils/plugins.d.ts
+index 63a2e1bd4fd410d39859299e2e8f6adc5328cfbd..b2d053dfd9b31843f6386f14b8a72bd1e75fde4a 100644
+--- a/dist/utils/plugins.d.ts
++++ b/dist/utils/plugins.d.ts
+@@ -1,4 +1,4 @@
+-import { ImmerState, Patch, ImmerScope, Drafted, AnyObject, ImmerBaseState, AnyMap, AnySet, ProxyType } from "../internal";
++import { ImmerState, Patch, ImmerScope, Drafted, AnyObject, ImmerBaseState, AnyMap, AnySet, ProxyType } from "../internal.js"
+ /** Plugin utilities */
+ declare const plugins: {
+     Patches?: {

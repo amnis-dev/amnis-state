@@ -1,0 +1,25 @@
+diff --git a/es/index.d.ts b/es/index.d.ts
+index 89866c805b567cb83982c607b34da55262bd305c..08257bdb93c6fc57432c4bed6a76581d3aaff0d1 100644
+--- a/es/index.d.ts
++++ b/es/index.d.ts
+@@ -1,6 +1,6 @@
+ import type { Action, AnyAction } from 'redux';
+-import type { ThunkMiddleware } from './types';
+-export type { ThunkAction, ThunkDispatch, ThunkActionDispatch, ThunkMiddleware } from './types';
++import type { ThunkMiddleware } from './types.js';
++export type { ThunkAction, ThunkDispatch, ThunkActionDispatch, ThunkMiddleware } from './types.js';
+ /** A function that accepts a potential "extra argument" value to be injected later,
+  * and returns an instance of the thunk middleware that uses that value
+  */
+diff --git a/src/index.ts b/src/index.ts
+index b7279a6bcb64620fb191350c72f8b0b935412b8a..8d1646791c23b5a7bb9537d064dd413ee328edaf 100644
+--- a/src/index.ts
++++ b/src/index.ts
+@@ -1,6 +1,6 @@
+ import type { Action, AnyAction } from 'redux'
+ 
+-import type { ThunkMiddleware } from './types'
++import type { ThunkMiddleware } from './types.js'
+ 
+ export type {
+   ThunkAction,

@@ -21,7 +21,7 @@ export interface Agent {
 let agent: Agent | undefined;
 
 /**
- * Gets the agent's name.
+ * Get the browser and operating system name the user agent string.
  */
 export function agentName() {
   if (typeof navigator !== 'undefined') {
@@ -37,7 +37,6 @@ export function agentName() {
     if (userAgent.includes('Safari')) { return `${name} (Safari)`; }
     return name;
   }
-
   const name = process.platform ?? 'Unknown Platform';
   return name.charAt(0).toUpperCase() + name.slice(1);
 }

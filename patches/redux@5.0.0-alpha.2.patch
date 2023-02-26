@@ -1,0 +1,114 @@
+diff --git a/types/applyMiddleware.d.ts b/types/applyMiddleware.d.ts
+index ee1af5fb114339c116ebf1ab4f4cf21c6456c780..b8192a0a9584298fc6fc0c2e724b98d410296d2b 100644
+--- a/types/applyMiddleware.d.ts
++++ b/types/applyMiddleware.d.ts
+@@ -1,5 +1,5 @@
+-import { Middleware } from './types/middleware';
+-import { StoreEnhancer } from './types/store';
++import { Middleware } from './types/middleware.js';
++import { StoreEnhancer } from './types/store.js';
+ /**
+  * Creates a store enhancer that applies middleware to the dispatch method
+  * of the Redux store. This is handy for a variety of tasks, such as expressing
+diff --git a/types/bindActionCreators.d.ts b/types/bindActionCreators.d.ts
+index 83cfbf361afbc8fa365652f0bf3ab15af313255d..a98744557407003f618b5b45973b4a6ee6b02c7b 100644
+--- a/types/bindActionCreators.d.ts
++++ b/types/bindActionCreators.d.ts
+@@ -1,5 +1,5 @@
+-import { Dispatch } from './types/store';
+-import { ActionCreator, ActionCreatorsMapObject } from './types/actions';
++import { Dispatch } from './types/store.js';
++import { ActionCreator, ActionCreatorsMapObject } from './types/actions.js';
+ /**
+  * Turns an object whose values are action creators, into an object with the
+  * same keys, but with every function wrapped into a `dispatch` call so they
+diff --git a/types/combineReducers.d.ts b/types/combineReducers.d.ts
+index 271417ef17b333c7b728233763f0a33824472beb..7eade9873f369a0a019a5e5b3e13285662ee9caa 100644
+--- a/types/combineReducers.d.ts
++++ b/types/combineReducers.d.ts
+@@ -1,6 +1,6 @@
+-import { AnyAction, Action } from './types/actions';
+-import { ActionFromReducersMapObject, Reducer, ReducersMapObject, StateFromReducersMapObject } from './types/reducers';
+-import { CombinedState } from './types/store';
++import { AnyAction, Action } from './types/actions.js';
++import { ActionFromReducersMapObject, Reducer, ReducersMapObject, StateFromReducersMapObject } from './types/reducers.js';
++import { CombinedState } from './types/store.js';
+ /**
+  * Turns an object whose values are different reducer functions, into a single
+  * reducer function. It will call every child reducer, and gather their results
+diff --git a/types/createStore.d.ts b/types/createStore.d.ts
+index 2c2e14e07c17507aa09276c9e29d0ed04d529f8d..add65cdc037be627c3bb3c253e6e5fa18bf1fcb0 100644
+--- a/types/createStore.d.ts
++++ b/types/createStore.d.ts
+@@ -1,6 +1,6 @@
+-import { Store, PreloadedState, StoreEnhancer } from './types/store';
+-import { Action } from './types/actions';
+-import { Reducer } from './types/reducers';
++import { Store, PreloadedState, StoreEnhancer } from './types/store.js';
++import { Action } from './types/actions.js';
++import { Reducer } from './types/reducers.js';
+ /**
+  * @deprecated
+  *
+diff --git a/types/index.d.ts b/types/index.d.ts
+index 9bb0d7dbd8813902865874d140e3c8d4b17f4340..bf569bfdce9341dfc34ef2fa8a962ca80544def5 100644
+--- a/types/index.d.ts
++++ b/types/index.d.ts
+@@ -1,12 +1,12 @@
+-import { createStore, legacy_createStore } from './createStore';
+-import combineReducers from './combineReducers';
+-import bindActionCreators from './bindActionCreators';
+-import applyMiddleware from './applyMiddleware';
+-import compose from './compose';
+-import __DO_NOT_USE__ActionTypes from './utils/actionTypes';
+-export { CombinedState, PreloadedState, Dispatch, Unsubscribe, Observable, Observer, Store, StoreCreator, StoreEnhancer, StoreEnhancerStoreCreator } from './types/store';
+-export { Reducer, ReducerFromReducersMapObject, ReducersMapObject, StateFromReducersMapObject, ActionFromReducer, ActionFromReducersMapObject } from './types/reducers';
+-export { ActionCreator, ActionCreatorsMapObject } from './types/actions';
+-export { MiddlewareAPI, Middleware } from './types/middleware';
+-export { Action, AnyAction } from './types/actions';
++import { createStore, legacy_createStore } from './createStore.js';
++import combineReducers from './combineReducers.js';
++import bindActionCreators from './bindActionCreators.js';
++import applyMiddleware from './applyMiddleware.js';
++import compose from './compose.js';
++import __DO_NOT_USE__ActionTypes from './utils/actionTypes.js';
++export { CombinedState, PreloadedState, Dispatch, Unsubscribe, Observable, Observer, Store, StoreCreator, StoreEnhancer, StoreEnhancerStoreCreator } from './types/store.js';
++export { Reducer, ReducerFromReducersMapObject, ReducersMapObject, StateFromReducersMapObject, ActionFromReducer, ActionFromReducersMapObject } from './types/reducers.js';
++export { ActionCreator, ActionCreatorsMapObject } from './types/actions.js';
++export { MiddlewareAPI, Middleware } from './types/middleware.js';
++export { Action, AnyAction } from './types/actions.js';
+ export { createStore, legacy_createStore, combineReducers, bindActionCreators, applyMiddleware, compose, __DO_NOT_USE__ActionTypes };
+diff --git a/types/types/middleware.d.ts b/types/types/middleware.d.ts
+index ea598d23c3c12464b570787df238d8b88881811d..e4d0266435808d17d37a5c9d20eea9aeb5f0194a 100644
+--- a/types/types/middleware.d.ts
++++ b/types/types/middleware.d.ts
+@@ -1,4 +1,4 @@
+-import { Dispatch } from './store';
++import { Dispatch } from './store.js';
+ export interface MiddlewareAPI<D extends Dispatch = Dispatch, S = any> {
+     dispatch: D;
+     getState(): S;
+diff --git a/types/types/reducers.d.ts b/types/types/reducers.d.ts
+index fd8df90c67af9352f286fa4efecf709d13c51274..5167b72541155bcee156ff77ce16e1afc2a56d75 100644
+--- a/types/types/reducers.d.ts
++++ b/types/types/reducers.d.ts
+@@ -1,4 +1,4 @@
+-import { Action, AnyAction } from './actions';
++import { Action, AnyAction } from './actions.js';
+ /**
+  * A *reducer* (also called a *reducing function*) is a function that accepts
+  * an accumulation and a value and returns a new accumulation. They are used
+diff --git a/types/types/store.d.ts b/types/types/store.d.ts
+index 3eb436fb435f82f7550499fdf81963ae3d51f3ec..55b740ccd2d3add698deeba2d3fb27425acf18b2 100644
+--- a/types/types/store.d.ts
++++ b/types/types/store.d.ts
+@@ -1,6 +1,6 @@
+-import { Action, AnyAction } from './actions';
+-import { Reducer } from './reducers';
+-import '../utils/symbol-observable';
++import { Action, AnyAction } from './actions.js';
++import { Reducer } from './reducers.js';
++import '../utils/symbol-observable.js';
+ /**
+  * Internal "virtual" symbol used to make the `CombinedState` type unique.
+  */

@@ -9,15 +9,15 @@ import {
 } from '@reduxjs/toolkit';
 import { apiAuth } from './api/auth/auth.api.js';
 import { apiCrud } from './api/crud/crud.api.js';
-import type { UID } from './core';
-import { uid } from './core';
+import type { UID } from './core/index.js';
+import { uid } from './core/index.js';
 import type {
   Entity, EntityCreator, LogCreator, MetaState,
 } from './data/index.js';
 import {
   entityCreate,
 } from './data/entity/entity.js';
-import type { IoOutput } from './io';
+import type { IoOutput } from './io/index.js';
 
 export function apiExtraReducers<C extends EntityCreator>(
   key: string,

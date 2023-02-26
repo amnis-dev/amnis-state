@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { EndpointBuilder } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
+import type { EndpointBuilder } from '@reduxjs/toolkit/query';
 import type { Otp } from '../../data/index.js';
 import type { IoOutputJson } from '../../io/io.types.js';
 import type { StateDeleter, StateEntities } from '../../state.types.js';

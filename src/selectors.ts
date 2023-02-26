@@ -76,7 +76,7 @@ const genSelectSelectionIds = <E extends Entity>(sliceKey: string) => (state: St
 const genSelectActive = <E extends Entity = Entity>(sliceKey: string) => createSelector(
   genSelectActiveId<E>(sliceKey),
   genSelectEntities<E>(sliceKey),
-  (activeId: string, entities: Record<string, Entity>): E | undefined => {
+  (activeId, entities): E | undefined => {
     if (!activeId) {
       return undefined;
     }
@@ -101,7 +101,7 @@ export const selectActive = <E extends Entity>(
 const genSelectFocused = <E extends Entity = Entity>(sliceKey: string) => createSelector(
   genSelectFocusedId<E>(sliceKey),
   genSelectEntities<E>(sliceKey),
-  (focusedId: string, entities: Record<string, Entity>): E | undefined => {
+  (focusedId, entities): E | undefined => {
     if (!focusedId) {
       return undefined;
     }
@@ -128,7 +128,7 @@ const genSelectSelection = <E extends Entity = Entity>(
 ) => createSelector(
   genSelectSelectionIds<E>(sliceKey),
   genSelectEntities<E>(sliceKey),
-  (selectionIds: string[], entities: Record<string, Entity>) => {
+  (selectionIds, entities) => {
     const selections = selectionIds.map((selected) => entities[selected]) as E[];
 
     return selections;
@@ -154,20 +154,20 @@ const genSelectDifference = <C extends EntityCreator = EntityCreator>(
   sliceKey: string,
 ) => createSelector(
   [
-    (state: State, id: UID<C>) => id,
+    (state, id) => id,
     genSelectDifferences<Entity<C>>(sliceKey),
     genSelectOriginals<Entity<C>>(sliceKey),
     genSelectEntities<Entity<C>>(sliceKey),
   ],
   (
-    id: UID,
-    diffRecords: Record<string, (keyof Entity<C>)[]>,
-    originalRecords: Record<string, Entity<C>>,
-    entities: Record<string, Entity<C>>,
+    id,
+    diffRecords,
+    originalRecords,
+    entities,
   ): EntityDifference<C> => {
     const current = entities[id] as Entity<C> | undefined;
-    const original = originalRecords[id] as Entity<C> | undefined;
-    const diffRecord = diffRecords[id];
+    const original = originalRecords[id as UID] as Entity<C> | undefined;
+    const diffRecord = diffRecords[id as UID];
     const keys = diffRecord ? [...diffRecord as (keyof Entity<C>)[]] : [] as (keyof Entity<C>)[];
 
     const changes = keys.reduce<EntityCreatorBase<C>>((acc, k) => {

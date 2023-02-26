@@ -4,14 +4,13 @@
     "types": ["node", "vitest/globals"],
     "lib": ["DOM", "ES2022"],
     "target": "es6",
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
     "outDir": "./dist",
-    "composite": true,
     "sourceMap": false,
     "strict": true,
     "rootDir": "./src",
     "esModuleInterop": true,
-    "preserveSymlinks": true,
+    "preserveSymlinks": true
   },
   "include": [
     "./src/**/*.ts*",

@@ -1,0 +1,53 @@
+diff --git a/es/defaultMemoize.d.ts b/es/defaultMemoize.d.ts
+index 16e320334f07d2904c4af92d542caefb296fbc42..643e19ffaf443e464b3cb1e0531ff98941513cd7 100644
+--- a/es/defaultMemoize.d.ts
++++ b/es/defaultMemoize.d.ts
+@@ -1,4 +1,4 @@
+-import type { EqualityFn } from './types';
++import type { EqualityFn } from './types.js';
+ export declare const defaultEqualityCheck: EqualityFn;
+ export declare function createCacheKeyComparator(equalityCheck: EqualityFn): (prev: unknown[] | IArguments | null, next: unknown[] | IArguments | null) => boolean;
+ export interface DefaultMemoizeOptions {
+diff --git a/es/index.d.ts b/es/index.d.ts
+index 82bb6cfb71afdc9c4149baffaceac5e2bb5adf1f..437f9b4d5163346ebd6eb231c75fa0efa966c4f5 100644
+--- a/es/index.d.ts
++++ b/es/index.d.ts
+@@ -1,6 +1,6 @@
+-import type { Selector, GetParamsFromSelectors, OutputSelector, SelectorArray, SelectorResultArray, DropFirst, MergeParameters, Expand, ObjValueTuple, Head, Tail } from './types';
+-export type { Selector, GetParamsFromSelectors, GetStateFromSelectors, OutputSelector, EqualityFn, SelectorArray, SelectorResultArray, ParametricSelector, OutputParametricSelector, OutputSelectorFields } from './types';
+-import { defaultMemoize, defaultEqualityCheck, DefaultMemoizeOptions } from './defaultMemoize';
++import type { Selector, GetParamsFromSelectors, OutputSelector, SelectorArray, SelectorResultArray, DropFirst, MergeParameters, Expand, ObjValueTuple, Head, Tail } from './types.js';
++export type { Selector, GetParamsFromSelectors, GetStateFromSelectors, OutputSelector, EqualityFn, SelectorArray, SelectorResultArray, ParametricSelector, OutputParametricSelector, OutputSelectorFields } from './types.js';
++import { defaultMemoize, defaultEqualityCheck, DefaultMemoizeOptions } from './defaultMemoize.js';
+ export { defaultMemoize, defaultEqualityCheck };
+ export type { DefaultMemoizeOptions };
+ export declare function createSelectorCreator<
+diff --git a/es/types.d.ts b/es/types.d.ts
+index a399f251eb92100431191c559dfdfa9eca57b110..ade3cd4d4d58b1e9fa99bff2a63d2723c1151b6b 100644
+--- a/es/types.d.ts
++++ b/es/types.d.ts
+@@ -1,5 +1,5 @@
+-import type { MergeParameters } from './versionedTypes';
+-export type { MergeParameters } from './versionedTypes';
++import type { MergeParameters } from './versionedTypes/index.js';
++export type { MergeParameters } from './versionedTypes/index.js';
+ /** A standard selector function, which takes three generic type arguments:
+  * @param State The first value, often a Redux root state object
+  * @param Result The final result returned by the selector
+diff --git a/es/versionedTypes/index.d.ts b/es/versionedTypes/index.d.ts
+index b1167f546735986c5243a9f671711098f0e6628a..ce6a65832c642c0b86c30c27998fa3f9cc471323 100644
+--- a/es/versionedTypes/index.d.ts
++++ b/es/versionedTypes/index.d.ts
+@@ -1 +1 @@
+-export { MergeParameters } from './ts47-mergeParameters';
++export { MergeParameters } from './ts47-mergeParameters.js';
+diff --git a/es/versionedTypes/ts46-mergeParameters.d.ts b/es/versionedTypes/ts46-mergeParameters.d.ts
+index d70bc12d4e28b3d2a7d70c451b53120d2bd43b2b..5d2ee3ffbb45e8dadfddc53b947a96f698c58bd8 100644
+--- a/es/versionedTypes/ts46-mergeParameters.d.ts
++++ b/es/versionedTypes/ts46-mergeParameters.d.ts
+@@ -1,4 +1,4 @@
+-import type { UnknownFunction, Expand, TuplifyUnion, Has, List, IsTuple } from '../types';
++import type { UnknownFunction, Expand, TuplifyUnion, Has, List, IsTuple } from '../types.js';
+ /** Given a set of input selectors, extracts the intersected parameters to determine
+  * what values can actually be passed to all of the input selectors at once
+  * WARNING: "you are not expected to understand this" :)

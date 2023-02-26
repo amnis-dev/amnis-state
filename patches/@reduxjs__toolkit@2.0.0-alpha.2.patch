@@ -1,0 +1,942 @@
+diff --git a/dist/configureStore.d.ts b/dist/configureStore.d.ts
+index 626e250c63ecf9c71c1c586156d615cedc856313..47ee439cbb78dd7afb22ab2954547da9a7f062b6 100644
+--- a/dist/configureStore.d.ts
++++ b/dist/configureStore.d.ts
+@@ -1,7 +1,7 @@
+ import type { Reducer, ReducersMapObject, Middleware, Action, AnyAction, StoreEnhancer, Store, Dispatch, PreloadedState, CombinedState } from 'redux';
+-import type { DevToolsEnhancerOptions as DevToolsOptions } from './devtoolsExtension';
+-import type { ThunkMiddlewareFor, CurriedGetDefaultMiddleware } from './getDefaultMiddleware';
+-import type { NoInfer, ExtractDispatchExtensions, ExtractStoreExtensions } from './tsHelpers';
++import type { DevToolsEnhancerOptions as DevToolsOptions } from './devtoolsExtension.js';
++import type { ThunkMiddlewareFor, CurriedGetDefaultMiddleware } from './getDefaultMiddleware.js';
++import type { NoInfer, ExtractDispatchExtensions, ExtractStoreExtensions } from './tsHelpers.js';
+ /**
+  * Callback function type, to be used in `ConfigureStoreOptions.enhancers`
+  *
+diff --git a/dist/createAction.d.ts b/dist/createAction.d.ts
+index 81bb4cf8155f9981fef2a50e966575ce4c0c26fe..2b235d2269edc4da09b7d02d13f1dd0b9505b735 100644
+--- a/dist/createAction.d.ts
++++ b/dist/createAction.d.ts
+@@ -1,5 +1,5 @@
+ import type { Action } from 'redux';
+-import type { IsUnknownOrNonInferrable, IfMaybeUndefined, IfVoid, IsAny } from './tsHelpers';
++import type { IsUnknownOrNonInferrable, IfMaybeUndefined, IfVoid, IsAny } from './tsHelpers.js';
+ /**
+  * An action with a string type and an associated payload. This is the
+  * type of action returned by `createAction()` action creators.
+diff --git a/dist/createAsyncThunk.d.ts b/dist/createAsyncThunk.d.ts
+index 1a5485cc01e6c75c79a1d8a51b8d7d22db25207e..0007ef3dda0447d2eaffc99bec49a2430d3e93e3 100644
+--- a/dist/createAsyncThunk.d.ts
++++ b/dist/createAsyncThunk.d.ts
+@@ -1,7 +1,7 @@
+ import type { Dispatch, AnyAction } from 'redux';
+-import type { ActionCreatorWithPreparedPayload } from './createAction';
++import type { ActionCreatorWithPreparedPayload } from './createAction.js';
+ import type { ThunkDispatch } from 'redux-thunk';
+-import type { FallbackIfUnknown, Id, IsAny, IsUnknown } from './tsHelpers';
++import type { FallbackIfUnknown, Id, IsAny, IsUnknown } from './tsHelpers.js';
+ export type BaseThunkAPI<S, E, D extends Dispatch = Dispatch, RejectedValue = undefined, RejectedMeta = unknown, FulfilledMeta = unknown> = {
+     dispatch: D;
+     getState: () => S;
+diff --git a/dist/createReducer.d.ts b/dist/createReducer.d.ts
+index 4fbb695bfb8b1ceb2e2731edb291b661c62d50a2..b989a09e9d930554f25543e00d4622fa817063af 100644
+--- a/dist/createReducer.d.ts
++++ b/dist/createReducer.d.ts
+@@ -1,7 +1,7 @@
+ import type { Draft } from 'immer';
+ import type { AnyAction, Action, Reducer } from 'redux';
+-import type { ActionReducerMapBuilder } from './mapBuilders';
+-import type { NoInfer } from './tsHelpers';
++import type { ActionReducerMapBuilder } from './mapBuilders.js';
++import type { NoInfer } from './tsHelpers.js';
+ /**
+  * Defines a mapping from action types to corresponding action object shapes.
+  *
+diff --git a/dist/createSlice.d.ts b/dist/createSlice.d.ts
+index a52a683434c8ea54ddbb98c4efa0ec781a0c3726..6226ab740baeafb41978568b2746d57fe3fa76d5 100644
+--- a/dist/createSlice.d.ts
++++ b/dist/createSlice.d.ts
+@@ -1,8 +1,8 @@
+ import type { Reducer } from 'redux';
+-import type { ActionCreatorWithoutPayload, PayloadAction, PayloadActionCreator, PrepareAction, _ActionCreatorWithPreparedPayload } from './createAction';
+-import type { CaseReducer } from './createReducer';
+-import type { ActionReducerMapBuilder } from './mapBuilders';
+-import type { NoInfer } from './tsHelpers';
++import type { ActionCreatorWithoutPayload, PayloadAction, PayloadActionCreator, PrepareAction, _ActionCreatorWithPreparedPayload } from './createAction.js';
++import type { CaseReducer } from './createReducer.js';
++import type { ActionReducerMapBuilder } from './mapBuilders.js';
++import type { NoInfer } from './tsHelpers.js';
+ /**
+  * An action creator attached to a slice.
+  *
+diff --git a/dist/entities/create_adapter.d.ts b/dist/entities/create_adapter.d.ts
+index b7775d64ef40e9b140de86ce90f7af6b2f336fbd..1ea37e16e21bd5b9eafad5384094d5239ba5fda0 100644
+--- a/dist/entities/create_adapter.d.ts
++++ b/dist/entities/create_adapter.d.ts
+@@ -1,4 +1,4 @@
+-import type { Comparer, IdSelector, EntityAdapter } from './models';
++import type { Comparer, IdSelector, EntityAdapter } from './models.js';
+ /**
+  *
+  * @param options
+diff --git a/dist/entities/entity_state.d.ts b/dist/entities/entity_state.d.ts
+index eabaecfc92f54ff373156f438be06db75baacf96..7a8c5acf75422d260ef0270988a6d9f3094b5cdb 100644
+--- a/dist/entities/entity_state.d.ts
++++ b/dist/entities/entity_state.d.ts
+@@ -1,4 +1,4 @@
+-import type { EntityState } from './models';
++import type { EntityState } from './models.js';
+ export declare function getInitialEntityState<V>(): EntityState<V>;
+ export declare function createInitialStateFactory<V>(): {
+     getInitialState: {
+diff --git a/dist/entities/index.d.ts b/dist/entities/index.d.ts
+index a46dd5070f7cf2602c21f12f88c4f6620ca25de1..26aad26a3e65912f99d1fb97391b42f08c7e2ead 100644
+--- a/dist/entities/index.d.ts
++++ b/dist/entities/index.d.ts
+@@ -1,2 +1,2 @@
+-export { createEntityAdapter } from './create_adapter';
+-export { Dictionary, EntityState, EntityAdapter, Update, IdSelector, Comparer, } from './models';
++export { createEntityAdapter } from './create_adapter.js';
++export { Dictionary, EntityState, EntityAdapter, Update, IdSelector, Comparer, } from './models.js';
+diff --git a/dist/entities/models.d.ts b/dist/entities/models.d.ts
+index 265fa8ff969e355b080daa0f672f3846f24b9f76..56f9f8ea3d6b710c5404e752a3e95e363161ff01 100644
+--- a/dist/entities/models.d.ts
++++ b/dist/entities/models.d.ts
+@@ -1,5 +1,5 @@
+-import type { PayloadAction } from '../createAction';
+-import type { IsAny } from '../tsHelpers';
++import type { PayloadAction } from '../createAction.js';
++import type { IsAny } from '../tsHelpers.js';
+ /**
+  * @public
+  */
+diff --git a/dist/entities/sorted_state_adapter.d.ts b/dist/entities/sorted_state_adapter.d.ts
+index f9a36805e2c8b71f4526e881e7658a93533be41f..27c44346037f85cd0ca29cb94c164ffe0d0c327d 100644
+--- a/dist/entities/sorted_state_adapter.d.ts
++++ b/dist/entities/sorted_state_adapter.d.ts
+@@ -1,2 +1,2 @@
+-import type { IdSelector, Comparer, EntityStateAdapter } from './models';
++import type { IdSelector, Comparer, EntityStateAdapter } from './models.js';
+ export declare function createSortedStateAdapter<T>(selectId: IdSelector<T>, sort: Comparer<T>): EntityStateAdapter<T>;
+diff --git a/dist/entities/state_adapter.d.ts b/dist/entities/state_adapter.d.ts
+index 09f55ce1604d65bc9e24c8d6e9f9211857a1fcbd..4c422026221fe117eae35da24795e10ea24bf363 100644
+--- a/dist/entities/state_adapter.d.ts
++++ b/dist/entities/state_adapter.d.ts
+@@ -1,5 +1,5 @@
+-import type { EntityState, PreventAny } from './models';
+-import type { PayloadAction } from '../createAction';
+-import { IsAny } from '../tsHelpers';
++import type { EntityState, PreventAny } from './models.js';
++import type { PayloadAction } from '../createAction.js';
++import { IsAny } from '../tsHelpers.js';
+ export declare function createSingleArgumentStateOperator<V>(mutator: (state: EntityState<V>) => void): <S extends EntityState<V>>(state: IsAny<S, EntityState<V>, S>) => S;
+ export declare function createStateOperator<V, R>(mutator: (arg: R, state: EntityState<V>) => void): <S extends EntityState<V>>(state: S, arg: R | PayloadAction<R>) => S;
+diff --git a/dist/entities/state_selectors.d.ts b/dist/entities/state_selectors.d.ts
+index 2acb64ee8b3f8aba1b6f437648f627d9f6d8131f..662c501b97b5b9eaeb0117a436e4f30b2a885fa5 100644
+--- a/dist/entities/state_selectors.d.ts
++++ b/dist/entities/state_selectors.d.ts
+@@ -1,4 +1,4 @@
+-import type { EntityState, EntitySelectors } from './models';
++import type { EntityState, EntitySelectors } from './models.js';
+ export declare function createSelectorsFactory<T>(): {
+     getSelectors: {
+         (): EntitySelectors<T, EntityState<T>>;
+diff --git a/dist/entities/unsorted_state_adapter.d.ts b/dist/entities/unsorted_state_adapter.d.ts
+index 3824c6a805edfa38377a7c2dbdf57d32999870ca..7b9cc68be0ffc7785512cad7a6669780363bc4da 100644
+--- a/dist/entities/unsorted_state_adapter.d.ts
++++ b/dist/entities/unsorted_state_adapter.d.ts
+@@ -1,2 +1,2 @@
+-import type { EntityStateAdapter, IdSelector } from './models';
++import type { EntityStateAdapter, IdSelector } from './models.js';
+ export declare function createUnsortedStateAdapter<T>(selectId: IdSelector<T>): EntityStateAdapter<T>;
+diff --git a/dist/entities/utils.d.ts b/dist/entities/utils.d.ts
+index 8735dc3fed77d11437e008367eddb16e1d350806..717a4b806635b9c5553573dfd90608b4ff83a5eb 100644
+--- a/dist/entities/utils.d.ts
++++ b/dist/entities/utils.d.ts
+@@ -1,4 +1,4 @@
+-import type { EntityState, IdSelector, Update, EntityId } from './models';
++import type { EntityState, IdSelector, Update, EntityId } from './models.js';
+ export declare function selectIdValue<T>(entity: T, selectId: IdSelector<T>): EntityId;
+ export declare function ensureEntitiesArray<T>(entities: readonly T[] | Record<EntityId, T>): readonly T[];
+ export declare function splitAddedUpdatedEntities<T>(newEntities: readonly T[] | Record<EntityId, T>, selectId: IdSelector<T>, state: EntityState<T>): [T[], Update<T>[]];
+diff --git a/dist/getDefaultMiddleware.d.ts b/dist/getDefaultMiddleware.d.ts
+index f4a2f4077ccdff9e191d9c167ca0a62a1425e378..a9bf9ca76e423e00b3087c1b79650454fc238bee 100644
+--- a/dist/getDefaultMiddleware.d.ts
++++ b/dist/getDefaultMiddleware.d.ts
+@@ -1,9 +1,9 @@
+ import type { AnyAction } from 'redux';
+ import type { ThunkMiddleware } from 'redux-thunk';
+-import type { ImmutableStateInvariantMiddlewareOptions } from './immutableStateInvariantMiddleware';
+-import type { SerializableStateInvariantMiddlewareOptions } from './serializableStateInvariantMiddleware';
+-import type { ExcludeFromTuple } from './tsHelpers';
+-import { MiddlewareArray } from './utils';
++import type { ImmutableStateInvariantMiddlewareOptions } from './immutableStateInvariantMiddleware.js';
++import type { SerializableStateInvariantMiddlewareOptions } from './serializableStateInvariantMiddleware.js';
++import type { ExcludeFromTuple } from './tsHelpers.js';
++import { MiddlewareArray } from './utils.js';
+ interface ThunkOptions<E = any> {
+     extraArgument: E;
+ }
+diff --git a/dist/index.d.ts b/dist/index.d.ts
+index ebfc4e4d28635089f72b209151c422853e15aca4..059e2a3b06f542be8c4d53e499551b1b0b4fec7c 100644
+--- a/dist/index.d.ts
++++ b/dist/index.d.ts
+@@ -3,33 +3,33 @@ export { produce as createNextState, current, freeze, original, isDraft, } from
+ export type { Draft } from 'immer';
+ export { createSelector } from 'reselect';
+ export type { Selector, OutputParametricSelector, OutputSelector, ParametricSelector, } from 'reselect';
+-export { createDraftSafeSelector } from './createDraftSafeSelector';
++export { createDraftSafeSelector } from './createDraftSafeSelector.js';
+ export type { ThunkAction, ThunkDispatch, ThunkMiddleware } from 'redux-thunk';
+-export { configureStore, } from './configureStore';
+-export type { ConfigureEnhancersCallback, ConfigureStoreOptions, EnhancedStore, } from './configureStore';
+-export type { DevToolsEnhancerOptions } from './devtoolsExtension';
+-export { createAction, getType, } from './createAction';
+-export type { PayloadAction, PayloadActionCreator, ActionCreatorWithNonInferrablePayload, ActionCreatorWithOptionalPayload, ActionCreatorWithPayload, ActionCreatorWithoutPayload, ActionCreatorWithPreparedPayload, PrepareAction, } from './createAction';
+-export { createReducer, } from './createReducer';
+-export type { Actions, CaseReducer, CaseReducers, } from './createReducer';
+-export { createSlice, } from './createSlice';
+-export type { CreateSliceOptions, Slice, CaseReducerActions, SliceCaseReducers, ValidateSliceCaseReducers, CaseReducerWithPrepare, SliceActionCreator, } from './createSlice';
+-export { createImmutableStateInvariantMiddleware, isImmutableDefault, } from './immutableStateInvariantMiddleware';
+-export type { ImmutableStateInvariantMiddlewareOptions, } from './immutableStateInvariantMiddleware';
+-export { createSerializableStateInvariantMiddleware, findNonSerializableValue, isPlain, } from './serializableStateInvariantMiddleware';
+-export type { SerializableStateInvariantMiddlewareOptions, } from './serializableStateInvariantMiddleware';
+-export { getDefaultMiddleware, } from './getDefaultMiddleware';
+-export type { ActionReducerMapBuilder, } from './mapBuilders';
+-export { MiddlewareArray } from './utils';
+-export { createEntityAdapter } from './entities/create_adapter';
+-export type { Dictionary, EntityState, EntityAdapter, EntitySelectors, EntityStateAdapter, EntityId, Update, IdSelector, Comparer, } from './entities/models';
+-export { createAsyncThunk, unwrapResult, miniSerializeError, } from './createAsyncThunk';
+-export type { AsyncThunk, AsyncThunkOptions, AsyncThunkAction, AsyncThunkPayloadCreatorReturnValue, AsyncThunkPayloadCreator, SerializedError, } from './createAsyncThunk';
+-export { isAllOf, isAnyOf, isPending, isRejected, isFulfilled, isAsyncThunkAction, isRejectedWithValue, } from './matchers';
+-export type { ActionMatchingAllOf, ActionMatchingAnyOf, } from './matchers';
+-export { nanoid } from './nanoid';
+-export { default as isPlainObject } from './isPlainObject';
+-export type { ListenerEffect, ListenerMiddleware, ListenerEffectAPI, ListenerMiddlewareInstance, CreateListenerMiddlewareOptions, ListenerErrorHandler, TypedStartListening, TypedAddListener, TypedStopListening, TypedRemoveListener, UnsubscribeListener, UnsubscribeListenerOptions, ForkedTaskExecutor, ForkedTask, ForkedTaskAPI, AsyncTaskExecutor, SyncTaskExecutor, TaskCancelled, TaskRejected, TaskResolved, TaskResult, } from './listenerMiddleware/index';
+-export type { AnyListenerPredicate } from './listenerMiddleware/types';
+-export { createListenerMiddleware, addListener, removeListener, clearAllListeners, TaskAbortError, } from './listenerMiddleware/index';
+-export { SHOULD_AUTOBATCH, prepareAutoBatched, autoBatchEnhancer, AutoBatchOptions, } from './autoBatchEnhancer';
++export { configureStore } from './configureStore.js';
++export type { ConfigureEnhancersCallback, ConfigureStoreOptions, ToolkitStore, EnhancedStore, } from './configureStore.js';
++export type { DevToolsEnhancerOptions } from './devtoolsExtension.js';
++export { createAction, getType, } from './createAction.js';
++export type { PayloadAction, PayloadActionCreator, ActionCreatorWithNonInferrablePayload, ActionCreatorWithOptionalPayload, ActionCreatorWithPayload, ActionCreatorWithoutPayload, ActionCreatorWithPreparedPayload, PrepareAction, } from './createAction.js';
++export { createReducer, } from './createReducer.js';
++export type { Actions, CaseReducer, CaseReducers, } from './createReducer.js';
++export { createSlice, } from './createSlice.js';
++export type { CreateSliceOptions, Slice, CaseReducerActions, SliceCaseReducers, ValidateSliceCaseReducers, CaseReducerWithPrepare, SliceActionCreator, } from './createSlice.js';
++export { createImmutableStateInvariantMiddleware, isImmutableDefault, } from './immutableStateInvariantMiddleware.js';
++export type { ImmutableStateInvariantMiddlewareOptions, } from './immutableStateInvariantMiddleware.js';
++export { createSerializableStateInvariantMiddleware, findNonSerializableValue, isPlain, } from './serializableStateInvariantMiddleware.js';
++export type { SerializableStateInvariantMiddlewareOptions, } from './serializableStateInvariantMiddleware.js';
++export { getDefaultMiddleware, } from './getDefaultMiddleware.js';
++export type { ActionReducerMapBuilder, } from './mapBuilders.js';
++export { MiddlewareArray } from './utils.js';
++export { createEntityAdapter } from './entities/create_adapter.js';
++export type { Dictionary, EntityState, EntityAdapter, EntitySelectors, EntityStateAdapter, EntityId, Update, IdSelector, Comparer, } from './entities/models.js';
++export { createAsyncThunk, unwrapResult, miniSerializeError, } from './createAsyncThunk.js';
++export type { AsyncThunk, AsyncThunkOptions, AsyncThunkAction, AsyncThunkPayloadCreatorReturnValue, AsyncThunkPayloadCreator, SerializedError, } from './createAsyncThunk.js';
++export { isAllOf, isAnyOf, isPending, isRejected, isFulfilled, isAsyncThunkAction, isRejectedWithValue, } from './matchers.js';
++export type { ActionMatchingAllOf, ActionMatchingAnyOf, } from './matchers.js';
++export { nanoid } from './nanoid.js';
++export { default as isPlainObject } from './isPlainObject.js';
++export type { ListenerEffect, ListenerMiddleware, ListenerEffectAPI, ListenerMiddlewareInstance, CreateListenerMiddlewareOptions, ListenerErrorHandler, TypedStartListening, TypedAddListener, TypedStopListening, TypedRemoveListener, UnsubscribeListener, UnsubscribeListenerOptions, ForkedTaskExecutor, ForkedTask, ForkedTaskAPI, AsyncTaskExecutor, SyncTaskExecutor, TaskCancelled, TaskRejected, TaskResolved, TaskResult, } from './listenerMiddleware/index.js';
++export type { AnyListenerPredicate } from './listenerMiddleware/types.js';
++export { createListenerMiddleware, addListener, removeListener, clearAllListeners, TaskAbortError, } from './listenerMiddleware/index.js';
++export { SHOULD_AUTOBATCH, prepareAutoBatched, autoBatchEnhancer, AutoBatchOptions, } from './autoBatchEnhancer.js';
+diff --git a/dist/listenerMiddleware/exceptions.d.ts b/dist/listenerMiddleware/exceptions.d.ts
+index 06e79100e4b02f516483faa53ee5ed6f635d8457..3abe7ff455af16f81c9796630742f4a36eed2bdc 100644
+--- a/dist/listenerMiddleware/exceptions.d.ts
++++ b/dist/listenerMiddleware/exceptions.d.ts
+@@ -1,4 +1,4 @@
+-import type { SerializedError } from '@reduxjs/toolkit';
++import type { SerializedError } from '../index.js';
+ export declare const taskCancelled: "task-cancelled";
+ export declare const taskCompleted: "task-completed";
+ export declare const listenerCancelled: "listener-cancelled";
+diff --git a/dist/listenerMiddleware/index.d.ts b/dist/listenerMiddleware/index.d.ts
+index 0060f50b7bc7bc457d66c9576327bd037300f1d6..75955cb2f678f2442b751b3417d6d92dfaf11afd 100644
+--- a/dist/listenerMiddleware/index.d.ts
++++ b/dist/listenerMiddleware/index.d.ts
+@@ -1,8 +1,8 @@
+ import type { Dispatch, AnyAction } from 'redux';
+ import type { ThunkDispatch } from 'redux-thunk';
+-import type { ListenerMiddlewareInstance, CreateListenerMiddlewareOptions, TypedAddListener, TypedCreateListenerEntry, ListenerEntry, TypedRemoveListener } from './types';
+-export { TaskAbortError } from './exceptions';
+-export type { ListenerEffect, ListenerMiddleware, ListenerEffectAPI, ListenerMiddlewareInstance, CreateListenerMiddlewareOptions, ListenerErrorHandler, TypedStartListening, TypedAddListener, TypedStopListening, TypedRemoveListener, UnsubscribeListener, UnsubscribeListenerOptions, ForkedTaskExecutor, ForkedTask, ForkedTaskAPI, AsyncTaskExecutor, SyncTaskExecutor, TaskCancelled, TaskRejected, TaskResolved, TaskResult, } from './types';
++import type { ListenerMiddlewareInstance, CreateListenerMiddlewareOptions, TypedAddListener, TypedCreateListenerEntry, ListenerEntry, TypedRemoveListener } from './types.js';
++export { TaskAbortError } from './exceptions.js';
++export type { ListenerEffect, ListenerMiddleware, ListenerEffectAPI, ListenerMiddlewareInstance, CreateListenerMiddlewareOptions, ListenerErrorHandler, TypedStartListening, TypedAddListener, TypedStopListening, TypedRemoveListener, UnsubscribeListener, UnsubscribeListenerOptions, ForkedTaskExecutor, ForkedTask, ForkedTaskAPI, AsyncTaskExecutor, SyncTaskExecutor, TaskCancelled, TaskRejected, TaskResolved, TaskResult, } from './types.js';
+ /** Accepts the possible options for creating a listener, and returns a formatted listener entry */
+ export declare const createListenerEntry: TypedCreateListenerEntry<unknown>;
+ /**
+diff --git a/dist/listenerMiddleware/task.d.ts b/dist/listenerMiddleware/task.d.ts
+index e029fea1e54fa1a315ba44402390685ffc1a8a00..ffbed9659c3266b6824da6073d3e63c009b901f4 100644
+--- a/dist/listenerMiddleware/task.d.ts
++++ b/dist/listenerMiddleware/task.d.ts
+@@ -1,4 +1,4 @@
+-import type { AbortSignalWithReason, TaskResult } from './types';
++import type { AbortSignalWithReason, TaskResult } from './types.js';
+ /**
+  * Synchronously raises {@link TaskAbortError} if the task tied to the input `signal` has been cancelled.
+  * @param signal
+diff --git a/dist/listenerMiddleware/types.d.ts b/dist/listenerMiddleware/types.d.ts
+index 82a40b9c85807cbefb33888a7466b9c446cbb419..57fff7bcfce08f82052b1f83b68025ed2d2528b6 100644
+--- a/dist/listenerMiddleware/types.d.ts
++++ b/dist/listenerMiddleware/types.d.ts
+@@ -1,7 +1,7 @@
+-import type { PayloadAction, BaseActionCreator } from '../createAction';
++import type { PayloadAction, BaseActionCreator } from '../createAction.js';
+ import type { Dispatch as ReduxDispatch, AnyAction, MiddlewareAPI, Middleware, Action as ReduxAction } from 'redux';
+ import type { ThunkDispatch } from 'redux-thunk';
+-import type { TaskAbortError } from './exceptions';
++import type { TaskAbortError } from './exceptions.js';
+ /**
+  * @internal
+  * At the time of writing `lib.dom.ts` does not provide `abortSignal.reason`.
+diff --git a/dist/mapBuilders.d.ts b/dist/mapBuilders.d.ts
+index 658489b5744d73d1535b8333dc842dae04aa24ee..3d1927c46fa8fb6167fb55df4aaf4abe931050e8 100644
+--- a/dist/mapBuilders.d.ts
++++ b/dist/mapBuilders.d.ts
+@@ -1,6 +1,6 @@
+ import type { Action, AnyAction } from 'redux';
+-import type { CaseReducer, CaseReducers, ActionMatcherDescriptionCollection } from './createReducer';
+-import type { TypeGuard } from './tsHelpers';
++import type { CaseReducer, CaseReducers, ActionMatcherDescriptionCollection } from './createReducer.js';
++import type { TypeGuard } from './tsHelpers.js';
+ export interface TypedActionCreator<Type extends string> {
+     (...args: any[]): Action<Type>;
+     type: Type;
+diff --git a/dist/matchers.d.ts b/dist/matchers.d.ts
+index 6c03f7f682968deecd9b2e018099df150a086b52..ce285ea2cc5dc9549918a20e0d7e12f7392443bf 100644
+--- a/dist/matchers.d.ts
++++ b/dist/matchers.d.ts
+@@ -1,5 +1,5 @@
+-import type { ActionFromMatcher, Matcher, UnionToIntersection } from './tsHelpers';
+-import type { AsyncThunk, AsyncThunkFulfilledActionCreator, AsyncThunkPendingActionCreator, AsyncThunkRejectedActionCreator } from './createAsyncThunk';
++import type { ActionFromMatcher, Matcher, UnionToIntersection } from './tsHelpers.js';
++import type { AsyncThunk, AsyncThunkFulfilledActionCreator, AsyncThunkPendingActionCreator, AsyncThunkRejectedActionCreator } from './createAsyncThunk.js';
+ /** @public */
+ export type ActionMatchingAnyOf<Matchers extends [Matcher<any>, ...Matcher<any>[]]> = ActionFromMatcher<Matchers[number]>;
+ /** @public */
+diff --git a/dist/query/apiTypes.d.ts b/dist/query/apiTypes.d.ts
+index d01ab0fddce137c38c15321175bd6d7aa079c3f2..05bc511ec61fab9bcdb695512a9c348cf16a1fef 100644
+--- a/dist/query/apiTypes.d.ts
++++ b/dist/query/apiTypes.d.ts
+@@ -1,10 +1,10 @@
+-import type { EndpointDefinitions, EndpointBuilder, EndpointDefinition, ReplaceTagTypes } from './endpointDefinitions';
+-import type { UnionToIntersection, NoInfer, WithRequiredProp } from './tsHelpers';
+-import type { CoreModule } from './core/module';
+-import type { CreateApiOptions } from './createApi';
+-import type { BaseQueryFn } from './baseQueryTypes';
+-import type { CombinedState } from './core/apiState';
+-import type { AnyAction } from '@reduxjs/toolkit';
++import type { EndpointDefinitions, EndpointBuilder, EndpointDefinition, ReplaceTagTypes } from './endpointDefinitions.js';
++import type { UnionToIntersection, NoInfer, WithRequiredProp } from './tsHelpers.js';
++import type { CoreModule } from './core/module.js';
++import type { CreateApiOptions } from './createApi.js';
++import type { BaseQueryFn } from './baseQueryTypes.js';
++import type { CombinedState } from './core/apiState.js';
++import type { AnyAction } from '../index.js';
+ export interface ApiModules<BaseQuery extends BaseQueryFn, Definitions extends EndpointDefinitions, ReducerPath extends string, TagTypes extends string> {
+ }
+ export type ModuleName = keyof ApiModules<any, any, any, any>;
+diff --git a/dist/query/baseQueryTypes.d.ts b/dist/query/baseQueryTypes.d.ts
+index 66aa3a24d39a1079a76e61f34a30e97f259dac74..945c0edb9d449afb6d15149538a0052b606f2bbd 100644
+--- a/dist/query/baseQueryTypes.d.ts
++++ b/dist/query/baseQueryTypes.d.ts
+@@ -1,5 +1,5 @@
+-import type { ThunkDispatch } from '@reduxjs/toolkit';
+-import type { MaybePromise, UnwrapPromise } from './tsHelpers';
++import type { ThunkDispatch } from '../index.js';
++import type { MaybePromise, UnwrapPromise } from './tsHelpers.js';
+ export interface BaseQueryApi {
+     signal: AbortSignal;
+     abort: (reason?: string) => void;
+diff --git a/dist/query/core/apiState.d.ts b/dist/query/core/apiState.d.ts
+index 00f045339c079c86693bb872627aa549075dbe1d..3a02503316238da6b55670144933e303162a1f61 100644
+--- a/dist/query/core/apiState.d.ts
++++ b/dist/query/core/apiState.d.ts
+@@ -1,7 +1,7 @@
+-import type { SerializedError } from '@reduxjs/toolkit';
+-import type { BaseQueryError } from '../baseQueryTypes';
+-import type { QueryDefinition, MutationDefinition, EndpointDefinitions, BaseEndpointDefinition, ResultTypeFrom, QueryArgFrom } from '../endpointDefinitions';
+-import type { Id, WithRequiredProp } from '../tsHelpers';
++import type { SerializedError } from '../../index.js';
++import type { BaseQueryError } from '../baseQueryTypes.js';
++import type { QueryDefinition, MutationDefinition, EndpointDefinitions, BaseEndpointDefinition, ResultTypeFrom, QueryArgFrom } from '../endpointDefinitions.js';
++import type { Id, WithRequiredProp } from '../tsHelpers.js';
+ export type QueryCacheKey = string & {
+     _type: 'queryCacheKey';
+ };
+diff --git a/dist/query/core/buildInitiate.d.ts b/dist/query/core/buildInitiate.d.ts
+index 79518a4ac97618f12f15a6b70e357b48cbe20756..b804ae01ad194df24b2f0b503c18a96b7be515ea 100644
+--- a/dist/query/core/buildInitiate.d.ts
++++ b/dist/query/core/buildInitiate.d.ts
+@@ -1,13 +1,13 @@
+-import type { EndpointDefinitions, QueryDefinition, MutationDefinition, QueryArgFrom, ResultTypeFrom } from '../endpointDefinitions';
+-import type { QueryThunk, MutationThunk, QueryThunkArg } from './buildThunks';
++import type { EndpointDefinitions, QueryDefinition, MutationDefinition, QueryArgFrom, ResultTypeFrom } from '../endpointDefinitions.js';
++import type { QueryThunk, MutationThunk, QueryThunkArg } from './buildThunks.js';
+ import type { AnyAction, ThunkAction, SerializedError } from '@reduxjs/toolkit';
+-import type { SubscriptionOptions } from './apiState';
+-import type { InternalSerializeQueryArgs } from '../defaultSerializeQueryArgs';
+-import type { Api, ApiContext } from '../apiTypes';
+-import type { BaseQueryError, QueryReturnValue } from '../baseQueryTypes';
+-import type { QueryResultSelectorResult } from './buildSelectors';
++import type { SubscriptionOptions } from './apiState.js';
++import type { InternalSerializeQueryArgs } from '../defaultSerializeQueryArgs.js';
++import type { Api, ApiContext } from '../apiTypes.js';
++import type { BaseQueryError, QueryReturnValue } from '../baseQueryTypes.js';
++import type { QueryResultSelectorResult } from './buildSelectors.js';
+ import type { Dispatch } from 'redux';
+-declare module './module' {
++declare module './module.js' {
+     interface ApiEndpointQuery<Definition extends QueryDefinition<any, any, any, any, any>, Definitions extends EndpointDefinitions> {
+         initiate: StartQueryActionCreator<Definition>;
+     }
+diff --git a/dist/query/core/buildMiddleware/batchActions.d.ts b/dist/query/core/buildMiddleware/batchActions.d.ts
+index 1dd74102c1bfa96c9506926c8e1640c9d85e2132..eac937e26565af3609fb1b2e1293e32d42f12d3a 100644
+--- a/dist/query/core/buildMiddleware/batchActions.d.ts
++++ b/dist/query/core/buildMiddleware/batchActions.d.ts
+@@ -1,4 +1,4 @@
+-import type { InternalHandlerBuilder } from './types';
++import type { InternalHandlerBuilder } from './types.js';
+ export declare const buildBatchedActionsHandler: InternalHandlerBuilder<[
+     actionShouldContinue: boolean,
+     subscriptionExists: boolean
+diff --git a/dist/query/core/buildMiddleware/cacheCollection.d.ts b/dist/query/core/buildMiddleware/cacheCollection.d.ts
+index 1353d22c011513c59dc862ffb2bbb33223679c9a..35dc1fc4e518b82a40daf9492214041cdab12165 100644
+--- a/dist/query/core/buildMiddleware/cacheCollection.d.ts
++++ b/dist/query/core/buildMiddleware/cacheCollection.d.ts
+@@ -1,7 +1,7 @@
+-import type { BaseQueryFn } from '../../baseQueryTypes';
+-import type { InternalHandlerBuilder } from './types';
++import type { BaseQueryFn } from '../../baseQueryTypes.js';
++import type { InternalHandlerBuilder } from './types.js';
+ export type ReferenceCacheCollection = never;
+-declare module '../../endpointDefinitions' {
++declare module '../../endpointDefinitions.js' {
+     interface QueryExtraOptions<TagTypes extends string, ResultType, QueryArg, BaseQuery extends BaseQueryFn, ReducerPath extends string = string> {
+         /**
+          * Overrides the api-wide definition of `keepUnusedDataFor` for this endpoint only. _(This value is in seconds.)_
+diff --git a/dist/query/core/buildMiddleware/cacheLifecycle.d.ts b/dist/query/core/buildMiddleware/cacheLifecycle.d.ts
+index 810bb080d067cb2af1f43d561fc6d52abc47fa2b..599c95c13ea2a37a53063adaa3e056016c2ef799 100644
+--- a/dist/query/core/buildMiddleware/cacheLifecycle.d.ts
++++ b/dist/query/core/buildMiddleware/cacheLifecycle.d.ts
+@@ -1,12 +1,12 @@
+ import type { AnyAction } from 'redux';
+ import type { ThunkDispatch } from 'redux-thunk';
+-import type { BaseQueryFn, BaseQueryMeta } from '../../baseQueryTypes';
+-import type { RootState } from '../apiState';
+-import type { MutationResultSelectorResult, QueryResultSelectorResult } from '../buildSelectors';
+-import type { PatchCollection, Recipe } from '../buildThunks';
+-import type { InternalHandlerBuilder, PromiseWithKnownReason } from './types';
++import type { BaseQueryFn, BaseQueryMeta } from '../../baseQueryTypes.js';
++import type { RootState } from '../apiState.js';
++import type { MutationResultSelectorResult, QueryResultSelectorResult } from '../buildSelectors.js';
++import type { PatchCollection, Recipe } from '../buildThunks.js';
++import type { InternalHandlerBuilder, PromiseWithKnownReason } from './types.js';
+ export type ReferenceCacheLifecycle = never;
+-declare module '../../endpointDefinitions' {
++declare module '../../endpointDefinitions.js' {
+     interface QueryBaseLifecycleApi<QueryArg, BaseQuery extends BaseQueryFn, ResultType, ReducerPath extends string = string> extends LifecycleApi<ReducerPath> {
+         /**
+          * Gets the current value of this cache entry.
+diff --git a/dist/query/core/buildMiddleware/devMiddleware.d.ts b/dist/query/core/buildMiddleware/devMiddleware.d.ts
+index 5f302da2f6f1a97b6e7ffad044364a876d73f20e..d98d5a22e3183b9d0305e9632df735239bf0fa86 100644
+--- a/dist/query/core/buildMiddleware/devMiddleware.d.ts
++++ b/dist/query/core/buildMiddleware/devMiddleware.d.ts
+@@ -1,2 +1,2 @@
+-import type { InternalHandlerBuilder } from './types';
++import type { InternalHandlerBuilder } from './types.js';
+ export declare const buildDevCheckHandler: InternalHandlerBuilder;
+diff --git a/dist/query/core/buildMiddleware/index.d.ts b/dist/query/core/buildMiddleware/index.d.ts
+index c7bf4b0d29f0955819881fd4fdb5df57ab7d5f67..3fa19984fe7332ee4b159c27729914ccff2dffeb 100644
+--- a/dist/query/core/buildMiddleware/index.d.ts
++++ b/dist/query/core/buildMiddleware/index.d.ts
+@@ -1,7 +1,7 @@
+-import type { AnyAction, Middleware, ThunkDispatch } from '@reduxjs/toolkit';
+-import type { EndpointDefinitions, FullTagDescription } from '../../endpointDefinitions';
+-import type { RootState } from '../apiState';
+-import type { BuildMiddlewareInput } from './types';
++import type { AnyAction, Middleware, ThunkDispatch } from '../../../index.js';
++import type { EndpointDefinitions, FullTagDescription } from '../../endpointDefinitions.js';
++import type { RootState } from '../apiState.js';
++import type { BuildMiddlewareInput } from './types.js';
+ export declare function buildMiddleware<Definitions extends EndpointDefinitions, ReducerPath extends string, TagTypes extends string>(input: BuildMiddlewareInput<Definitions, ReducerPath, TagTypes>): {
+     middleware: Middleware<{}, RootState<Definitions, string, ReducerPath>, ThunkDispatch<any, any, AnyAction>>;
+     actions: {
+diff --git a/dist/query/core/buildMiddleware/invalidationByTags.d.ts b/dist/query/core/buildMiddleware/invalidationByTags.d.ts
+index a4ce1fae94bf3ce52431cd50558725c9ea2bc24f..dd066b5e87a2ee24d338ed9e8d57d6af08ba1fbc 100644
+--- a/dist/query/core/buildMiddleware/invalidationByTags.d.ts
++++ b/dist/query/core/buildMiddleware/invalidationByTags.d.ts
+@@ -1,2 +1,2 @@
+-import type { InternalHandlerBuilder } from './types';
++import type { InternalHandlerBuilder } from './types.js';
+ export declare const buildInvalidationByTagsHandler: InternalHandlerBuilder;
+diff --git a/dist/query/core/buildMiddleware/polling.d.ts b/dist/query/core/buildMiddleware/polling.d.ts
+index 8bcaa6c78c54537738a7f1cfa014c7dee9215338..d966c93a922ec3d06f91d263f46373c22f0f2bc4 100644
+--- a/dist/query/core/buildMiddleware/polling.d.ts
++++ b/dist/query/core/buildMiddleware/polling.d.ts
+@@ -1,2 +1,2 @@
+-import type { InternalHandlerBuilder } from './types';
++import type { InternalHandlerBuilder } from './types.js';
+ export declare const buildPollingHandler: InternalHandlerBuilder;
+diff --git a/dist/query/core/buildMiddleware/queryLifecycle.d.ts b/dist/query/core/buildMiddleware/queryLifecycle.d.ts
+index a568d2728dbcbc59b7b97c6f61332f2f5b8a88cf..f22197bab897a3fb7521038ad8d5a10b20b156a0 100644
+--- a/dist/query/core/buildMiddleware/queryLifecycle.d.ts
++++ b/dist/query/core/buildMiddleware/queryLifecycle.d.ts
+@@ -1,7 +1,7 @@
+-import type { BaseQueryError, BaseQueryFn, BaseQueryMeta } from '../../baseQueryTypes';
+-import type { PromiseWithKnownReason, InternalHandlerBuilder } from './types';
++import type { BaseQueryError, BaseQueryFn, BaseQueryMeta } from '../../baseQueryTypes.js';
++import type { PromiseWithKnownReason, InternalHandlerBuilder } from './types.js';
+ export type ReferenceQueryLifecycle = never;
+-declare module '../../endpointDefinitions' {
++declare module '../../endpointDefinitions.js' {
+     interface QueryLifecyclePromises<ResultType, BaseQuery extends BaseQueryFn> {
+         /**
+          * Promise that will resolve with the (transformed) query result.
+diff --git a/dist/query/core/buildMiddleware/types.d.ts b/dist/query/core/buildMiddleware/types.d.ts
+index f786a6d7c547ed951b7dbddf4541b22d2578881a..fdd754b3edacddafdf90837e12cffb5ca7146ff1 100644
+--- a/dist/query/core/buildMiddleware/types.d.ts
++++ b/dist/query/core/buildMiddleware/types.d.ts
+@@ -1,8 +1,8 @@
+-import type { AnyAction, AsyncThunkAction, Dispatch, Middleware, MiddlewareAPI, ThunkDispatch } from '@reduxjs/toolkit';
+-import type { Api, ApiContext } from '../../apiTypes';
+-import type { AssertTagTypes, EndpointDefinitions } from '../../endpointDefinitions';
+-import type { QueryStatus, QuerySubState, RootState, SubscriptionState } from '../apiState';
+-import type { MutationThunk, QueryThunk, QueryThunkArg, ThunkResult } from '../buildThunks';
++import type { AnyAction, AsyncThunkAction, Dispatch, Middleware, MiddlewareAPI, ThunkDispatch } from '../../../index.js';
++import type { Api, ApiContext } from '../../apiTypes.js';
++import type { AssertTagTypes, EndpointDefinitions } from '../../endpointDefinitions.js';
++import type { QueryStatus, QuerySubState, RootState, SubscriptionState } from '../apiState.js';
++import type { MutationThunk, QueryThunk, QueryThunkArg, ThunkResult } from '../buildThunks.js';
+ export type QueryStateMeta<T> = Record<string, undefined | T>;
+ export type TimeoutId = ReturnType<typeof setTimeout>;
+ export interface InternalMiddlewareState {
+diff --git a/dist/query/core/buildMiddleware/windowEventHandling.d.ts b/dist/query/core/buildMiddleware/windowEventHandling.d.ts
+index 82cccc20f2d9e5734df38dcfe82a10b338814157..51ece822682cd721a3192da270d99d41223e75f4 100644
+--- a/dist/query/core/buildMiddleware/windowEventHandling.d.ts
++++ b/dist/query/core/buildMiddleware/windowEventHandling.d.ts
+@@ -1,2 +1,2 @@
+-import type { InternalHandlerBuilder } from './types';
++import type { InternalHandlerBuilder } from './types.js';
+ export declare const buildWindowEventHandler: InternalHandlerBuilder;
+diff --git a/dist/query/core/buildSelectors.d.ts b/dist/query/core/buildSelectors.d.ts
+index d927cbd4a374399052948dd7237fa861337158c8..4ef28cbff3e51798614c4ee6afe15de843b049c1 100644
+--- a/dist/query/core/buildSelectors.d.ts
++++ b/dist/query/core/buildSelectors.d.ts
+@@ -1,6 +1,6 @@
+-import type { MutationSubState, QuerySubState, RootState as _RootState, RequestStatusFlags, QueryCacheKey } from './apiState';
+-import type { EndpointDefinitions, QueryDefinition, MutationDefinition, QueryArgFrom, TagTypesFrom, ReducerPathFrom, TagDescription } from '../endpointDefinitions';
+-import type { InternalSerializeQueryArgs } from '../defaultSerializeQueryArgs';
++import type { MutationSubState, QuerySubState, RootState as _RootState, RequestStatusFlags, QueryCacheKey } from './apiState.js';
++import type { EndpointDefinitions, QueryDefinition, MutationDefinition, QueryArgFrom, TagTypesFrom, ReducerPathFrom, TagDescription } from '../endpointDefinitions.js';
++import type { InternalSerializeQueryArgs } from '../defaultSerializeQueryArgs.js';
+ export type SkipToken = typeof skipToken;
+ /**
+  * Can be passed into `useQuery`, `useQueryState` or `useQuerySubscription`
+@@ -27,7 +27,7 @@ export type SkipToken = typeof skipToken;
+ export declare const skipToken: unique symbol;
+ /** @deprecated renamed to `skipToken` */
+ export declare const skipSelector: symbol;
+-declare module './module' {
++declare module './module.js' {
+     interface ApiEndpointQuery<Definition extends QueryDefinition<any, any, any, any, any>, Definitions extends EndpointDefinitions> {
+         select: QueryResultSelectorFactory<Definition, _RootState<Definitions, TagTypesFrom<Definition>, ReducerPathFrom<Definition>>>;
+     }
+diff --git a/dist/query/core/buildSlice.d.ts b/dist/query/core/buildSlice.d.ts
+index a1f0165d8f36215ab6179a544985085e2d3c0ae0..6098fbdacd5982e2357bd4ccd3364cd951b72195 100644
+--- a/dist/query/core/buildSlice.d.ts
++++ b/dist/query/core/buildSlice.d.ts
+@@ -1,9 +1,9 @@
+-import type { AnyAction } from '@reduxjs/toolkit';
+-import type { CombinedState as CombinedQueryState, QuerySubstateIdentifier, MutationSubstateIdentifier, Subscribers, ConfigState } from './apiState';
+-import type { MutationThunk, QueryThunk } from './buildThunks';
+-import type { AssertTagTypes, EndpointDefinitions } from '../endpointDefinitions';
++import type { AnyAction } from '../../index.js';
++import type { CombinedState as CombinedQueryState, QuerySubstateIdentifier, MutationSubstateIdentifier, Subscribers, ConfigState } from './apiState.js';
++import type { MutationThunk, QueryThunk } from './buildThunks.js';
++import type { AssertTagTypes, EndpointDefinitions } from '../endpointDefinitions.js';
+ import type { Patch } from 'immer';
+-import type { ApiContext } from '../apiTypes';
++import type { ApiContext } from '../apiTypes.js';
+ export declare function getMutationCacheKey(id: MutationSubstateIdentifier | {
+     requestId: string;
+     arg: {
+diff --git a/dist/query/core/buildThunks.d.ts b/dist/query/core/buildThunks.d.ts
+index fe9539155ff2f71cd3c1fcf7000cced9fb76e131..c39aee625fad7d734c6bc5df9d2006fb1da9c601 100644
+--- a/dist/query/core/buildThunks.d.ts
++++ b/dist/query/core/buildThunks.d.ts
+@@ -1,16 +1,15 @@
+-import type { InternalSerializeQueryArgs } from '../defaultSerializeQueryArgs';
+-import type { Api, ApiContext } from '../apiTypes';
+-import type { BaseQueryFn, BaseQueryError } from '../baseQueryTypes';
+-import type { RootState, QueryKeys, QuerySubstateIdentifier } from './apiState';
+-import type { StartQueryActionCreatorOptions, QueryActionCreatorResult } from './buildInitiate';
+-import { AssertTagTypes, EndpointDefinition, EndpointDefinitions, MutationDefinition, QueryArgFrom, QueryDefinition, ResultTypeFrom } from '../endpointDefinitions';
+-import type { Draft } from '@reduxjs/toolkit';
++import type { InternalSerializeQueryArgs } from '../defaultSerializeQueryArgs.js';
++import type { Api, ApiContext } from '../apiTypes.js';
++import type { BaseQueryFn, BaseQueryError } from '../baseQueryTypes.js';
++import type { RootState, QueryKeys, QuerySubstateIdentifier } from './apiState.js';
++import type { StartQueryActionCreatorOptions, QueryActionCreatorResult } from './buildInitiate.js';
++import { AssertTagTypes, EndpointDefinition, EndpointDefinitions, MutationDefinition, QueryArgFrom, QueryDefinition, ResultTypeFrom } from '../endpointDefinitions.js';
+ import type { Patch } from 'immer';
+-import type { AnyAction, ThunkAction, AsyncThunk } from '@reduxjs/toolkit';
+-import { SHOULD_AUTOBATCH } from '@reduxjs/toolkit';
+-import type { PrefetchOptions } from './module';
+-import type { UnwrapPromise } from '../tsHelpers';
+-declare module './module' {
++import type { AnyAction, ThunkAction, AsyncThunk, Draft } from '../../index.js';
++import { SHOULD_AUTOBATCH } from '../../index.js';
++import type { PrefetchOptions } from './module.js';
++import type { UnwrapPromise } from '../tsHelpers.js';
++declare module './module.js' {
+     interface ApiEndpointQuery<Definition extends QueryDefinition<any, any, any, any, any>, Definitions extends EndpointDefinitions> extends Matchers<QueryThunk, Definition> {
+     }
+     interface ApiEndpointMutation<Definition extends MutationDefinition<any, any, any, any, any>, Definitions extends EndpointDefinitions> extends Matchers<MutationThunk, Definition> {
+diff --git a/dist/query/core/index.d.ts b/dist/query/core/index.d.ts
+index 8873cb3f5e6de5f57b44ce2593c7740e488b21cb..4a619167dc795c4669d052730fae58a18347fdfd 100644
+--- a/dist/query/core/index.d.ts
++++ b/dist/query/core/index.d.ts
+@@ -1,4 +1,4 @@
+-import { CreateApi } from '../createApi';
+-import { coreModule, coreModuleName } from './module';
++import { CreateApi } from '../createApi.js';
++import { coreModule, coreModuleName } from './module.js';
+ declare const createApi: CreateApi<typeof coreModuleName>;
+ export { createApi, coreModule };
+diff --git a/dist/query/core/module.d.ts b/dist/query/core/module.d.ts
+index 4bea4fe120cac94beb97039be4850f1d6a656ca8..c9f5bffd029dcfe627dc012bca6d7ef97236781d 100644
+--- a/dist/query/core/module.d.ts
++++ b/dist/query/core/module.d.ts
+@@ -1,21 +1,21 @@
+ /**
+  * Note: this file should import all other files for type discovery and declaration merging
+  */
+-import type { PatchQueryDataThunk, UpdateQueryDataThunk, UpsertQueryDataThunk } from './buildThunks';
+-import './buildThunks';
+-import type { ActionCreatorWithPayload, AnyAction, Middleware, Reducer, ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
+-import type { EndpointDefinitions, QueryArgFrom, QueryDefinition, MutationDefinition, TagDescription } from '../endpointDefinitions';
+-import type { CombinedState, QueryKeys, MutationKeys, RootState } from './apiState';
+-import type { Module } from '../apiTypes';
+-import { onFocus, onFocusLost, onOnline, onOffline } from './setupListeners';
+-import './buildSelectors';
+-import type { MutationActionCreatorResult, QueryActionCreatorResult } from './buildInitiate';
+-import './buildInitiate';
+-import type { SliceActions } from './buildSlice';
+-import type { BaseQueryFn } from '../baseQueryTypes';
+-import type { ReferenceCacheLifecycle } from './buildMiddleware/cacheLifecycle';
+-import type { ReferenceQueryLifecycle } from './buildMiddleware/queryLifecycle';
+-import type { ReferenceCacheCollection } from './buildMiddleware/cacheCollection';
++import type { PatchQueryDataThunk, UpdateQueryDataThunk, UpsertQueryDataThunk } from './buildThunks.js';
++import './buildThunks.js';
++import type { ActionCreatorWithPayload, AnyAction, Middleware, Reducer, ThunkAction, ThunkDispatch } from '../../index.js';
++import type { EndpointDefinitions, QueryArgFrom, QueryDefinition, MutationDefinition, TagDescription } from '../endpointDefinitions.js';
++import type { CombinedState, QueryKeys, MutationKeys, RootState } from './apiState.js';
++import type { Module } from '../apiTypes.js';
++import { onFocus, onFocusLost, onOnline, onOffline } from './setupListeners.js';
++import './buildSelectors.js';
++import type { MutationActionCreatorResult, QueryActionCreatorResult } from './buildInitiate.js';
++import './buildInitiate.js';
++import type { SliceActions } from './buildSlice.js';
++import type { BaseQueryFn } from '../baseQueryTypes.js';
++import type { ReferenceCacheLifecycle } from './buildMiddleware/cacheLifecycle.js';
++import type { ReferenceQueryLifecycle } from './buildMiddleware/queryLifecycle.js';
++import type { ReferenceCacheCollection } from './buildMiddleware/cacheCollection.js';
+ /**
+  * `ifOlderThan` - (default: `false` | `number`) - _number is value in seconds_
+  * - If specified, it will only run the query if the difference between `new Date()` and the last `fulfilledTimeStamp` is greater than the given value
+@@ -33,7 +33,7 @@ export declare const coreModuleName: unique symbol;
+ export type CoreModule = typeof coreModuleName | ReferenceCacheLifecycle | ReferenceQueryLifecycle | ReferenceCacheCollection;
+ interface ThunkWithReturnValue<T> extends ThunkAction<T, any, any, AnyAction> {
+ }
+-declare module '../apiTypes' {
++declare module '../apiTypes.js' {
+     interface ApiModules<BaseQuery extends BaseQueryFn, Definitions extends EndpointDefinitions, ReducerPath extends string, TagTypes extends string> {
+         [coreModuleName]: {
+             /**
+diff --git a/dist/query/createApi.d.ts b/dist/query/createApi.d.ts
+index 39c5cb3a22aa1a265a6c36bbbc277256a0cfbc9b..88be91e3dc9bfd62d48f4ca3436312d7e40a712c 100644
+--- a/dist/query/createApi.d.ts
++++ b/dist/query/createApi.d.ts
+@@ -1,10 +1,10 @@
+-import type { Api, Module, ModuleName } from './apiTypes';
+-import type { CombinedState } from './core/apiState';
+-import type { BaseQueryArg, BaseQueryFn } from './baseQueryTypes';
+-import { SerializeQueryArgs } from './defaultSerializeQueryArgs';
+-import type { EndpointBuilder, EndpointDefinitions } from './endpointDefinitions';
+-import type { AnyAction } from '@reduxjs/toolkit';
+-import type { NoInfer } from './tsHelpers';
++import type { Api, Module, ModuleName } from './apiTypes.js';
++import type { CombinedState } from './core/apiState.js';
++import type { BaseQueryArg, BaseQueryFn } from './baseQueryTypes.js';
++import { SerializeQueryArgs } from './defaultSerializeQueryArgs.js';
++import type { EndpointBuilder, EndpointDefinitions } from './endpointDefinitions.js';
++import type { AnyAction } from '../index.js';
++import type { NoInfer } from './tsHelpers.js';
+ export interface CreateApiOptions<BaseQuery extends BaseQueryFn, Definitions extends EndpointDefinitions, ReducerPath extends string = 'api', TagTypes extends string = never> {
+     /**
+      * The base query used by each endpoint if no `queryFn` option is specified. RTK Query exports a utility called [fetchBaseQuery](./fetchBaseQuery) as a lightweight wrapper around `fetch` for common use-cases. See [Customizing Queries](../../rtk-query/usage/customizing-queries) if `fetchBaseQuery` does not handle your requirements.
+diff --git a/dist/query/defaultSerializeQueryArgs.d.ts b/dist/query/defaultSerializeQueryArgs.d.ts
+index 5db106db9952da969da1dac8ff0fa66c88ddab48..e61db1e898b34d2489269fc1841fc50b208210d8 100644
+--- a/dist/query/defaultSerializeQueryArgs.d.ts
++++ b/dist/query/defaultSerializeQueryArgs.d.ts
+@@ -1,5 +1,5 @@
+-import type { QueryCacheKey } from './core/apiState';
+-import type { EndpointDefinition } from './endpointDefinitions';
++import type { QueryCacheKey } from './core/apiState.js';
++import type { EndpointDefinition } from './endpointDefinitions.js';
+ export declare const defaultSerializeQueryArgs: SerializeQueryArgs<any>;
+ export type SerializeQueryArgs<QueryArgs, ReturnType = string> = (_: {
+     queryArgs: QueryArgs;
+diff --git a/dist/query/endpointDefinitions.d.ts b/dist/query/endpointDefinitions.d.ts
+index 44a9c6591021402ec2a90b8461ee59156658ff6e..8d73bcc293d2c2cd453cb9f23b20715b6097c31f 100644
+--- a/dist/query/endpointDefinitions.d.ts
++++ b/dist/query/endpointDefinitions.d.ts
+@@ -1,9 +1,9 @@
+-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+-import { SerializeQueryArgs } from './defaultSerializeQueryArgs';
+-import type { QuerySubState, RootState } from './core/apiState';
+-import type { BaseQueryExtraOptions, BaseQueryFn, BaseQueryResult, BaseQueryArg, BaseQueryApi, QueryReturnValue, BaseQueryError, BaseQueryMeta } from './baseQueryTypes';
+-import type { HasRequiredProps, MaybePromise, OmitFromUnion, CastAny } from './tsHelpers';
+-import type { NEVER } from './fakeBaseQuery';
++import type { AnyAction, ThunkDispatch } from '../index.js';
++import { SerializeQueryArgs } from './defaultSerializeQueryArgs.js';
++import type { QuerySubState, RootState } from './core/apiState.js';
++import type { BaseQueryExtraOptions, BaseQueryFn, BaseQueryResult, BaseQueryArg, BaseQueryApi, QueryReturnValue, BaseQueryError, BaseQueryMeta } from './baseQueryTypes.js';
++import type { HasRequiredProps, MaybePromise, OmitFromUnion, CastAny } from './tsHelpers.js';
++import type { NEVER } from './fakeBaseQuery.js';
+ declare const resultType: unique symbol;
+ declare const baseQuery: unique symbol;
+ interface EndpointDefinitionWithQuery<QueryArg, BaseQuery extends BaseQueryFn, ResultType> {
+diff --git a/dist/query/fakeBaseQuery.d.ts b/dist/query/fakeBaseQuery.d.ts
+index 54bb9b3c86f0f14a6477a6fac2dba91ad06fbc1f..72bdf3560fcb668181dfc05e412d61caf4c37152 100644
+--- a/dist/query/fakeBaseQuery.d.ts
++++ b/dist/query/fakeBaseQuery.d.ts
+@@ -1,4 +1,4 @@
+-import type { BaseQueryFn } from './baseQueryTypes';
++import type { BaseQueryFn } from './baseQueryTypes.js';
+ declare const _NEVER: unique symbol;
+ export type NEVER = typeof _NEVER;
+ /**
+diff --git a/dist/query/fetchBaseQuery.d.ts b/dist/query/fetchBaseQuery.d.ts
+index 43e1c37d1948218451769cad48599eed7c669cee..b2de37d757b1a6be99e7e9ec0107804a4718b592 100644
+--- a/dist/query/fetchBaseQuery.d.ts
++++ b/dist/query/fetchBaseQuery.d.ts
+@@ -1,5 +1,5 @@
+-import type { BaseQueryApi, BaseQueryFn } from './baseQueryTypes';
+-import type { MaybePromise, Override } from './tsHelpers';
++import type { BaseQueryApi, BaseQueryFn } from './baseQueryTypes.js';
++import type { MaybePromise, Override } from './tsHelpers.js';
+ export type ResponseHandler = 'content-type' | 'json' | 'text' | ((response: Response) => Promise<any>);
+ type CustomRequestInit = Override<RequestInit, {
+     headers?: Headers | string[][] | Record<string, string | undefined> | undefined;
+diff --git a/dist/query/index.d.ts b/dist/query/index.d.ts
+index 58a53c0d5ec412e42fa2206b4f4fd48980528af7..fd14c09fafd18a18cec527bec4327978e5d28ee2 100644
+--- a/dist/query/index.d.ts
++++ b/dist/query/index.d.ts
+@@ -1,15 +1,18 @@
+-export { QueryStatus } from './core/apiState';
+-export type { Api, Module, ApiModules } from './apiTypes';
+-export type { BaseQueryApi, BaseQueryEnhancer, BaseQueryFn, } from './baseQueryTypes';
+-export type { EndpointDefinitions, EndpointDefinition, QueryDefinition, MutationDefinition, TagDescription, } from './endpointDefinitions';
+-export { fetchBaseQuery } from './fetchBaseQuery';
+-export type { FetchBaseQueryError, FetchBaseQueryMeta, FetchArgs, } from './fetchBaseQuery';
+-export { retry } from './retry';
+-export { setupListeners } from './core/setupListeners';
+-export { skipSelector, skipToken, SkipToken } from './core/buildSelectors';
+-export type { CreateApi, CreateApiOptions } from './createApi';
+-export { buildCreateApi } from './createApi';
+-export { fakeBaseQuery } from './fakeBaseQuery';
+-export { copyWithStructuralSharing } from './utils/copyWithStructuralSharing';
+-export { createApi, coreModule } from './core';
+-export { defaultSerializeQueryArgs } from './defaultSerializeQueryArgs';
++export { QueryStatus } from './core/apiState.js';
++export type { Api, Module, ApiModules } from './apiTypes.js';
++export type { BaseQueryApi, QueryReturnValue, BaseQueryFn, BaseQueryEnhancer, BaseQueryResult, BaseQueryMeta, BaseQueryError, BaseQueryArg, BaseQueryExtraOptions } from './baseQueryTypes.js';
++export type { EndpointDefinitions, EndpointDefinition, EndpointBuilder, QueryDefinition, MutationDefinition, TagDescription, } from './endpointDefinitions.js';
++export { fetchBaseQuery } from './fetchBaseQuery.js';
++export type { FetchBaseQueryError, FetchBaseQueryMeta, FetchArgs, } from './fetchBaseQuery.js';
++export { retry } from './retry.js';
++export { setupListeners } from './core/setupListeners.js';
++export { skipSelector, skipToken, SkipToken } from './core/buildSelectors.js';
++export type { CreateApi, CreateApiOptions } from './createApi.js';
++export { buildCreateApi } from './createApi.js';
++export { fakeBaseQuery } from './fakeBaseQuery.js';
++export { copyWithStructuralSharing } from './utils/copyWithStructuralSharing.js';
++export { createApi, coreModule } from './core/index.js';
++export { defaultSerializeQueryArgs } from './defaultSerializeQueryArgs.js';
++export * from './tsHelpers.js';
++export * from './core/module.js';
++export * from './core/apiState.js';
+\ No newline at end of file
+diff --git a/dist/query/react/ApiProvider.d.ts b/dist/query/react/ApiProvider.d.ts
+index bada99a0446e05b55cdd188334ff7e93fee1f3b7..b87fb9f3fcb17984724aa16a29de0e414a356cb3 100644
+--- a/dist/query/react/ApiProvider.d.ts
++++ b/dist/query/react/ApiProvider.d.ts
+@@ -1,7 +1,7 @@
+ import { Context } from 'react';
+ import type { ReactReduxContextValue } from 'react-redux';
+-import { setupListeners } from '@reduxjs/toolkit/query';
+-import type { Api } from '@reduxjs/toolkit/dist/query/apiTypes';
++import { setupListeners } from '../core/setupListeners.js';
++import type { Api } from '../apiTypes.js';
+ /**
+  * Can be used as a `Provider` if you **do not already have a Redux store**.
+  *
+@@ -10,7 +10,7 @@ import type { Api } from '@reduxjs/toolkit/dist/query/apiTypes';
+  * // codeblock-meta title="Basic usage - wrap your App with ApiProvider"
+  * import * as React from 'react';
+  * import { ApiProvider } from '@reduxjs/toolkit/query/react';
+- * import { Pokemon } from './features/Pokemon';
++ * import { Pokemon } from './features/Pokemon.js';
+  *
+  * function App() {
+  *   return (
+diff --git a/dist/query/react/buildHooks.d.ts b/dist/query/react/buildHooks.d.ts
+index c1f77991f0ac18fae63a862ecec2c82742d004a4..e50c678c17deb8a9f3fa5e3ac1d89a6f893c3307 100644
+--- a/dist/query/react/buildHooks.d.ts
++++ b/dist/query/react/buildHooks.d.ts
+@@ -1,16 +1,15 @@
+ import { useEffect } from 'react';
+-import { QueryStatus } from '@reduxjs/toolkit/query';
+-import type { QuerySubState, SubscriptionOptions, QueryKeys } from '@reduxjs/toolkit/dist/query/core/apiState';
+-import type { EndpointDefinitions, MutationDefinition, QueryDefinition, QueryArgFrom, ResultTypeFrom } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
+-import type { MutationResultSelectorResult, SkipToken } from '@reduxjs/toolkit/dist/query/core/buildSelectors';
+-import type { QueryActionCreatorResult, MutationActionCreatorResult } from '@reduxjs/toolkit/dist/query/core/buildInitiate';
+-import type { SerializeQueryArgs } from '@reduxjs/toolkit/dist/query/defaultSerializeQueryArgs';
+-import type { Api, ApiContext } from '@reduxjs/toolkit/dist/query/apiTypes';
+-import type { Id, NoInfer, Override } from '@reduxjs/toolkit/dist/query/tsHelpers';
+-import type { CoreModule, PrefetchOptions } from '@reduxjs/toolkit/dist/query/core/module';
+-import type { ReactHooksModuleOptions } from './module';
+-import type { UninitializedValue } from './constants';
+-import type { BaseQueryFn } from '../baseQueryTypes';
++import type { QuerySubState, SubscriptionOptions, QueryKeys, QueryStatus } from '../core/apiState.js';
++import type { EndpointDefinitions, MutationDefinition, QueryDefinition, QueryArgFrom, ResultTypeFrom } from '../endpointDefinitions.js';
++import type { MutationResultSelectorResult, SkipToken } from '../core/buildSelectors.js';
++import type { QueryActionCreatorResult, MutationActionCreatorResult } from '../core/buildInitiate.js';
++import type { SerializeQueryArgs } from '../defaultSerializeQueryArgs.js';
++import type { Api, ApiContext } from '../apiTypes.js';
++import type { Id, NoInfer, Override } from '../tsHelpers.js';
++import type { CoreModule, PrefetchOptions } from '../core/module.js';
++import type { ReactHooksModuleOptions } from './module.js';
++import type { UninitializedValue } from './constants.js';
++import type { BaseQueryFn } from '../baseQueryTypes.js';
+ export declare const useIsomorphicLayoutEffect: typeof useEffect;
+ export interface QueryHooks<Definition extends QueryDefinition<any, any, any, any, any>> {
+     useQuery: UseQuery<Definition>;
+diff --git a/dist/query/react/index.d.ts b/dist/query/react/index.d.ts
+index 2c7997675e6bb216d37c27e93888ebd532f32dfd..4a614a40a81d66ab385cbc3aa2fc0a21ba97b096 100644
+--- a/dist/query/react/index.d.ts
++++ b/dist/query/react/index.d.ts
+@@ -1,7 +1,8 @@
+-import { CreateApi } from '@reduxjs/toolkit/query';
+-import { reactHooksModule, reactHooksModuleName } from './module';
+-export * from '@reduxjs/toolkit/query';
+-export { ApiProvider } from './ApiProvider';
+-declare const createApi: CreateApi<typeof import("@reduxjs/toolkit/dist/query/core/module").coreModuleName | typeof reactHooksModuleName>;
+-export type { TypedUseQueryHookResult, TypedUseQueryStateResult, TypedUseQuerySubscriptionResult, TypedUseMutationResult, } from './buildHooks';
++import { CreateApi } from '../index.js';
++import { reactHooksModule, reactHooksModuleName } from './module.js';
++export * from './module.js';
++export * from '../index.js';
++export { ApiProvider } from './ApiProvider.js';
++declare const createApi: CreateApi<typeof import("../core/module.js").coreModuleName | typeof reactHooksModuleName>;
++export type { TypedUseQueryHookResult, TypedUseQueryStateResult, TypedUseQuerySubscriptionResult, TypedUseMutationResult, } from './buildHooks.js';
+ export { createApi, reactHooksModule };
+diff --git a/dist/query/react/module.d.ts b/dist/query/react/module.d.ts
+index 3e41a350c5f309888b74a08c4925be381a7b5d79..38e60b23c4a84adff59a7b134a8c2a391c6dd61a 100644
+--- a/dist/query/react/module.d.ts
++++ b/dist/query/react/module.d.ts
+@@ -1,13 +1,13 @@
+-import type { MutationHooks, QueryHooks } from './buildHooks';
+-import type { EndpointDefinitions, QueryDefinition, MutationDefinition, QueryArgFrom } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
+-import type { Module } from '../apiTypes';
+-import type { BaseQueryFn } from '@reduxjs/toolkit/dist/query/baseQueryTypes';
+-import type { HooksWithUniqueNames } from './namedHooks';
+-import type { QueryKeys } from '../core/apiState';
+-import type { PrefetchOptions } from '../core/module';
++import type { MutationHooks, QueryHooks } from './buildHooks.js';
++import type { EndpointDefinitions, QueryDefinition, MutationDefinition, QueryArgFrom } from '../endpointDefinitions.js';
++import type { Module } from '../apiTypes.js';
++import type { BaseQueryFn } from '../baseQueryTypes.js';
++import type { HooksWithUniqueNames } from './namedHooks.js';
++import type { QueryKeys } from '../core/apiState.js';
++import type { PrefetchOptions } from '../core/module.js';
+ export declare const reactHooksModuleName: unique symbol;
+ export type ReactHooksModule = typeof reactHooksModuleName;
+-declare module '@reduxjs/toolkit/dist/query/apiTypes' {
++declare module '../apiTypes.js' {
+     interface ApiModules<BaseQuery extends BaseQueryFn, Definitions extends EndpointDefinitions, ReducerPath extends string, TagTypes extends string> {
+         [reactHooksModuleName]: {
+             /**
+diff --git a/dist/query/react/namedHooks.d.ts b/dist/query/react/namedHooks.d.ts
+index a6bff9ab1adc48d42588188895769997114f8b9f..cdf7b5dac20fbba8d874e594731e88815c5ac113 100644
+--- a/dist/query/react/namedHooks.d.ts
++++ b/dist/query/react/namedHooks.d.ts
+@@ -1,5 +1,5 @@
+-import type { UseMutation, UseLazyQuery, UseQuery } from './buildHooks';
+-import type { DefinitionType, EndpointDefinitions, MutationDefinition, QueryDefinition } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
++import type { UseMutation, UseLazyQuery, UseQuery } from './buildHooks.js';
++import type { DefinitionType, EndpointDefinitions, MutationDefinition, QueryDefinition } from '../endpointDefinitions.js';
+ export type HooksWithUniqueNames<Definitions extends EndpointDefinitions> = keyof Definitions extends infer Keys ? Keys extends string ? Definitions[Keys] extends {
+     type: DefinitionType.query;
+ } ? {
+diff --git a/dist/query/react/useSerializedStableValue.d.ts b/dist/query/react/useSerializedStableValue.d.ts
+index 255015cce42ab5789841b69b469278c872d9a68c..b3c5b3d58e34f722857d799197aaba74738118bc 100644
+--- a/dist/query/react/useSerializedStableValue.d.ts
++++ b/dist/query/react/useSerializedStableValue.d.ts
+@@ -1,3 +1,3 @@
+-import type { SerializeQueryArgs } from '@reduxjs/toolkit/dist/query/defaultSerializeQueryArgs';
+-import type { EndpointDefinition } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
++import type { SerializeQueryArgs } from '../defaultSerializeQueryArgs.js';
++import type { EndpointDefinition } from '../endpointDefinitions.js';
+ export declare function useStableQueryArgs<T>(queryArgs: T, serialize: SerializeQueryArgs<any>, endpointDefinition: EndpointDefinition<any, any, any, any>, endpointName: string): T;
+diff --git a/dist/query/retry.d.ts b/dist/query/retry.d.ts
+index b4cd5555b74fe3508febc3ea292c7b9130f61ccb..acaf66f5c3d7ee38ad76c71e25150b53bf3d2da2 100644
+--- a/dist/query/retry.d.ts
++++ b/dist/query/retry.d.ts
+@@ -1,5 +1,5 @@
+-import type { BaseQueryApi, BaseQueryArg, BaseQueryEnhancer, BaseQueryExtraOptions, BaseQueryFn } from './baseQueryTypes';
+-import { FetchBaseQueryError } from './fetchBaseQuery';
++import type { BaseQueryApi, BaseQueryArg, BaseQueryEnhancer, BaseQueryExtraOptions, BaseQueryFn } from './baseQueryTypes.js';
++import { FetchBaseQueryError } from './fetchBaseQuery.js';
+ type RetryConditionFunction = (error: FetchBaseQueryError, args: BaseQueryArg<BaseQueryFn>, extraArgs: {
+     attempt: number;
+     baseQueryApi: BaseQueryApi;
+diff --git a/dist/query/utils/index.d.ts b/dist/query/utils/index.d.ts
+index dd1df9277b52e4a4e4fce89a57234b90b03b9b9a..fe00241f10ac65924b62c8f739e8123687852311 100644
+--- a/dist/query/utils/index.d.ts
++++ b/dist/query/utils/index.d.ts
+@@ -1,8 +1,8 @@
+-export * from './isAbsoluteUrl';
+-export * from './isValidUrl';
+-export * from './joinUrls';
+-export * from './flatten';
+-export * from './capitalize';
+-export * from './isOnline';
+-export * from './isDocumentVisible';
+-export * from './copyWithStructuralSharing';
++export * from './isAbsoluteUrl.js';
++export * from './isValidUrl.js';
++export * from './joinUrls.js';
++export * from './flatten.js';
++export * from './capitalize.js';
++export * from './isOnline.js';
++export * from './isDocumentVisible.js';
++export * from './copyWithStructuralSharing.js';
+diff --git a/dist/tsHelpers.d.ts b/dist/tsHelpers.d.ts
+index b6e74dfb620176013603fa72b89d3de2e4fb1ecb..d0f6fea62466cca0b524b6d9c49f93e30507a91a 100644
+--- a/dist/tsHelpers.d.ts
++++ b/dist/tsHelpers.d.ts
+@@ -1,5 +1,5 @@
+ import type { Middleware, StoreEnhancer } from 'redux';
+-import type { MiddlewareArray } from './utils';
++import type { MiddlewareArray } from './utils.js';
+ /**
+  * return True if T is `any`, otherwise return False
+  * taken from https://github.com/joonhocho/tsdef
