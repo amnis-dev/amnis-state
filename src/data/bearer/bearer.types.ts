@@ -8,7 +8,7 @@ export interface Bearer {
   /**
    * Bearer identifier.
    */
-  id: string;
+  $id: string;
 
   /**
    * Expiration date.

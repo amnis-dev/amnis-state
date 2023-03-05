@@ -5,6 +5,7 @@ import { otpBase, otpKey } from './otp.js';
 import type { UID } from '../../core/index.js';
 import { dateNumeric } from '../../core/index.js';
 import type { State } from '../../state.types.js';
+import { dataExtraReducers } from '../reducers.js';
 
 /**
  * Matcher for any otp action.
@@ -88,6 +89,11 @@ export const otpSlice = createSlice({
 
   },
   extraReducers: (builder) => {
+    /**
+     * Add common extra reducers.
+     */
+    dataExtraReducers(otpKey, otpAdapter, builder);
+
     /**
      * Match any otp action.
      */

@@ -1,5 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import { dataExtraReducers } from '../reducers.js';
 import { bearerKey } from './bearer.js';
 
 import type { Bearer, BearerMeta } from './bearer.types.js';
@@ -12,12 +13,12 @@ export const bearerAdapter = createEntityAdapter<Bearer>({
   /**
    * Identifiers are stored in the `$id` property.
    */
-  selectId: (entity) => entity.id,
+  selectId: (entity) => entity.$id,
 
   /**
    * In this case, sorting by ID is ideal.
    */
-  sortComparer: (a, b) => a.id.localeCompare(b.id),
+  sortComparer: (a, b) => a.$id.localeCompare(b.$id),
 });
 
 /**
@@ -25,7 +26,7 @@ export const bearerAdapter = createEntityAdapter<Bearer>({
  */
 export const bearerInitialState = bearerAdapter.getInitialState<BearerMeta>({});
 
-type BearerUpdater = {id: string} & Partial<Omit<Bearer, 'id'>>;
+type BearerUpdater = {$id: string} & Partial<Omit<Bearer, '$id'>>;
 
 /**
  * RTK Bearer Slice
@@ -38,22 +39,26 @@ export const bearerSlice = createSlice({
       bearerAdapter.removeAll(state);
     },
     update(state, action: PayloadAction<BearerUpdater>) {
-      const { id, ...changes } = action.payload;
+      const { $id, ...changes } = action.payload;
       bearerAdapter.updateOne(state, {
-        id,
+        id: $id,
         changes,
       });
     },
     updateMany(state, action: PayloadAction<BearerUpdater[]>) {
       const updaters = action.payload.map((updater) => {
-        const { id, ...changes } = updater;
-        return { id, changes };
+        const { $id, ...changes } = updater;
+        return { id: $id, changes };
       });
       bearerAdapter.updateMany(state, updaters);
     },
   },
-  // extraReducers: (builder) => {
-  // },
+  extraReducers: (builder) => {
+    /**
+     * Add common extra reducers.
+     */
+    dataExtraReducers(bearerKey, bearerAdapter, builder);
+  },
 });
 
 /**
