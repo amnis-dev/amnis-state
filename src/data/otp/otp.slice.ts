@@ -4,7 +4,6 @@ import type { Otp, OtpMeta } from './otp.types.js';
 import { otpBase, otpKey } from './otp.js';
 import type { UID } from '../../core/index.js';
 import { dateNumeric } from '../../core/index.js';
-import { apiAuth } from '../../api/index.js';
 import type { State } from '../../state.types.js';
 
 /**
@@ -102,21 +101,6 @@ export const otpSlice = createSlice({
         .map((e) => e?.$id) as UID<Otp>[];
 
       otpAdapter.removeMany(state, expiredIds);
-    });
-
-    /**
-     * Match the otp api fullfilled response and add the returned OTP.
-     */
-    builder.addMatcher(apiAuth.endpoints.otp.matchFulfilled, (state, action) => {
-      const { payload: { result } } = action;
-
-      if (result) {
-        otpAdapter.addOne(
-          state,
-          result,
-        );
-        state.latest = result.$id;
-      }
     });
   },
 });

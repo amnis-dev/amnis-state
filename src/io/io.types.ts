@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { BaseQueryFn, FetchArgs } from '@reduxjs/toolkit/query';
-import type { EnhancedStore } from '@reduxjs/toolkit';
+import type { ToolkitStore } from '@reduxjs/toolkit';
 
 import type {
   Bearer, Challenge, Otp, LogCreator, Session, Credential,
@@ -33,7 +33,7 @@ export interface IoContext {
   /**
    * Predicable application state.
    */
-  store: EnhancedStore;
+  store: ToolkitStore;
 
   /**
    * Interface for storing structured data.

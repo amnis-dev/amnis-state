@@ -1,6 +1,5 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import type { EntityState, PayloadAction } from '@reduxjs/toolkit';
-import { apiExtraReducers } from '../../../api.reducers.js';
 import { coreExtraReducers, coreReducers } from '../../../reducers.js';
 import { coreSelectors } from '../../../selectors.js';
 import { metaInitial } from '../entity.js';
@@ -80,10 +79,6 @@ export const roleSlice = createSlice({
      * Required: Enables mutations from core actions.
      */
     coreExtraReducers(roleKey, roleAdapter, builder);
-    /**
-     * Required: Enables mutations from api requests.
-     */
-    apiExtraReducers(roleKey, roleAdapter, builder);
     // /**
     //  * Match a role update action.
     //  * This will update cached role combinations.

@@ -1,5 +1,4 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { apiExtraReducers } from '../../../api.reducers.js';
 import { coreExtraReducers, coreReducers } from '../../../reducers.js';
 import { coreSelectors } from '../../../selectors.js';
 import { metaInitial } from '../entity.js';
@@ -47,10 +46,6 @@ export const credentialSlice = createSlice({
      * Required: Enables mutations from core actions.
      */
     coreExtraReducers(credentialKey, credentialAdapter, builder);
-    /**
-     * Required: Enables mutations from api requests.
-     */
-    apiExtraReducers(credentialKey, credentialAdapter, builder);
   },
 });
 

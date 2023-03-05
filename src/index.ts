@@ -10,7 +10,6 @@ export * from './store.js';
 export * from './context.js';
 export * from './agent.js';
 
-export * from './api/index.js';
 export * from './core/index.js';
 export * from './data/index.js';
 export * from './io/index.js';

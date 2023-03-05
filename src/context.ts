@@ -1,10 +1,19 @@
 import { coreActions } from './actions.js';
 import {
-  systemKey, dataInitial, roleKey, systemActions,
+  systemKey,
+  dataInitial,
+  roleKey,
+  systemActions,
 } from './data/index.js';
-import type { IoContext, Validators } from './io/index.js';
+import type {
+  IoContext,
+  Validators,
+} from './io/index.js';
 import {
-  cryptoWeb, databaseMemory, filesystemMemory, sendMemory,
+  cryptoWeb,
+  databaseMemory,
+  filesystemMemory,
+  sendMemory,
 } from './io/index.js';
 import type { StateEntities } from './state.types.js';
 import { storeSetup } from './store.js';

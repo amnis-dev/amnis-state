@@ -11,7 +11,6 @@ test('should setup store with all reducers and state', () => {
    */
   expect(Object.keys(state)).toEqual([
     ...Object.keys(slices),
-    'apiAuth', 'apiCrud',
   ]);
 
   /**

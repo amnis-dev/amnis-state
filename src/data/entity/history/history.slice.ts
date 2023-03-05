@@ -1,5 +1,4 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { apiExtraReducers } from '../../../api.reducers.js';
 import { coreExtraReducers, coreReducers } from '../../../reducers.js';
 import { coreSelectors } from '../../../selectors.js';
 import { metaInitial } from '../entity.js';
@@ -47,10 +46,6 @@ export const historySlice = createSlice({
      * Required: Enables mutations from core actions.
      */
     coreExtraReducers(historyKey, historyAdapter, builder);
-    /**
-     * Required: Enables mutations from api requests.
-     */
-    apiExtraReducers(historyKey, historyAdapter, builder);
   },
 });
 

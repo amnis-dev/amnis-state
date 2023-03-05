@@ -1,6 +1,5 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { apiAuth } from '../../api/index.js';
 import { bearerKey } from './bearer.js';
 
 import type { Bearer, BearerMeta } from './bearer.types.js';
@@ -53,61 +52,8 @@ export const bearerSlice = createSlice({
       bearerAdapter.updateMany(state, updaters);
     },
   },
-  extraReducers: (builder) => {
-    /**
-     * Get bearers from a successful authentication (logging in with an existing session).
-     */
-    builder.addMatcher(apiAuth.endpoints.authenticate.matchFulfilled, (state, action) => {
-      const { payload } = action;
-      const { bearers } = payload;
-
-      if (bearers?.length) {
-        bearerAdapter.upsertMany(state, bearers);
-      }
-    });
-
-    /**
-     * Get bearers from a successful login.
-     */
-    builder.addMatcher(apiAuth.endpoints.login.matchFulfilled, (state, action) => {
-      const { payload } = action;
-      const { bearers } = payload;
-
-      if (bearers?.length) {
-        bearerAdapter.upsertMany(state, bearers);
-      }
-    });
-
-    /**
-     * Get bearers from a successful registration.
-     */
-    builder.addMatcher(apiAuth.endpoints.register.matchFulfilled, (state, action) => {
-      const { payload: { bearers } } = action;
-
-      if (bearers?.length) {
-        bearerAdapter.upsertMany(state, bearers);
-      }
-    });
-
-    /**
-     * Remove core bearer on logout. Wipes the token when the logout is triggered.
-     */
-    builder.addMatcher(apiAuth.endpoints.logout.matchPending, (state) => {
-      bearerAdapter.removeAll(state);
-    });
-
-    /**
-     * Get bearers from a successful pkce auth flow.
-     */
-    builder.addMatcher(apiAuth.endpoints.pkce.matchFulfilled, (state, action) => {
-      const { payload } = action;
-      const { bearers } = payload;
-
-      if (bearers?.length) {
-        bearerAdapter.upsertMany(state, bearers);
-      }
-    });
-  },
+  // extraReducers: (builder) => {
+  // },
 });
 
 /**

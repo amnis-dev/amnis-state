@@ -1,6 +1,4 @@
-import { createEntityAdapter, createSlice, isAnyOf } from '@reduxjs/toolkit';
-import { apiExtraReducers } from '../../../api.reducers.js';
-import { apiAuth } from '../../../api/index.js';
+import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { coreExtraReducers, coreReducers } from '../../../reducers.js';
 import { coreSelectors } from '../../../selectors.js';
 import { metaInitial } from '../entity.js';
@@ -51,27 +49,6 @@ export const sessionSlice = createSlice({
      * Required: Enables mutations from core actions.
      */
     coreExtraReducers(sessionKey, sessionAdapter, builder);
-
-    /**
-     * Required: Enables mutations from api requests.
-     */
-    apiExtraReducers(sessionKey, sessionAdapter, builder);
-
-    /**
-     * Delete the active session on a logout response.
-     * Fulfilment or rejection, the client data is still cleared.
-     */
-    builder.addMatcher(isAnyOf(
-      apiAuth.endpoints.logout.matchFulfilled,
-      apiAuth.endpoints.logout.matchRejected,
-    ), (state) => {
-      const activeId = state.active;
-      if (!activeId) {
-        return;
-      }
-
-      sessionAdapter.removeOne(state, activeId);
-    });
   },
 });
 
