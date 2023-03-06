@@ -1,6 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { dataExtraReducers } from '../reducers.js';
+import { dataExtraReducers } from '../data.reducers.js';
 import { bearerKey } from './bearer.js';
 
 import type { Bearer, BearerMeta } from './bearer.types.js';

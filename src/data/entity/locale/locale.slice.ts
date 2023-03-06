@@ -1,6 +1,7 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { coreExtraReducers, coreReducers } from '../../../reducers.js';
-import { coreSelectors } from '../../../selectors.js';
+import { entityExtraReducers, entityReducers } from '../entity.reducers.js';
+import { entitySelectors } from '../entity.selectors.js';
+import { dataExtraReducers } from '../../data.reducers.js';
 import { metaInitial } from '../entity.js';
 import type { Entity } from '../entity.types.js';
 import { localeKey } from './locale.js';
@@ -39,13 +40,18 @@ export const localeSlice = createSlice({
     /**
      * Common reducers and actions.
      */
-    ...coreReducers<Locale>(localeKey, localeAdapter),
+    ...entityReducers<Locale>(localeKey, localeAdapter),
   },
   extraReducers: (builder) => {
     /**
+     * Add common extra reducers.
+     */
+    dataExtraReducers(localeKey, localeAdapter, builder);
+
+    /**
      * Required: Enables mutations from core actions.
      */
-    coreExtraReducers(localeKey, localeAdapter, builder);
+    entityExtraReducers(localeKey, localeAdapter, builder);
   },
 });
 
@@ -72,7 +78,7 @@ export const localeSelectors = {
   /**
    * Gets core selectors.
    */
-  ...coreSelectors<Locale>(localeKey),
+  ...entitySelectors<Locale>(localeKey),
 };
 
 /**

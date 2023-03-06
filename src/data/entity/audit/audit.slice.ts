@@ -1,6 +1,7 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { coreExtraReducers, coreReducers } from '../../../reducers.js';
-import { coreSelectors } from '../../../selectors.js';
+import { entityExtraReducers, entityReducers } from '../entity.reducers.js';
+import { entitySelectors } from '../entity.selectors.js';
+import { dataExtraReducers } from '../../data.reducers.js';
 import { metaInitial } from '../entity.js';
 import type { Entity } from '../entity.types.js';
 import { auditKey } from './audit.js';
@@ -39,13 +40,18 @@ export const auditSlice = createSlice({
     /**
      * Common reducers and actions.
      */
-    ...coreReducers<Audit>(auditKey, auditAdapter),
+    ...entityReducers<Audit>(auditKey, auditAdapter),
   },
   extraReducers: (builder) => {
     /**
+     * Add common extra reducers.
+     */
+    dataExtraReducers(auditKey, auditAdapter, builder);
+
+    /**
      * Required: Enables mutations from core actions.
      */
-    coreExtraReducers(auditKey, auditAdapter, builder);
+    entityExtraReducers(auditKey, auditAdapter, builder);
     /**
      * Required: Enables mutations from api requests.
      */
@@ -76,7 +82,7 @@ export const auditSelectors = {
   /**
    * Gets core selectors.
    */
-  ...coreSelectors<Audit>(auditKey),
+  ...entitySelectors<Audit>(auditKey),
 };
 
 /**

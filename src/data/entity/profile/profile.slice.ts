@@ -1,6 +1,7 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { coreExtraReducers, coreReducers } from '../../../reducers.js';
-import { coreSelectors } from '../../../selectors.js';
+import { entityExtraReducers, entityReducers } from '../entity.reducers.js';
+import { entitySelectors } from '../entity.selectors.js';
+import { dataExtraReducers } from '../../data.reducers.js';
 import { metaInitial } from '../entity.js';
 import type { Entity } from '../entity.types.js';
 import { profileKey } from './profile.js';
@@ -39,13 +40,18 @@ export const profileSlice = createSlice({
     /**
      * Common reducers and actions.
      */
-    ...coreReducers<Profile>(profileKey, profileAdapter),
+    ...entityReducers<Profile>(profileKey, profileAdapter),
   },
   extraReducers: (builder) => {
     /**
+     * Add common extra reducers.
+     */
+    dataExtraReducers(profileKey, profileAdapter, builder);
+
+    /**
      * Required: Enables mutations from core actions.
      */
-    coreExtraReducers(profileKey, profileAdapter, builder);
+    entityExtraReducers(profileKey, profileAdapter, builder);
   },
 });
 
@@ -72,7 +78,7 @@ export const profileSelectors = {
   /**
    * Gets core selectors.
    */
-  ...coreSelectors<Profile>(profileKey),
+  ...entitySelectors<Profile>(profileKey),
 };
 
 /**

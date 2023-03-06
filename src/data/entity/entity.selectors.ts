@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import type { Dictionary, EntityState } from '@reduxjs/toolkit';
 import { createSelector } from '@reduxjs/toolkit';
-import type { State } from './state.types.js';
-import type { UID } from './core/index.js';
+import type { State } from '../../state.types.js';
+import type { UID } from '../../core/index.js';
 import type {
   Bearer,
   Grant,
@@ -13,7 +13,7 @@ import type {
   EntityCreator,
   MetaState,
   EntityUpdater,
-} from './data/index.js';
+} from '../index.js';
 
 /**
  * Creates a slice selector.
@@ -257,7 +257,7 @@ export interface CoreSelectors<C extends EntityCreator> {
 /**
  * Create the selector utility object.
  */
-export function coreSelectors<C extends EntityCreator>(sliceKey: string): CoreSelectors<C> {
+export function entitySelectors<C extends EntityCreator>(sliceKey: string): CoreSelectors<C> {
   return {
     selectActive: genSelectActive<Entity<C>>(sliceKey),
     selectFocused: genSelectFocused<Entity<C>>(sliceKey),

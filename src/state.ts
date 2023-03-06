@@ -8,7 +8,7 @@ import type {
 } from './data/index.js';
 import {
   entityCreate,
-} from './data/entity/index.js';
+} from './data/entity/entity.js';
 import type {
   State,
   StateCreator,

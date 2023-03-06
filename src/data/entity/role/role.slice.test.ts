@@ -122,7 +122,7 @@ test('should create a new role combination and update it', () => {
   //   [ 'slice3', GrantScope.Global, grantTask(0, 1, 1, 0) ],
   // ];
 
-  // store.dispatch(coreActions.update({
+  // store.dispatch(dataActions.update({
   //   [roleKey]: [
   //     {
   //       $id: role2.$id,

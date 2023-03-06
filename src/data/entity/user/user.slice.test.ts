@@ -5,7 +5,7 @@ import {
 } from './user.slice.js';
 
 import { storeSetup } from '../../../store.js';
-import { coreActions } from '../../../actions.js';
+import { entityActions } from '../entity.actions.js';
 
 /**
  * ============================================================
@@ -24,7 +24,7 @@ test('user should return the initial state', () => {
 test('should not generically create a new user with mismatched keys', () => {
   const store = storeSetup();
 
-  const action = coreActions.create({
+  const action = entityActions.create({
     [`not_${userKey}`]: [
       userCreator({
         handle: 'eCrow',
@@ -44,7 +44,7 @@ test('should not generically create a new user with mismatched keys', () => {
 test('should handle generically creating a new user', () => {
   const store = storeSetup();
 
-  const action = coreActions.create({
+  const action = entityActions.create({
     [userKey]: [
       userCreator({
         handle: 'eCrow',

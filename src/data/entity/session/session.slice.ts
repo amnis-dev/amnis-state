@@ -1,6 +1,7 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { coreExtraReducers, coreReducers } from '../../../reducers.js';
-import { coreSelectors } from '../../../selectors.js';
+import { entityExtraReducers, entityReducers } from '../entity.reducers.js';
+import { entitySelectors } from '../entity.selectors.js';
+import { dataExtraReducers } from '../../data.reducers.js';
 import { metaInitial } from '../entity.js';
 import type { Entity } from '../entity.types.js';
 import { sessionKey } from './session.js';
@@ -42,13 +43,18 @@ export const sessionSlice = createSlice({
     /**
      * Common reducers and actions.
      */
-    ...coreReducers<Session>(sessionKey, sessionAdapter),
+    ...entityReducers<Session>(sessionKey, sessionAdapter),
   },
   extraReducers: (builder) => {
     /**
+     * Add common extra reducers.
+     */
+    dataExtraReducers(sessionKey, sessionAdapter, builder);
+
+    /**
      * Required: Enables mutations from core actions.
      */
-    coreExtraReducers(sessionKey, sessionAdapter, builder);
+    entityExtraReducers(sessionKey, sessionAdapter, builder);
   },
 });
 
@@ -75,7 +81,7 @@ export const sessionSelectors = {
   /**
    * Gets core selectors.
    */
-  ...coreSelectors<Session>(sessionKey),
+  ...entitySelectors<Session>(sessionKey),
 };
 
 /**

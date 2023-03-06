@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import type { ActionReducerMapBuilder, EntityState, EntityStateAdapter } from '@reduxjs/toolkit';
 import type { State } from '../state.types.js';
-import { dataActions } from './actions.js';
+import { dataActions } from './data.actions.js';
 import type { DataEntity } from './types.js';
 
 export function dataExtraReducers<
@@ -30,8 +30,13 @@ export function dataExtraReducers<
   builder.addCase(dataActions.delete, (state, { payload }) => {
     if (payload[key] && Array.isArray(payload[key])) {
       /** @ts-ignore */
-      adapter.updateMany(state, payload[key]);
+      adapter.removeMany(state, payload[key]);
     }
+  });
+
+  builder.addCase(dataActions.wipe, (state) => {
+    /** @ts-ignore */
+    adapter.removeAll(state);
   });
 }
 

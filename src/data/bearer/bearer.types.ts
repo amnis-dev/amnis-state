@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import type { DateNumeric } from '../../core/index.js';
+import type { DateNumeric, UID } from '../../core/index.js';
 
 /**
  * An interface for a bearer.
@@ -8,7 +8,7 @@ export interface Bearer {
   /**
    * Bearer identifier.
    */
-  $id: string;
+  $id: UID;
 
   /**
    * Expiration date.

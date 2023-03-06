@@ -5,7 +5,7 @@ import { otpBase, otpKey } from './otp.js';
 import type { UID } from '../../core/index.js';
 import { dateNumeric } from '../../core/index.js';
 import type { State } from '../../state.types.js';
-import { dataExtraReducers } from '../reducers.js';
+import { dataExtraReducers } from '../data.reducers.js';
 
 /**
  * Matcher for any otp action.

@@ -1,9 +1,9 @@
-import { coreActions } from './actions.js';
 import {
   systemKey,
   dataInitial,
   roleKey,
   systemActions,
+  dataActions,
 } from './data/index.js';
 import type {
   IoContext,
@@ -71,7 +71,7 @@ export async function contextSetup(options: ContextOptions = {}): Promise<IoCont
           [systemKey]: createResult[systemKey],
           [roleKey]: createResult[roleKey],
         };
-        storeNext.dispatch(coreActions.insert(serviceResult));
+        storeNext.dispatch(dataActions.create(serviceResult));
         storeNext.dispatch(systemActions.activeSet(system.$id));
       }
     } else if (initialize === true) {
@@ -80,7 +80,7 @@ export async function contextSetup(options: ContextOptions = {}): Promise<IoCont
         [systemKey]: readResult[systemKey],
         [roleKey]: readResult[roleKey],
       };
-      storeNext.dispatch(coreActions.insert(serviceResult));
+      storeNext.dispatch(dataActions.create(serviceResult));
       storeNext.dispatch(systemActions.activeSet(system.$id));
     }
   }

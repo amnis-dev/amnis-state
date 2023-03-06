@@ -1,6 +1,7 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { coreExtraReducers, coreReducers } from '../../../reducers.js';
-import { coreSelectors } from '../../../selectors.js';
+import { entityExtraReducers, entityReducers } from '../entity.reducers.js';
+import { entitySelectors } from '../entity.selectors.js';
+import { dataExtraReducers } from '../../data.reducers.js';
 import { metaInitial } from '../entity.js';
 import type { Entity } from '../entity.types.js';
 import { noteKey } from './note.js';
@@ -39,13 +40,18 @@ export const noteSlice = createSlice({
     /**
      * Common reducers and actions.
      */
-    ...coreReducers<Note>(noteKey, noteAdapter),
+    ...entityReducers<Note>(noteKey, noteAdapter),
   },
   extraReducers: (builder) => {
     /**
+     * Add common extra reducers.
+     */
+    dataExtraReducers(noteKey, noteAdapter, builder);
+
+    /**
      * Required: Enables mutations from core actions.
      */
-    coreExtraReducers(noteKey, noteAdapter, builder);
+    entityExtraReducers(noteKey, noteAdapter, builder);
   },
 });
 
@@ -72,7 +78,7 @@ export const noteSelectors = {
   /**
    * Gets core selectors.
    */
-  ...coreSelectors<Note>(noteKey),
+  ...entitySelectors<Note>(noteKey),
 };
 
 /**

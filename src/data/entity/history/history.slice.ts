@@ -1,6 +1,7 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { coreExtraReducers, coreReducers } from '../../../reducers.js';
-import { coreSelectors } from '../../../selectors.js';
+import { entityExtraReducers, entityReducers } from '../entity.reducers.js';
+import { entitySelectors } from '../entity.selectors.js';
+import { dataExtraReducers } from '../../data.reducers.js';
 import { metaInitial } from '../entity.js';
 import type { Entity } from '../entity.types.js';
 import { historyKey } from './history.js';
@@ -39,13 +40,18 @@ export const historySlice = createSlice({
     /**
      * Common reducers and actions.
      */
-    ...coreReducers<History>(historyKey, historyAdapter),
+    ...entityReducers<History>(historyKey, historyAdapter),
   },
   extraReducers: (builder) => {
     /**
+     * Add common extra reducers.
+     */
+    dataExtraReducers(historyKey, historyAdapter, builder);
+
+    /**
      * Required: Enables mutations from core actions.
      */
-    coreExtraReducers(historyKey, historyAdapter, builder);
+    entityExtraReducers(historyKey, historyAdapter, builder);
   },
 });
 
@@ -72,7 +78,7 @@ export const historySelectors = {
   /**
    * Gets core selectors.
    */
-  ...coreSelectors<History>(historyKey),
+  ...entitySelectors<History>(historyKey),
 };
 
 /**

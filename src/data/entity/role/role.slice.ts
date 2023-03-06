@@ -1,7 +1,7 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import type { EntityState, PayloadAction } from '@reduxjs/toolkit';
-import { coreExtraReducers, coreReducers } from '../../../reducers.js';
-import { coreSelectors } from '../../../selectors.js';
+import { entityExtraReducers, entityReducers } from '../entity.reducers.js';
+import { entitySelectors } from '../entity.selectors.js';
 import { metaInitial } from '../entity.js';
 import type { Entity } from '../entity.types.js';
 import type { Role, RoleCombo, RoleMeta } from './role.types.js';
@@ -9,6 +9,7 @@ import { roleKey } from './role.js';
 import type { State } from '../../../state.types.js';
 import type { UID } from '../../../core/core.types.js';
 import type { Grant } from '../../grant/grant.types.js';
+import { dataExtraReducers } from '../../data.reducers.js';
 
 // /**
 //  * Matcher for any update role action.
@@ -25,7 +26,7 @@ import type { Grant } from '../../grant/grant.types.js';
 // function isRoleCoreUpdate(
 //   action: Action<string>,
 // ): action is PayloadAction<StateUpdater> {
-//   return action.type === coreActions.update.type;
+//   return action.type === dataActions.update.type;
 // }
 
 /**
@@ -62,7 +63,7 @@ export const roleSlice = createSlice({
     /**
      * Common reducers and actions.
      */
-    ...coreReducers<Role>(roleKey, roleAdapter),
+    ...entityReducers<Role>(roleKey, roleAdapter),
 
     /**
      * Combines a list of roles by ID
@@ -76,9 +77,14 @@ export const roleSlice = createSlice({
   },
   extraReducers: (builder) => {
     /**
+     * Add common extra reducers.
+     */
+    dataExtraReducers(roleKey, roleAdapter, builder);
+
+    /**
      * Required: Enables mutations from core actions.
      */
-    coreExtraReducers(roleKey, roleAdapter, builder);
+    entityExtraReducers(roleKey, roleAdapter, builder);
     // /**
     //  * Match a role update action.
     //  * This will update cached role combinations.
@@ -173,7 +179,7 @@ export const roleSelectors = {
   /**
    * Gets core selectors.
    */
-  ...coreSelectors<Role>(roleKey),
+  ...entitySelectors<Role>(roleKey),
   /**
    * Selects a combo id by role ids.
    */

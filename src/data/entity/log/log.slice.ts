@@ -1,6 +1,7 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { coreExtraReducers, coreReducers } from '../../../reducers.js';
-import { coreSelectors } from '../../../selectors.js';
+import { entityExtraReducers, entityReducers } from '../entity.reducers.js';
+import { entitySelectors } from '../entity.selectors.js';
+import { dataExtraReducers } from '../../data.reducers.js';
 import { metaInitial } from '../entity.js';
 import type { Entity } from '../entity.types.js';
 import { logKey } from './log.js';
@@ -39,13 +40,18 @@ export const logSlice = createSlice({
     /**
      * Common reducers and actions.
      */
-    ...coreReducers<Log>(logKey, logAdapter),
+    ...entityReducers<Log>(logKey, logAdapter),
   },
   extraReducers: (builder) => {
     /**
+     * Add common extra reducers.
+     */
+    dataExtraReducers(logKey, logAdapter, builder);
+
+    /**
      * Required: Enables mutations from core actions.
      */
-    coreExtraReducers(logKey, logAdapter, builder);
+    entityExtraReducers(logKey, logAdapter, builder);
   },
 });
 
@@ -72,7 +78,7 @@ export const logSelectors = {
   /**
    * Gets core selectors.
    */
-  ...coreSelectors<Log>(logKey),
+  ...entitySelectors<Log>(logKey),
 };
 
 /**

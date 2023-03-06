@@ -1,6 +1,7 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { coreExtraReducers, coreReducers } from '../../../reducers.js';
-import { coreSelectors } from '../../../selectors.js';
+import { entityExtraReducers, entityReducers } from '../entity.reducers.js';
+import { entitySelectors } from '../entity.selectors.js';
+import { dataExtraReducers } from '../../data.reducers.js';
 import { metaInitial } from '../entity.js';
 import type { Entity } from '../entity.types.js';
 import { serviceKey } from './service.js';
@@ -39,13 +40,18 @@ export const serviceSlice = createSlice({
     /**
      * Common reducers and actions.
      */
-    ...coreReducers<Service>(serviceKey, serviceAdapter),
+    ...entityReducers<Service>(serviceKey, serviceAdapter),
   },
   extraReducers: (builder) => {
     /**
+     * Add common extra reducers.
+     */
+    dataExtraReducers(serviceKey, serviceAdapter, builder);
+
+    /**
      * Required: Enables mutations from core actions.
      */
-    coreExtraReducers(serviceKey, serviceAdapter, builder);
+    entityExtraReducers(serviceKey, serviceAdapter, builder);
   },
 });
 
@@ -72,7 +78,7 @@ export const serviceSelectors = {
   /**
    * Gets core selectors.
    */
-  ...coreSelectors<Service>(serviceKey),
+  ...entitySelectors<Service>(serviceKey),
 };
 
 /**

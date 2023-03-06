@@ -1,24 +1,21 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import type {
+  Action,
   ActionReducerMapBuilder,
   EntityAdapter,
+  EntityStateAdapter,
   PayloadAction,
 } from '@reduxjs/toolkit';
+import type { UID } from '../../core/index.js';
+import { dataActions } from '../data.actions.js';
+import type { DataDeleter } from '../types.js';
+import { diffCompare } from './diff.js';
+import { entityActions } from './entity.actions.js';
+import { entityCreate, metaInitial } from './entity.js';
 import type {
-  Entity,
-  MetaState,
-  EntityCreator,
-  EntityUpdater,
-} from './data/index.js';
-import {
-  entityCreate,
-  metaInitial,
-} from './data/entity/entity.js';
-import {
-  diffCompare,
-} from './data/entity/diff.js';
-import { coreActions } from './actions.js';
-import type { UID } from './core/index.js';
+  Entity, EntityCreator, EntityUpdater, MetaState,
+} from './entity.types.js';
 
 export interface MetaOptions {
   active?: boolean;
@@ -29,6 +26,24 @@ export interface MetaOptions {
 export interface CreatePayload<C extends EntityCreator> {
   entity: Entity<C>;
   meta?: MetaOptions;
+}
+
+/**
+ * Matcher for data delete actions.
+ */
+function isDataDeleteAction(
+  action: Action<string>,
+): action is PayloadAction<DataDeleter> {
+  return action.type === dataActions.delete.type;
+}
+
+/**
+ * Matcher for data wipe actions.
+ */
+function isDataWipeAction(
+  action: Action<string>,
+): action is PayloadAction {
+  return action.type === dataActions.delete.type;
 }
 
 function setMeta<C extends EntityCreator>(state: MetaState<C>, ref: C['$id'], meta?: MetaOptions) {
@@ -45,7 +60,7 @@ function setMeta<C extends EntityCreator>(state: MetaState<C>, ref: C['$id'], me
   }
 }
 
-export function coreReducers<C extends EntityCreator>(
+export function entityReducers<C extends EntityCreator>(
   key: string,
   adapter: EntityAdapter<Entity<C>>,
 ) {
@@ -261,63 +276,52 @@ export function coreReducers<C extends EntityCreator>(
   };
 }
 
-export function coreExtraReducers<C extends EntityCreator>(
+export function entityExtraReducers<
+  C extends EntityCreator & { [key: string]: any },
+  EA extends EntityStateAdapter<Entity<C>>,
+  ARMB extends ActionReducerMapBuilder<MetaState<C>>
+>(
   key: string,
-  adapter: EntityAdapter<Entity<C>>,
-  builder: ActionReducerMapBuilder<MetaState<C>>,
+  adapter: EA,
+  builder: ARMB,
 ) {
-  builder.addCase(coreActions.insert, (state, action) => {
-    const { payload } = action;
-    if (payload[key] && Array.isArray(payload[key])) {
+  builder.addCase(entityActions.meta, (state, { payload }) => {
+    if (!payload[key]) {
+      return;
+    }
+
+    const meta = payload[key];
+    Object.keys(meta).forEach((metaKey) => {
       /** @ts-ignore */
-      adapter.upsertMany<MetaState<E>>(state, payload[key]);
+      state[metaKey] = meta[metaKey];
+    });
+  });
+
+  builder.addMatcher(isDataDeleteAction, (state, action) => {
+    const { payload } = action;
+    if (!payload[key]) {
+      return;
+    }
+
+    if (state.active && payload[key].includes(state.active)) {
+      state.active = null;
+    }
+
+    if (state.focused && payload[key].includes(state.focused)) {
+      state.focused = null;
+    }
+
+    if (
+      state.selection.length > 0
+      && payload[key].some((id) => state.selection.includes(id as UID))
+    ) {
+      state.selection = state.selection.filter((selectionId: UID) => (
+        payload[key].includes(selectionId)
+      ));
     }
   });
 
-  builder.addCase(coreActions.create, (state, action) => {
-    const { payload } = action;
-    if (payload[key] && Array.isArray(payload[key])) {
-      const entityCreators = payload[key];
-      const entities = entityCreators.map((entityCreator) => entityCreate(entityCreator));
-      /** @ts-ignore */
-      adapter.addMany<MetaState<E>>(state, entities);
-    }
-  });
-
-  builder.addCase(coreActions.update, (state, action) => {
-    const { payload } = action;
-    if (payload[key] && Array.isArray(payload[key])) {
-      /** @ts-ignore */
-      adapter.updateMany<MetaState<E>>(state, payload[key]);
-    }
-  });
-
-  builder.addCase(coreActions.delete, (state, action) => {
-    const { payload } = action;
-    if (payload[key] && Array.isArray(payload[key])) {
-      /** @ts-ignore */
-      adapter.removeMany<MetaState<E>>(state, payload[key]);
-
-      if (state.active && payload[key].includes(state.active)) {
-        state.active = null;
-      }
-
-      if (state.focused && payload[key].includes(state.focused)) {
-        state.focused = null;
-      }
-
-      if (
-        state.selection.length > 0
-        && payload[key].some((id: UID) => state.selection.includes(id))
-      ) {
-        state.selection = state.selection.filter((selectionId: UID) => (
-          payload[key].includes(selectionId)
-        ));
-      }
-    }
-  });
-
-  builder.addCase(coreActions.wipe, (state) => {
+  builder.addMatcher(isDataWipeAction, (state) => {
     const metaDefault = metaInitial<C>();
 
     state.active = metaDefault.active;
@@ -330,9 +334,7 @@ export function coreExtraReducers<C extends EntityCreator>(
     Object.keys(state.differences).forEach((k) => {
       delete state.differences[k as keyof typeof state.differences];
     });
-    /** @ts-ignore */
-    adapter.removeAll(state);
   });
 }
 
-export default { coreReducers, coreExtraReducers };
+export default entityExtraReducers;

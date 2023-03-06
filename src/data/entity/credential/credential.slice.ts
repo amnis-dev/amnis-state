@@ -1,6 +1,7 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { coreExtraReducers, coreReducers } from '../../../reducers.js';
-import { coreSelectors } from '../../../selectors.js';
+import { entityExtraReducers, entityReducers } from '../entity.reducers.js';
+import { entitySelectors } from '../entity.selectors.js';
+import { dataExtraReducers } from '../../data.reducers.js';
 import { metaInitial } from '../entity.js';
 import type { Entity } from '../entity.types.js';
 import { credentialKey } from './credential.js';
@@ -39,13 +40,18 @@ export const credentialSlice = createSlice({
     /**
      * Common reducers and actions.
      */
-    ...coreReducers<Credential>(credentialKey, credentialAdapter),
+    ...entityReducers<Credential>(credentialKey, credentialAdapter),
   },
   extraReducers: (builder) => {
     /**
+     * Add common extra reducers.
+     */
+    dataExtraReducers(credentialKey, credentialAdapter, builder);
+
+    /**
      * Required: Enables mutations from core actions.
      */
-    coreExtraReducers(credentialKey, credentialAdapter, builder);
+    entityExtraReducers(credentialKey, credentialAdapter, builder);
   },
 });
 
@@ -72,7 +78,7 @@ export const credentialSelectors = {
   /**
    * Gets core selectors.
    */
-  ...coreSelectors<Credential>(credentialKey),
+  ...entitySelectors<Credential>(credentialKey),
 };
 
 /**

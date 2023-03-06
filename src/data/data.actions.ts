@@ -23,11 +23,9 @@ export const dataActions = {
   delete: createAction<DataDeleter>('@data/delete'),
 
   /**
-   * Wipes all data from the state.
-   *
-   * TODO: Implement this.
+   * Wipes all entity data from the state.
    */
-  // wipe: createAction('@data/wipe'),
+  wipe: createAction('@data/wipe'),
 };
 
 export default { dataActions };

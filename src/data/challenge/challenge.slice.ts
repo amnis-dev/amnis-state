@@ -4,7 +4,7 @@ import type { Challenge, ChallengeMeta } from './challenge.types.js';
 import { challengeBase, challengeCreate, challengeKey } from './challenge.js';
 import type { UID } from '../../core/index.js';
 import { dateNumeric } from '../../core/index.js';
-import { dataExtraReducers } from '../reducers.js';
+import { dataExtraReducers } from '../data.reducers.js';
 
 /**
  * Matcher for any challenge action.
