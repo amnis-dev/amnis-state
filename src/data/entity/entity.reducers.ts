@@ -43,7 +43,7 @@ function isDataDeleteAction(
 function isDataWipeAction(
   action: Action<string>,
 ): action is PayloadAction {
-  return action.type === dataActions.delete.type;
+  return action.type === dataActions.wipe.type;
 }
 
 function setMeta<C extends EntityCreator>(state: MetaState<C>, ref: C['$id'], meta?: MetaOptions) {
@@ -297,8 +297,7 @@ export function entityExtraReducers<
     });
   });
 
-  builder.addMatcher(isDataDeleteAction, (state, action) => {
-    const { payload } = action;
+  builder.addMatcher(isDataDeleteAction, (state, { payload }) => {
     if (!payload[key]) {
       return;
     }
