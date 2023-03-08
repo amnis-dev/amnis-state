@@ -107,7 +107,7 @@ export const agentCreate = async (): Promise<Agent> => {
    */
   const encoded = base64JsonEncode(agent);
 
-  localStorage.setItem('agent', encoded);
+  localStorage().setItem('agent', encoded);
 
   return agent;
 };
@@ -117,7 +117,7 @@ export const agentCreate = async (): Promise<Agent> => {
  */
 export const agentGet = async (): Promise<Agent> => {
   if (!agent) {
-    const encoded = localStorage.getItem('agent');
+    const encoded = localStorage().getItem('agent');
     if (encoded) {
       try {
         const decoded = base64JsonDecode<Agent>(encoded);

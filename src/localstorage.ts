@@ -24,13 +24,13 @@ class LocalStorageMemory {
   }
 }
 
-if (typeof window === 'undefined') {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  /** @ts-ignore */
-  global.localStorage = new LocalStorageMemory();
-}
+export const localStorage = () => {
+  if (typeof window === 'undefined') {
+    return new LocalStorageMemory();
+  }
 
-export const { localStorage } = global;
+  return window.localStorage;
+};
 
 export const localstorageSetup = <T>(
   key: string,
@@ -41,7 +41,7 @@ export const localstorageSetup = <T>(
    * Load data from local storage
    */
   load() {
-    const keyData = localStorage.getItem(`root-${key}`);
+    const keyData = localStorage().getItem(`root-${key}`);
 
     if (!keyData) {
       return;
@@ -62,7 +62,7 @@ export const localstorageSetup = <T>(
   save: async (data: T[]) => {
     try {
       const encoded = base64JsonEncode(data);
-      localStorage.setItem(`root-${key}`, encoded);
+      localStorage().setItem(`root-${key}`, encoded);
     } catch (e) {
       console.error(`Could not save ${key} data to LocalStorage.`);
     }
