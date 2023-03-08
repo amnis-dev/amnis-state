@@ -55,6 +55,7 @@
     "**/.angular": true,
     "**/.vscode": true,
     "**/*.lock": true,
+    "**/*lock.yaml": true,
     "**/package-lock.json": true,
     "**/*.tsbuildinfo": true,
     "**/*.schema.json": true,

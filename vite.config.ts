@@ -23,6 +23,7 @@ export default defineConfig({
       external: [
         '@reduxjs/toolkit',
         'node:crypto',
+        'crypto',
       ],
     },
   },
