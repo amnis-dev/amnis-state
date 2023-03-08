@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.9](https://github.com/amnis-dev/amnis-state/compare/v0.14.8...v0.14.9) (2023-03-08)
+
+
+### Features
+
+* **LocalStorage:** simplified local storage utility ([3de1bf7](https://github.com/amnis-dev/amnis-state/commit/3de1bf733b13cc9a70d3cfe94917f997e180baf8))
+
+
+### Bug Fixes
+
+* **LocalStorage:** Fixed unknonw global on localstorage type ([c16be94](https://github.com/amnis-dev/amnis-state/commit/c16be94062831ad24b4932847a3477dd199143fe))
+
 ### [0.14.8](https://github.com/amnis-dev/amnis-state/compare/v0.14.7...v0.14.8) (2023-03-08)
 
 
