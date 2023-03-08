@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.8](https://github.com/amnis-dev/amnis-state/compare/v0.14.7...v0.14.8) (2023-03-08)
+
+
+### Bug Fixes
+
+* **Node:** Fixes issue with node schema uri imports in webpack ([d58d65e](https://github.com/amnis-dev/amnis-state/commit/d58d65e99f0d35d741ab723809d439e560fbcac3))
+
 ### [0.14.7](https://github.com/amnis-dev/amnis-state/compare/v0.14.6...v0.14.7) (2023-03-08)
 
 
