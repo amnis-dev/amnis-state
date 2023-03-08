@@ -24,12 +24,18 @@ class LocalStorageMemory {
   }
 }
 
-export const localStorage = () => {
-  if (typeof window === 'undefined') {
-    return new LocalStorageMemory();
+let localStorageLocal: LocalStorageMemory | Storage | undefined;
+
+export const localStorage = (): LocalStorageMemory | Storage => {
+  if (!localStorageLocal) {
+    if (typeof window === 'undefined') {
+      localStorageLocal = new LocalStorageMemory();
+    } else {
+      localStorageLocal = window.localStorage;
+    }
   }
 
-  return window.localStorage;
+  return localStorageLocal;
 };
 
 export const localstorageSetup = <T>(
