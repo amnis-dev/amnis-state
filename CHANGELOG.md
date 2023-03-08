@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.6](https://github.com/amnis-dev/amnis-state/compare/v0.14.5...v0.14.6) (2023-03-08)
+
+
+### Features
+
+* **Api:** Decoupled API reducers and functions ([50145c0](https://github.com/amnis-dev/amnis-state/commit/50145c0310ec89f538243ad15a366ba5e54a346c))
+* **State:** Refactored reducer and state management to seperate API logic from the core state ([37c7d92](https://github.com/amnis-dev/amnis-state/commit/37c7d926d8c85c7d8f1a74b788ea69bc3b597ebb))
+
+
+### Bug Fixes
+
+* **Redux Toolkit:** Added patch files to resolve types issues with using node16 module resolution ([10154ee](https://github.com/amnis-dev/amnis-state/commit/10154ee0327f5b5e342a048b3b2354171e37d95b))
+
 ### [0.14.5](https://github.com/amnis-dev/amnis-state/compare/v0.14.4...v0.14.5) (2023-02-24)
 
 
