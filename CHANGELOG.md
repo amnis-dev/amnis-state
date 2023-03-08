@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.7](https://github.com/amnis-dev/amnis-state/compare/v0.14.6...v0.14.7) (2023-03-08)
+
+
+### Bug Fixes
+
+* **Delete:** Fixed issue with the data delete action matching with the wipe actions ([d3b08a8](https://github.com/amnis-dev/amnis-state/commit/d3b08a8d7ce991cfab212a5be935c5ecbe122487))
+
 ### [0.14.6](https://github.com/amnis-dev/amnis-state/compare/v0.14.5...v0.14.6) (2023-03-08)
 
 
