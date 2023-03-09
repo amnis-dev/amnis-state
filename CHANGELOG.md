@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.10](https://github.com/amnis-dev/amnis-state/compare/v0.14.9...v0.14.10) (2023-03-09)
+
+
+### Features
+
+* **API:** Configured authentication endpoint to include signature and challenge headers ([cc80e16](https://github.com/amnis-dev/amnis-state/commit/cc80e166e7659d79cc8b2311a4297d3ee0ecbabe))
+
 ### [0.14.9](https://github.com/amnis-dev/amnis-state/compare/v0.14.8...v0.14.9) (2023-03-08)
 
 
