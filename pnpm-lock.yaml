@@ -18,8 +18,8 @@ patchedDependencies:
     path: patches/immer@9.0.19.patch
 
 specifiers:
-  '@amnis/eslint-config-node': ^2.2.2
-  '@amnis/tsconfig-node': ^2.2.2
+  '@amnis/eslint-config-node': ^2.2.4
+  '@amnis/tsconfig-node': ^2.2.4
   '@reduxjs/toolkit': alpha
   '@types/fluent-ffmpeg': ^2.1.20
   '@types/fs-extra': ^11.0.1
@@ -40,8 +40,8 @@ specifiers:
   vitest: ^0.28.5
 
 devDependencies:
-  '@amnis/eslint-config-node': 2.2.2_7kw3g6rralp5ps6mg3uyzz6azm
-  '@amnis/tsconfig-node': 2.2.2_typescript@4.9.5
+  '@amnis/eslint-config-node': 2.2.4_7kw3g6rralp5ps6mg3uyzz6azm
+  '@amnis/tsconfig-node': 2.2.4_typescript@4.9.5
   '@reduxjs/toolkit': 2.0.0-alpha.2_ae36ob5555zws74dr6bsopdgji
   '@types/fluent-ffmpeg': 2.1.20
   '@types/fs-extra': 11.0.1
@@ -63,8 +63,8 @@ devDependencies:
 
 packages:
 
-  /@amnis/eslint-config-node/2.2.2_7kw3g6rralp5ps6mg3uyzz6azm:
-    resolution: {integrity: sha512-9A+aKDSGRGV5Af3mbGSKnORqg4NPg2G8Qcq7g6K0n0QiqV0bvLcPr0HU4TR/oX2/8E5i7xW+4NZsaF8n612UhQ==}
+  /@amnis/eslint-config-node/2.2.4_7kw3g6rralp5ps6mg3uyzz6azm:
+    resolution: {integrity: sha512-8AC06Nu2puR2l4ZCtSSN5x2E1pbB3FllkKVcuamp+FEJRXiv4NAHfiFwYAZ2xDzZ1QmYiCcAm3e4mnxjgH9m1Q==}
     peerDependencies:
       eslint: '>=8.0.0'
     dependencies:
@@ -81,8 +81,8 @@ packages:
       - typescript
     dev: true
 
-  /@amnis/tsconfig-node/2.2.2_typescript@4.9.5:
-    resolution: {integrity: sha512-cPnZsloA6iQMZFVsGtWtpoS5HBVuL9VkmU088miYUVW/xF+0f8EMoHMqDERsHrnYXunRedc9AUGL461tB4n2tA==}
+  /@amnis/tsconfig-node/2.2.4_typescript@4.9.5:
+    resolution: {integrity: sha512-S6Zx8eXvUeFX5CwTaVftHEi+VoPnaHQq/x0WcZwFmH3B1V7a7y3If2q+JZjzNMcOIOb9dRDrOKQxFcPgsMJY6A==}
     peerDependencies:
       typescript: '>=4.6.3'
     dependencies:
