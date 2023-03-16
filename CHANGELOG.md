@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.15.1](https://github.com/amnis-dev/amnis-state/compare/v0.15.0...v0.15.1) (2023-03-16)
+
+
+### Bug Fixes
+
+* **Package:** Renamed 'validate' to 'context' in package export ([9f59235](https://github.com/amnis-dev/amnis-state/commit/9f59235109a8b7cbe1d740f1705c1458e102fe6c))
+
 ## [0.15.0](https://github.com/amnis-dev/amnis-state/compare/v0.14.10...v0.15.0) (2023-03-16)
 
 
