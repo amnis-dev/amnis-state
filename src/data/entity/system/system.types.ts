@@ -4,7 +4,6 @@ import type {
   EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
 } from '../entity.types.js';
 import type { HandleName } from '../handle/index.js';
-import type { Api } from '../api/api.types.js';
 
 export interface System extends EntityCreator {
   /**
@@ -16,6 +15,11 @@ export interface System extends EntityCreator {
    * System handle for identifying system created resources.
    */
   handle: HandleName;
+
+  /**
+   * Domain name of the system.
+   */
+  domain: string;
 
   /**
    * Name of the session key.
@@ -111,16 +115,6 @@ export interface System extends EntityCreator {
    * @default []
    */
   $initialRoles: UIDList<Role>;
-
-  /**
-   * References to API definitions related by this system.
-   */
-  $apis: UIDList<Api>;
-
-  /**
-   * Reference to the api used for authentication.
-   */
-  $apiAuth?: UID<Api>;
 }
 
 /**

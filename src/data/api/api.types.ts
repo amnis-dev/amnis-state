@@ -1,21 +1,24 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import type {
-  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
-} from '../entity.types.js';
+/* eslint-disable no-shadow */
+import type { UID } from '../../core/index.js';
 
 /**
  * Api type
  */
-export interface Api extends EntityCreator {
+export interface Api {
   /**
-   * The reducer path this api is associated with.
+   * Unique identifier.
+   */
+  $id: UID;
+
+  /**
+   * The reducer path key this api configures.
    */
   reducerPath: string;
 
   /**
-   * Base URL for the api.
+   * Relative base URL for the api.
    */
-  baseUrl: string;
+  baseUrl?: string;
 
   /**
    * Flag that indicates if the api is used for authentication.
@@ -25,6 +28,7 @@ export interface Api extends EntityCreator {
 
   /**
    * Bearer token to find for this api.
+   * Defaults as the active system handle.
    */
   bearerId?: string;
 
@@ -45,19 +49,19 @@ export interface Api extends EntityCreator {
    * A value of `true` indicates all endpoints.
    */
   otp?: boolean | string[];
+
+  /**
+   * The system identifier for the api.
+   */
+  $system?: UID;
 }
 
 /**
- * Contact properties excluding the extended entity properties.
+ * Creation Type for an Api.
  */
-export type ApiBase = EntityCreatorBase<Api>;
-
-/**
- * Base properties in order to create a log.
- */
-export type ApiCreator = EntityCreatorParams<Api, 'reducerPath'>;
+export type ApiCreator = Omit<Api, '$id'>;
 
 /**
  * Api collection meta data.
  */
-export type ApiMeta = Meta<Api>;
+export type ApiMeta = Record<string, Api>;

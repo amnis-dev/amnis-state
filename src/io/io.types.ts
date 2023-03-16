@@ -166,6 +166,11 @@ export interface IoOutputJson<T = any> {
    * Possible bearers.
    */
   bearers?: Bearer[];
+
+  /**
+   * Possible API configurations.
+   */
+  apis?: ApiCreator[];
 }
 
 /**

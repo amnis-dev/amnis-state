@@ -8,6 +8,7 @@ export const systemKey = 'system';
 export const systemBase = (): SystemBase => ({
   name: '',
   handle: 'core',
+  domain: '',
   sessionKey: 'coreSession',
   sessionExpires: 60,
   bearerExpires: 30,
@@ -23,7 +24,6 @@ export const systemBase = (): SystemBase => ({
   $execRole: uid(roleKey),
   $anonymousRole: uid(roleKey),
   $initialRoles: [],
-  $apis: [],
 });
 
 /**
