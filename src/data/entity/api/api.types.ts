@@ -1,12 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type {
-  EntityCreator, EntityCreatorBase, Meta,
+  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
 } from '../entity.types.js';
 
 /**
  * Api type
  */
 export interface Api extends EntityCreator {
+  /**
+   * The reducer path this api is associated with.
+   */
+  reducerPath: string;
+
   /**
    * Base URL for the api.
    */
@@ -44,7 +49,7 @@ export type ApiBase = EntityCreatorBase<Api>;
 /**
  * Base properties in order to create a log.
  */
-export type ApiCreator = Partial<Api>;
+export type ApiCreator = EntityCreatorParams<Api, 'reducerPath'>;
 
 /**
  * Api collection meta data.

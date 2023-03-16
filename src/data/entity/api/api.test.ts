@@ -12,12 +12,14 @@ test('api key should be is properly set', () => {
  */
 test('should create a api', () => {
   const api = apiCreator({
+    reducerPath: 'apiSys',
     baseUrl: '/api/sys',
   });
 
   expect(api).toEqual(
     expect.objectContaining({
-      baseUrl: '/api/sys',
+      reducerPath: 'apiSys',
+      baseUrl: '/api/apiSys',
     }),
   );
 });
