@@ -1,12 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type {
+  EntityCreator, EntityCreatorBase, Meta,
+} from '../entity.types.js';
+
 /**
  * Api type
  */
-export interface Api {
-  /**
-   * ID of this API. Should be the reducerPath on the redux state.
-   */
-  id: string;
-
+export interface Api extends EntityCreator {
   /**
    * Base URL for the api.
    */
@@ -37,6 +37,16 @@ export interface Api {
 }
 
 /**
+ * Contact properties excluding the extended entity properties.
+ */
+export type ApiBase = EntityCreatorBase<Api>;
+
+/**
+ * Base properties in order to create a log.
+ */
+export type ApiCreator = Partial<Api>;
+
+/**
  * Api collection meta data.
  */
-export type ApiMeta = Record<string, Api>;
+export type ApiMeta = Meta<Api>;

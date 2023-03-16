@@ -5,6 +5,7 @@ export * from './entity.actions.js';
 export * from './entity.selectors.js';
 export * from './diff.js';
 
+export * from './api/index.js';
 export * from './audit/index.js';
 export * from './contact/index.js';
 export * from './credential/index.js';

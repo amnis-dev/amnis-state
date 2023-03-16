@@ -23,6 +23,7 @@ export const systemBase = (): SystemBase => ({
   $execRole: uid(roleKey),
   $anonymousRole: uid(roleKey),
   $initialRoles: [],
+  $apis: [],
 });
 
 /**

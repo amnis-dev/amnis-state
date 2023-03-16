@@ -1,4 +1,4 @@
-import { apiKey, apiCreator, apiBase } from './api.js';
+import { apiKey, apiCreator } from './api.js';
 
 /**
  * ============================================================
@@ -11,9 +11,13 @@ test('api key should be is properly set', () => {
  * ============================================================
  */
 test('should create a api', () => {
-  const api = apiCreator(apiBase);
+  const api = apiCreator({
+    baseUrl: '/api/sys',
+  });
 
   expect(api).toEqual(
-    expect.objectContaining(apiBase),
+    expect.objectContaining({
+      baseUrl: '/api/sys',
+    }),
   );
 });
