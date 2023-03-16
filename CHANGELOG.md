@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.15.2](https://github.com/amnis-dev/amnis-state/compare/v0.15.1...v0.15.2) (2023-03-16)
+
+
+### Features
+
+* **Api:** Added additional selectors for convenience ([71a80d9](https://github.com/amnis-dev/amnis-state/commit/71a80d9ec5a19bd5625529036bc44388f4b2fb10))
+* **Api:** Added flag to determine authentication apis ([961f569](https://github.com/amnis-dev/amnis-state/commit/961f569fd4957bd53fedf67a1b2f6cafabfc9b37))
+* **Api:** Added required reducerPath field for API entities ([94d4702](https://github.com/amnis-dev/amnis-state/commit/94d4702e6482f2ab5e0c87292645b65e6959b5cc))
+
 ### [0.15.1](https://github.com/amnis-dev/amnis-state/compare/v0.15.0...v0.15.1) (2023-03-16)
 
 
