@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.15.3](https://github.com/amnis-dev/amnis-state/compare/v0.15.2...v0.15.3) (2023-03-16)
+
+
+### Features
+
+* **Api:** Refactored APIs to a simplier form ([cbf32b2](https://github.com/amnis-dev/amnis-state/commit/cbf32b2ea6ec852ae7b4672c26b300bfc0b25c66))
+
 ### [0.15.2](https://github.com/amnis-dev/amnis-state/compare/v0.15.1...v0.15.2) (2023-03-16)
 
 
