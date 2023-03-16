@@ -1,6 +1,6 @@
 {
   "name": "@amnis/state",
-  "version": "0.14.10",
+  "version": "0.15.0",
   "description": "Core data managers, state reducers, and common interfaces for web applications.",
   "keywords": [],
   "license": "MIT",

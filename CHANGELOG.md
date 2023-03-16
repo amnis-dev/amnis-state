@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.15.0](https://github.com/amnis-dev/amnis-state/compare/v0.14.10...v0.15.0) (2023-03-16)
+
+
+### Features
+
+* **Api:** Added new default api settings ([c82868e](https://github.com/amnis-dev/amnis-state/commit/c82868e1fdb0c1a2ec858fe693ca2442c6c2ffa3))
+* **Api:** API info has transitioned to entities and referenced by the system ([dc6dd15](https://github.com/amnis-dev/amnis-state/commit/dc6dd156308eb990985f583f7f83c78427da0958))
+* **Context:** Context has it's own entrypoint and now allows schemas to be added without compiling to validators ([d70e7a4](https://github.com/amnis-dev/amnis-state/commit/d70e7a4a6d83416f50d49afd0eb75d9c70a78158))
+* **IO:** New definition of a process map with meta information ([27dbb61](https://github.com/amnis-dev/amnis-state/commit/27dbb6168d7e45b585d8f00ab18a28d1debbb22d))
+
 ### [0.14.10](https://github.com/amnis-dev/amnis-state/compare/v0.14.9...v0.14.10) (2023-03-09)
 
 
