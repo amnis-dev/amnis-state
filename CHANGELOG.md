@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.15.4](https://github.com/amnis-dev/amnis-state/compare/v0.15.3...v0.15.4) (2023-03-16)
+
+
+### Features
+
+* **Api:** Added field to determine endpoints that require a bearer token ([22928ff](https://github.com/amnis-dev/amnis-state/commit/22928ffbd84fa2087e7fdbe71987568ba52638aa))
+
 ### [0.15.3](https://github.com/amnis-dev/amnis-state/compare/v0.15.2...v0.15.3) (2023-03-16)
 
 
