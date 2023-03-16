@@ -3,7 +3,13 @@ import type { BaseQueryFn, FetchArgs } from '@reduxjs/toolkit/query';
 import type { ToolkitStore } from '@reduxjs/toolkit';
 
 import type {
-  Bearer, Challenge, Otp, LogCreator, Session, Credential,
+  Bearer,
+  Challenge,
+  Otp,
+  LogCreator,
+  Session,
+  Credential,
+  ApiCreator,
 } from '../data/index.js';
 
 import type { Database } from './database/database.types.js';
@@ -214,6 +220,14 @@ export type IoProcessMap = Record<string, IoProcess>;
 export type IoProcessMapMethods = {
   get?: IoProcessMap,
   post?: IoProcessMap,
+};
+
+/**
+ * Definition for a map of processes
+ */
+export type IoProcessDefinition = {
+  meta: ApiCreator,
+  endpoints: IoProcessMapMethods,
 };
 
 /**
