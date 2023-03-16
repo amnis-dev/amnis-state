@@ -1,6 +1,6 @@
 import { contextSetup } from './context.js';
-import { roleSelectors } from './data/entity/role/index.js';
-import { systemSelectors } from './data/entity/system/index.js';
+import { roleSelectors } from '../data/entity/role/index.js';
+import { systemSelectors } from '../data/entity/system/index.js';
 
 test('should create initial node context', async () => {
   const context = await contextSetup({ initialize: true });

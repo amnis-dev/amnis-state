@@ -9,7 +9,7 @@ export default defineConfig({
       entry: {
         index: resolve(__dirname, 'src/index.ts'),
         schema: resolve(__dirname, 'src/schema/index.ts'),
-        validate: resolve(__dirname, 'src/validate/index.ts'),
+        context: resolve(__dirname, 'src/context/index.ts'),
       },
       name: 'AmnisState',
     },

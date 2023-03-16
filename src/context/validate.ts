@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { AnySchema, AnyValidateFunction } from 'ajv/dist/types';
+import type { SchemaObject, AnyValidateFunction } from 'ajv/dist/types';
 import Ajv from 'ajv';
 import type { IoOutput, Validator, Validators } from '../io/io.types.js';
 
@@ -70,7 +70,7 @@ export function validate(
   return undefined;
 }
 
-function validateCompile(schema: AnySchema): Validators {
+function validateCompile(schema: SchemaObject): Validators {
   if (typeof schema === 'boolean') {
     throw new Error('Cannot create validators from a boolean schema');
   }
@@ -92,7 +92,7 @@ function validateCompile(schema: AnySchema): Validators {
 
   const validators = validatorKeys.reduce<Validators>(
     (record, key) => {
-      record[key] = ajv.getSchema(`${id}#/definitions/${key}`) as AnyValidateFunction;
+      record[`${id}/${key}`] = ajv.getSchema(`${id}#/definitions/${key}`) as AnyValidateFunction;
       return record;
     },
     {},
@@ -105,7 +105,7 @@ function validateCompile(schema: AnySchema): Validators {
  * Configures validators from one or more schemas. The validators are created from the definitions
  * object within each schema.
  */
-export function validateSetup(schemas: AnySchema | AnySchema[]) {
+export function validateSetup(schemas: SchemaObject | SchemaObject[]) {
   const validators: Validators = {};
 
   if (Array.isArray(schemas)) {

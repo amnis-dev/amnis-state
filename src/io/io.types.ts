@@ -2,6 +2,7 @@
 import type { BaseQueryFn, FetchArgs } from '@reduxjs/toolkit/query';
 import type { ToolkitStore } from '@reduxjs/toolkit';
 
+import type { SchemaObject } from 'ajv';
 import type {
   Bearer,
   Challenge,
@@ -62,7 +63,12 @@ export interface IoContext {
   send: Send;
 
   /**
-   * Schemas for validating input structures.
+   * Schemas for defining and validating input structures.
+   */
+  schemas: Record<string, SchemaObject>;
+
+  /**
+   * Compiled validator functions.
    */
   validators: Validators;
 }
