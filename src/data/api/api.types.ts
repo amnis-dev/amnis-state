@@ -36,7 +36,7 @@ export interface Api {
    * Endpoints that require a signature header.
    * A value of `true` indicates all endpoints.
    */
-  signature?: string[] | boolean;
+  signature?: boolean | string[];
 
   /**
    * Endpoints that require a challenge header.
@@ -49,6 +49,11 @@ export interface Api {
    * A value of `true` indicates all endpoints.
    */
   otp?: boolean | string[];
+
+  /**
+   * Endpoints that require a bearer token.
+   */
+  bearer?: boolean | string[];
 
   /**
    * The system identifier for the api.
