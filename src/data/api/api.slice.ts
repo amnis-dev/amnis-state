@@ -29,6 +29,11 @@ const apiBaseInitialState = apiAdapter.getInitialState<ApiMeta>({});
  */
 const apiDefaults: Api[] = [
   {
+    id: 'apiSys',
+    baseUrl: '/api/sys',
+    bearerId: 'core',
+  },
+  {
     id: 'apiAuth',
     baseUrl: '/api/auth',
     signature: ['authenticate', 'login', 'register', 'credential', 'create'],
