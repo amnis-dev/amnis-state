@@ -19,7 +19,7 @@ test('should create a api', () => {
   expect(api).toEqual(
     expect.objectContaining({
       reducerPath: 'apiSys',
-      baseUrl: '/api/apiSys',
+      baseUrl: '/api/sys',
     }),
   );
 });
