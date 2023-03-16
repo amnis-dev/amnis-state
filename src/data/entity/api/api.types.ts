@@ -18,6 +18,12 @@ export interface Api extends EntityCreator {
   baseUrl: string;
 
   /**
+   * Flag that indicates if the api is used for authentication.
+   * There can only be one authentication api per system.
+   */
+  auth?: boolean;
+
+  /**
    * Bearer token to find for this api.
    */
   bearerId?: string;
