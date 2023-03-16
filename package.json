@@ -28,10 +28,10 @@
       "import": "./dist/schema.js",
       "require": "./dist/schema.cjs"
     },
-    "./validate": {
-      "types": "./types/validate/index.d.ts",
-      "import": "./dist/validate.js",
-      "require": "./dist/validate.cjs"
+    "./context": {
+      "types": "./types/context/index.d.ts",
+      "import": "./dist/context.js",
+      "require": "./dist/context.cjs"
     }
   },
   "scripts": {
