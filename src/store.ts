@@ -21,4 +21,6 @@ export const store = storeSetup();
 
 export type RootState = ReturnType<typeof store.getState>;
 
+export type RootStateSelectors = Record<string, (state: RootState, ...args: unknown[]) => unknown>;
+
 export default storeSetup;

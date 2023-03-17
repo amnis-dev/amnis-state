@@ -4,6 +4,7 @@ import type { ToolkitStore } from '@reduxjs/toolkit';
 
 import type { SchemaObject } from 'ajv';
 import type {
+  Api,
   Bearer,
   Challenge,
   Otp,
@@ -170,7 +171,7 @@ export interface IoOutputJson<T = any> {
   /**
    * Possible API configurations.
    */
-  apis?: ApiCreator[];
+  apis?: Api[];
 }
 
 /**

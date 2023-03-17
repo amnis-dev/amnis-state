@@ -1,5 +1,6 @@
 import {
   apiSlice,
+  appSlice,
   auditSlice,
   bearerSlice,
   challengeSlice,
@@ -22,6 +23,7 @@ import {
 
 export const slices = {
   [apiSlice.name]: apiSlice,
+  [appSlice.name]: appSlice,
   [auditSlice.name]: auditSlice,
   [bearerSlice.name]: bearerSlice,
   [challengeSlice.name]: challengeSlice,
