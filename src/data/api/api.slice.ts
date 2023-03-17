@@ -1,6 +1,7 @@
 import type { EntityState } from '@reduxjs/toolkit';
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import type { UID } from '../../core/core.types.js';
+import { localstorageLoad } from '../../localstorage.js';
 import type { State } from '../../state.types.js';
 import { dataExtraReducers } from '../data.reducers.js';
 import { apiKey } from './api.js';
@@ -29,6 +30,11 @@ export const apiAdapter = createEntityAdapter<Api>({
 export const apiInitialState = apiAdapter.getInitialState<ApiMeta>({});
 
 /**
+ * Load information from localstorage.
+ */
+localstorageLoad(apiKey, apiInitialState, apiAdapter);
+
+/**
  * RTK Api Slice
  */
 export const apiSlice = createSlice({
@@ -39,7 +45,7 @@ export const apiSlice = createSlice({
     /**
      * Add common extra reducers.
      */
-    dataExtraReducers(apiKey, apiAdapter, builder);
+    dataExtraReducers(apiKey, apiAdapter, builder, { save: true });
   },
 });
 

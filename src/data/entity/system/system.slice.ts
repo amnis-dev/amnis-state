@@ -9,6 +9,7 @@ import type {
   System,
   SystemMeta,
 } from './system.types.js';
+import { localstorageLoad } from '../../../localstorage.js';
 
 /**
  * RTK system adapter.
@@ -34,6 +35,11 @@ export const systemInitialState = systemAdapter.getInitialState<SystemMeta>(
 );
 
 /**
+ * Load system data.
+ */
+localstorageLoad(systemKey, systemInitialState, systemAdapter);
+
+/**
  * RTK System Slice
  */
 export const systemSlice = createSlice({
@@ -49,7 +55,7 @@ export const systemSlice = createSlice({
     /**
      * Add common extra reducers.
      */
-    dataExtraReducers(systemKey, systemAdapter, builder);
+    dataExtraReducers(systemKey, systemAdapter, builder, { save: true });
 
     /**
      * Required: Enables mutations from core actions.

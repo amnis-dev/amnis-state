@@ -1,8 +1,44 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import type { ActionReducerMapBuilder, EntityState, EntityStateAdapter } from '@reduxjs/toolkit';
+import type {
+  Action, ActionReducerMapBuilder, EntityState, EntityStateAdapter,
+} from '@reduxjs/toolkit';
+import { localstorageSave } from '../localstorage.js';
 import type { State } from '../state.types.js';
 import { dataActions } from './data.actions.js';
 import type { DataEntity } from './types.js';
+
+export interface DataReducerOptions<T> {
+  save: boolean | Record<keyof T, unknown>;
+}
+
+async function dataSave<D>(
+  { save }: DataReducerOptions<D>,
+  key: string,
+  state: EntityState<D> & any,
+) {
+  if (save !== false) {
+    const entities = Object.values(state.entities) as D[];
+    if (typeof save === 'boolean') {
+      /** @ts-ignore */
+      localstorageSave(key, entities);
+    } else {
+      const entitiesFiltered = entities.filter(
+        (entity) => Object.keys(save).every((saveKey) => {
+          const k = saveKey as keyof D;
+          if (entity[k] !== save[k]) {
+            return false;
+          }
+          return true;
+        }),
+      );
+
+      if (entitiesFiltered.length > 0) {
+        localstorageSave(key, entitiesFiltered);
+      }
+    }
+  }
+}
 
 export function dataExtraReducers<
   D extends DataEntity,
@@ -12,11 +48,15 @@ export function dataExtraReducers<
   key: string,
   adapter: EA,
   builder: ARMB,
+  options: DataReducerOptions<D> = { save: false },
 ) {
   builder.addCase(dataActions.create, (state, { payload }) => {
     if (payload[key] && Array.isArray(payload[key])) {
       /** @ts-ignore */
       adapter.upsertMany(state, payload[key]);
+
+      // Saves data if needed.
+      dataSave(options, key, state);
     }
   });
 
@@ -24,6 +64,9 @@ export function dataExtraReducers<
     if (payload[key] && Array.isArray(payload[key])) {
       /** @ts-ignore */
       adapter.updateMany(state, payload[key]);
+
+      // Saves data if needed.
+      dataSave(options, key, state);
     }
   });
 
@@ -31,6 +74,9 @@ export function dataExtraReducers<
     if (payload[key] && Array.isArray(payload[key])) {
       /** @ts-ignore */
       adapter.removeMany(state, payload[key]);
+
+      // Saves data if needed.
+      dataSave(options, key, state);
     }
   });
 
@@ -38,6 +84,17 @@ export function dataExtraReducers<
     /** @ts-ignore */
     adapter.removeAll(state);
   });
+
+  /**
+   * TODO: Refactor to organize cases and matchers.
+   */
+  // builder.addMatcher(
+  //   (action: Action): action is Action => action.type.startsWith(key),
+  //   (state) => {
+  //     // Saves data if needed.
+  //     dataSave(options, key, state);
+  //   },
+  // );
 }
 
 export default dataExtraReducers;

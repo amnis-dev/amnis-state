@@ -38,41 +38,41 @@ export const localStorage = (): LocalStorageMemory | Storage => {
   return localStorageLocal;
 };
 
-export const localstorageSetup = <T>(
+/**
+ * Loads entities from local storage.
+ */
+export const localstorageLoad = <T>(
   key: string,
   state: EntityState<T>,
   adapter: EntityAdapter<T>,
-) => ({
-  /**
-   * Load data from local storage
-   */
-  load() {
-    const keyData = localStorage().getItem(`root-${key}`);
+) => {
+  const keyData = localStorage().getItem(`state-${key}`);
 
-    if (!keyData) {
-      return;
-    }
+  if (!keyData) {
+    return;
+  }
 
-    try {
-      const data = base64JsonDecode<T[]>(keyData);
-      if (data) {
-        adapter.upsertMany(state, data);
-      }
-    } catch (e) {
-      console.error(`Could not load ${key} data from LocalStorage.`);
+  try {
+    const data = base64JsonDecode<T[]>(keyData);
+    if (data) {
+      adapter.upsertMany(state, data);
     }
-  },
-  /**
-   * Save data to local storage.
-   */
-  save: async (data: T[]) => {
-    try {
-      const encoded = base64JsonEncode(data);
-      localStorage().setItem(`root-${key}`, encoded);
-    } catch (e) {
-      console.error(`Could not save ${key} data to LocalStorage.`);
-    }
-  },
-});
+  } catch (e) {
+    console.error(`Could not load ${key} data from LocalStorage.`);
+  }
+};
 
-export default localstorageSetup;
+/**
+ * Saves entities to local storage.
+ */
+export const localstorageSave = async <T>(
+  key: string,
+  data: T[],
+) => {
+  try {
+    const encoded = base64JsonEncode(data);
+    localStorage().setItem(`state-${key}`, encoded);
+  } catch (e) {
+    console.error(`Could not save ${key} data to LocalStorage.`);
+  }
+};

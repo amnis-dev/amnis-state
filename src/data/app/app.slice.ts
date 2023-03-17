@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { appInitial, appKey } from './app.js';
+import { appGet, appKey } from './app.js';
 import type { App } from './app.types.js';
 import type { RootState } from '../../store.js';
 
 /**
  * Initialized app state with meta information.
  */
-export const appInitialState: App = appInitial();
+export const appInitialState: App = appGet();
 
 /**
  * RTK App Slice
