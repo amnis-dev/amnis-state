@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.15.5](https://github.com/amnis-dev/amnis-state/compare/v0.15.4...v0.15.5) (2023-03-17)
+
+
+### Features
+
+* **App:** Added new application reducer ([ad77a92](https://github.com/amnis-dev/amnis-state/commit/ad77a92a315cbae441dd84c3be6ddace2a960eca))
+* **Storage:** Added capability to store data in localstorage ([127d64e](https://github.com/amnis-dev/amnis-state/commit/127d64e81ce0bb6cf876206301af01c782c2b3d6))
+
 ### [0.15.4](https://github.com/amnis-dev/amnis-state/compare/v0.15.3...v0.15.4) (2023-03-16)
 
 
