@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import type {
-  Action, ActionReducerMapBuilder, EntityState, EntityStateAdapter,
+  ActionReducerMapBuilder, EntityState, EntityStateAdapter,
 } from '@reduxjs/toolkit';
 import { localstorageSave } from '../localstorage.js';
 import type { State } from '../state.types.js';
