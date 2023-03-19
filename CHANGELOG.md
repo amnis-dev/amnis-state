@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.15.6](https://github.com/amnis-dev/amnis-state/compare/v0.15.5...v0.15.6) (2023-03-19)
+
+
+### Features
+
+* **IO:** Added query and param properties to the input object ([3dc1530](https://github.com/amnis-dev/amnis-state/commit/3dc15309c7c14d61f185c977d182bf1b62898225))
+* **IO:** Added Query to Generic IO type ([d85077a](https://github.com/amnis-dev/amnis-state/commit/d85077af28a74775ed58d48880047314233b912b))
+* **Local Storage:** Added improved error handling for local storage operations ([7486b70](https://github.com/amnis-dev/amnis-state/commit/7486b70bfe3863869fec73e191d74262f8d4b600))
+* **Typescript:** Updated typescript to latest 5.0 ([1d45e7f](https://github.com/amnis-dev/amnis-state/commit/1d45e7fe7fab83c944307e9156ae4b1412a5dfc0))
+
 ### [0.15.5](https://github.com/amnis-dev/amnis-state/compare/v0.15.4...v0.15.5) (2023-03-17)
 
 
