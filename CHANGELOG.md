@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.15.8](https://github.com/amnis-dev/amnis-state/compare/v0.15.7...v0.15.8) (2023-03-19)
+
+
+### Features
+
+* **App:** Added new application reducers and selectors ([c51ae61](https://github.com/amnis-dev/amnis-state/commit/c51ae61883d256b8c4b0190d129e8ff367af39ef))
+
 ### [0.15.7](https://github.com/amnis-dev/amnis-state/compare/v0.15.6...v0.15.7) (2023-03-19)
 
 
