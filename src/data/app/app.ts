@@ -1,4 +1,10 @@
+import { localStorageLoadState } from '../../localstorage.js';
 import type { App } from './app.types.js';
+
+/**
+ * Reducer key for the application state.
+ */
+export const appKey = 'app';
 
 /**
  * Stores app data.
@@ -8,11 +14,19 @@ let app: App;
 /**
  * Initializes the application data.
  */
-const appInitialize = (): App => {
-  const appNext: App = {
-    routeLocation: '/',
+const appInitialState = (): App => {
+  const appDefault: App = {
+    location: '/',
+    systems: {
+      Local: 'http://localhost:3000/api/system',
+    },
+    systemDefault: 'Local',
   };
-  return appNext;
+
+  // Load application data from localstorage.
+  const appStored = localStorageLoadState<App>(appKey);
+
+  return { ...appDefault, ...appStored };
 };
 
 /**
@@ -20,12 +34,7 @@ const appInitialize = (): App => {
  */
 export const appGet = (): App => {
   if (!app) {
-    app = appInitialize();
+    app = appInitialState();
   }
   return app;
 };
-
-/**
- * Reducer key for the application state.
- */
-export const appKey = 'app';

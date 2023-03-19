@@ -39,9 +39,45 @@ export const localStorage = (): LocalStorageMemory | Storage => {
 };
 
 /**
+ * Loads all of part of a state from local storage.
+ */
+export const localStorageLoadState = <T>(key: string): Partial<T> => {
+  const state = localStorage().getItem(`state-${key}`);
+
+  if (!state) {
+    return {};
+  }
+
+  try {
+    const data = base64JsonDecode<Partial<T>>(state);
+    if (!data) {
+      console.error(`Could not decode '${key}' state data from LocalStorage.`);
+      return {};
+    }
+    return data;
+  } catch (e) {
+    console.error(`Could not load '${key}' state data from LocalStorage.`);
+  }
+
+  return {};
+};
+
+/**
+ * Saves all or pat of a state to local storage.
+ */
+export const localStorageSaveState = async <T>(key: string, state: Partial<T>) => {
+  try {
+    const encoded = base64JsonEncode(state);
+    localStorage().setItem(`state-${key}`, encoded);
+  } catch (e) {
+    console.error(`Could not save ${key} state data to LocalStorage.`);
+  }
+};
+
+/**
  * Loads entities from local storage.
  */
-export const localStorageLoad = <T>(
+export const localStorageLoadEntities = <T>(
   key: string,
   state: EntityState<T>,
   adapter: EntityAdapter<T>,
@@ -54,10 +90,10 @@ export const localStorageLoad = <T>(
       if (data) {
         adapter.upsertMany(state, data);
       } else {
-        console.error(`Could not decode '${key}' data from LocalStorage.`);
+        console.error(`Could not decode '${key}' entity data from LocalStorage.`);
       }
     } catch (e) {
-      console.error(`Could not load '${key}' data from LocalStorage.`);
+      console.error(`Could not load '${key}' entity data from LocalStorage.`);
     }
   }
 };

@@ -1,7 +1,7 @@
 import type { EntityState } from '@reduxjs/toolkit';
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import type { UID } from '../../core/core.types.js';
-import { localStorageLoad } from '../../localstorage.js';
+import { localStorageLoadEntities } from '../../localstorage.js';
 import type { State } from '../../state.types.js';
 import { dataExtraReducers } from '../data.reducers.js';
 import { apiKey } from './api.js';
@@ -32,7 +32,7 @@ export const apiInitialState = apiAdapter.getInitialState<ApiMeta>({});
 /**
  * Load information from localstorage.
  */
-localStorageLoad(apiKey, apiInitialState, apiAdapter);
+localStorageLoadEntities(apiKey, apiInitialState, apiAdapter);
 
 /**
  * RTK Api Slice

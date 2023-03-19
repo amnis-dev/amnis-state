@@ -9,7 +9,7 @@ import type {
   System,
   SystemMeta,
 } from './system.types.js';
-import { localStorageLoad } from '../../../localstorage.js';
+import { localStorageLoadEntities } from '../../../localstorage.js';
 
 /**
  * RTK system adapter.
@@ -37,7 +37,7 @@ export const systemInitialState = systemAdapter.getInitialState<SystemMeta>(
 /**
  * Load system data.
  */
-localStorageLoad(systemKey, systemInitialState, systemAdapter);
+localStorageLoadEntities(systemKey, systemInitialState, systemAdapter);
 
 /**
  * RTK System Slice
