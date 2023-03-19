@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { appGet, appKey } from './app.js';
-import type { App } from './app.types.js';
+import type { App, AppSystems } from './app.types.js';
 import type { RootState } from '../../store.js';
 import { localStorageSaveState } from '../../localstorage.js';
 
@@ -17,6 +17,27 @@ export const appSlice = createSlice({
   name: appKey,
   initialState: appInitialState,
   reducers: {
+    /**
+     * Defines all possibly known systems on the network.
+     */
+    systemsSet: (
+      state,
+      action: PayloadAction<{name: string, url: string}[]>,
+    ) => {
+      state.systems = {};
+      action.payload.forEach(({ name, url }, index) => {
+        state.systems[name] = url;
+        if (index === 0) {
+          state.systemDefault = name;
+        }
+      });
+
+      localStorageSaveState<App>(appKey, {
+        systems: state.systems,
+        systemDefault: state.systemDefault,
+      });
+    },
+
     /**
      * Defines a possible system on the network.
      */
@@ -39,6 +60,23 @@ export const appSlice = createSlice({
         systems: state.systems,
         systemDefault: state.systemDefault,
       });
+    },
+
+    /**
+     * Removes a possible system on the network.
+     */
+    systemRemove: (state, action: PayloadAction<keyof AppSystems>) => {
+      if (state.systemDefault === action.payload) {
+        state.systemDefault = undefined;
+      }
+
+      if (!state.systems[action.payload]) {
+        return;
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { [action.payload]: _, ...systems } = state.systems;
+      state.systems = systems;
     },
 
     /**
