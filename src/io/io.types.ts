@@ -77,7 +77,11 @@ export interface IoContext {
 /**
  * Input interface.
  */
-export interface IoInput<T = any, Q = any, J = JWTAccess> {
+export interface IoInput<
+  T = any,
+  Q = any,
+  J = JWTAccess
+> {
   /**
    * The input body.
    */
@@ -221,8 +225,8 @@ export interface IoQueries {
 /**
  * Primary input and output type for processing
  */
-export type Io<Body = any, Result = any, Token = JWTAccess> = (
-  input: IoInput<Body, Token>,
+export type Io<Body = any, Query = Record<string, any>, Result = any, Token = JWTAccess> = (
+  input: IoInput<Body, Query, Token>,
   output: IoOutput<Result>
 ) => Promise<IoOutput<Result>>;
 
