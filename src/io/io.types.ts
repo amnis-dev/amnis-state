@@ -77,11 +77,21 @@ export interface IoContext {
 /**
  * Input interface.
  */
-export interface IoInput<T = any, J = JWTAccess> {
+export interface IoInput<T = any, Q = any, J = JWTAccess> {
   /**
    * The input body.
    */
   body: T;
+
+  /**
+   * The input query. (e.g. /api?query=)
+   */
+  query: Q;
+
+  /**
+   * The input parameter. (e.g. /api/:id)
+   */
+  param?: string;
 
   /**
    * Encoded JWT data.
