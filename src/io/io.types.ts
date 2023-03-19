@@ -79,7 +79,6 @@ export interface IoContext {
  */
 export interface IoInput<
   T = any,
-  Q = any,
   J = JWTAccess
 > {
   /**
@@ -90,7 +89,7 @@ export interface IoInput<
   /**
    * The input query. (e.g. /api?query=)
    */
-  query: Q;
+  query: Record<string, string | undefined>;
 
   /**
    * The input parameter. (e.g. /api/:id)
@@ -225,8 +224,11 @@ export interface IoQueries {
 /**
  * Primary input and output type for processing
  */
-export type Io<Body = any, Query = Record<string, any>, Result = any, Token = JWTAccess> = (
-  input: IoInput<Body, Query, Token>,
+export type Io<
+  Body = any,
+  Result = any, Token = JWTAccess
+> = (
+  input: IoInput<Body, Token>,
   output: IoOutput<Result>
 ) => Promise<IoOutput<Result>>;
 
