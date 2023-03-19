@@ -3,7 +3,7 @@
 import type {
   ActionReducerMapBuilder, EntityState, EntityStateAdapter,
 } from '@reduxjs/toolkit';
-import { localstorageSave } from '../localstorage.js';
+import { localStorageSaveEntities } from '../localstorage.js';
 import type { State } from '../state.types.js';
 import { dataActions } from './data.actions.js';
 import type { DataEntity } from './types.js';
@@ -21,7 +21,7 @@ async function dataSave<D>(
     const entities = Object.values(state.entities) as D[];
     if (typeof save === 'boolean') {
       /** @ts-ignore */
-      localstorageSave(key, entities);
+      localStorageSaveEntities(key, entities);
     } else {
       const entitiesFiltered = entities.filter(
         (entity) => Object.keys(save).every((saveKey) => {
@@ -34,7 +34,7 @@ async function dataSave<D>(
       );
 
       if (entitiesFiltered.length > 0) {
-        localstorageSave(key, entitiesFiltered);
+        localStorageSaveEntities(key, entitiesFiltered);
       }
     }
   }

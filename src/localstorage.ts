@@ -41,37 +41,37 @@ export const localStorage = (): LocalStorageMemory | Storage => {
 /**
  * Loads entities from local storage.
  */
-export const localstorageLoad = <T>(
+export const localStorageLoad = <T>(
   key: string,
   state: EntityState<T>,
   adapter: EntityAdapter<T>,
 ) => {
-  const keyData = localStorage().getItem(`state-${key}`);
+  const entities = localStorage().getItem(`state-entities-${key}`);
 
-  if (!keyData) {
-    return;
-  }
-
-  try {
-    const data = base64JsonDecode<T[]>(keyData);
-    if (data) {
-      adapter.upsertMany(state, data);
+  if (entities) {
+    try {
+      const data = base64JsonDecode<T[]>(entities);
+      if (data) {
+        adapter.upsertMany(state, data);
+      } else {
+        console.error(`Could not decode '${key}' data from LocalStorage.`);
+      }
+    } catch (e) {
+      console.error(`Could not load '${key}' data from LocalStorage.`);
     }
-  } catch (e) {
-    console.error(`Could not load ${key} data from LocalStorage.`);
   }
 };
 
 /**
  * Saves entities to local storage.
  */
-export const localstorageSave = async <T>(
+export const localStorageSaveEntities = async <T>(
   key: string,
-  data: T[],
+  entities: T[],
 ) => {
   try {
-    const encoded = base64JsonEncode(data);
-    localStorage().setItem(`state-${key}`, encoded);
+    const encoded = base64JsonEncode(entities);
+    localStorage().setItem(`state-entities-${key}`, encoded);
   } catch (e) {
     console.error(`Could not save ${key} data to LocalStorage.`);
   }
