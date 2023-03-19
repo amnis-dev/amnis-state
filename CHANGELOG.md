@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.15.7](https://github.com/amnis-dev/amnis-state/compare/v0.15.6...v0.15.7) (2023-03-19)
+
+
+### Bug Fixes
+
+* **IO:** Fixed typings for IO ([6b15786](https://github.com/amnis-dev/amnis-state/commit/6b1578621955f0ed702c59e773c43886aa297efc))
+
 ### [0.15.6](https://github.com/amnis-dev/amnis-state/compare/v0.15.5...v0.15.6) (2023-03-19)
 
 
