@@ -73,7 +73,7 @@ export type Entity<C extends EntityCreator = EntityCreator> = C & {
 /**
  * Meta information for an entity collection.
  */
-export interface Meta<C extends EntityCreator> {
+export interface Meta<C extends EntityCreator = EntityCreator> {
   /**
    * The entity id referencing the active entity.
    */
@@ -121,4 +121,4 @@ export type EntityUpdater<C extends EntityCreator> = Partial<Omit<C, '$id'>> & {
 /**
  * An entity state.
  */
-export type MetaState<C extends EntityCreator> = EntityState<Entity<C>> & Meta<C>;
+export type MetaState<C extends EntityCreator = EntityCreator> = EntityState<Entity<C>> & Meta<C>;

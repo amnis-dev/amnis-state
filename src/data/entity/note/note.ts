@@ -1,4 +1,5 @@
 import { uid } from '../../../core/index.js';
+import { entitySliceCreate } from '../entity.slice.js';
 import type { Note, NoteBase, NoteCreator } from './note.types.js';
 
 export const noteKey = 'note';
@@ -17,3 +18,8 @@ export function noteCreator(
     $id: uid(noteKey),
   };
 }
+
+export const noteState = entitySliceCreate<Note, NoteCreator>({
+  key: noteKey,
+  creator: noteCreator,
+});

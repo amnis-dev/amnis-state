@@ -3,6 +3,8 @@ import type { GrantScope } from './data/index.js';
 import type { UID, UIDList } from './core/index.js';
 import type { Entity, EntityCreator } from './data/entity/index.js';
 
+export type StateKey<K> = string & Record<never, K>;
+
 /**
  * An ambiguous state.
  */

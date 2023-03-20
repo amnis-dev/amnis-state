@@ -155,7 +155,7 @@ export const entityStrip = <C extends EntityCreator>(
 /**
  * Create meta information for an entity meta information.
  */
-export function metaInitial<C extends EntityCreator>(
+export function metaInitial<C extends EntityCreator = EntityCreator>(
   meta: Partial<Meta<C>> = {},
 ): Meta<C> {
   return {
