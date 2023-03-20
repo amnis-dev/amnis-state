@@ -357,5 +357,3 @@ export const entityExtraReducers: DataExtraReducers = {
     });
   },
 };
-
-export default entityExtraReducers;

@@ -115,5 +115,3 @@ export const dataExtraReducers: DataExtraReducers = {
   },
 
 };
-
-export default dataExtraReducers;
