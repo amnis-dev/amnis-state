@@ -1,5 +1,4 @@
 import type { EntityAdapter, EntityState } from '@reduxjs/toolkit';
-import { base64JsonDecode, base64JsonEncode } from './core/index.js';
 
 /**
  * Mocked memeory version of LocalStorage in case a form doesn't exist.
@@ -49,7 +48,7 @@ export const localStorageLoadState = <T>(key: string): Partial<T> => {
   }
 
   try {
-    const data = base64JsonDecode<Partial<T>>(state);
+    const data = JSON.parse(state);
     if (!data) {
       console.error(`Could not decode '${key}' state data from LocalStorage.`);
       return {};
@@ -67,7 +66,7 @@ export const localStorageLoadState = <T>(key: string): Partial<T> => {
  */
 export const localStorageSaveState = async <T>(key: string, state: Partial<T>) => {
   try {
-    const encoded = base64JsonEncode(state);
+    const encoded = JSON.stringify(state);
     localStorage().setItem(`state-${key}`, encoded);
   } catch (e) {
     console.error(`Could not save ${key} state data to LocalStorage.`);
@@ -86,7 +85,7 @@ export const localStorageLoadEntities = <T>(
 
   if (entities) {
     try {
-      const data = base64JsonDecode<T[]>(entities);
+      const data = JSON.parse(entities);
       if (data) {
         adapter.upsertMany(state, data);
       } else {
@@ -106,7 +105,7 @@ export const localStorageSaveEntities = async <T>(
   entities: T[],
 ) => {
   try {
-    const encoded = base64JsonEncode(entities);
+    const encoded = JSON.stringify(entities);
     localStorage().setItem(`state-entities-${key}`, encoded);
   } catch (e) {
     console.error(`Could not save ${key} data to LocalStorage.`);

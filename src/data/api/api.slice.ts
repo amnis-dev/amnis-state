@@ -3,7 +3,7 @@ import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import type { UID } from '../../core/core.types.js';
 import { localStorageLoadEntities } from '../../localstorage.js';
 import type { State } from '../../state.types.js';
-import { dataExtraReducers } from '../data.reducers.js';
+import { extraReducersApply, dataExtraReducers } from '../data.reducers.js';
 import { apiKey } from './api.js';
 
 import type { Api, ApiMeta } from './api.types.js';
@@ -45,14 +45,14 @@ export const apiSlice = createSlice({
     /**
      * Add common extra reducers.
      */
-    dataExtraReducers(
-      apiKey,
-      apiAdapter,
+    extraReducersApply({
+      key: apiKey,
+      adapter: apiAdapter,
       builder,
-      {
+      options: {
         save: true,
       },
-    );
+    }, [dataExtraReducers]);
   },
 });
 

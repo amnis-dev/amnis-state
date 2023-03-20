@@ -77,6 +77,24 @@ export const appSlice = createSlice({
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { [action.payload]: _, ...systems } = state.systems;
       state.systems = systems;
+
+      localStorageSaveState<App>(appKey, {
+        systems: state.systems,
+        systemDefault: state.systemDefault,
+      });
+    },
+
+    /**
+     * Sets the default system.
+     */
+    systemDefaultSet: (state, action: PayloadAction<keyof AppSystems>) => {
+      if (!state.systems[action.payload]) {
+        return;
+      }
+      state.systemDefault = action.payload;
+      localStorageSaveState<App>(appKey, {
+        systemDefault: state.systemDefault,
+      });
     },
 
     /**
@@ -111,11 +129,11 @@ export const appSelectors = {
    * Selects the default system.
    */
   selectSystemDefault: (state: RootState) => {
-    const { systems, systemDefault } = state[appKey];
+    const { systemDefault } = state[appKey];
     if (!systemDefault) {
       return undefined;
     }
-    return systems[systemDefault];
+    return systemDefault;
   },
 
   /**

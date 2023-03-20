@@ -1,6 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { dataExtraReducers } from '../data.reducers.js';
+import { dataExtraReducers, extraReducersApply } from '../data.reducers.js';
 import { bearerKey } from './bearer.js';
 
 import type { Bearer, BearerMeta } from './bearer.types.js';
@@ -57,7 +57,11 @@ export const bearerSlice = createSlice({
     /**
      * Add common extra reducers.
      */
-    dataExtraReducers(bearerKey, bearerAdapter, builder);
+    extraReducersApply({
+      key: bearerKey,
+      adapter: bearerAdapter,
+      builder,
+    }, [dataExtraReducers]);
   },
 });
 

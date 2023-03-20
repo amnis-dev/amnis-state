@@ -9,7 +9,7 @@ import { roleKey } from './role.js';
 import type { State } from '../../../state.types.js';
 import type { UID } from '../../../core/core.types.js';
 import type { Grant } from '../../grant/grant.types.js';
-import { dataExtraReducers } from '../../data.reducers.js';
+import { dataExtraReducers, extraReducersApply } from '../../data.reducers.js';
 
 // /**
 //  * Matcher for any update role action.
@@ -79,12 +79,14 @@ export const roleSlice = createSlice({
     /**
      * Add common extra reducers.
      */
-    dataExtraReducers(roleKey, roleAdapter, builder);
-
-    /**
-     * Required: Enables mutations from core actions.
-     */
-    entityExtraReducers(roleKey, roleAdapter, builder);
+    extraReducersApply({
+      key: roleKey,
+      adapter: roleAdapter,
+      builder,
+    }, [
+      dataExtraReducers,
+      entityExtraReducers,
+    ]);
     // /**
     //  * Match a role update action.
     //  * This will update cached role combinations.

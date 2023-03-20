@@ -1,7 +1,7 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { entityExtraReducers, entityReducers } from '../entity.reducers.js';
 import { entitySelectors } from '../entity.selectors.js';
-import { dataExtraReducers } from '../../data.reducers.js';
+import { dataExtraReducers, extraReducersApply } from '../../data.reducers.js';
 import { metaInitial } from '../entity.js';
 import type { Entity } from '../entity.types.js';
 import { contactKey } from './contact.js';
@@ -46,12 +46,19 @@ export const contactSlice = createSlice({
     /**
      * Add common extra reducers.
      */
-    dataExtraReducers(contactKey, contactAdapter, builder);
-
-    /**
-     * Required: Enables mutations from core actions.
-     */
-    entityExtraReducers(contactKey, contactAdapter, builder);
+    extraReducersApply({
+      key: contactKey,
+      adapter: contactAdapter,
+      builder,
+      options: {
+        save: {
+          committed: false,
+        },
+      },
+    }, [
+      dataExtraReducers,
+      entityExtraReducers,
+    ]);
   },
 });
 

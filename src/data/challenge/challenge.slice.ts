@@ -4,7 +4,7 @@ import type { Challenge, ChallengeMeta } from './challenge.types.js';
 import { challengeBase, challengeCreate, challengeKey } from './challenge.js';
 import type { UID } from '../../core/index.js';
 import { dateNumeric } from '../../core/index.js';
-import { dataExtraReducers } from '../data.reducers.js';
+import { dataExtraReducers, extraReducersApply } from '../data.reducers.js';
 
 /**
  * Matcher for any challenge action.
@@ -66,7 +66,11 @@ export const challengeSlice = createSlice({
     /**
      * Add common extra reducers.
      */
-    dataExtraReducers(challengeKey, challengeAdapter, builder);
+    extraReducersApply({
+      key: challengeKey,
+      adapter: challengeAdapter,
+      builder,
+    }, [dataExtraReducers]);
 
     /**
      * Match any challenge action.

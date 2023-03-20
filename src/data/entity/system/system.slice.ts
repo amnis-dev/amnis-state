@@ -1,7 +1,7 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { entityExtraReducers, entityReducers } from '../entity.reducers.js';
 import { entitySelectors } from '../entity.selectors.js';
-import { dataExtraReducers } from '../../data.reducers.js';
+import { dataExtraReducers, extraReducersApply } from '../../data.reducers.js';
 import { metaInitial } from '../entity.js';
 import type { Entity } from '../entity.types.js';
 import { systemKey } from './system.js';
@@ -55,19 +55,17 @@ export const systemSlice = createSlice({
     /**
      * Add common extra reducers.
      */
-    dataExtraReducers(
-      systemKey,
-      systemAdapter,
+    extraReducersApply({
+      key: systemKey,
+      adapter: systemAdapter,
       builder,
-      {
+      options: {
         save: true,
       },
-    );
-
-    /**
-     * Required: Enables mutations from core actions.
-     */
-    entityExtraReducers(systemKey, systemAdapter, builder);
+    }, [
+      dataExtraReducers,
+      entityExtraReducers,
+    ]);
   },
 });
 

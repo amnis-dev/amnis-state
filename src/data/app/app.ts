@@ -17,11 +17,15 @@ let app: App;
 const appInitialState = (): App => {
   const appDefault: App = {
     location: '/',
-    systems: {
-      Local: 'http://localhost:3000/api/system',
-    },
-    systemDefault: 'Local',
+    systems: {},
   };
+
+  if (typeof process !== 'undefined' && process.env.NODE_ENV === 'development') {
+    appDefault.systems = {
+      Local: 'http://localhost:3000/api/system',
+    };
+    appDefault.systemDefault = 'Local';
+  }
 
   // Load application data from localstorage.
   const appStored = localStorageLoadState<App>(appKey);

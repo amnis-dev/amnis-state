@@ -2,14 +2,13 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import type {
   Action,
-  ActionReducerMapBuilder,
   EntityAdapter,
-  EntityStateAdapter,
   PayloadAction,
 } from '@reduxjs/toolkit';
 import type { UID } from '../../core/index.js';
+import { localStorageSaveState } from '../../localstorage.js';
 import { dataActions } from '../data.actions.js';
-import type { DataDeleter } from '../types.js';
+import type { DataDeleter, DataExtraReducers } from '../types.js';
 import { diffCompare } from './diff.js';
 import { entityActions } from './entity.actions.js';
 import { entityCreate, metaInitial } from './entity.js';
@@ -276,64 +275,87 @@ export function entityReducers<C extends EntityCreator>(
   };
 }
 
-export function entityExtraReducers<
-  C extends EntityCreator & { [key: string]: any },
-  EA extends EntityStateAdapter<Entity<C>>,
-  ARMB extends ActionReducerMapBuilder<MetaState<C>>
->(
-  key: string,
-  adapter: EA,
-  builder: ARMB,
-) {
-  builder.addCase(entityActions.meta, (state, { payload }) => {
-    if (!payload[key]) {
-      return;
-    }
+export const entityExtraReducers: DataExtraReducers = {
 
-    const meta = payload[key];
-    Object.keys(meta).forEach((metaKey) => {
-      /** @ts-ignore */
-      state[metaKey] = meta[metaKey];
+  cases: ({
+    key,
+    builder,
+  }) => {
+    builder.addCase(entityActions.meta, (state, { payload }) => {
+      if (!payload[key]) {
+        return;
+      }
+
+      const meta = payload[key];
+      Object.keys(meta).forEach((metaKey) => {
+        /** @ts-ignore */
+        state[metaKey] = meta[metaKey];
+      });
     });
-  });
+  },
 
-  builder.addMatcher(isDataDeleteAction, (state, { payload }) => {
-    if (!payload[key]) {
-      return;
-    }
+  matchers: ({
+    key,
+    builder,
+    options = { save: false },
+  }) => {
+    /**
+     * Save meta data
+     */
+    builder.addMatcher(
+      (action: Action): action is Action => action.type.startsWith(key),
+      (state) => {
+        if (!options.save) {
+          return;
+        }
 
-    if (state.active && payload[key].includes(state.active)) {
-      state.active = null;
-    }
+        const stateMeta = state as MetaState<EntityCreator>;
 
-    if (state.focused && payload[key].includes(state.focused)) {
-      state.focused = null;
-    }
+        localStorageSaveState(key, {
+          original: stateMeta.original,
+          differences: stateMeta.differences,
+        });
+      },
+    );
 
-    if (
-      state.selection.length > 0
+    builder.addMatcher(isDataDeleteAction, (state, { payload }) => {
+      if (!payload[key]) {
+        return;
+      }
+
+      if (state.active && payload[key].includes(state.active)) {
+        state.active = null;
+      }
+
+      if (state.focused && payload[key].includes(state.focused)) {
+        state.focused = null;
+      }
+
+      if (
+        state.selection.length > 0
       && payload[key].some((id) => state.selection.includes(id as UID))
-    ) {
-      state.selection = state.selection.filter((selectionId: UID) => (
-        payload[key].includes(selectionId)
-      ));
-    }
-  });
-
-  builder.addMatcher(isDataWipeAction, (state) => {
-    const metaDefault = metaInitial<C>();
-
-    state.active = metaDefault.active;
-    state.focused = metaDefault.focused;
-    state.selection = metaDefault.selection;
-
-    Object.keys(state.original).forEach((k) => {
-      delete state.original[k as keyof typeof state.original];
+      ) {
+        state.selection = state.selection.filter((selectionId: UID) => (
+          payload[key].includes(selectionId)
+        ));
+      }
     });
-    Object.keys(state.differences).forEach((k) => {
-      delete state.differences[k as keyof typeof state.differences];
+
+    builder.addMatcher(isDataWipeAction, (state) => {
+      const metaDefault = metaInitial<Entity>();
+
+      state.active = metaDefault.active;
+      state.focused = metaDefault.focused;
+      state.selection = metaDefault.selection;
+
+      Object.keys(state.original).forEach((k) => {
+        delete state.original[k as keyof typeof state.original];
+      });
+      Object.keys(state.differences).forEach((k) => {
+        delete state.differences[k as keyof typeof state.differences];
+      });
     });
-  });
-}
+  },
+};
 
 export default entityExtraReducers;
