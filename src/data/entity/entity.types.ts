@@ -1,22 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { EntityState } from '@reduxjs/toolkit';
 import type { UID, UIDList, DateJSON } from '../../core/index.js';
-
-/**
- * Subset interface for an entity.
- */
-export interface EntityCreator {
-  /**
-   * All objects that can be composed into an entity must have an
-   * identifier.
-   */
-  $id: UID;
-}
+import type { Data } from '../data.types.js';
 
 /**
  * An abstract interface that can only be formed from an entity creator object.
  */
-export type Entity<C extends EntityCreator = EntityCreator> = C & {
+export type Entity<C extends Data = Data> = C & {
   /**
    * UID for this entity.
    * @default ""
@@ -73,7 +63,7 @@ export type Entity<C extends EntityCreator = EntityCreator> = C & {
 /**
  * Meta information for an entity collection.
  */
-export interface Meta<C extends EntityCreator = EntityCreator> {
+export interface Meta<C extends Data = Data> {
   /**
    * The entity id referencing the active entity.
    */
@@ -103,22 +93,22 @@ export interface Meta<C extends EntityCreator = EntityCreator> {
 /**
  * Base object for default settings on a entity creator.
  */
-export type EntityCreatorBase<C extends EntityCreator> = Omit<C, '$id'>;
+export type EntityCreatorBase<C extends Data> = Omit<C, '$id'>;
 
 /**
  * Create an entity creation parameters.
  */
 export type EntityCreatorParams<
-  C extends EntityCreator,
+  C extends Data,
   K extends keyof C
 > = Pick<C, K> & Omit<Partial<C>, K>;
 
 /**
  * Subset interface for updating a creator entity
  */
-export type EntityUpdater<C extends EntityCreator> = Partial<Omit<C, '$id'>> & { $id: UID<C>; };
+export type EntityUpdater<C extends Data> = Partial<Omit<C, '$id'>> & { $id: UID<C>; };
 
 /**
  * An entity state.
  */
-export type MetaState<C extends EntityCreator = EntityCreator> = EntityState<Entity<C>> & Meta<C>;
+export type MetaState<C extends Data = Data> = EntityState<Entity<C>> & Meta<C>;

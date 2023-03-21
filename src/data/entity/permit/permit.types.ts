@@ -1,11 +1,11 @@
 import type { UID } from '../../../core/index.js';
-import type { EntityCreator } from '../entity.types.js';
+import type { Data } from '../../data.types.js';
 import type { GrantString } from '../../grant/index.js';
 
 /**
  * A permit is a list of grants for a specific identifier ID.
  */
-export interface Permit extends EntityCreator {
+export interface Permit extends Data {
   /**
    * UID to the entity that issued this permit.
    */

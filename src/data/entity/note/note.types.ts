@@ -1,12 +1,13 @@
 import type {
-  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+  EntityCreatorBase, EntityCreatorParams, Meta,
 } from '../entity.types.js';
 import type { UID } from '../../../core/index.js';
+import type { Data } from '../../data.types.js';
 
 /**
  * A message to aid memory about the historic change.
  */
-export interface Note extends EntityCreator {
+export interface Note extends Data {
   /**
    * Subject this note is attached to.
    */

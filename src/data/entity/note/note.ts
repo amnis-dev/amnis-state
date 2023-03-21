@@ -2,7 +2,7 @@ import { uid } from '../../../core/index.js';
 import { entitySliceCreate } from '../entity.slice.js';
 import type { Note, NoteBase, NoteCreator } from './note.types.js';
 
-export const noteKey = 'note';
+const noteKey = 'note';
 
 export const noteBase: NoteBase = {
   $subject: uid(''),

@@ -1,11 +1,11 @@
 import { uid, dateNumeric } from '../../../core/index.js';
-import { sessionKey, sessionCreator } from './session.js';
+import { sessionCreator, sessionState } from './session.js';
 
 /**
  * ============================================================
  */
 test('session key should be is properly set', () => {
-  expect(sessionKey).toEqual('session');
+  expect(sessionState.key()).toEqual('session');
 });
 
 /**

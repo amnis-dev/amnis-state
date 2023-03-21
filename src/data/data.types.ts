@@ -4,14 +4,39 @@ import type { ActionReducerMapBuilder, EntityState, EntityStateAdapter } from '@
 import type { State } from '../state.types.js';
 import type { UID } from '../core/index.js';
 
-export type Data = { $id: UID, [key: string]: any };
+export type Data = { $id: UID };
 
-export type DataUpdate<DE = Data> = Partial<DE> & { $id: string };
+/**
+ * The root of an extended data object.
+ */
+export type DataRoot<D extends Data> = Omit<D, '$id'>;
 
-export type DataCreator = { [key: string]: Data[] };
+/**
+ * Minimal amount of information required to create a new extended data object.
+ */
+export type DataMinimal<
+  D extends Data,
+  K extends keyof D
+> = Pick<D, K> & Omit<Partial<D>, K>;
 
-export type DataUpdater = { [key: string]: DataUpdate[] };
+/**
+ * An update definition for an extended data object.
+ */
+export type DataUpdate<D extends Data = Data> = Partial<D> & { $id: string };
 
+/**
+ * A collection of extended data objects to create.
+ */
+export type DataCreator<D extends Data = Data> = { [key: string]: D[] };
+
+/**
+ * A collection of extended data objects to update.
+ */
+export type DataUpdater<D extends Data = Data> = { [key: string]: DataUpdate<D>[] };
+
+/**
+ * A collection of extended data objects to delete.
+ */
 export type DataDeleter = { [key: string]: UID[] };
 
 export interface DataReducerOptions {

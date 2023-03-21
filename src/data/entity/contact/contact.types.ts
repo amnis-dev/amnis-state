@@ -1,12 +1,13 @@
 import type {
-  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+  EntityCreatorBase, EntityCreatorParams, Meta,
 } from '../entity.types.js';
 import type { SURL } from '../../../core/index.js';
+import type { Data } from '../../data.types.js';
 
 /**
  * Contact entity
  */
-export interface Contact extends EntityCreator {
+export interface Contact extends Data {
   /**
    * Name (or title) of the contact
    * @title Name

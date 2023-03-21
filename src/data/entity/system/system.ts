@@ -1,6 +1,7 @@
 import { uid } from '../../../core/index.js';
+import { entitySliceCreate } from '../entity.slice.js';
 import type { LogCreator } from '../log/index.js';
-import { roleKey } from '../role/index.js';
+import { roleState } from '../role/index.js';
 import type { System, SystemBase, SystemCreator } from './system.types.js';
 
 export const systemKey = 'system';
@@ -20,9 +21,9 @@ export const systemBase = (): SystemBase => ({
   emailNotify: 'notify@system.test',
   emailAuth: 'auth@system.test',
   fileSizeMax: 4096,
-  $adminRole: uid(roleKey),
-  $execRole: uid(roleKey),
-  $anonymousRole: uid(roleKey),
+  $adminRole: uid(roleState.key()),
+  $execRole: uid(roleState.key()),
+  $anonymousRole: uid(roleState.key()),
   $initialRoles: [],
 });
 
@@ -58,3 +59,8 @@ export function systemCreator(
     sessionKey,
   };
 }
+
+export const systemState = entitySliceCreate({
+  key: systemKey,
+  creator: systemCreator,
+});

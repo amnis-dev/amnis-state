@@ -3,8 +3,9 @@ import { uid } from '../../../core/index.js';
 import type {
   Locale, LocaleBase, LocaleCreator, LocaleTranslationKey, LocaleTranslation,
 } from './locale.types.js';
+import { entitySliceCreate } from '../entity.slice.js';
 
-export const localeKey = 'locale';
+const localeKey = 'locale';
 
 export const localeBase: LocaleBase = {
   code: 'en',
@@ -68,3 +69,8 @@ export function localeCreator(
     $id: uid(localeKey),
   };
 }
+
+export const localeState = entitySliceCreate({
+  key: localeKey,
+  creator: localeCreator,
+});

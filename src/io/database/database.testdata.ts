@@ -1,9 +1,10 @@
-import type { Entity, EntityCreator } from '../../data/entity/index.js';
+import type { Entity } from '../../data/entity/index.js';
 import { entityCreate } from '../../data/entity/index.js';
 import type { StateEntities } from '../../state.types.js';
 import { uid } from '../../core/index.js';
+import type { Data } from '../../index.js';
 
-export interface TestDataTodo extends EntityCreator {
+export interface TestDataTodo extends Data {
   title: string;
   priority: number;
   remind: boolean;

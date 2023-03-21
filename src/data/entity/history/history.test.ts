@@ -2,27 +2,25 @@ import { GrantTask } from '../../grant/index.js';
 import { uid } from '../../../core/index.js';
 import type { StateDeleter, StateUpdater } from '../../../state.types.js';
 import {
-  historyKey, historyCreator, historyBase, historyMake,
+  historyCreator, historyBase, historyMake, historyState,
 } from './history.js';
+import { storeSetup } from '../../../store.js';
 
 /**
  * ============================================================
  */
 test('history key should be is properly set', () => {
-  expect(historyKey).toEqual('history');
+  expect(historyState.key()).toEqual('history');
 });
 
 /**
  * ============================================================
  */
 test('should create a history', () => {
-  const history = historyCreator(historyBase());
+  const historyBaseObject = historyBase();
+  const history = historyCreator(historyBaseObject);
 
-  expect(history).toMatchObject({
-    $subject: expect.any(String),
-    task: GrantTask.None,
-    mutation: {},
-  });
+  expect(history).toMatchObject(historyBaseObject);
 });
 
 /**
@@ -91,4 +89,31 @@ test('should make history from state deleter', () => {
     task: GrantTask.Delete,
     mutation: profileId2,
   });
+});
+
+/**
+ * ============================================================
+ */
+test('should return the initial state', () => {
+  const store = storeSetup();
+
+  expect(
+    store.getState()[historyState.key()],
+  ).toEqual(historyState.initialState);
+});
+
+/**
+ * ============================================================
+ */
+test('should history creating a new entity', () => {
+  const store = storeSetup();
+
+  const base = historyBase();
+  const action = historyState.actions().create(base);
+
+  store.dispatch(action);
+  const entities = historyState.selectors().selectAll(store.getState());
+  expect(entities).toHaveLength(1);
+
+  expect(entities[0]).toEqual(expect.objectContaining(base));
 });

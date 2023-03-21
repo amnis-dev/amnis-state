@@ -5,8 +5,9 @@ import { grantCombine } from '../../grant/index.js';
 import type {
   Role, RoleBase, RoleCombo, RoleCreator, RoleFsLimits,
 } from './role.types.js';
+import { entitySliceCreate } from '../entity.slice.js';
 
-export const roleKey = 'role';
+const roleKey = 'role';
 
 export const roleBase = (): RoleBase => ({
   name: 'Unconfigured Role',
@@ -74,3 +75,8 @@ export function roleFsLimitsCompress(
 
   return fsLimitsResult;
 }
+
+export const roleState = entitySliceCreate({
+  key: roleKey,
+  creator: roleCreator,
+});

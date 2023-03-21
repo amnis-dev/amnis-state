@@ -1,10 +1,11 @@
-import type { EntityCreator, EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
+import type { EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
 import type { UID } from '../../../core/index.js';
+import type { Data } from '../../data.types.js';
 
 /**
  * Data for routing to a resouce.
  */
-export interface Route extends EntityCreator {
+export interface Route extends Data {
   /**
    * Text to present when linking this route.
    */

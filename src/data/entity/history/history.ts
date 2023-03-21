@@ -5,8 +5,9 @@ import type { UID } from '../../../core/index.js';
 import type {
   History, HistoryBase, HistoryCreator, HistoryStateMutator,
 } from './history.types.js';
+import { entitySliceCreate } from '../entity.slice.js';
 
-export const historyKey = 'history';
+const historyKey = 'history';
 
 export const historyBase = (): HistoryBase => ({
   $subject: uid(historyKey, 'null'),
@@ -45,3 +46,8 @@ export function historyMake(
 
   return histories;
 }
+
+export const historyState = entitySliceCreate({
+  key: historyKey,
+  creator: historyCreator,
+});

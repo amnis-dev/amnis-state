@@ -1,13 +1,13 @@
 import { uid } from '../../../core/index.js';
 import type { Profile, ProfileBase, ProfileCreator } from './profile.types.js';
-import { userKey } from '../user/user.js';
 import { entitySliceCreate } from '../entity.slice.js';
+import { userState } from '../user/index.js';
 
-export const profileKey = 'profile';
+const profileKey = 'profile';
 
 export const profileBase: ProfileBase = {
   nameDisplay: 'Unnamed',
-  $user: uid(userKey),
+  $user: uid(userState.key()),
 };
 
 export function profileCreator(

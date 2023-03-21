@@ -1,27 +1,28 @@
 import { storeSetup } from '../../../store.js';
 import {
-  contactCreator, contactState, contactBase,
-} from './contact.js';
+  credentialCreator, credentialState, credentialBase,
+} from './credential.js';
 
 /**
  * ============================================================
  */
-test('contact key should be is properly set', () => {
-  expect(contactState.key()).toEqual('contact');
+test('should properly set a key', () => {
+  expect(credentialState.key()).toEqual('credential');
 });
 
 /**
  * ============================================================
  */
-test('should create a contact', () => {
-  const contact = contactCreator({
-    name: 'Amnis Contact',
+test('should create a data object', () => {
+  const credential = credentialCreator({
+    name: '',
+    publicKey: '',
   });
 
-  expect(contact).toEqual(
+  expect(credential).toEqual(
     expect.objectContaining({
-      name: 'Amnis Contact',
-      socials: expect.any(Array),
+      name: '',
+      publicKey: '',
     }),
   );
 });
@@ -33,8 +34,8 @@ test('should return the initial state', () => {
   const store = storeSetup();
 
   expect(
-    store.getState()[contactState.key()],
-  ).toEqual(contactState.initialState);
+    store.getState()[credentialState.key()],
+  ).toEqual(credentialState.initialState);
 });
 
 /**
@@ -43,11 +44,11 @@ test('should return the initial state', () => {
 test('should handle creating a new entity', () => {
   const store = storeSetup();
 
-  const base = contactBase();
-  const action = contactState.actions().create(base);
+  const base = credentialBase();
+  const action = credentialState.actions().create(base);
 
   store.dispatch(action);
-  const entities = contactState.selectors().selectAll(store.getState());
+  const entities = credentialState.selectors().selectAll(store.getState());
   expect(entities).toHaveLength(1);
 
   expect(entities[0]).toEqual(expect.objectContaining(base));

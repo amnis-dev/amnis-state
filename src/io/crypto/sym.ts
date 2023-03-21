@@ -20,7 +20,7 @@ export const symGenerate: CryptoSymGenerate = async () => {
 };
 
 let symKey: CryptoKey | undefined;
-export const symSingleton = async (): Promise<CryptoKey> => {
+const symSingleton = async (): Promise<CryptoKey> => {
   if (!symKey) {
     symKey = await symGenerate();
   }

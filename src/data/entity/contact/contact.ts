@@ -1,8 +1,8 @@
-import type { LogCreator } from '../log/index.js';
-import { regexWebUrl, uid } from '../../../core/index.js';
+import { uid } from '../../../core/index.js';
+import { entitySliceCreate } from '../entity.slice.js';
 import type { Contact, ContactBase, ContactCreator } from './contact.types.js';
 
-export const contactKey = 'contact';
+const contactKey = 'contact';
 
 export const contactBase = (): ContactBase => ({
   name: 'Unknown Contact',
@@ -10,25 +10,6 @@ export const contactBase = (): ContactBase => ({
   emails: [],
   socials: [],
 });
-
-/**
- * Contact check method.
- */
-export function contactCheck(contact: Contact): LogCreator[] {
-  const logs: LogCreator[] = [];
-
-  const invalidSocials = contact.socials.filter((social) => !regexWebUrl.test(social));
-
-  invalidSocials.forEach((social) => {
-    logs.push({
-      title: 'Invalid Social URL',
-      description: `The social url ${social} is not a valid url.`,
-      level: 'error',
-    });
-  });
-
-  return logs;
-}
 
 export function contactCreator(
   contact: ContactCreator,
@@ -39,3 +20,8 @@ export function contactCreator(
     $id: uid(contactKey),
   };
 }
+
+export const contactState = entitySliceCreate({
+  key: contactKey,
+  creator: contactCreator,
+});

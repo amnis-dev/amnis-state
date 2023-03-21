@@ -1,5 +1,5 @@
 import {
-  localeKey, localeCreator, t, tk,
+  localeCreator, localeState, t, tk,
 } from './locale.js';
 import { localeDataEnLogs } from './locale.locale.en.js';
 
@@ -7,7 +7,7 @@ import { localeDataEnLogs } from './locale.locale.en.js';
  * ============================================================
  */
 test('locale key should be is properly set', () => {
-  expect(localeKey).toEqual('locale');
+  expect(localeState.key()).toEqual('locale');
 });
 
 /**

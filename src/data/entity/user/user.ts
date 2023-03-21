@@ -1,8 +1,9 @@
 import type { LogCreator } from '../log/index.js';
 import { regexEmail, uid } from '../../../core/index.js';
 import type { User, UserBase, UserCreator } from './user.types.js';
+import { entitySliceCreate } from '../entity.slice.js';
 
-export const userKey = 'user';
+const userKey = 'user';
 
 export const userBase = (): UserBase => ({
   handle: 'unknown_user',
@@ -41,3 +42,8 @@ export function userCreator(
     $id: uid(userKey),
   };
 }
+
+export const userState = entitySliceCreate({
+  key: userKey,
+  creator: userCreator,
+});

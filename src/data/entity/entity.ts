@@ -1,18 +1,21 @@
 import {
-  uid, uidList, regexReference, regexUuid,
+  uid,
+  uidList,
+  regexReference,
+  regexUuid,
   dateJSON,
 } from '../../core/index.js';
 import type { UID } from '../../core/index.js';
 import type {
   Entity,
-  EntityCreator,
   Meta,
 } from './entity.types.js';
+import type { Data } from '../data.types.js';
 
 /**
  * Creates an entity.
  */
-export const entityCreate = <C extends EntityCreator>(
+export const entityCreate = <C extends Data>(
   creator: C,
   set?: Partial<Entity<C>> | boolean,
 ): Entity<C> => {
@@ -45,7 +48,7 @@ export const entityCreate = <C extends EntityCreator>(
  * Modifies an entity.
  */
 export const entityUpdate = <
-  C extends EntityCreator,
+  C extends Data,
   E extends Entity<C>
 >(
   target: E,
@@ -70,10 +73,17 @@ export const entityKeys: (keyof Entity)[] = Object.keys(
 ).map((key) => key as keyof Entity);
 
 /**
+ * Checks if an object has all the required entity keys.
+ */
+export const entityHasKeys = <C extends Data>(
+  entity: Entity<C>,
+): boolean => entityKeys.every((key) => key in entity);
+
+/**
  * Cleans and validates base entity keys and references for further processing.
  * TODO: This method can most certainly be made more efficient.
  */
-export function entityClean<C extends EntityCreator>(
+export function entityClean<C extends Data>(
   key: string,
   entity: Entity<C>,
 ): C | undefined {
@@ -136,7 +146,7 @@ export function entityClean<C extends EntityCreator>(
 /**
  * Strips an entity to a creator object.
  */
-export const entityStrip = <C extends EntityCreator>(
+export const entityStrip = <C extends Data>(
   entity: Entity<C>,
 ): C => {
   const result = Object.keys(entity).reduce<C>((entityNew, key) => {
@@ -155,7 +165,7 @@ export const entityStrip = <C extends EntityCreator>(
 /**
  * Create meta information for an entity meta information.
  */
-export function metaInitial<C extends EntityCreator = EntityCreator>(
+export function metaInitial<C extends Data = Data>(
   meta: Partial<Meta<C>> = {},
 ): Meta<C> {
   return {

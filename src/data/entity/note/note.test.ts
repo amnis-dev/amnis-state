@@ -1,6 +1,5 @@
 import { storeSetup } from '../../../store.js';
 import {
-  noteKey,
   noteCreator,
   noteBase,
   noteState,
@@ -10,7 +9,7 @@ import {
  * ============================================================
  */
 test('note key should be is properly set', () => {
-  expect(noteKey).toEqual('note');
+  expect(noteState.key()).toEqual('note');
 });
 
 /**
@@ -41,7 +40,7 @@ test('note should return the initial state', () => {
 test('should handle creating a new note', () => {
   const store = storeSetup();
 
-  const action = noteState.actions().create(noteCreator(noteBase));
+  const action = noteState.actions().create(noteBase);
 
   store.dispatch(action);
   const entities = noteState.selectors().selectAll(store.getState());

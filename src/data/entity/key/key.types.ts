@@ -1,15 +1,11 @@
 import type { UID } from '../../../core/index.js';
+import type { Data } from '../../data.types.js';
 import type { Credential } from '../credential/index.js';
 
 /**
  * Key object  for storing cryptographic keys.
  */
-export interface Key {
-  /**
-   * A unique id name that identifies this encryption.
-   */
-  id: string;
-
+export interface Key extends Data {
   /**
    * Human friendly name for the cyptographic key
    */

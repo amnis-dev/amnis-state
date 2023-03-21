@@ -4,7 +4,7 @@ import type {
   Grant,
   GrantTask,
   Entity,
-  EntityCreator,
+  Data,
 } from './data/index.js';
 import {
   entityCreate,
@@ -110,13 +110,13 @@ export function stateToCreate(state: State): StateCreator {
   const stateCreator: StateCreator = {};
 
   Object.keys(state).every((sliceKey) => {
-    const slice = state[sliceKey] as EntityState<EntityCreator>;
+    const slice = state[sliceKey] as EntityState<Data>;
 
     if (!slice.entities) {
       return true;
     }
 
-    stateCreator[sliceKey] = Object.values(slice.entities) as EntityCreator[];
+    stateCreator[sliceKey] = Object.values(slice.entities) as Data[];
 
     return true;
   });
@@ -145,7 +145,7 @@ export function stateScopeCreate(grants: Grant[], attempt: GrantTask): StateScop
  */
 export function stateEntitiesCreate(
   stateCreator: StateCreator,
-  entityProps: Partial<Entity<EntityCreator>> = {},
+  entityProps: Partial<Entity<Data>> = {},
 ): StateEntities {
   return Object.keys(stateCreator).reduce<StateEntities>((acc, sliceKey) => {
     acc[sliceKey] = stateCreator[sliceKey].map(

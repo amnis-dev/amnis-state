@@ -1,16 +1,18 @@
+import { uid } from '../../../core/index.js';
+import { entitySliceCreate } from '../entity.slice.js';
 import type { Key } from './key.types.js';
 
-export const keyKey = 'key';
+const keyKey = 'key';
 
 export const keyBase = (): Key => ({
-  id: 'unknown',
+  $id: uid(keyKey),
   name: 'Unknown Key',
   format: 'raw',
   wrapped: false,
   value: '',
 });
 
-export function keyCreate(
+export function keyCreator(
   key: Key,
 ): Key {
   return {
@@ -18,3 +20,8 @@ export function keyCreate(
     ...key,
   };
 }
+
+export const keyState = entitySliceCreate({
+  key: keyKey,
+  creator: keyCreator,
+});

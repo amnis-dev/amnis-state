@@ -1,11 +1,10 @@
 import type { SchemaObject } from 'ajv';
 import {
-  systemKey,
   dataInitial,
-  roleKey,
-  systemActions,
   dataActions,
   apiKey,
+  systemState,
+  roleState,
 } from '../data/index.js';
 import type {
   IoContext,
@@ -55,34 +54,34 @@ export async function contextSetup(options: ContextOptions = {}): Promise<IoCont
 
   if (initialize) {
     const readResult = await database.read({
-      [systemKey]: {},
+      [systemState.key()]: {},
       [apiKey]: {},
-      [roleKey]: {},
+      [roleState.key()]: {},
     });
 
     /**
      * Initialize the system if one isn't found.
      */
-    if (!readResult[systemKey]?.length) {
+    if (!readResult[systemState.key()]?.length) {
       const createResult = await database.create(data);
 
       if (initialize === true) {
-        const system = createResult[systemKey][0];
+        const system = createResult[systemState.key()][0];
         const serviceResult: StateEntities = {
-          [systemKey]: createResult[systemKey],
-          [roleKey]: createResult[roleKey],
+          [systemState.key()]: createResult[systemState.key()],
+          [roleState.key()]: createResult[roleState.key()],
         };
         store.dispatch(dataActions.create(serviceResult));
-        store.dispatch(systemActions.activeSet(system.$id));
+        store.dispatch(systemState.actions().activeSet(system.$id));
       }
     } else if (initialize === true) {
-      const system = readResult[systemKey][0];
+      const system = readResult[systemState.key()][0];
       const serviceResult: StateEntities = {
-        [systemKey]: readResult[systemKey],
-        [roleKey]: readResult[roleKey],
+        [systemState.key()]: readResult[systemState.key()],
+        [roleState.key()]: readResult[roleState.key()],
       };
       store.dispatch(dataActions.create(serviceResult));
-      store.dispatch(systemActions.activeSet(system.$id));
+      store.dispatch(systemState.actions().activeSet(system.$id));
     }
   }
 

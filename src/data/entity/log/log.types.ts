@@ -1,6 +1,7 @@
 import type { UID } from '../../../core/index.js';
+import type { Data } from '../../data.types.js';
 import type {
-  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+  EntityCreatorBase, EntityCreatorParams, Meta,
 } from '../entity.types.js';
 import type { User } from '../user/user.types.js';
 
@@ -12,7 +13,7 @@ export type LogLevel = 'fatal' | 'error' | 'success' | 'warn' | 'info' | 'debug'
 /**
  * An entity object that contains log information.
  */
-export interface Log extends EntityCreator {
+export interface Log extends Data {
   /**
    * Level of the log.
    */

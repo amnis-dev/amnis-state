@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type {
-  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+  EntityCreatorBase, EntityCreatorParams, Meta,
 } from '../entity.types.js';
 import type { UID } from '../../../core/index.js';
 import type {
   StateCreator, StateDeleter, StateUpdater,
 } from '../../../state.types.js';
 import type { GrantTask } from '../../grant/index.js';
+import type { Data } from '../../data.types.js';
 
 /**
  * List of State Mutators history can log.
@@ -16,7 +17,7 @@ export type HistoryStateMutator = StateCreator | StateUpdater | StateDeleter;
 /**
  * Historical updates to data.
  */
-export interface History extends EntityCreator {
+export interface History extends Data {
   /**
    * The subject that was updated.
    */

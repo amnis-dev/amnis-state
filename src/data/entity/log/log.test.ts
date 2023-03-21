@@ -1,10 +1,10 @@
-import { logKey, logCreator } from './log.js';
+import { logCreator, logState } from './log.js';
 
 /**
  * ============================================================
  */
 test('log key should be is properly set', () => {
-  expect(logKey).toEqual('log');
+  expect(logState.key()).toEqual('log');
 });
 
 /**

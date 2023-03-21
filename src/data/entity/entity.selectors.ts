@@ -10,7 +10,7 @@ import type {
   EntityCreatorBase,
   Role,
   Key,
-  EntityCreator,
+  Data,
   MetaState,
   EntityUpdater,
 } from '../index.js';
@@ -18,7 +18,7 @@ import type {
 /**
  * Creates a slice selector.
  */
-const genSelectSlice = <C extends EntityCreator>(sliceKey: string) => (state: State) => {
+const genSelectSlice = <C extends Data>(sliceKey: string) => (state: State) => {
   const slice = state[sliceKey] as MetaState<C>;
 
   if (!slice?.entities) {
@@ -139,7 +139,7 @@ export const selectSelection = <E extends Entity>(
   state: State, sliceKey: string,
 ) => genSelectSelection<E>(sliceKey)(state);
 
-export interface EntityDifference<C extends EntityCreator> {
+export interface EntityDifference<C extends Data> {
   original: Entity<C> | undefined;
   current: Entity<C> | undefined;
   changes: EntityCreatorBase<C>;
@@ -150,7 +150,7 @@ export interface EntityDifference<C extends EntityCreator> {
 /**
  * Selects an object to differentiate local updates.
  */
-const genSelectDifference = <C extends EntityCreator = EntityCreator>(
+const genSelectDifference = <C extends Data = Data>(
   sliceKey: string,
 ) => createSelector(
   [
@@ -205,7 +205,7 @@ export function selectBearer(state: State, id: string): Bearer | undefined {
 /**
  * Selects a public key from the crypto slice.
  */
-export function selectKey(state: State, id: string): string | undefined {
+export function selectKey(state: State, $id: string): string | undefined {
   const slice = state.key as EntityState<Key>;
 
   if (!slice?.entities) {
@@ -217,7 +217,7 @@ export function selectKey(state: State, id: string): string | undefined {
   }
 
   const keyObject = Object.values(slice.entities).find(
-    (entity) => (entity?.id === id),
+    (entity) => (entity?.$id === $id),
   );
 
   return keyObject?.value;
@@ -247,7 +247,7 @@ export function selectRoleGrants(state: State, roleRefs: UID<Role>[]): Grant[] {
   return grants;
 }
 
-export interface CoreSelectors<C extends EntityCreator> {
+export interface CoreSelectors<C extends Data> {
   selectActive: (state: State) => Entity<C> | undefined,
   selectFocused: (state: State) => Entity<C> | undefined,
   selectSelection: (state: State) => Entity<C>[],
@@ -257,7 +257,7 @@ export interface CoreSelectors<C extends EntityCreator> {
 /**
  * Create the selector utility object.
  */
-export function entitySelectors<C extends EntityCreator>(sliceKey: string): CoreSelectors<C> {
+export function entitySelectors<C extends Data>(sliceKey: string): CoreSelectors<C> {
   return {
     selectActive: genSelectActive<Entity<C>>(sliceKey),
     selectFocused: genSelectFocused<Entity<C>>(sliceKey),

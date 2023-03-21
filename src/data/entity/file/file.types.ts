@@ -1,6 +1,7 @@
 import type { UID } from '../../../core/index.js';
+import type { Data } from '../../data.types.js';
 import type {
-  EntityCreator, EntityCreatorBase, EntityCreatorParams,
+  EntityCreatorBase, EntityCreatorParams,
 } from '../entity.types.js';
 import type { Profile } from '../profile/index.js';
 
@@ -42,7 +43,7 @@ type FileMimetype =
 /**
  * An abstract file type intended to be extended my more specific types: Image, Video, and Audio.
  */
-export interface File extends EntityCreator {
+export interface File extends Data {
   /**
    * Title of the image.
    */

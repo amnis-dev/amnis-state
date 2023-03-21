@@ -1,11 +1,12 @@
 import { uid, dateNumeric } from '../../../core/index.js';
+import { entitySliceCreate } from '../entity.slice.js';
 import type {
   EntityCreatorBase,
   EntityCreatorParams,
 } from '../entity.types.js';
 import type { Session } from './session.types.js';
 
-export const sessionKey = 'session';
+const sessionKey = 'session';
 
 export const sessionBase = (): EntityCreatorBase<Session> => ({
   $subject: uid('user'),
@@ -25,3 +26,8 @@ export function sessionCreator(
     $id: uid(sessionKey),
   };
 }
+
+export const sessionState = entitySliceCreate({
+  key: sessionKey,
+  creator: sessionCreator,
+});

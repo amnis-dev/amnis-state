@@ -1,15 +1,15 @@
 import { uid } from '../../../core/index.js';
 import { storeSetup } from '../../../store.js';
-import { userKey } from '../user/index.js';
+import { userState } from '../index.js';
 import {
-  profileKey, profileCreator, profileState, profileBase,
+  profileCreator, profileState, profileBase,
 } from './profile.js';
 
 /**
  * ============================================================
  */
 test('profile key should be is properly set', () => {
-  expect(profileKey).toEqual('profile');
+  expect(profileState.key()).toEqual('profile');
 });
 
 /**
@@ -18,7 +18,7 @@ test('profile key should be is properly set', () => {
 test('should create a profile', () => {
   const profile = profileCreator({
     nameDisplay: 'Newbie',
-    $user: uid(userKey),
+    $user: uid(userState.key()),
   });
 
   expect(profile).toEqual(

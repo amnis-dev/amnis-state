@@ -2,18 +2,22 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import type {
   Action,
-  EntityAdapter,
   PayloadAction,
 } from '@reduxjs/toolkit';
 import type { UID } from '../../core/index.js';
 import { localStorageSaveState } from '../../localstorage.js';
 import { dataActions } from '../data.actions.js';
-import type { DataDeleter, DataExtraReducers, DataUpdater } from '../data.types.js';
+import type {
+  Data,
+  DataDeleter,
+  DataExtraReducers,
+  DataUpdater,
+} from '../data.types.js';
 import { diffCompare } from './diff.js';
 import { entityActions } from './entity.actions.js';
-import { entityCreate, metaInitial } from './entity.js';
+import { metaInitial } from './entity.js';
 import type {
-  Entity, EntityCreator, EntityUpdater, MetaState,
+  Entity, MetaState,
 } from './entity.types.js';
 
 export interface MetaOptions {
@@ -22,7 +26,7 @@ export interface MetaOptions {
   selection?: boolean;
 }
 
-export interface CreatePayload<C extends EntityCreator> {
+export interface CreatePayload<C extends Data> {
   entity: Entity<C>;
   meta?: MetaOptions;
 }
@@ -32,7 +36,7 @@ export interface CreatePayload<C extends EntityCreator> {
  */
 function isDataUpdateAction(
   action: Action<string>,
-): action is PayloadAction<DataUpdater> {
+): action is PayloadAction<DataUpdater<Entity>> {
   return action.type === dataActions.update.type;
 }
 
@@ -52,236 +56,6 @@ function isDataWipeAction(
   action: Action<string>,
 ): action is PayloadAction {
   return action.type === dataActions.wipe.type;
-}
-
-function setMeta<C extends EntityCreator>(state: MetaState<C>, ref: C['$id'], meta?: MetaOptions) {
-  if (meta) {
-    if (meta.active) {
-      state.active = ref;
-    }
-    if (meta.focused) {
-      state.focused = ref;
-    }
-    if (meta.selection) {
-      state.selection.push(ref);
-    }
-  }
-}
-
-export function entityReducers<C extends EntityCreator>(
-  key: string,
-  adapter: EntityAdapter<Entity<C>>,
-) {
-  return {
-    /**
-     * Creates a new entity.
-     */
-    create: {
-      reducer: (
-        state: MetaState<C>,
-        action: PayloadAction<CreatePayload<C>>,
-      ) => {
-        const { entity, meta } = action.payload;
-        adapter.addOne(state, entity);
-        setMeta(state, entity.$id, meta);
-      },
-      prepare: (creator: C, meta?: MetaOptions) => ({
-        payload: {
-          entity: entityCreate(creator),
-          meta,
-        },
-      }),
-    },
-
-    /**
-     * Creates several new entities.
-     */
-    createMany: {
-      reducer: (
-        state: MetaState<C>,
-        action: PayloadAction<Entity<C>[]>,
-      ) => {
-        adapter.addMany(state, action.payload);
-      },
-      prepare: (creators: C[]) => ({
-        payload: creators.map((creator) => entityCreate(creator)),
-      }),
-    },
-
-    /**
-     * Inserts an entity
-     */
-    insert: {
-      reducer: (
-        state: MetaState<C>,
-        action: PayloadAction<CreatePayload<C>>,
-      ) => {
-        const { entity, meta } = action.payload;
-        adapter.addOne(state, entity);
-        setMeta(state, entity.$id, meta);
-      },
-      prepare: (entity: Entity<C>, meta?: MetaOptions) => ({
-        payload: {
-          entity,
-          meta,
-        },
-      }),
-    },
-
-    /**
-     * Inserts many entities
-     */
-    insertMany: {
-      reducer: (
-        state: MetaState<C>,
-        action: PayloadAction<Entity<C>[]>,
-      ) => {
-        adapter.addMany(state, action.payload);
-      },
-      prepare: (entities: Entity<C>[]) => ({
-        payload: entities,
-      }),
-    },
-
-    /**
-     * Updates an existing entity.
-     */
-    update: {
-      reducer: (
-        state: MetaState<C>,
-        action: PayloadAction<EntityUpdater<C>>,
-      ) => {
-        const { $id, ...other } = action.payload;
-        const changes = other as Entity<C>;
-
-        const entity = adapter.getSelectors().selectById(state, $id);
-
-        if (!entity) {
-          return;
-        }
-
-        /**
-         * Store the original object if it doesn't exist on state.
-         */
-        if (state.original[$id] === undefined) {
-          state.original[$id] = entity;
-        }
-
-        /**
-         * Perform a diff compare.
-         */
-        const diffResult = diffCompare<Entity<C>>(
-          { ...entity, ...changes },
-          state.original[$id] as Entity<C>,
-          { includeEntityKeys: false },
-        );
-
-        if (diffResult.length === 0 && !entity.committed) {
-          changes.committed = true;
-        }
-
-        if (diffResult.length > 0 && entity.committed) {
-          changes.committed = false;
-        }
-
-        if (diffResult.length) {
-          state.differences[$id] = diffResult;
-        }
-
-        if (!diffResult.length && state.differences[$id]) {
-          delete state.differences[$id];
-          delete state.original[$id];
-        }
-
-        /**
-         * Update the entity.
-         */
-        adapter.updateOne(state, {
-          id: $id,
-          changes,
-        });
-      },
-      prepare: (updater: EntityUpdater<C>) => ({ payload: updater }),
-    },
-
-    /**
-     * Delete and entity from the state.
-     */
-    delete: {
-      reducer: (
-        state: MetaState<C>,
-        action: PayloadAction<UID<C>>,
-      ) => {
-        const id = action.payload;
-        adapter.removeOne(state, id);
-      },
-      prepare: (entityId: UID<C>) => ({ payload: entityId }),
-    },
-
-    /**
-     * Sets active entity.
-     */
-    activeSet: (
-      state: MetaState<C>,
-      action: PayloadAction<UID<C>>,
-    ) => {
-      const id = action.payload;
-      if (state.entities[id]) {
-        state.active = id;
-      }
-    },
-
-    /**
-     * Clears active entity.
-     */
-    activeClear: (
-      state: MetaState<C>,
-    ) => {
-      state.active = null;
-    },
-
-    /**
-     * Sets focused entity.
-     */
-    focusSet: (
-      state: MetaState<C>,
-      action: PayloadAction<UID<C>>,
-    ) => {
-      const id = action.payload;
-      if (state.entities[id]) {
-        state.focused = id;
-      }
-    },
-
-    /**
-     * Clears the focus on any entity.
-     */
-    focusClear: (
-      state: MetaState<C>,
-    ) => {
-      state.focused = null;
-    },
-
-    /**
-     * Sets the focus on a specific entity in the set.
-     */
-    selectionSet: (
-      state: MetaState<C>,
-      action: PayloadAction<UID<C>[]>,
-    ) => {
-      const selection = action.payload;
-      state.selection = [...selection];
-    },
-
-    /**
-     * Clears entity selection.
-     */
-    selectionClear: (
-      state: MetaState<C>,
-    ) => {
-      state.selection = [];
-    },
-  };
 }
 
 export const entityExtraReducers: DataExtraReducers = {
@@ -318,7 +92,7 @@ export const entityExtraReducers: DataExtraReducers = {
           return;
         }
 
-        const stateMeta = state as MetaState<EntityCreator>;
+        const stateMeta = state as MetaState<Data>;
 
         localStorageSaveState(key, {
           original: stateMeta.original,

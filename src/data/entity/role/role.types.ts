@@ -1,8 +1,9 @@
 import type {
-  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+  EntityCreatorBase, EntityCreatorParams, Meta,
 } from '../entity.types.js';
 import type { Grant } from '../../grant/index.js';
 import type { UID } from '../../../core/index.js';
+import type { Data } from '../../data.types.js';
 
 /**
  * Role limits
@@ -12,7 +13,7 @@ export type RoleFsLimits = [other: number, image: number, video: number];
 /**
  * A license is a defined object for granting multiple permissions to perform actions or selections.
  */
-export interface Role extends EntityCreator {
+export interface Role extends Data {
   /**
   * Name of the license.
   */

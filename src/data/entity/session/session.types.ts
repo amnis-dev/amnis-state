@@ -1,11 +1,12 @@
 import type { UID, DateNumeric } from '../../../core/index.js';
-import type { EntityCreator, Meta } from '../entity.types.js';
+import type { Data } from '../../data.types.js';
+import type { Meta } from '../entity.types.js';
 
 /**
  * A session object.
  * Session data should be stored in *SECURE* HTTP cookies only.
  */
-export interface Session extends EntityCreator {
+export interface Session extends Data {
   /**
    * Subject of the session.
    * Typically a user id.

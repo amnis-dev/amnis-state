@@ -1,28 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-shadow */
-import type { ActionReducerMapBuilder, EntityState } from '@reduxjs/toolkit';
+import type { ActionReducerMapBuilder, EntityState, Reducer } from '@reduxjs/toolkit';
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import type { UID } from '../../core/index.js';
 import type { State, StateKey } from '../../state.types.js';
 import { dataActions } from '../data.actions.js';
 import { dataExtraReducers, extraReducersApply } from '../data.reducers.js';
-import type { DataExtraReducers } from '../data.types.js';
+import type { Data, DataExtraReducers, DataUpdate } from '../data.types.js';
 import { entityCreate, metaInitial } from './entity.js';
 import { entityExtraReducers } from './entity.reducers.js';
 import { entitySelectors } from './entity.selectors.js';
-import type {
-  Entity, EntityCreator, Meta, MetaState,
-} from './entity.types.js';
+import type { Entity, Meta, MetaState } from './entity.types.js';
+import { entityActions } from './entity.actions.js';
 
-export type EntityCreatorMethod<C extends EntityCreator = EntityCreator> = (...args: any[]) => C;
+export type EntityCreatorMethod<C extends Data = Data> = (...args: any[]) => C;
 
 export interface EntitySliceOptions<
-  C extends EntityCreator = EntityCreator,
+  C extends Data = Data,
   M extends Meta = Meta,
 > {
   key: string;
   creator: EntityCreatorMethod;
   meta?: Partial<M>;
+  reducers?: Record<string, Reducer>;
   reducerCases?: (
     builder: ActionReducerMapBuilder<EntityState<C> & State>
   ) => void;
@@ -32,7 +32,7 @@ export interface EntitySliceOptions<
 }
 
 export const entitySliceCreate = <
-  C extends EntityCreator,
+  C extends Data,
   CB = Record<string, any>
 >({
   key,
@@ -41,6 +41,10 @@ export const entitySliceCreate = <
   reducerCases,
   reducerMatchers,
 }: EntitySliceOptions) => {
+  if (/^[a-z0-9]+$/i.test(key) === false) {
+    throw new Error(`Entity key must be alphanumeric: ${key}`);
+  }
+
   const adapter = createEntityAdapter<Entity<C>>({
     selectId: (entity) => entity.$id,
     sortComparer: (a, b) => a.$id.localeCompare(b.$id),
@@ -65,7 +69,7 @@ export const entitySliceCreate = <
   };
 
   const slice = (scope?: string) => {
-    const scopeString = scope ? `@${scope}/` : '@/';
+    const scopeString = scope ? `${scope}-` : '';
     keyScoped = `${scopeString}${key}` as StateKey<C>;
     return createSlice({
       name: keyScoped,
@@ -103,10 +107,10 @@ export const entitySliceCreate = <
     createMany: (creates: CB[]) => dataActions.create({
       [keyScoped]: creates.map((create) => entityCreate(creator(create))),
     }),
-    update: (update: Partial<C> & { $id: UID}) => dataActions.update({
+    update: (update: DataUpdate<C>) => dataActions.update({
       [keyScoped]: [update],
     }),
-    updateMany: (updates: (Partial<C> & { $id: UID})[]) => dataActions.update({
+    updateMany: (updates: DataUpdate<C>[]) => dataActions.update({
       [keyScoped]: updates,
     }),
     delete: ($id: UID) => dataActions.delete({
@@ -114,6 +118,36 @@ export const entitySliceCreate = <
     }),
     deleteMany: ($ids: UID[]) => dataActions.delete({
       [keyScoped]: $ids,
+    }),
+    activeSet: ($id: UID) => entityActions.meta({
+      [keyScoped]: {
+        active: $id,
+      },
+    }),
+    activeClear: () => entityActions.meta({
+      [keyScoped]: {
+        active: null,
+      },
+    }),
+    focusedSet: ($id: UID) => entityActions.meta({
+      [keyScoped]: {
+        focused: $id,
+      },
+    }),
+    focusedClear: () => entityActions.meta({
+      [keyScoped]: {
+        focused: null,
+      },
+    }),
+    selectionSet: ($ids: UID[]) => entityActions.meta({
+      [keyScoped]: {
+        selection: [...$ids],
+      },
+    }),
+    selectionClear: () => entityActions.meta({
+      [keyScoped]: {
+        selection: [],
+      },
     }),
   });
 

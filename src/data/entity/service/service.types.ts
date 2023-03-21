@@ -1,12 +1,13 @@
 import type {
-  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+  EntityCreatorBase, EntityCreatorParams, Meta,
 } from '../entity.types.js';
 import type { DateJSON } from '../../../core/index.js';
+import type { Data } from '../../data.types.js';
 
 /**
  * Service entity
  */
-export interface Service extends EntityCreator {
+export interface Service extends Data {
   /**
    * Name of the service.
    */

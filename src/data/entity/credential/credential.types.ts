@@ -1,14 +1,15 @@
 import type {
   DateJSON, Encoding, IP, Name,
 } from '../../../core/index.js';
+import type { Data } from '../../data.types.js';
 import type {
-  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+  EntityCreatorBase, EntityCreatorParams, Meta,
 } from '../entity.types.js';
 
 /**
  * Entity that contains data to verify credentials.
  */
-export interface Credential extends EntityCreator {
+export interface Credential extends Data {
   /**
    * Name of the credential
    */

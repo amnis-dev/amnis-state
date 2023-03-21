@@ -1,10 +1,10 @@
-import { userKey, userCreator } from './user.js';
+import { userCreator, userState } from './user.js';
 
 /**
  * ============================================================
  */
 test('user key should be is properly set', () => {
-  expect(userKey).toEqual('user');
+  expect(userState.key()).toEqual('user');
 });
 
 /**

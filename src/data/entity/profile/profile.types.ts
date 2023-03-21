@@ -1,14 +1,15 @@
 import type { DateJSON, UID, SURL } from '../../../core/index.js';
 import type {
-  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+  EntityCreatorBase, EntityCreatorParams, Meta,
 } from '../entity.types.js';
 import type { User } from '../user/user.types.js';
 import type { Contact } from '../contact/index.js';
+import type { Data } from '../../data.types.js';
 
 /**
  * Profile entity
  */
-export interface Profile extends EntityCreator {
+export interface Profile extends Data {
   /**
    * User this profile is associated with.
    */

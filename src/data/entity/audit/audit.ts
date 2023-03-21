@@ -1,7 +1,8 @@
 import { uid } from '../../../core/index.js';
+import { entitySliceCreate } from '../entity.slice.js';
 import type { Audit, AuditBase, AuditCreator } from './audit.types.js';
 
-export const auditKey = 'audit';
+const auditKey = 'audit';
 
 export const auditBase = (): AuditBase => ({
   action: 'Unspecified',
@@ -17,3 +18,8 @@ export function auditCreator(
     $id: uid(auditKey),
   };
 }
+
+export const auditState = entitySliceCreate({
+  key: auditKey,
+  creator: auditCreator,
+});

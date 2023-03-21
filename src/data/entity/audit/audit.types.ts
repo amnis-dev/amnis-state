@@ -1,13 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type {
-  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+  EntityCreatorBase,
+  EntityCreatorParams,
+  Meta,
 } from '../entity.types.js';
 import type { UID } from '../../../core/index.js';
+import type { Data } from '../../data.types.js';
 
 /**
  * A data structure for audit information.
  */
-export interface Audit extends EntityCreator {
+export interface Audit extends Data {
   /**
    * Action attempted
    */

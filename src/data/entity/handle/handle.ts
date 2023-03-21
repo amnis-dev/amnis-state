@@ -1,7 +1,8 @@
 import { uid } from '../../../core/index.js';
+import { entitySliceCreate } from '../entity.slice.js';
 import type { Handle, HandleBase, HandleCreator } from './handle.types.js';
 
-export const handleKey = 'handle';
+const handleKey = 'handle';
 
 export const handleBase = (): HandleBase => ({
   name: '',
@@ -17,3 +18,8 @@ export function handleCreator(
     $id: uid(handleKey),
   };
 }
+
+export const handleState = entitySliceCreate({
+  key: handleKey,
+  creator: handleCreator,
+});

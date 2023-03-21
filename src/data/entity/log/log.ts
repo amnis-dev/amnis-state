@@ -1,7 +1,8 @@
 import { uid } from '../../../core/index.js';
+import { entitySliceCreate } from '../entity.slice.js';
 import type { Log, LogBase, LogCreator } from './log.types.js';
 
-export const logKey = 'log';
+const logKey = 'log';
 
 export const logBase: LogBase = {
   level: 'debug',
@@ -20,3 +21,8 @@ export function logCreator(log: LogCreator): Log {
     $id: uid(logKey),
   };
 }
+
+export const logState = entitySliceCreate({
+  key: logKey,
+  creator: logCreator,
+});

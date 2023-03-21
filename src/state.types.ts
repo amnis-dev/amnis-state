@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { GrantScope } from './data/index.js';
+import type { Data } from './data/data.types.js';
 import type { UID, UIDList } from './core/index.js';
-import type { Entity, EntityCreator } from './data/entity/index.js';
+import type { Entity } from './data/entity/index.js';
+import type { GrantScope } from './data/grant/grant.types.js';
 
 export type StateKey<K = any> = string & Record<never, K>;
 
@@ -110,13 +111,13 @@ export type Result = any;
 /**
   * A common stateful result of compelete entities.
   */
-export type StateEntities = State<Entity<EntityCreator>[]>;
+export type StateEntities = State<Entity<Data>[]>;
 
 /**
   * A common stateful result from creations.
   * A state object with entities to be created
   */
-export type StateCreator = State<EntityCreator[]>;
+export type StateCreator = State<Data[]>;
 
 /**
   * A query object to search for entities.
@@ -127,7 +128,7 @@ export type StateQuery = State<Query>;
   * A common stateful result from updates.
   * A state object with parial entities to update.
   */
-export type StateUpdateEntity = { $id: EntityCreator['$id'] } & Record<string, unknown>;
+export type StateUpdateEntity = { $id: Data['$id'] } & Record<string, unknown>;
 export type StateUpdater = State<StateUpdateEntity[]>;
 
 /**

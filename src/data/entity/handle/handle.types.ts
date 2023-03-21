@@ -1,6 +1,7 @@
 import type { UID } from '../../../core/index.js';
+import type { Data } from '../../data.types.js';
 import type {
-  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+  EntityCreatorBase, EntityCreatorParams, Meta,
 } from '../entity.types.js';
 
 /**
@@ -25,7 +26,7 @@ export type HandleNameId = string;
  * Handles contain unique names that reference a particular subject.
  * The subject is typically a user.
  */
-export interface Handle extends EntityCreator {
+export interface Handle extends Data {
   /**
    * The handle name.
    */

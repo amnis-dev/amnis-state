@@ -1,28 +1,41 @@
 import {
   apiSlice,
   appSlice,
-  auditSlice,
+  auditState,
   bearerSlice,
   challengeSlice,
-  contactSlice,
-  credentialSlice,
-  handleSlice,
-  historySlice,
-  keySlice,
-  localeSlice,
-  logSlice,
+  contactState,
+  credentialState,
+  handleState,
+  historyState,
+  keyState,
+  localeState,
+  logState,
   otpSlice,
   profileState,
-  roleSlice,
-  serviceSlice,
-  sessionSlice,
-  systemSlice,
-  userSlice,
+  roleState,
+  serviceState,
+  sessionState,
+  systemState,
+  userState,
   noteState,
 } from './data/index.js';
 
+const auditSlice = auditState.slice();
+const contactSlice = contactState.slice();
+const credentialSlice = credentialState.slice();
+const handleSlice = handleState.slice();
+const historySlice = historyState.slice();
+const keySlice = keyState.slice();
+const localeSlice = localeState.slice();
+const logSlice = logState.slice();
+const profileSlice = profileState.slice();
+const roleSlice = roleState.slice();
+const serviceSlice = serviceState.slice();
+const sessionSlice = sessionState.slice();
+const systemSlice = systemState.slice();
+const userSlice = userState.slice();
 const noteSlice = noteState.slice();
-const profileSlice = profileState.slice('state');
 
 export const slices = {
   [apiSlice.name]: apiSlice,

@@ -1,7 +1,8 @@
 import { dateJSON, uid } from '../../../core/index.js';
+import { entitySliceCreate } from '../entity.slice.js';
 import type { Service, ServiceBase, ServiceCreator } from './service.types.js';
 
-export const serviceKey = 'service';
+const serviceKey = 'service';
 
 export const serviceBase: ServiceBase = {
   name: 'Unknown Service',
@@ -19,3 +20,8 @@ export function serviceCreator(
     $id: uid(serviceKey),
   };
 }
+
+export const serviceState = entitySliceCreate({
+  key: serviceKey,
+  creator: serviceCreator,
+});

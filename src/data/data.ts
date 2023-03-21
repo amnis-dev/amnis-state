@@ -15,22 +15,22 @@ import type {
   Handle,
 } from './entity/index.js';
 import {
+  userState,
+  handleState,
+  credentialState,
+  roleState,
+  profileState,
+  contactState,
+  systemState,
+  auditState,
+  historyState,
   contactCreator,
-  contactKey,
   profileCreator,
-  profileKey,
   roleCreator,
-  roleKey,
   systemCreator,
-  systemKey,
   userCreator,
-  userKey,
-  auditKey,
   entityCreate,
-  historyKey,
-  credentialKey,
   handleCreator,
-  handleKey,
   historyMake,
 } from './entity/index.js';
 import { cryptoWeb } from '../io/index.js';
@@ -49,15 +49,15 @@ export const dataInitial = async (): Promise<StateEntities> => {
       color: '#cc0000',
       fsLimits: [-1, -1, -1],
       grants: [
-        [systemKey, GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [auditKey, GrantScope.Global, grantTask(0, 1, 1, 1)],
-        [historyKey, GrantScope.Global, grantTask(0, 1, 1, 1)],
-        [userKey, GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [handleKey, GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [credentialKey, GrantScope.Global, grantTask(0, 1, 0, 1)],
-        [roleKey, GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [profileKey, GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [contactKey, GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [systemState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [auditState.key(), GrantScope.Global, grantTask(0, 1, 1, 1)],
+        [historyState.key(), GrantScope.Global, grantTask(0, 1, 1, 1)],
+        [userState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [handleState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [credentialState.key(), GrantScope.Global, grantTask(0, 1, 0, 1)],
+        [roleState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [profileState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [contactState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
       ],
     }), { committed: true, new: false }),
     entityCreate(roleCreator({
@@ -66,14 +66,14 @@ export const dataInitial = async (): Promise<StateEntities> => {
       color: '#3e3ee6',
       fsLimits: [-1, -1, -1],
       grants: [
-        [auditKey, GrantScope.Global, grantTask(0, 1, 0, 0)],
-        [historyKey, GrantScope.Global, grantTask(0, 1, 0, 0)],
-        [userKey, GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [handleKey, GrantScope.Global, grantTask(0, 0, 1, 1)],
-        [credentialKey, GrantScope.Global, grantTask(0, 1, 0, 1)],
-        [roleKey, GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [profileKey, GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [contactKey, GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [auditState.key(), GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [historyState.key(), GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [userState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [handleState.key(), GrantScope.Global, grantTask(0, 0, 1, 1)],
+        [credentialState.key(), GrantScope.Global, grantTask(0, 1, 0, 1)],
+        [roleState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [profileState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [contactState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
       ],
     }), { committed: true, new: false }),
     entityCreate(roleCreator({
@@ -82,14 +82,14 @@ export const dataInitial = async (): Promise<StateEntities> => {
       color: '#000000',
       fsLimits: [32, 64, 1024],
       grants: [
-        [historyKey, GrantScope.Global, grantTask(0, 1, 0, 0)],
-        [userKey, GrantScope.Owned, grantTask(0, 1, 1, 0)],
-        [handleKey, GrantScope.Global, grantTask(0, 1, 0, 0)],
-        [credentialKey, GrantScope.Owned, grantTask(0, 1, 0, 1)],
-        [profileKey, GrantScope.Owned, grantTask(0, 1, 1, 0)],
-        [profileKey, GrantScope.Global, grantTask(0, 1, 0, 0)],
-        [contactKey, GrantScope.Owned, grantTask(0, 1, 1, 0)],
-        [contactKey, GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [historyState.key(), GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [userState.key(), GrantScope.Owned, grantTask(0, 1, 1, 0)],
+        [handleState.key(), GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [credentialState.key(), GrantScope.Owned, grantTask(0, 1, 0, 1)],
+        [profileState.key(), GrantScope.Owned, grantTask(0, 1, 1, 0)],
+        [profileState.key(), GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [contactState.key(), GrantScope.Owned, grantTask(0, 1, 1, 0)],
+        [contactState.key(), GrantScope.Global, grantTask(0, 1, 0, 0)],
       ],
     }), { committed: true, new: false }),
     entityCreate(roleCreator({
@@ -98,8 +98,8 @@ export const dataInitial = async (): Promise<StateEntities> => {
       color: '#000000',
       fsLimits: [0, 0, 0],
       grants: [
-        [handleKey, GrantScope.Global, grantTask(0, 1, 0, 0)],
-        [profileKey, GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [handleState.key(), GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [profileState.key(), GrantScope.Global, grantTask(0, 1, 0, 0)],
       ],
     }), { committed: true, new: false }),
   ];
@@ -237,13 +237,13 @@ export const dataInitial = async (): Promise<StateEntities> => {
   ];
 
   const stateEntitiesInital: StateEntities = {
-    [roleKey]: roles,
-    [userKey]: users,
-    [handleKey]: handles,
-    [credentialKey]: credentials,
-    [contactKey]: contacts,
-    [profileKey]: profiles,
-    [systemKey]: systems,
+    [roleState.key()]: roles,
+    [userState.key()]: users,
+    [handleState.key()]: handles,
+    [credentialState.key()]: credentials,
+    [contactState.key()]: contacts,
+    [profileState.key()]: profiles,
+    [systemState.key()]: systems,
   };
 
   /**
@@ -252,7 +252,7 @@ export const dataInitial = async (): Promise<StateEntities> => {
   const stateEntities: StateEntities = {
     ...stateEntitiesInital,
     ...stateEntitiesCreate({
-      [historyKey]: historyMake(stateEntitiesInital, GrantTask.Create),
+      [historyState.key()]: historyMake(stateEntitiesInital, GrantTask.Create),
     }, { committed: true, new: false }),
   };
 

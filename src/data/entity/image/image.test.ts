@@ -1,11 +1,4 @@
-import { imageKey, imageCreator } from './image.js';
-
-/**
- * ============================================================
- */
-test('image key should be is properly set', () => {
-  expect(imageKey).toEqual('image');
-});
+import { imageCreator } from './image.js';
 
 /**
  * ============================================================

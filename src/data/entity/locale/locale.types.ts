@@ -1,5 +1,5 @@
+import type { Data } from '../../data.types.js';
 import type {
-  EntityCreator,
   EntityCreatorBase,
   EntityCreatorParams,
   Meta,
@@ -23,7 +23,7 @@ export type LocaleTranslation = Record<LocaleTranslationKey, string>;
 /**
  * Locale entity
  */
-export interface Locale extends EntityCreator {
+export interface Locale extends Data {
   /**
    * Two-character language code.
    * @minLength 2

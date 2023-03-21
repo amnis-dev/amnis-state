@@ -1,11 +1,12 @@
 import type { Role } from '../role/role.types.js';
 import type { Email, UID, UIDList } from '../../../core/index.js';
 import type {
-  EntityCreator, EntityCreatorBase, EntityCreatorParams, Meta,
+  EntityCreatorBase, EntityCreatorParams, Meta,
 } from '../entity.types.js';
 import type { HandleName } from '../handle/index.js';
+import type { Data } from '../../data.types.js';
 
-export interface System extends EntityCreator {
+export interface System extends Data {
   /**
    * Name of the system.
    */

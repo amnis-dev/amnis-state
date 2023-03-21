@@ -3,9 +3,10 @@ import { createAction } from '@reduxjs/toolkit';
 import { stateEntitiesCreate } from '../../state.js';
 import type { StateCreator } from '../../state.types.js';
 import { dataActions } from '../data.actions.js';
-import type { EntityCreator, Meta } from './entity.types.js';
+import type { Data } from '../data.types.js';
+import type { Meta } from './entity.types.js';
 
-export type MetaSetter = Record<string, Partial<Meta<EntityCreator>>>;
+export type MetaSetter = Record<string, Partial<Meta<Data>>>;
 
 export const entityActions = {
   /**
