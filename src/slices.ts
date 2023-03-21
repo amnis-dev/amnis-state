@@ -37,7 +37,7 @@ const systemSlice = systemState.slice();
 const userSlice = userState.slice();
 const noteSlice = noteState.slice();
 
-export const slices = {
+export const stateSlices = {
   [apiSlice.name]: apiSlice,
   [appSlice.name]: appSlice,
   [auditSlice.name]: auditSlice,
@@ -60,4 +60,4 @@ export const slices = {
   [userSlice.name]: userSlice,
 };
 
-export default slices;
+export default stateSlices;
