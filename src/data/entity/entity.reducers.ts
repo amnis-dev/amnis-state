@@ -8,7 +8,7 @@ import type {
 import type { UID } from '../../core/index.js';
 import { localStorageSaveState } from '../../localstorage.js';
 import { dataActions } from '../data.actions.js';
-import type { DataDeleter, DataExtraReducers } from '../types.js';
+import type { DataDeleter, DataExtraReducers, DataUpdater } from '../data.types.js';
 import { diffCompare } from './diff.js';
 import { entityActions } from './entity.actions.js';
 import { entityCreate, metaInitial } from './entity.js';
@@ -25,6 +25,15 @@ export interface MetaOptions {
 export interface CreatePayload<C extends EntityCreator> {
   entity: Entity<C>;
   meta?: MetaOptions;
+}
+
+/**
+ * Matcher for data update actions.
+ */
+function isDataUpdateAction(
+  action: Action<string>,
+): action is PayloadAction<DataUpdater> {
+  return action.type === dataActions.update.type;
 }
 
 /**
@@ -318,6 +327,60 @@ export const entityExtraReducers: DataExtraReducers = {
       },
     );
 
+    /**
+     * Data updates
+     */
+    builder.addMatcher(isDataUpdateAction, (state, { payload }) => {
+      if (!payload[key]) {
+        return;
+      }
+
+      payload[key].forEach((update) => {
+        const { $id, ...changes } = update;
+        const entity = state.original[$id] as Entity | undefined;
+
+        if (!entity) {
+          return;
+        }
+
+        /**
+         * Perform a diff compare.
+         */
+        const diffResult = diffCompare<Entity>(
+          { ...entity, ...changes },
+          state.original[$id] as Entity,
+          { includeEntityKeys: false },
+        );
+
+        if (diffResult.length === 0 && !entity.committed) {
+          changes.committed = true;
+        }
+
+        if (diffResult.length > 0 && entity.committed) {
+          changes.committed = false;
+        }
+
+        if (diffResult.length) {
+          state.differences[$id] = diffResult;
+        }
+
+        if (!diffResult.length && state.differences[$id]) {
+          delete state.differences[$id];
+          delete state.original[$id];
+        }
+      });
+
+      if (options.save) {
+        localStorageSaveState(key, {
+          original: state.original,
+          differences: state.differences,
+        });
+      }
+    });
+
+    /**
+     * Data deletes
+     */
     builder.addMatcher(isDataDeleteAction, (state, { payload }) => {
       if (!payload[key]) {
         return;

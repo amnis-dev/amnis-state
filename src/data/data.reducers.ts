@@ -7,23 +7,23 @@ import type {
 import { localStorageSaveEntities } from '../localstorage.js';
 import { dataActions } from './data.actions.js';
 import type {
-  DataEntity, DataExtraReducers, DataExtraReducersApply, DataReducerOptions,
-} from './types.js';
+  Data, DataExtraReducers, DataExtraReducersApply, DataReducerOptions,
+} from './data.types.js';
 
 async function dataSave(
   { save }: DataReducerOptions,
   key: string,
-  state: EntityState<DataEntity> & any,
+  state: EntityState<Data> & any,
 ) {
   if (save !== false) {
-    const entities = Object.values(state.entities) as DataEntity[];
+    const entities = Object.values(state.entities) as Data[];
     if (typeof save === 'boolean') {
       /** @ts-ignore */
       localStorageSaveEntities(key, entities);
     } else {
       const entitiesFiltered = entities.filter(
         (entity) => Object.keys(save).every((saveKey) => {
-          const k = saveKey as keyof DataEntity;
+          const k = saveKey as keyof Data;
           if (entity[k] !== save[k]) {
             return false;
           }
@@ -76,8 +76,21 @@ export const dataExtraReducers: DataExtraReducers = {
 
     builder.addCase(dataActions.update, (state, { payload }) => {
       if (payload[key] && Array.isArray(payload[key])) {
+        const updates = payload[key].map((update) => {
+          const { $id, ...changes } = update;
+
+          if (
+            typeof state.original === 'object'
+            && state.original[$id] === undefined
+          ) {
+            state.original[$id] = { ...state.entities[$id] };
+          }
+
+          return { id: $id, changes };
+        });
+
         /** @ts-ignore */
-        adapter.updateMany(state, payload[key]);
+        adapter.updateMany(state, updates);
 
         // Saves data if needed.
         dataSave(options, key, state);

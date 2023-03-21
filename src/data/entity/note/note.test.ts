@@ -31,7 +31,7 @@ test('note should return the initial state', () => {
   const store = storeSetup();
 
   expect(
-    store.getState().note,
+    store.getState()[noteState.key()],
   ).toEqual(noteState.initialState);
 });
 
@@ -41,10 +41,10 @@ test('note should return the initial state', () => {
 test('should handle creating a new note', () => {
   const store = storeSetup();
 
-  const action = noteState.actions.create(noteCreator(noteBase));
+  const action = noteState.actions().create(noteCreator(noteBase));
 
   store.dispatch(action);
-  const entities = noteState.selectors.selectAll(store.getState());
+  const entities = noteState.selectors().selectAll(store.getState());
   expect(entities).toHaveLength(1);
 
   expect(entities[0]).toEqual(expect.objectContaining(noteBase));

@@ -12,7 +12,7 @@ import {
   localeSlice,
   logSlice,
   otpSlice,
-  profileSlice,
+  profileState,
   roleSlice,
   serviceSlice,
   sessionSlice,
@@ -22,6 +22,7 @@ import {
 } from './data/index.js';
 
 const noteSlice = noteState.slice();
+const profileSlice = profileState.slice('state');
 
 export const slices = {
   [apiSlice.name]: apiSlice,

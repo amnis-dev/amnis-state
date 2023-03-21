@@ -4,13 +4,13 @@ import type { ActionReducerMapBuilder, EntityState, EntityStateAdapter } from '@
 import type { State } from '../state.types.js';
 import type { UID } from '../core/index.js';
 
-export type DataEntity = { $id: UID, [key: string]: any };
+export type Data = { $id: UID, [key: string]: any };
 
-export type DataEntityUpdate = Partial<DataEntity> & { $id: string };
+export type DataUpdate<DE = Data> = Partial<DE> & { $id: string };
 
-export type DataCreator = { [key: string]: DataEntity[] };
+export type DataCreator = { [key: string]: Data[] };
 
-export type DataUpdater = { [key: string]: DataEntityUpdate[] };
+export type DataUpdater = { [key: string]: DataUpdate[] };
 
 export type DataDeleter = { [key: string]: UID[] };
 
@@ -19,7 +19,7 @@ export interface DataReducerOptions {
 }
 
 export interface DataReducerSettings<
-  D extends DataEntity = DataEntity,
+  D extends Data = Data,
   EA extends EntityStateAdapter<D> = EntityStateAdapter<D>,
   ARMB extends ActionReducerMapBuilder<
   EntityState<D> & State

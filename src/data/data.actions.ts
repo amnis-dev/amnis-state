@@ -4,7 +4,7 @@ import type {
   DataCreator,
   DataDeleter,
   DataUpdater,
-} from './types.js';
+} from './data.types.js';
 
 export const dataActions = {
   /**

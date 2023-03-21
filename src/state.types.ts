@@ -3,12 +3,21 @@ import type { GrantScope } from './data/index.js';
 import type { UID, UIDList } from './core/index.js';
 import type { Entity, EntityCreator } from './data/entity/index.js';
 
-export type StateKey<K> = string & Record<never, K>;
+export type StateKey<K = any> = string & Record<never, K>;
 
 /**
  * An ambiguous state.
  */
 export type State<ReducerState = any> = Record<string, ReducerState>;
+
+/**
+ * A record type with a value that muct be the same type as the record key
+ */
+// export type StateRecord<
+//   R extends Record<string, any> = Record<string, any>
+// > = {
+//   [K in keyof R]: K extends StateKey<infer T> ? T : any
+// };
 
 /**
  * Filter object for a query.
