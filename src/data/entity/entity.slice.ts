@@ -54,8 +54,7 @@ export const entitySliceCreate = <
     metaInitial(meta),
   );
 
-  let keyScoped: StateKey<C> = key as StateKey<C>;
-  const keyGet = (): StateKey<C> => keyScoped;
+  const keyGet = (): StateKey<C> => key;
 
   const customExtraReducers: DataExtraReducers = {
     cases: ({ builder }) => {
@@ -68,26 +67,23 @@ export const entitySliceCreate = <
     },
   };
 
-  const slice = (scope?: string) => {
-    const scopeString = scope ? `${scope}-` : '';
-    keyScoped = `${scopeString}${key}` as StateKey<C>;
-    return createSlice({
-      name: keyScoped,
-      initialState,
-      reducers: {},
-      extraReducers: (builder) => {
-        extraReducersApply({
-          key: keyScoped,
-          adapter,
-          builder,
-        }, [
-          dataExtraReducers,
-          entityExtraReducers,
-          customExtraReducers,
-        ]);
-      },
-    });
-  };
+  const sliceObject = createSlice({
+    name: key,
+    initialState,
+    reducers: {},
+    extraReducers: (builder) => {
+      extraReducersApply({
+        key,
+        adapter,
+        builder,
+      }, [
+        dataExtraReducers,
+        entityExtraReducers,
+        customExtraReducers,
+      ]);
+    },
+  });
+  const slice = () => sliceObject;
 
   /**
    * ==================================================
@@ -96,71 +92,63 @@ export const entitySliceCreate = <
    */
   const actionsCreate = () => ({
     insert: (insert: Entity<C>) => dataActions.create({
-      [keyScoped]: [insert],
+      [key]: [insert],
     }),
     insertMany: (inserts: Entity<C>[]) => dataActions.create({
-      [keyScoped]: inserts,
+      [key]: inserts,
     }),
     create: (create: CB) => dataActions.create({
-      [keyScoped]: [entityCreate(creator(create))],
+      [key]: [entityCreate(creator(create))],
     }),
     createMany: (creates: CB[]) => dataActions.create({
-      [keyScoped]: creates.map((create) => entityCreate(creator(create))),
+      [key]: creates.map((create) => entityCreate(creator(create))),
     }),
     update: (update: DataUpdate<C>) => dataActions.update({
-      [keyScoped]: [update],
+      [key]: [update],
     }),
     updateMany: (updates: DataUpdate<C>[]) => dataActions.update({
-      [keyScoped]: updates,
+      [key]: updates,
     }),
     delete: ($id: UID) => dataActions.delete({
-      [keyScoped]: [$id],
+      [key]: [$id],
     }),
     deleteMany: ($ids: UID[]) => dataActions.delete({
-      [keyScoped]: $ids,
+      [key]: $ids,
     }),
     activeSet: ($id: UID) => entityActions.meta({
-      [keyScoped]: {
+      [key]: {
         active: $id,
       },
     }),
     activeClear: () => entityActions.meta({
-      [keyScoped]: {
+      [key]: {
         active: null,
       },
     }),
     focusedSet: ($id: UID) => entityActions.meta({
-      [keyScoped]: {
+      [key]: {
         focused: $id,
       },
     }),
     focusedClear: () => entityActions.meta({
-      [keyScoped]: {
+      [key]: {
         focused: null,
       },
     }),
     selectionSet: ($ids: UID[]) => entityActions.meta({
-      [keyScoped]: {
+      [key]: {
         selection: [...$ids],
       },
     }),
     selectionClear: () => entityActions.meta({
-      [keyScoped]: {
+      [key]: {
         selection: [],
       },
     }),
   });
 
-  let actionsObject = actionsCreate();
-
-  let actionsKeyLast = keyScoped;
-  const actions = () => {
-    if (actionsKeyLast !== keyScoped) {
-      actionsObject = actionsCreate();
-      actionsKeyLast = keyScoped;
-    }
-    return actionsObject;
-  };
+  const actionsObject = actionsCreate();
+  const actions = () => actionsObject;
 
   /**
    * ==================================================
@@ -170,20 +158,12 @@ export const entitySliceCreate = <
   const selectorsCreate = () => ({
     ...adapter.getSelectors<{
       [key: StateKey<C>]: MetaState<C>
-    }>((state) => state[keyScoped]),
-    ...entitySelectors<C>(keyScoped),
+    }>((state) => state[key]),
+    ...entitySelectors<C>(key),
   });
 
-  let selectorObject = selectorsCreate();
-
-  let selectorsKeyLast = keyScoped;
-  const selectors = () => {
-    if (selectorsKeyLast !== keyScoped) {
-      selectorObject = selectorsCreate();
-      selectorsKeyLast = keyScoped;
-    }
-    return selectorObject;
-  };
+  const selectorObject = selectorsCreate();
+  const selectors = () => selectorObject;
 
   /**
    * ==================================================
