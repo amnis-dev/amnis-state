@@ -1,9 +1,5 @@
-import type { Data } from '../../data.types.js';
-import type {
-  EntityCreatorBase,
-  EntityCreatorParams,
-  Meta,
-} from '../entity.types.js';
+import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
+import type { Meta } from '../entity.types.js';
 
 /**
  * Symbol to make a special locale type.
@@ -52,12 +48,12 @@ export interface Locale extends Data {
 /**
  * Locale properties excluding the extended entity properties.
  */
-export type LocaleBase = EntityCreatorBase<Locale>;
+export type LocaleRoot = DataRoot<Locale>;
 
 /**
- * Base properties in order to create a log.
+ * Root properties in order to create a log.
  */
-export type LocaleCreator = EntityCreatorParams<Locale, 'code' | 'set'>;
+export type LocaleMinimal = DataMinimal<Locale, 'code' | 'set'>;
 
 /**
  * Locale collection meta data.

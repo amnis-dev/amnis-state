@@ -2,7 +2,7 @@ import { uid } from '../../../core/index.js';
 import { storeSetup } from '../../../store.js';
 import { userState } from '../index.js';
 import {
-  profileCreator, profileState, profileBase,
+  profileCreate, profileState, profileRoot,
 } from './profile.js';
 
 /**
@@ -16,7 +16,7 @@ test('profile key should be is properly set', () => {
  * ============================================================
  */
 test('should create a profile', () => {
-  const profile = profileCreator({
+  const profile = profileCreate({
     nameDisplay: 'Newbie',
     $user: uid(userState.key()),
   });
@@ -46,7 +46,7 @@ test('profile should return the initial state', () => {
 test('should handle creating a new profile', () => {
   const store = storeSetup();
 
-  const action = profileState.actions().create(profileBase);
+  const action = profileState.actions().create(profileRoot);
 
   store.dispatch(action);
   const entities = profileState.selectors().selectAll(store.getState());
@@ -64,9 +64,9 @@ test('should handle creating a new profile', () => {
 test('should handle updating a profile', () => {
   const store = storeSetup();
 
-  const actionCreator = profileState.actions().create(profileBase);
+  const actionCreate = profileState.actions().create(profileRoot);
 
-  store.dispatch(actionCreator);
+  store.dispatch(actionCreate);
   const entities1 = profileState.selectors().selectAll(store.getState());
   const profileId = entities1[0].$id;
 

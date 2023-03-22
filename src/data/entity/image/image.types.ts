@@ -1,4 +1,4 @@
-import type { EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
+import type { DataMinimal, DataRoot } from '../../data.types.js';
 import type { File } from '../file/index.js';
 
 export interface Image extends File {
@@ -26,9 +26,9 @@ export interface Image extends File {
 /**
  * Image properties excluding the extended entity properties.
  */
-export type ImageBase = EntityCreatorBase<Image>;
+export type ImageRoot = DataRoot<Image>;
 
 /**
-   * Base properties in order to create an image.
+   * Root properties in order to create an image.
    */
-export type ImageCreator = EntityCreatorParams<Image, 'title' | 'mimetype' | 'size' | 'extension' | 'width' | 'height'>;
+export type ImageMinimal = DataMinimal<Image, 'title' | 'mimetype' | 'size' | 'extension' | 'width' | 'height'>;

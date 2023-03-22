@@ -1,23 +1,23 @@
 import { uid } from '../../../core/index.js';
 import { entitySliceCreate } from '../entity.slice.js';
-import type { Credential, CredentialBase, CredentialCreator } from './credential.types.js';
+import type { Credential, CredentialRoot, CredentialMinimal } from './credential.types.js';
 
 const credentialKey = 'credential';
 
-export const credentialBase = (): CredentialBase => ({
+export const credentialRoot = (): CredentialRoot => ({
   name: 'Unknown Credential',
   publicKey: '',
 });
 
-export const credentialCreator = (
-  credential: CredentialCreator,
+export const credentialCreate = (
+  credential: CredentialMinimal,
 ): Credential => ({
-  ...credentialBase(),
+  ...credentialRoot(),
   ...credential,
   $id: uid(credentialKey),
 });
 
 export const credentialState = entitySliceCreate({
   key: credentialKey,
-  creator: credentialCreator,
+  create: credentialCreate,
 });

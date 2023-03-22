@@ -1,10 +1,8 @@
 import type { Role } from '../role/role.types.js';
 import type { Email, UID, UIDList } from '../../../core/index.js';
-import type {
-  EntityCreatorBase, EntityCreatorParams, Meta,
-} from '../entity.types.js';
+import type { Meta } from '../entity.types.js';
 import type { HandleName } from '../handle/index.js';
-import type { Data } from '../../data.types.js';
+import type { Data, DataMinimal, DataRoot } from '../../data.types.js';
 
 export interface System extends Data {
   /**
@@ -121,12 +119,12 @@ export interface System extends Data {
 /**
  * System properties excluding the extended entity properties.
  */
-export type SystemBase = EntityCreatorBase<System>;
+export type SystemRoot = DataRoot<System>;
 
 /**
  * System base properties for creation.
  */
-export type SystemCreator = EntityCreatorParams<System, 'name' | '$adminRole' | '$execRole'>;
+export type SystemMinimal = DataMinimal<System, 'name' | '$adminRole' | '$execRole'>;
 
 /**
  * System collection meta data.

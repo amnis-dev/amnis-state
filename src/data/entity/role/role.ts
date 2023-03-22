@@ -3,13 +3,13 @@ import { uid } from '../../../core/index.js';
 import type { Grant } from '../../grant/index.js';
 import { grantCombine } from '../../grant/index.js';
 import type {
-  Role, RoleBase, RoleCombo, RoleCreator, RoleFsLimits,
+  Role, RoleRoot, RoleCombo, RoleMinimal, RoleFsLimits,
 } from './role.types.js';
 import { entitySliceCreate } from '../entity.slice.js';
 
 const roleKey = 'role';
 
-export const roleBase = (): RoleBase => ({
+export const roleRoot = (): RoleRoot => ({
   name: 'Unconfigured Role',
   description: '',
   color: '',
@@ -17,11 +17,11 @@ export const roleBase = (): RoleBase => ({
   grants: [],
 });
 
-export function roleCreator(
-  role: RoleCreator,
+export function roleCreate(
+  role: RoleMinimal,
 ): Role {
   return {
-    ...roleBase(),
+    ...roleRoot(),
     ...role,
     $id: uid(roleKey),
   };
@@ -78,5 +78,5 @@ export function roleFsLimitsCompress(
 
 export const roleState = entitySliceCreate({
   key: roleKey,
-  creator: roleCreator,
+  create: roleCreate,
 });

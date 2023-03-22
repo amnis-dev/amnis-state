@@ -1,26 +1,26 @@
 import { uid } from '../../../core/index.js';
-import type { Profile, ProfileBase, ProfileCreator } from './profile.types.js';
+import type { Profile, ProfileRoot, ProfileMinimal } from './profile.types.js';
 import { entitySliceCreate } from '../entity.slice.js';
 import { userState } from '../user/index.js';
 
 const profileKey = 'profile';
 
-export const profileBase: ProfileBase = {
+export const profileRoot: ProfileRoot = {
   nameDisplay: 'Unnamed',
   $user: uid(userState.key()),
 };
 
-export function profileCreator(
-  profile: ProfileCreator,
+export function profileCreate(
+  profile: ProfileMinimal,
 ): Profile {
   return {
-    ...profileBase,
+    ...profileRoot,
     ...profile,
     $id: uid(profileKey),
   };
 }
 
-export const profileState = entitySliceCreate<Profile, ProfileCreator>({
+export const profileState = entitySliceCreate({
   key: profileKey,
-  creator: profileCreator,
+  create: profileCreate,
 });

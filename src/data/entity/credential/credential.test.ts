@@ -1,6 +1,6 @@
 import { storeSetup } from '../../../store.js';
 import {
-  credentialCreator, credentialState, credentialBase,
+  credentialCreate, credentialState, credentialRoot,
 } from './credential.js';
 
 /**
@@ -14,7 +14,7 @@ test('should properly set a key', () => {
  * ============================================================
  */
 test('should create a data object', () => {
-  const credential = credentialCreator({
+  const credential = credentialCreate({
     name: '',
     publicKey: '',
   });
@@ -44,7 +44,7 @@ test('should return the initial state', () => {
 test('should handle creating a new entity', () => {
   const store = storeSetup();
 
-  const base = credentialBase();
+  const base = credentialRoot();
   const action = credentialState.actions().create(base);
 
   store.dispatch(action);

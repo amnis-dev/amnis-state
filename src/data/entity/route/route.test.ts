@@ -1,4 +1,4 @@
-import { routeKey, routeCreator, routeBase } from './route.js';
+import { routeKey, routeCreate, routeRoot } from './route.js';
 
 /**
  * ============================================================
@@ -11,9 +11,9 @@ test('route key should be is properly set', () => {
  * ============================================================
  */
 test('should create a route', () => {
-  const route = routeCreator(routeBase);
+  const route = routeCreate(routeRoot);
 
   expect(route).toEqual(
-    expect.objectContaining(routeBase),
+    expect.objectContaining(routeRoot),
   );
 });

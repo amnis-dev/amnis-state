@@ -8,7 +8,7 @@ import type {
   Bearer,
   Challenge,
   Otp,
-  LogCreator,
+  LogMinimal,
   Session,
   Credential,
   ApiCreator,
@@ -169,7 +169,7 @@ export interface IoOutputJson<T = any> {
   /**
    * Return logs.
    */
-  logs: LogCreator[];
+  logs: LogMinimal[];
 
   /**
    * Result data.

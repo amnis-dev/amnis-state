@@ -1,5 +1,5 @@
 import {
-  keyCreator, keyBase, keyState,
+  keyCreate, keyRoot, keyState,
 } from './key.js';
 import { storeSetup } from '../../../store.js';
 
@@ -14,8 +14,8 @@ test('key key should be is properly set', () => {
  * ============================================================
  */
 test('should create a key', () => {
-  const base = keyBase();
-  const key = keyCreator(base);
+  const base = keyRoot();
+  const key = keyCreate(base);
 
   expect(key).toMatchObject(base);
 });
@@ -37,7 +37,7 @@ test('should return the initial state', () => {
 test('should key creating a new entity', () => {
   const store = storeSetup();
 
-  const base = keyBase();
+  const base = keyRoot();
   const action = keyState.actions().create(base);
 
   store.dispatch(action);

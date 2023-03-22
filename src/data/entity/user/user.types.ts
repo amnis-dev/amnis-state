@@ -2,13 +2,15 @@ import type {
   DateJSON, Email, Password, UIDList,
 } from '../../../core/index.js';
 import type {
-  EntityCreatorBase, EntityCreatorParams, Meta,
+  Meta,
 } from '../entity.types.js';
 import type { Permit } from '../permit/index.js';
 import type { Credential } from '../credential/index.js';
 import type { Role } from '../role/index.js';
 import type { HandleName } from '../handle/index.js';
-import type { Data } from '../../data.types.js';
+import type {
+  Data, DataMinimal, DataRoot,
+} from '../../data.types.js';
 
 /**
  * Data associated to a User.
@@ -83,12 +85,12 @@ export interface User extends Data {
 /**
  * User properties excluding the extended entity properties.
  */
-export type UserBase = EntityCreatorBase<User>;
+export type UserRoot = DataRoot<User>;
 
 /**
   * User base properties for creation.
   */
-export type UserCreator = EntityCreatorParams<User, 'handle'>;
+export type UserMinimal = DataMinimal<User, 'handle'>;
 
 /**
  * User collection meta data.

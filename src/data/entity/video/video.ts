@@ -1,10 +1,10 @@
-import { fileCreator } from '../file/file.js';
+import { fileCreate } from '../file/file.js';
 import { uid } from '../../../core/index.js';
-import type { Video, VideoBase, VideoCreator } from './video.types.js';
+import type { Video, VideoRoot, VideoMinimal } from './video.types.js';
 
 export const videoKey = 'video';
 
-export const videoBase: VideoBase = {
+export const videoRoot: VideoRoot = {
   extension: 'webm',
   mimetype: 'video/webm',
   width: 0,
@@ -16,12 +16,12 @@ export const videoBase: VideoBase = {
   size: 0,
 };
 
-export function videoCreator(
-  video: VideoCreator,
+export function videoCreate(
+  video: VideoMinimal,
 ): Video {
   return {
-    ...videoBase,
-    ...fileCreator(video),
+    ...videoRoot,
+    ...fileCreate(video),
     aspect: video.aspect ?? (video.width / video.height),
     $id: uid(videoKey),
   };

@@ -1,25 +1,25 @@
 import { uid } from '../../../core/index.js';
 import { entitySliceCreate } from '../entity.slice.js';
-import type { Note, NoteBase, NoteCreator } from './note.types.js';
+import type { Note, NoteRoot, NoteMinimal } from './note.types.js';
 
 const noteKey = 'note';
 
-export const noteBase: NoteBase = {
+export const noteRoot: NoteRoot = {
   $subject: uid(''),
   text: '',
 };
 
-export function noteCreator(
-  note: NoteCreator,
+export function noteCreate(
+  note: NoteMinimal,
 ): Note {
   return {
-    ...noteBase,
+    ...noteRoot,
     ...note,
     $id: uid(noteKey),
   };
 }
 
-export const noteState = entitySliceCreate<Note, NoteCreator>({
+export const noteState = entitySliceCreate({
   key: noteKey,
-  creator: noteCreator,
+  create: noteCreate,
 });

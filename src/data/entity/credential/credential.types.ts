@@ -1,10 +1,8 @@
 import type {
   DateJSON, Encoding, IP, Name,
 } from '../../../core/index.js';
-import type { Data } from '../../data.types.js';
-import type {
-  EntityCreatorBase, EntityCreatorParams, Meta,
-} from '../entity.types.js';
+import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
+import type { Meta } from '../entity.types.js';
 
 /**
  * Entity that contains data to verify credentials.
@@ -32,14 +30,14 @@ export interface Credential extends Data {
 }
 
 /**
- * Base object without a generated identifier.
+ * Root object without a generated identifier.
  */
-export type CredentialBase = EntityCreatorBase<Credential>;
+export type CredentialRoot = DataRoot<Credential>;
 
 /**
  * Minimal parameters for creation.
  */
-export type CredentialCreator = EntityCreatorParams<Credential, 'ip' | 'name' | 'publicKey'>;
+export type CredentialMinimal = DataMinimal<Credential, 'ip' | 'name' | 'publicKey'>;
 
 /**
  * Credential collection meta data.

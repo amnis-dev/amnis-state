@@ -1,19 +1,19 @@
 import { uid } from '../../../core/index.js';
 import { entitySliceCreate } from '../entity.slice.js';
-import type { Audit, AuditBase, AuditCreator } from './audit.types.js';
+import type { Audit, AuditRoot, AuditMinimal } from './audit.types.js';
 
 const auditKey = 'audit';
 
-export const auditBase = (): AuditBase => ({
+export const auditRoot = (): AuditRoot => ({
   action: 'Unspecified',
   completed: false,
 });
 
-export function auditCreator(
-  audit: AuditCreator,
+export function auditCreate(
+  audit: AuditMinimal,
 ): Audit {
   return {
-    ...auditBase(),
+    ...auditRoot(),
     ...audit,
     $id: uid(auditKey),
   };
@@ -21,5 +21,5 @@ export function auditCreator(
 
 export const auditState = entitySliceCreate({
   key: auditKey,
-  creator: auditCreator,
+  create: auditCreate,
 });

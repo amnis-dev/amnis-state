@@ -2,7 +2,7 @@ import { GrantTask } from '../../grant/index.js';
 import { uid } from '../../../core/index.js';
 import type { StateDeleter, StateUpdater } from '../../../state.types.js';
 import {
-  historyCreator, historyBase, historyMake, historyState,
+  historyCreate, historyRoot, historyMake, historyState,
 } from './history.js';
 import { storeSetup } from '../../../store.js';
 
@@ -17,8 +17,8 @@ test('history key should be is properly set', () => {
  * ============================================================
  */
 test('should create a history', () => {
-  const historyBaseObject = historyBase();
-  const history = historyCreator(historyBaseObject);
+  const historyBaseObject = historyRoot();
+  const history = historyCreate(historyBaseObject);
 
   expect(history).toMatchObject(historyBaseObject);
 });
@@ -108,7 +108,7 @@ test('should return the initial state', () => {
 test('should history creating a new entity', () => {
   const store = storeSetup();
 
-  const base = historyBase();
+  const base = historyRoot();
   const action = historyState.actions().create(base);
 
   store.dispatch(action);

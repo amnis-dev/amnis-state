@@ -1,21 +1,21 @@
 import { uid } from '../../../core/index.js';
 import { entitySliceCreate } from '../entity.slice.js';
-import type { Contact, ContactBase, ContactCreator } from './contact.types.js';
+import type { Contact, ContactRoot, ContactMinimal } from './contact.types.js';
 
 const contactKey = 'contact';
 
-export const contactBase = (): ContactBase => ({
+export const contactRoot = (): ContactRoot => ({
   name: 'Unknown Contact',
   phones: [],
   emails: [],
   socials: [],
 });
 
-export function contactCreator(
-  contact: ContactCreator,
+export function contactCreate(
+  contact: ContactMinimal,
 ): Contact {
   return {
-    ...contactBase(),
+    ...contactRoot(),
     ...contact,
     $id: uid(contactKey),
   };
@@ -23,5 +23,5 @@ export function contactCreator(
 
 export const contactState = entitySliceCreate({
   key: contactKey,
-  creator: contactCreator,
+  create: contactCreate,
 });

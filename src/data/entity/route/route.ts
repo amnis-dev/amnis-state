@@ -1,18 +1,18 @@
 import { uid } from '../../../core/index.js';
-import type { Route, RouteBase, RouteCreator } from './route.types.js';
+import type { Route, RouteRoot, RouteMinimal } from './route.types.js';
 
 export const routeKey = 'route';
 
-export const routeBase: RouteBase = {
+export const routeRoot: RouteRoot = {
   label: '',
   path: '/',
 };
 
-export function routeCreator(
-  route: RouteCreator,
+export function routeCreate(
+  route: RouteMinimal,
 ): Route {
   return {
-    ...routeBase,
+    ...routeRoot,
     ...route,
     $id: uid(routeKey),
   };

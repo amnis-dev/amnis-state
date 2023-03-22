@@ -1,6 +1,6 @@
 import { storeSetup } from '../../../store.js';
 import {
-  auditCreator, auditState, auditBase,
+  auditCreate, auditState, auditRoot,
 } from './audit.js';
 
 /**
@@ -14,7 +14,7 @@ test('audit key should be is properly set', () => {
  * ============================================================
  */
 test('should create a audit', () => {
-  const audit = auditCreator({
+  const audit = auditCreate({
     action: 'Testing',
     completed: true,
   });
@@ -44,7 +44,7 @@ test('should return the initial state', () => {
 test('should handle creating a new entity', () => {
   const store = storeSetup();
 
-  const base = auditBase();
+  const base = auditRoot();
   const action = auditState.actions().create(base);
 
   store.dispatch(action);

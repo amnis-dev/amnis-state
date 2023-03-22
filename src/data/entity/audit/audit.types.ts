@@ -1,11 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type {
-  EntityCreatorBase,
-  EntityCreatorParams,
-  Meta,
-} from '../entity.types.js';
+import type { Meta } from '../entity.types.js';
 import type { UID } from '../../../core/index.js';
-import type { Data } from '../../data.types.js';
+import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
 
 /**
  * A data structure for audit information.
@@ -45,12 +41,12 @@ export interface Audit extends Data {
 /**
  * Contact properties excluding the extended entity properties.
  */
-export type AuditBase = EntityCreatorBase<Audit>;
+export type AuditRoot = DataRoot<Audit>;
 
 /**
- * Base properties in order to create a log.
+ * Root properties in order to create a log.
  */
-export type AuditCreator = EntityCreatorParams<Audit, 'action' | 'completed'>;
+export type AuditMinimal = DataMinimal<Audit, 'action' | 'completed'>;
 
 /**
  * Audit collection meta data.

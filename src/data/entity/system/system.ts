@@ -1,12 +1,12 @@
 import { uid } from '../../../core/index.js';
 import { entitySliceCreate } from '../entity.slice.js';
-import type { LogCreator } from '../log/index.js';
+import type { LogMinimal } from '../log/index.js';
 import { roleState } from '../role/index.js';
-import type { System, SystemBase, SystemCreator } from './system.types.js';
+import type { System, SystemRoot, SystemMinimal } from './system.types.js';
 
 export const systemKey = 'system';
 
-export const systemBase = (): SystemBase => ({
+export const systemRoot = (): SystemRoot => ({
   name: '',
   handle: 'core',
   domain: '',
@@ -30,8 +30,8 @@ export const systemBase = (): SystemBase => ({
 /**
  * System check method.
  */
-export function systemCheck(system: System): LogCreator[] {
-  const logs: LogCreator[] = [];
+export function systemCheck(system: System): LogMinimal[] {
+  const logs: LogMinimal[] = [];
 
   if (system.name.length < 1) {
     logs.push({
@@ -44,10 +44,10 @@ export function systemCheck(system: System): LogCreator[] {
   return logs;
 }
 
-export function systemCreator(
-  system: SystemCreator,
+export function systemCreate(
+  system: SystemMinimal,
 ): System {
-  const base = systemBase();
+  const base = systemRoot();
   const handle = system.handle ?? base.handle;
   const sessionKey = system.sessionKey ?? `${handle}Session`;
 
@@ -62,5 +62,5 @@ export function systemCreator(
 
 export const systemState = entitySliceCreate({
   key: systemKey,
-  creator: systemCreator,
+  create: systemCreate,
 });

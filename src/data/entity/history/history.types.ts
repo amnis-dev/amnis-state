@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type {
-  EntityCreatorBase, EntityCreatorParams, Meta,
-} from '../entity.types.js';
+import type { Meta } from '../entity.types.js';
 import type { UID } from '../../../core/index.js';
 import type {
   StateCreator, StateDeleter, StateUpdater,
 } from '../../../state.types.js';
 import type { GrantTask } from '../../grant/index.js';
-import type { Data } from '../../data.types.js';
+import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
 
 /**
  * List of State Mutators history can log.
@@ -37,12 +35,12 @@ export interface History extends Data {
 /**
  * History properties excluding the extended entity properties.
  */
-export type HistoryBase = EntityCreatorBase<History>;
+export type HistoryRoot = DataRoot<History>;
 
 /**
- * Base properties in order to create a log.
+ * Root properties in order to create a log.
  */
-export type HistoryCreator = EntityCreatorParams<History, '$subject' | 'task' | 'mutation'>;
+export type HistoryMinimal = DataMinimal<History, '$subject' | 'task' | 'mutation'>;
 
 /**
  * History collection meta data.

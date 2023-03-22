@@ -1,8 +1,6 @@
-import type {
-  EntityCreatorBase, EntityCreatorParams, Meta,
-} from '../entity.types.js';
+import type { Meta } from '../entity.types.js';
 import type { SURL } from '../../../core/index.js';
-import type { Data } from '../../data.types.js';
+import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
 
 /**
  * Contact entity
@@ -40,12 +38,12 @@ export interface Contact extends Data {
 /**
  * Contact properties excluding the extended entity properties.
  */
-export type ContactBase = EntityCreatorBase<Contact>;
+export type ContactRoot = DataRoot<Contact>;
 
 /**
- * Base properties in order to create a log.
+ * Root properties in order to create a log.
  */
-export type ContactCreator = EntityCreatorParams<Contact, 'name'>;
+export type ContactMinimal = DataMinimal<Contact, 'name'>;
 
 /**
  * Contact collection meta data.

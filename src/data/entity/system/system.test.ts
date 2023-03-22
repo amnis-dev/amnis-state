@@ -1,5 +1,5 @@
 import { uid } from '../../../core/index.js';
-import { systemCreator, systemState } from './system.js';
+import { systemCreate, systemState } from './system.js';
 
 /**
  * ============================================================
@@ -12,7 +12,7 @@ test('system key should be is properly set', () => {
  * ============================================================
  */
 test('should create a system', () => {
-  const system = systemCreator({
+  const system = systemCreate({
     name: 'Amnis System',
     $adminRole: uid('role'),
     $execRole: uid('role'),

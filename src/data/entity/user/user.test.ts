@@ -1,4 +1,4 @@
-import { userCreator, userState } from './user.js';
+import { userCreate, userState } from './user.js';
 
 /**
  * ============================================================
@@ -11,7 +11,7 @@ test('user key should be is properly set', () => {
  * ============================================================
  */
 test('should create a user', async () => {
-  const user = userCreator({
+  const user = userCreate({
     handle: 'Newbie',
     email: 'newbie@amnis.dev',
   });

@@ -1,7 +1,7 @@
 import { uid } from '../../../index.js';
 import { storeSetup } from '../../../store.js';
 import {
-  handleCreator, handleState, handleBase,
+  handleCreate, handleState, handleRoot,
 } from './handle.js';
 
 /**
@@ -16,7 +16,7 @@ test('should properly set a key', () => {
  */
 test('should create a data object', () => {
   const $subject = uid('entity');
-  const handle = handleCreator({
+  const handle = handleCreate({
     $subject,
     name: '',
   });
@@ -47,7 +47,7 @@ test('should return the initial state', () => {
 test('should handle creating a new entity', () => {
   const store = storeSetup();
 
-  const base = handleBase();
+  const base = handleRoot();
   const action = handleState.actions().create(base);
 
   store.dispatch(action);

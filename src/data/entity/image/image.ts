@@ -1,10 +1,10 @@
-import type { Image, ImageBase, ImageCreator } from './image.types.js';
+import type { Image, ImageRoot, ImageMinimal } from './image.types.js';
 import { uid } from '../../../core/index.js';
-import { fileCreator } from '../file/file.js';
+import { fileCreate } from '../file/file.js';
 
 const imageKey = 'image';
 
-export const imageBase: ImageBase = {
+export const imageRoot: ImageRoot = {
   extension: 'webp',
   mimetype: 'image/webp',
   width: 0,
@@ -15,12 +15,12 @@ export const imageBase: ImageBase = {
   size: 0,
 };
 
-export function imageCreator(
-  image: ImageCreator,
+export function imageCreate(
+  image: ImageMinimal,
 ): Image {
   return {
-    ...imageBase,
-    ...fileCreator(image),
+    ...imageRoot,
+    ...fileCreate(image),
     aspect: image.aspect ?? (image.width / image.height),
     $id: uid(imageKey),
   };

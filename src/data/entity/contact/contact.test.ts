@@ -1,6 +1,6 @@
 import { storeSetup } from '../../../store.js';
 import {
-  contactCreator, contactState, contactBase,
+  contactCreate, contactState, contactRoot,
 } from './contact.js';
 
 /**
@@ -14,7 +14,7 @@ test('contact key should be is properly set', () => {
  * ============================================================
  */
 test('should create a contact', () => {
-  const contact = contactCreator({
+  const contact = contactCreate({
     name: 'Amnis Contact',
   });
 
@@ -43,7 +43,7 @@ test('should return the initial state', () => {
 test('should handle creating a new entity', () => {
   const store = storeSetup();
 
-  const base = contactBase();
+  const base = contactRoot();
   const action = contactState.actions().create(base);
 
   store.dispatch(action);

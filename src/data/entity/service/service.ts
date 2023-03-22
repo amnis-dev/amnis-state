@@ -1,20 +1,20 @@
 import { dateJSON, uid } from '../../../core/index.js';
 import { entitySliceCreate } from '../entity.slice.js';
-import type { Service, ServiceBase, ServiceCreator } from './service.types.js';
+import type { Service, ServiceRoot, ServiceMinimal } from './service.types.js';
 
 const serviceKey = 'service';
 
-export const serviceBase: ServiceBase = {
+export const serviceRoot: ServiceRoot = {
   name: 'Unknown Service',
   status: 'offline',
   dateChecked: dateJSON(),
 };
 
-export function serviceCreator(
-  service: ServiceCreator,
+export function serviceCreate(
+  service: ServiceMinimal,
 ): Service {
   return {
-    ...serviceBase,
+    ...serviceRoot,
     dateChecked: dateJSON(),
     ...service,
     $id: uid(serviceKey),
@@ -23,5 +23,5 @@ export function serviceCreator(
 
 export const serviceState = entitySliceCreate({
   key: serviceKey,
-  creator: serviceCreator,
+  create: serviceCreate,
 });

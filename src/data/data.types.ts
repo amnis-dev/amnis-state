@@ -16,7 +16,7 @@ export type DataRoot<D extends Data> = Omit<D, '$id'>;
  */
 export type DataMinimal<
   D extends Data,
-  K extends keyof D
+  K extends keyof D,
 > = Pick<D, K> & Omit<Partial<D>, K>;
 
 /**
@@ -56,14 +56,16 @@ export interface DataReducerSettings<
   options?: DataReducerOptions;
 }
 
-export type DataExtraReducerFunction = (settings: DataReducerSettings) => void;
+export type DataExtraReducerFunction<D extends Data = Data> = (
+  settings: DataReducerSettings<D>
+) => void;
 
-export interface DataExtraReducers {
-  cases: DataExtraReducerFunction;
-  matchers: DataExtraReducerFunction;
+export interface DataExtraReducers<D extends Data = Data> {
+  cases: DataExtraReducerFunction<D>;
+  matchers: DataExtraReducerFunction<D>;
 }
 
-export type DataExtraReducersApply = (
-  settings: DataReducerSettings,
-  reducers: DataExtraReducers[]
+export type DataExtraReducersApply<D extends Data = Data> = (
+  settings: DataReducerSettings<D>,
+  reducers: DataExtraReducers<D>[]
 ) => void;

@@ -91,24 +91,6 @@ export interface Meta<C extends Data = Data> {
 }
 
 /**
- * Base object for default settings on a entity creator.
- */
-export type EntityCreatorBase<C extends Data> = Omit<C, '$id'>;
-
-/**
- * Create an entity creation parameters.
- */
-export type EntityCreatorParams<
-  C extends Data,
-  K extends keyof C
-> = Pick<C, K> & Omit<Partial<C>, K>;
-
-/**
- * Subset interface for updating a creator entity
- */
-export type EntityUpdater<C extends Data> = Partial<Omit<C, '$id'>> & { $id: UID<C>; };
-
-/**
  * An entity state.
  */
 export type MetaState<C extends Data = Data> = EntityState<Entity<C>> & Meta<C>;

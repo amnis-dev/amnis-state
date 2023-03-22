@@ -7,7 +7,7 @@ import type {
 import { localStorageSaveEntities } from '../localstorage.js';
 import { dataActions } from './data.actions.js';
 import type {
-  Data, DataExtraReducers, DataExtraReducersApply, DataReducerOptions,
+  Data, DataExtraReducers, DataReducerOptions, DataReducerSettings,
 } from './data.types.js';
 
 async function dataSave(
@@ -41,9 +41,9 @@ async function dataSave(
 /**
  * Applies a set a extra reducers to a data slice.
  */
-export const extraReducersApply: DataExtraReducersApply = (
-  settings,
-  reducers,
+export const extraReducersApply = <D extends Data>(
+  settings: DataReducerSettings<D>,
+  reducers: DataExtraReducers<D>[],
 ) => {
   reducers.forEach((reducer) => {
     reducer.cases(settings);

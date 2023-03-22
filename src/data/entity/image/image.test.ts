@@ -1,10 +1,10 @@
-import { imageCreator } from './image.js';
+import { imageCreate } from './image.js';
 
 /**
  * ============================================================
  */
 test('should create a image', () => {
-  const image = imageCreator({
+  const image = imageCreate({
     title: 'Amnis Logo',
     extension: 'webp',
     width: 0,

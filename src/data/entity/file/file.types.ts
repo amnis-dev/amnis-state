@@ -1,8 +1,5 @@
 import type { UID } from '../../../core/index.js';
-import type { Data } from '../../data.types.js';
-import type {
-  EntityCreatorBase, EntityCreatorParams,
-} from '../entity.types.js';
+import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
 import type { Profile } from '../profile/index.js';
 
 /**
@@ -83,9 +80,9 @@ export interface File extends Data {
 /**
  * File properties excluding the extended entity properties.
  */
-export type FileBase = EntityCreatorBase<File>;
+export type FileRoot = DataRoot<File>;
 
 /**
-  * Base properties in order to create a file.
+  * Root properties in order to create a file.
   */
-export type FileCreator = EntityCreatorParams<File, 'title' | 'mimetype' | 'size'>;
+export type FileMinimal = DataMinimal<File, 'title' | 'mimetype' | 'size'>;

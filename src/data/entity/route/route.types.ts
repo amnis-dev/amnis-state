@@ -1,6 +1,5 @@
-import type { EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
 import type { UID } from '../../../core/index.js';
-import type { Data } from '../../data.types.js';
+import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
 
 /**
  * Data for routing to a resouce.
@@ -30,9 +29,9 @@ export interface Route extends Data {
 /**
  * Route properties excluding the extended entity properties.
  */
-export type RouteBase = EntityCreatorBase<Route>;
+export type RouteRoot = DataRoot<Route>;
 
 /**
- * Base properties in order to create a log.
+ * Root properties in order to create a log.
  */
-export type RouteCreator = EntityCreatorParams<Route, 'label' | 'path'>;
+export type RouteMinimal = DataMinimal<Route, 'label' | 'path'>;

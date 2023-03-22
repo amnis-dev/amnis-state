@@ -3,7 +3,7 @@ import {
   agentCredential, agentFingerprint, agentGet, agentName,
 } from './agent.js';
 import type { Credential } from './data/index.js';
-import { credentialCreator } from './data/entity/credential/index.js';
+import { credentialState } from './data/entity/credential/index.js';
 import { cryptoWeb } from './io/crypto/index.js';
 import { base64Encode } from './core/index.js';
 
@@ -41,7 +41,7 @@ export const accountsGenerateCrypto = async () => {
     keys.privateKey,
     await cryptoWeb.hashData(agentFingerprint()),
   );
-  const credential = credentialCreator({
+  const credential = credentialState.create({
     name: agentName(),
     publicKey,
   });

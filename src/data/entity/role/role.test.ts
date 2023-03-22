@@ -1,4 +1,4 @@
-import { roleCreator, roleFsLimitsCompress, roleState } from './role.js';
+import { roleCreate, roleFsLimitsCompress, roleState } from './role.js';
 import type { RoleFsLimits } from './role.types.js';
 
 /**
@@ -12,8 +12,8 @@ test('role key should be is properly set', () => {
  * ============================================================
  */
 test('should create a role', () => {
-  const role = roleCreator({
-    name: 'Base Role',
+  const role = roleCreate({
+    name: 'Root Role',
   });
 
   expect(role).toEqual(

@@ -1,4 +1,4 @@
-import type { EntityCreatorBase, EntityCreatorParams } from '../entity.types.js';
+import type { DataMinimal, DataRoot } from '../../data.types.js';
 import type { File } from '../file/file.types.js';
 
 export interface Video extends File {
@@ -31,9 +31,9 @@ export interface Video extends File {
 /**
  * Video properties excluding the extended entity properties.
  */
-export type VideoBase = EntityCreatorBase<Video>;
+export type VideoRoot = DataRoot<Video>;
 
 /**
-    * Base properties in order to create an image.
+    * Root properties in order to create an image.
     */
-export type VideoCreator = EntityCreatorParams<Video, 'title' | 'mimetype' | 'size' | 'extension' | 'width' | 'height' | 'duration'>;
+export type VideoMinimal = DataMinimal<Video, 'title' | 'mimetype' | 'size' | 'extension' | 'width' | 'height' | 'duration'>;

@@ -4,16 +4,15 @@ import { createSelector } from '@reduxjs/toolkit';
 import type { State } from '../../state.types.js';
 import type { UID } from '../../core/index.js';
 import type {
-  Bearer,
-  Grant,
-  Entity,
-  EntityCreatorBase,
-  Role,
-  Key,
   Data,
-  MetaState,
-  EntityUpdater,
-} from '../index.js';
+  DataRoot,
+  DataUpdater,
+} from '../data.types.js';
+import type { Entity, MetaState } from './entity.types.js';
+import type { Bearer } from '../bearer/bearer.types.js';
+import type { Key } from './key/key.types.js';
+import type { Role } from './role/role.types.js';
+import type { Grant } from '../grant/grant.types.js';
 
 /**
  * Creates a slice selector.
@@ -142,8 +141,8 @@ export const selectSelection = <E extends Entity>(
 export interface EntityDifference<C extends Data> {
   original: Entity<C> | undefined;
   current: Entity<C> | undefined;
-  changes: EntityCreatorBase<C>;
-  updater: EntityUpdater<C>;
+  changes: DataRoot<C>;
+  updater: DataUpdater<C>;
   keys: (keyof Entity<C>)[];
 }
 
@@ -170,11 +169,11 @@ const genSelectDifference = <C extends Data = Data>(
     const diffRecord = diffRecords[id as UID];
     const keys = diffRecord ? [...diffRecord as (keyof Entity<C>)[]] : [] as (keyof Entity<C>)[];
 
-    const changes = keys.reduce<EntityCreatorBase<C>>((acc, k) => {
+    const changes = keys.reduce<DataRoot<C>>((acc, k) => {
       /** @ts-ignore */
       acc[k] = current[k];
       return acc;
-    }, {} as EntityCreatorBase<C>);
+    }, {} as DataRoot<C>);
     const updater = { $id: id, ...changes };
 
     return {

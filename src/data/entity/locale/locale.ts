@@ -1,13 +1,13 @@
-import type { LogCreator } from '../log/index.js';
+import type { LogMinimal } from '../log/index.js';
 import { uid } from '../../../core/index.js';
 import type {
-  Locale, LocaleBase, LocaleCreator, LocaleTranslationKey, LocaleTranslation,
+  Locale, LocaleRoot, LocaleMinimal, LocaleTranslationKey, LocaleTranslation,
 } from './locale.types.js';
 import { entitySliceCreate } from '../entity.slice.js';
 
 const localeKey = 'locale';
 
-export const localeBase: LocaleBase = {
+export const localeRoot: LocaleRoot = {
   code: 'en',
   set: 'core',
   t: {},
@@ -46,8 +46,8 @@ export function t(
 /**
  * Locale check method.
  */
-export function localeCheck(locale: Locale): LogCreator[] {
-  const logs: LogCreator[] = [];
+export function localeCheck(locale: Locale): LogMinimal[] {
+  const logs: LogMinimal[] = [];
 
   if (locale.code.length !== 2) {
     logs.push({
@@ -60,11 +60,11 @@ export function localeCheck(locale: Locale): LogCreator[] {
   return logs;
 }
 
-export function localeCreator(
-  locale: LocaleCreator,
+export function localeCreate(
+  locale: LocaleMinimal,
 ): Locale {
   return {
-    ...localeBase,
+    ...localeRoot,
     ...locale,
     $id: uid(localeKey),
   };
@@ -72,5 +72,5 @@ export function localeCreator(
 
 export const localeState = entitySliceCreate({
   key: localeKey,
-  creator: localeCreator,
+  create: localeCreate,
 });

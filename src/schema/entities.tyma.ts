@@ -15,7 +15,7 @@ import type {
   Session,
   User,
   Video,
-  EntityUpdater,
+  DataUpdate,
 } from '../data/index.js';
 
 export interface StateCreator {
@@ -38,19 +38,19 @@ export interface StateCreator {
 }
 
 export interface StateUpdater {
-  audit?: EntityUpdater<Audit>[];
-  contact?: EntityUpdater<Contact>[];
-  credential?: EntityUpdater<Credential>[];
-  history?: EntityUpdater<History>[];
-  image?: EntityUpdater<Image>[];
-  locale?: EntityUpdater<Locale>[];
-  log?: EntityUpdater<Log>[];
-  note?: EntityUpdater<Note>[];
-  profile?: EntityUpdater<Profile>[];
-  role?: EntityUpdater<Role>[];
-  service?: EntityUpdater<Service>[];
-  system?: EntityUpdater<System>[];
-  user?: EntityUpdater<User>[];
-  session?: EntityUpdater<Session>[];
-  video?: EntityUpdater<Video>[];
+  audit?: DataUpdate<Audit>[];
+  contact?: DataUpdate<Contact>[];
+  credential?: DataUpdate<Credential>[];
+  history?: DataUpdate<History>[];
+  image?: DataUpdate<Image>[];
+  locale?: DataUpdate<Locale>[];
+  log?: DataUpdate<Log>[];
+  note?: DataUpdate<Note>[];
+  profile?: DataUpdate<Profile>[];
+  role?: DataUpdate<Role>[];
+  service?: DataUpdate<Service>[];
+  system?: DataUpdate<System>[];
+  user?: DataUpdate<User>[];
+  session?: DataUpdate<Session>[];
+  video?: DataUpdate<Video>[];
 }

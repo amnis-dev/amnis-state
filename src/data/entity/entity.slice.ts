@@ -6,46 +6,57 @@ import type { UID } from '../../core/index.js';
 import type { State, StateKey } from '../../state.types.js';
 import { dataActions } from '../data.actions.js';
 import { dataExtraReducers, extraReducersApply } from '../data.reducers.js';
-import type { Data, DataExtraReducers, DataUpdate } from '../data.types.js';
+import type {
+  Data, DataExtraReducers, DataUpdate,
+} from '../data.types.js';
 import { entityCreate, metaInitial } from './entity.js';
 import { entityExtraReducers } from './entity.reducers.js';
 import { entitySelectors } from './entity.selectors.js';
 import type { Entity, Meta, MetaState } from './entity.types.js';
 import { entityActions } from './entity.actions.js';
 
-export type EntityCreatorMethod<C extends Data = Data> = (...args: any[]) => C;
-
 export interface EntitySliceOptions<
-  C extends Data = Data,
+  D extends Data = Data,
+  C extends (minimal: any) => D = () => D,
   M extends Meta = Meta,
 > {
   key: string;
-  creator: EntityCreatorMethod;
+  create: C;
   meta?: Partial<M>;
   reducers?: Record<string, Reducer>;
   reducerCases?: (
-    builder: ActionReducerMapBuilder<EntityState<C> & State>
+    builder: ActionReducerMapBuilder<EntityState<D> & State>
   ) => void;
   reducerMatchers?: (
-    builder: ActionReducerMapBuilder<EntityState<C> & State>
+    builder: ActionReducerMapBuilder<EntityState<D> & State>
   ) => void;
 }
 
 export const entitySliceCreate = <
-  C extends Data,
-  CB = Record<string, any>
+  DataExtended extends Data,
+  C extends (minimal: any) => DataExtended,
 >({
   key,
-  creator,
+  create,
   meta,
   reducerCases,
   reducerMatchers,
-}: EntitySliceOptions) => {
+}: EntitySliceOptions<DataExtended, C>) => {
+  type D = ReturnType<C>;
+
   if (/^[a-z0-9]+$/i.test(key) === false) {
     throw new Error(`Entity key must be alphanumeric: ${key}`);
   }
 
-  const adapter = createEntityAdapter<Entity<C>>({
+  /**
+   * Create function that builds the entitiy version of the data.
+   */
+  const createEntity = (
+    minimal: Parameters<C>[0],
+    meta?: Partial<Entity>,
+  ): Entity<D> => entityCreate(create(minimal), meta) as Entity<D>;
+
+  const adapter = createEntityAdapter<Entity<D>>({
     selectId: (entity) => entity.$id,
     sortComparer: (a, b) => a.$id.localeCompare(b.$id),
   });
@@ -54,9 +65,9 @@ export const entitySliceCreate = <
     metaInitial(meta),
   );
 
-  const keyGet = (): StateKey<C> => key;
+  const keyGet = (): StateKey<D> => key;
 
-  const customExtraReducers: DataExtraReducers = {
+  const customExtraReducers: DataExtraReducers<D> = {
     cases: ({ builder }) => {
       if (!reducerCases) return;
       reducerCases(builder);
@@ -72,7 +83,7 @@ export const entitySliceCreate = <
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-      extraReducersApply({
+      extraReducersApply<D>({
         key,
         adapter,
         builder,
@@ -91,22 +102,22 @@ export const entitySliceCreate = <
    * --------------------------------------------------
    */
   const actionsCreate = () => ({
-    insert: (insert: Entity<C>) => dataActions.create({
+    insert: (insert: Entity<D>) => dataActions.create({
       [key]: [insert],
     }),
-    insertMany: (inserts: Entity<C>[]) => dataActions.create({
+    insertMany: (inserts: Entity<D>[]) => dataActions.create({
       [key]: inserts,
     }),
-    create: (create: CB) => dataActions.create({
-      [key]: [entityCreate(creator(create))],
+    create: (minimal: Parameters<C>[0]) => dataActions.create({
+      [key]: [entityCreate(create(minimal))],
     }),
-    createMany: (creates: CB[]) => dataActions.create({
-      [key]: creates.map((create) => entityCreate(creator(create))),
+    createMany: (minimals: Parameters<C>[0][]) => dataActions.create({
+      [key]: minimals.map((minimal) => entityCreate(create(minimal))),
     }),
-    update: (update: DataUpdate<C>) => dataActions.update({
+    update: (update: DataUpdate<D>) => dataActions.update({
       [key]: [update],
     }),
-    updateMany: (updates: DataUpdate<C>[]) => dataActions.update({
+    updateMany: (updates: DataUpdate<D>[]) => dataActions.update({
       [key]: updates,
     }),
     delete: ($id: UID) => dataActions.delete({
@@ -157,9 +168,9 @@ export const entitySliceCreate = <
    */
   const selectorsCreate = () => ({
     ...adapter.getSelectors<{
-      [key: StateKey<C>]: MetaState<C>
+      [key: StateKey<D>]: MetaState<D>
     }>((state) => state[key]),
-    ...entitySelectors<C>(key),
+    ...entitySelectors<D>(key),
   });
 
   const selectorObject = selectorsCreate();
@@ -175,6 +186,8 @@ export const entitySliceCreate = <
     initialState,
     actions,
     selectors,
+    create: create as typeof create,
+    createEntity,
     slice,
   };
 };

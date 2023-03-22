@@ -1,4 +1,4 @@
-import { logCreator, logState } from './log.js';
+import { logCreate, logState } from './log.js';
 
 /**
  * ============================================================
@@ -11,7 +11,7 @@ test('log key should be is properly set', () => {
  * ============================================================
  */
 test('should create a log', () => {
-  const log = logCreator({
+  const log = logCreate({
     title: '',
     description: '',
     level: 'error',

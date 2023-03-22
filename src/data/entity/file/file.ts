@@ -1,20 +1,20 @@
 import { uid } from '../../../core/index.js';
-import type { File, FileBase, FileCreator } from './file.types.js';
+import type { File, FileRoot, FileMinimal } from './file.types.js';
 
 export const fileKey = 'file';
 
-export const fileBase = (): FileBase => ({
+export const fileRoot = (): FileRoot => ({
   title: 'Untitled File',
   slug: '',
   mimetype: 'text/plain',
   size: 0,
 });
 
-export function fileCreator(
-  file: FileCreator,
+export function fileCreate(
+  file: FileMinimal,
 ): File {
   return {
-    ...fileBase(),
+    ...fileRoot(),
     ...file,
     slug: file.slug?.length ? file.slug : file.title.replace(/ /g, '-').replace(/[-]+/g, '-').replace(/[^\w-]+/g, '').toLowerCase(),
     $id: uid(fileKey),

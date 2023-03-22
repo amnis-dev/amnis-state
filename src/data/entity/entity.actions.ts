@@ -12,8 +12,8 @@ export const entityActions = {
   /**
    * Batch creates entities.
    */
-  create: createAction('@data/create', (stateCreator: StateCreator) => (dataActions.create(
-    stateEntitiesCreate(stateCreator),
+  create: createAction('@data/create', (stateCreate: StateCreator) => (dataActions.create(
+    stateEntitiesCreate(stateCreate),
   ))),
 
   /**

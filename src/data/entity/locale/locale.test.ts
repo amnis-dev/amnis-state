@@ -1,5 +1,5 @@
 import {
-  localeCreator, localeState, t, tk,
+  localeCreate, localeState, t, tk,
 } from './locale.js';
 import { localeDataEnLogs } from './locale.locale.en.js';
 
@@ -14,7 +14,7 @@ test('locale key should be is properly set', () => {
  * ============================================================
  */
 test('should create a locale', () => {
-  const locale = localeCreator({
+  const locale = localeCreate({
     code: 'en',
     set: 'core',
   });

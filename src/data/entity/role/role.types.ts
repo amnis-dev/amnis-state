@@ -1,9 +1,7 @@
-import type {
-  EntityCreatorBase, EntityCreatorParams, Meta,
-} from '../entity.types.js';
+import type { Meta } from '../entity.types.js';
 import type { Grant } from '../../grant/index.js';
 import type { UID } from '../../../core/index.js';
-import type { Data } from '../../data.types.js';
+import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
 
 /**
  * Role limits
@@ -43,12 +41,12 @@ export interface Role extends Data {
 /**
  * Profile properties excluding the extended entity properties.
  */
-export type RoleBase = EntityCreatorBase<Role>;
+export type RoleRoot = DataRoot<Role>;
 
 /**
-   * Base properties.
+   * Root properties.
    */
-export type RoleCreator = EntityCreatorParams<Role, 'name'>;
+export type RoleMinimal = DataMinimal<Role, 'name'>;
 
 /**
  * A role combination.

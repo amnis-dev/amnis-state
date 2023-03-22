@@ -1,10 +1,10 @@
 import { uid } from '../../../core/index.js';
 import { entitySliceCreate } from '../entity.slice.js';
-import type { Log, LogBase, LogCreator } from './log.types.js';
+import type { Log, LogRoot, LogMinimal } from './log.types.js';
 
 const logKey = 'log';
 
-export const logBase: LogBase = {
+export const logRoot: LogRoot = {
   level: 'debug',
   title: 'Untitled Log',
   description: 'This log has no description.',
@@ -14,9 +14,9 @@ export const logBase: LogBase = {
 /**
  * Creates a log entry.
  */
-export function logCreator(log: LogCreator): Log {
+export function logCreate(log: LogMinimal): Log {
   return {
-    ...logBase,
+    ...logRoot,
     ...log,
     $id: uid(logKey),
   };
@@ -24,5 +24,5 @@ export function logCreator(log: LogCreator): Log {
 
 export const logState = entitySliceCreate({
   key: logKey,
-  creator: logCreator,
+  create: logCreate,
 });

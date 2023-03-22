@@ -3,23 +3,23 @@ import { uid } from '../../../core/index.js';
 import { GrantTask } from '../../grant/index.js';
 import type { UID } from '../../../core/index.js';
 import type {
-  History, HistoryBase, HistoryCreator, HistoryStateMutator,
+  History, HistoryRoot, HistoryMinimal, HistoryStateMutator,
 } from './history.types.js';
 import { entitySliceCreate } from '../entity.slice.js';
 
 const historyKey = 'history';
 
-export const historyBase = (): HistoryBase => ({
+export const historyRoot = (): HistoryRoot => ({
   $subject: uid(historyKey, 'null'),
   task: GrantTask.None,
   mutation: null,
 });
 
-export function historyCreator(
-  history: HistoryCreator,
+export function historyCreate(
+  history: HistoryMinimal,
 ): History {
   return {
-    ...historyBase(),
+    ...historyRoot(),
     ...history,
     $id: uid(historyKey),
   };
@@ -36,7 +36,7 @@ export function historyMake(
   Object.values(state).forEach((mutators) => {
     mutators.forEach((mutation: any) => {
       const $subject: UID = typeof mutation === 'object' ? mutation?.$id : mutation;
-      histories.push(historyCreator({
+      histories.push(historyCreate({
         $subject,
         task,
         mutation,
@@ -49,5 +49,5 @@ export function historyMake(
 
 export const historyState = entitySliceCreate({
   key: historyKey,
-  creator: historyCreator,
+  create: historyCreate,
 });

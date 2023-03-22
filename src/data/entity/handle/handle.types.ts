@@ -1,8 +1,6 @@
 import type { UID } from '../../../core/index.js';
-import type { Data } from '../../data.types.js';
-import type {
-  EntityCreatorBase, EntityCreatorParams, Meta,
-} from '../entity.types.js';
+import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
+import type { Meta } from '../entity.types.js';
 
 /**
  * Human-freindly name to reference a particular subject.
@@ -41,12 +39,12 @@ export interface Handle extends Data {
 /**
  * Handle properties excluding the extended entity properties.
  */
-export type HandleBase = EntityCreatorBase<Handle>;
+export type HandleRoot = DataRoot<Handle>;
 
 /**
- * Base properties.
+ * Root properties.
  */
-export type HandleCreator = EntityCreatorParams<Handle, 'name' | '$subject'>;
+export type HandleMinimal = DataMinimal<Handle, 'name' | '$subject'>;
 
 /**
  * Handle collection meta data.

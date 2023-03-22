@@ -1,8 +1,6 @@
-import type {
-  EntityCreatorBase, EntityCreatorParams, Meta,
-} from '../entity.types.js';
+import type { Meta } from '../entity.types.js';
 import type { DateJSON } from '../../../core/index.js';
-import type { Data } from '../../data.types.js';
+import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
 
 /**
  * Service entity
@@ -32,12 +30,12 @@ export interface Service extends Data {
 /**
  * Service properties excluding the extended entity properties.
  */
-export type ServiceBase = EntityCreatorBase<Service>;
+export type ServiceRoot = DataRoot<Service>;
 
 /**
- * Base properties in order to create a log.
+ * Root properties in order to create a log.
  */
-export type ServiceCreator = EntityCreatorParams<Service, 'name'>;
+export type ServiceMinimal = DataMinimal<Service, 'name'>;
 
 /**
  * Service collection meta data.

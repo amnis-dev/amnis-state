@@ -24,13 +24,7 @@ import {
   systemState,
   auditState,
   historyState,
-  contactCreator,
-  profileCreator,
-  roleCreator,
-  systemCreator,
-  userCreator,
   entityCreate,
-  handleCreator,
   historyMake,
 } from './entity/index.js';
 import { cryptoWeb } from '../io/index.js';
@@ -43,7 +37,7 @@ export const dataInitial = async (): Promise<StateEntities> => {
    * Roles to be assigned to users
    */
   const roles: Entity<Role>[] = [
-    entityCreate(roleCreator({
+    entityCreate(roleState.create({
       name: 'Administrator',
       description: 'Most permissive role for overall system configuration and maintenance.',
       color: '#cc0000',
@@ -60,7 +54,7 @@ export const dataInitial = async (): Promise<StateEntities> => {
         [contactState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
       ],
     }), { committed: true, new: false }),
-    entityCreate(roleCreator({
+    entityCreate(roleState.create({
       name: 'Executive',
       description: 'Authoritative role for application configuration and maintenance.',
       color: '#3e3ee6',
@@ -76,8 +70,8 @@ export const dataInitial = async (): Promise<StateEntities> => {
         [contactState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
       ],
     }), { committed: true, new: false }),
-    entityCreate(roleCreator({
-      name: 'Base',
+    entityCreate(roleState.create({
+      name: 'Root',
       description: 'Basis for standard authenticated use of the application.',
       color: '#000000',
       fsLimits: [32, 64, 1024],
@@ -92,7 +86,7 @@ export const dataInitial = async (): Promise<StateEntities> => {
         [contactState.key(), GrantScope.Global, grantTask(0, 1, 0, 0)],
       ],
     }), { committed: true, new: false }),
-    entityCreate(roleCreator({
+    entityCreate(roleState.create({
       name: 'Anonymous',
       description: 'Permissions for accessing the application data without authentication.',
       color: '#000000',
@@ -113,7 +107,7 @@ export const dataInitial = async (): Promise<StateEntities> => {
   const accounts = await accountsGet();
 
   const users: Entity<User>[] = [
-    entityCreate(userCreator({
+    entityCreate(userState.create({
       handle: accounts.admin.handle,
       password: await cryptoWeb.passHash(accounts.admin.password),
       email: 'admin@email.addr',
@@ -121,7 +115,7 @@ export const dataInitial = async (): Promise<StateEntities> => {
       $roles: [roles[0].$id],
       $permits: [],
     }), { committed: true, new: false }),
-    entityCreate(userCreator({
+    entityCreate(userState.create({
       handle: accounts.exec.handle,
       password: await cryptoWeb.passHash(accounts.exec.password),
       email: 'exec@email.addr',
@@ -129,7 +123,7 @@ export const dataInitial = async (): Promise<StateEntities> => {
       $roles: [roles[1].$id],
       $permits: [],
     }), { committed: true, new: false }),
-    entityCreate(userCreator({
+    entityCreate(userState.create({
       handle: accounts.user.handle,
       password: await cryptoWeb.passHash(accounts.user.password),
       email: 'user@email.addr',
@@ -143,15 +137,15 @@ export const dataInitial = async (): Promise<StateEntities> => {
    * User handles.
    */
   const handles: Entity<Handle>[] = [
-    entityCreate(handleCreator({
+    entityCreate(handleState.create({
       name: users[0].handle,
       $subject: users[0].$id,
     })),
-    entityCreate(handleCreator({
+    entityCreate(handleState.create({
       name: users[1].handle,
       $subject: users[1].$id,
     })),
-    entityCreate(handleCreator({
+    entityCreate(handleState.create({
       name: users[2].handle,
       $subject: users[2].$id,
     })),
@@ -185,15 +179,15 @@ export const dataInitial = async (): Promise<StateEntities> => {
    * User contacts.
    */
   const contacts: Entity<Contact>[] = [
-    entityCreate(contactCreator({
+    entityCreate(contactState.create({
       name: 'Administrator Contact',
       emails: [users[0].email as string],
     }), { $owner: users[0].$id, committed: true, new: false }),
-    entityCreate(contactCreator({
+    entityCreate(contactState.create({
       name: 'Executive Contact',
       emails: [users[1].email as string],
     }), { $owner: users[1].$id, committed: true, new: false }),
-    entityCreate(contactCreator({
+    entityCreate(contactState.create({
       name: 'User Contact',
       emails: [users[2].email as string],
     }), { $owner: users[2].$id, committed: true, new: false }),
@@ -204,17 +198,17 @@ export const dataInitial = async (): Promise<StateEntities> => {
    * User profiles.
    */
   const profiles: Entity<Profile>[] = [
-    entityCreate(profileCreator({
+    entityCreate(profileState.create({
       $user: users[0].$id,
       $contact: contacts[0].$id,
       nameDisplay: 'Administrator',
     }), { $owner: users[0].$id, committed: true, new: false }),
-    entityCreate(profileCreator({
+    entityCreate(profileState.create({
       $user: users[1].$id,
       $contact: contacts[1].$id,
       nameDisplay: 'Executive',
     }), { $owner: users[1].$id, committed: true, new: false }),
-    entityCreate(profileCreator({
+    entityCreate(profileState.create({
       $user: users[2].$id,
       $contact: contacts[2].$id,
       nameDisplay: 'User',
@@ -226,7 +220,7 @@ export const dataInitial = async (): Promise<StateEntities> => {
    * System settings.
    */
   const systems: Entity<System>[] = [
-    entityCreate(systemCreator({
+    entityCreate(systemState.create({
       name: 'Core System',
       handle: 'core',
       $adminRole: roles[0].$id,

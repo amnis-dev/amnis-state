@@ -4,7 +4,7 @@ import type { Key } from './key.types.js';
 
 const keyKey = 'key';
 
-export const keyBase = (): Key => ({
+export const keyRoot = (): Key => ({
   $id: uid(keyKey),
   name: 'Unknown Key',
   format: 'raw',
@@ -12,16 +12,16 @@ export const keyBase = (): Key => ({
   value: '',
 });
 
-export function keyCreator(
+export function keyCreate(
   key: Key,
 ): Key {
   return {
-    ...keyBase(),
+    ...keyRoot(),
     ...key,
   };
 }
 
 export const keyState = entitySliceCreate({
   key: keyKey,
-  creator: keyCreator,
+  create: keyCreate,
 });
