@@ -64,6 +64,16 @@ export const dataExtraReducers: DataExtraReducers = {
     builder,
     options = { save: false },
   }) => {
+    builder.addCase(dataActions.insert, (state, { payload }) => {
+      if (payload[key] && Array.isArray(payload[key])) {
+        /** @ts-ignore */
+        adapter.upsertMany(state, payload[key]);
+
+        // Saves data if needed.
+        dataSave(options, key, state);
+      }
+    });
+
     builder.addCase(dataActions.create, (state, { payload }) => {
       if (payload[key] && Array.isArray(payload[key])) {
         /** @ts-ignore */

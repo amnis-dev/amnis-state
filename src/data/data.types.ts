@@ -69,3 +69,38 @@ export type DataExtraReducersApply<D extends Data = Data> = (
   settings: DataReducerSettings<D>,
   reducers: DataExtraReducers<D>[]
 ) => void;
+
+/**
+ * Meta information for data collections.
+ */
+export interface DataMeta<D extends Data = Data> {
+  /**
+   * The entity id referencing the active entity.
+   */
+  active: UID | null;
+
+  /**
+   * The id representing a focused entity.
+   */
+  focused: UID | null;
+
+  /**
+   * List of ids considered to be selected.
+   */
+  selection: UID[];
+
+  /**
+   * Record of original entity data since last updated from the api.
+   */
+  original: Record<UID, D>;
+
+  /**
+   * Property differences between current and original entities.
+   */
+  differences: Record<UID, (keyof D)[] | undefined>
+}
+
+/**
+ * Reducer state for data collections.
+ */
+export type DataState<D extends Data = Data> = EntityState<D> & DataMeta<D>;

@@ -9,4 +9,5 @@ export * from './otp/index.js';
 export * from './data.types.js';
 export * from './data.actions.js';
 export * from './data.reducers.js';
+export * from './data.selectors.js';
 export * from './data.js';
