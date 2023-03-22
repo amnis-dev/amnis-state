@@ -1,60 +1,49 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-shadow */
-import type { ActionReducerMapBuilder, EntityState, Reducer } from '@reduxjs/toolkit';
+import type { AnyAction, Selector } from '@reduxjs/toolkit';
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import type {
   Data, DataExtraReducers, DataMeta, DataState, DataUpdate,
 } from './data.types.js';
-import type { State, StateKey } from '../state.types.js';
+import type { State } from '../state.types.js';
 import type { UID } from '../core/core.types.js';
 import { dataExtraReducers, extraReducersApply } from './data.reducers.js';
 import { dataActions } from './data.actions.js';
 import { dataSelectors } from './data.selectors.js';
-
-/**
- * Create meta information for data collections.
- */
-export function metaInitial<D extends Data = Data>(
-  meta: Partial<DataMeta<D>> = {},
-): DataMeta<D> {
-  return {
-    active: null,
-    focused: null,
-    selection: [],
-    original: {} as Record<UID, D>,
-    differences: {} as Record<UID, (keyof D)[]>,
-    ...meta,
-  };
-}
+import { dataMetaInitial } from './data.meta.js';
 
 export interface DataSliceOptions<
+  K extends string = string,
   D extends Data = Data,
   C extends (minimal: any) => D = () => D,
-  M extends DataMeta<D> = DataMeta<D>,
+  M extends Record<string, any> = object,
+  A extends Record<string, AnyAction> = Record<string, AnyAction>,
+  S extends Record<string, Selector> = Record<string, Selector>,
+  B extends ReturnType<C> = ReturnType<C>,
 > {
-  key: string;
+  key: K;
   create: C;
-  meta?: Partial<M>;
-  reducers?: Record<string, Reducer>;
-  reducerCases?: (
-    builder: ActionReducerMapBuilder<EntityState<D> & State>
-  ) => void;
-  reducerMatchers?: (
-    builder: ActionReducerMapBuilder<EntityState<D> & State>
-  ) => void;
+  meta?: M & Partial<DataMeta>;
+  actions?: A;
+  selectors?: S;
+  reducersExtras?: DataExtraReducers<B, M>[];
 }
 
 export const dataSliceCreate = <
+  M extends Record<string, any>,
+  K extends string,
   DataExtended extends Data,
   C extends (minimal: any) => DataExtended,
+  A extends Record<string, AnyAction>,
+  S extends Record<string, Selector>,
 >({
   key,
   create,
   meta,
-  reducerCases,
-  reducerMatchers,
-}: DataSliceOptions<DataExtended, C>) => {
-  type D = ReturnType<C>;
+  actions = {} as A,
+  selectors = {} as S,
+  reducersExtras = [],
+}: DataSliceOptions<K, DataExtended, C, M, A>) => {
+  type D = Data & ReturnType<C>;
 
   if (/^[a-z0-9]+$/i.test(key) === false) {
     throw new Error(`Data key must be alphanumeric: ${key}`);
@@ -66,35 +55,23 @@ export const dataSliceCreate = <
   });
 
   const initialState = adapter.getInitialState(
-    metaInitial(meta),
-  );
+    dataMetaInitial(meta),
+  ) as DataState<D> & M;
 
-  const keyGet = (): StateKey<D> => key;
-
-  const customExtraReducers: DataExtraReducers<D> = {
-    cases: ({ builder }) => {
-      if (!reducerCases) return;
-      reducerCases(builder);
-    },
-    matchers: ({ builder }) => {
-      if (!reducerMatchers) return;
-      reducerMatchers(builder);
-    },
-  };
+  const reducersExtraArray: DataExtraReducers<D, M>[] = [];
+  reducersExtraArray.push(...reducersExtras);
+  reducersExtraArray.push(dataExtraReducers);
 
   const sliceObject = createSlice({
     name: key,
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-      extraReducersApply<D>({
+      extraReducersApply<D, M>({
         key,
         adapter,
         builder,
-      }, [
-        dataExtraReducers,
-        customExtraReducers,
-      ]);
+      }, reducersExtraArray);
     },
   });
   const slice = () => sliceObject;
@@ -104,7 +81,7 @@ export const dataSliceCreate = <
    * ACTIONS
    * --------------------------------------------------
    */
-  const actionsCreate = () => ({
+  const actionsObject = {
     insert: (insert: D) => dataActions.create({
       [key]: [insert],
     }),
@@ -159,25 +136,24 @@ export const dataSliceCreate = <
         selection: [],
       },
     }),
-  });
-
-  const actionsObject = actionsCreate();
-  const actions = () => actionsObject;
+    ...actions,
+  };
 
   /**
    * ==================================================
    * SELECTORS
    * --------------------------------------------------
    */
-  const selectorsCreate = () => ({
-    ...adapter.getSelectors<{
-      [key: StateKey<D>]: DataState<D>
-    }>((state) => state[key]),
+  const selectorsAdapter = adapter.getSelectors<State>((state) => state[key]);
+  const selectorsObject = {
+    ids: selectorsAdapter.selectIds,
+    entities: selectorsAdapter.selectEntities,
+    all: selectorsAdapter.selectAll,
+    total: selectorsAdapter.selectTotal,
+    byId: selectorsAdapter.selectById,
     ...dataSelectors<D>(key),
-  });
-
-  const selectorObject = selectorsCreate();
-  const selectors = () => selectorObject;
+    ...(selectors as S),
+  };
 
   /**
    * ==================================================
@@ -185,10 +161,10 @@ export const dataSliceCreate = <
    * --------------------------------------------------
    */
   return {
-    key: keyGet,
+    key,
     initialState,
-    actions,
-    selectors,
+    actions: actionsObject,
+    selectors: selectorsObject,
     create: create as typeof create,
     slice,
   };

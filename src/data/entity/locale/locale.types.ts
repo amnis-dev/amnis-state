@@ -1,5 +1,6 @@
-import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
-import type { Meta } from '../entity.types.js';
+import type {
+  Data, DataRoot, DataMinimal, DataMeta,
+} from '../../data.types.js';
 
 /**
  * Symbol to make a special locale type.
@@ -58,4 +59,4 @@ export type LocaleMinimal = DataMinimal<Locale, 'code' | 'set'>;
 /**
  * Locale collection meta data.
  */
-export type LocaleMeta = Meta<Locale>;
+export type LocaleMeta = DataMeta<Locale>;

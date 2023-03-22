@@ -7,7 +7,7 @@ const profileKey = 'profile';
 
 export const profileRoot: ProfileRoot = {
   nameDisplay: 'Unnamed',
-  $user: uid(userState.key()),
+  $user: uid(userState.key),
 };
 
 export function profileCreate(

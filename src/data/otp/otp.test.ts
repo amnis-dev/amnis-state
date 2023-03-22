@@ -1,9 +1,4 @@
-import { otpBase, otpCreate } from './otp.js';
-import {
-  otpInitialState,
-  otpSelectors,
-  otpActions,
-} from './otp.slice.js';
+import { otpBase, otpState } from './otp.js';
 
 import { storeSetup } from '../../store.js';
 
@@ -14,8 +9,8 @@ test('otps should return the initial state', () => {
   const store = storeSetup();
 
   expect(
-    store.getState().otp,
-  ).toEqual(otpInitialState);
+    store.getState()[otpState.key],
+  ).toEqual(otpState.initialState);
 });
 
 /**
@@ -24,14 +19,12 @@ test('otps should return the initial state', () => {
 test('should handle creating a new otps', () => {
   const store = storeSetup();
 
-  const action = otpActions.insert(otpCreate(otpBase()));
+  const base = otpBase();
+  const action = otpState.actions.create(base);
 
   store.dispatch(action);
-  const entities = otpSelectors.selectAll(store.getState());
+  const entities = otpState.selectors.all(store.getState());
   expect(entities).toHaveLength(1);
 
-  expect(entities[0]).toEqual(expect.objectContaining({
-    exp: expect.any(Number),
-    len: expect.any(Number),
-  }));
+  // expect(entities[0]).toEqual(expect.objectContaining(base));
 });

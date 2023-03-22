@@ -1,6 +1,7 @@
-import type { Meta } from '../entity.types.js';
 import type { DateJSON } from '../../../core/index.js';
-import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
+import type {
+  Data, DataRoot, DataMinimal, DataMeta,
+} from '../../data.types.js';
 
 /**
  * Service entity
@@ -40,4 +41,4 @@ export type ServiceMinimal = DataMinimal<Service, 'name'>;
 /**
  * Service collection meta data.
  */
-export type ServiceMeta = Meta<Service>;
+export type ServiceMeta = DataMeta<Service>;

@@ -8,7 +8,6 @@ import {
 import type { UID } from '../../core/index.js';
 import type {
   Entity,
-  Meta,
 } from './entity.types.js';
 import type { Data } from '../data.types.js';
 
@@ -161,19 +160,3 @@ export const entityStrip = <C extends Data>(
 
   return result;
 };
-
-/**
- * Create meta information for an entity meta information.
- */
-export function metaInitial<C extends Data = Data>(
-  meta: Partial<Meta<C>> = {},
-): Meta<C> {
-  return {
-    active: null,
-    focused: null,
-    selection: [],
-    original: {} as Record<UID<Entity<C>>, Entity<C>>,
-    differences: {} as Record<UID<Entity<C>>, (keyof Entity<C>)[]>,
-    ...meta,
-  };
-}

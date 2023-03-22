@@ -54,34 +54,34 @@ export async function contextSetup(options: ContextOptions = {}): Promise<IoCont
 
   if (initialize) {
     const readResult = await database.read({
-      [systemState.key()]: {},
+      [systemState.key]: {},
       [apiKey]: {},
-      [roleState.key()]: {},
+      [roleState.key]: {},
     });
 
     /**
      * Initialize the system if one isn't found.
      */
-    if (!readResult[systemState.key()]?.length) {
+    if (!readResult[systemState.key]?.length) {
       const createResult = await database.create(data);
 
       if (initialize === true) {
-        const system = createResult[systemState.key()][0];
+        const system = createResult[systemState.key][0];
         const serviceResult: StateEntities = {
-          [systemState.key()]: createResult[systemState.key()],
-          [roleState.key()]: createResult[roleState.key()],
+          [systemState.key]: createResult[systemState.key],
+          [roleState.key]: createResult[roleState.key],
         };
         store.dispatch(dataActions.create(serviceResult));
-        store.dispatch(systemState.actions().activeSet(system.$id));
+        store.dispatch(systemState.actions.activeSet(system.$id));
       }
     } else if (initialize === true) {
-      const system = readResult[systemState.key()][0];
+      const system = readResult[systemState.key][0];
       const serviceResult: StateEntities = {
-        [systemState.key()]: readResult[systemState.key()],
-        [roleState.key()]: readResult[roleState.key()],
+        [systemState.key]: readResult[systemState.key],
+        [roleState.key]: readResult[roleState.key],
       };
       store.dispatch(dataActions.create(serviceResult));
-      store.dispatch(systemState.actions().activeSet(system.$id));
+      store.dispatch(systemState.actions.activeSet(system.$id));
     }
   }
 

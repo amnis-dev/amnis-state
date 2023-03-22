@@ -1,8 +1,12 @@
 import type { Role } from '../role/role.types.js';
 import type { Email, UID, UIDList } from '../../../core/index.js';
-import type { Meta } from '../entity.types.js';
 import type { HandleName } from '../handle/index.js';
-import type { Data, DataMinimal, DataRoot } from '../../data.types.js';
+import type {
+  Data,
+  DataMeta,
+  DataMinimal,
+  DataRoot,
+} from '../../data.types.js';
 
 export interface System extends Data {
   /**
@@ -129,4 +133,4 @@ export type SystemMinimal = DataMinimal<System, 'name' | '$adminRole' | '$execRo
 /**
  * System collection meta data.
  */
-export type SystemMeta = Meta<System>;
+export type SystemMeta = DataMeta<System>;

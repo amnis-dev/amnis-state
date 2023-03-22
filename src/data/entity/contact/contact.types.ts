@@ -1,6 +1,7 @@
-import type { Meta } from '../entity.types.js';
 import type { SURL } from '../../../core/index.js';
-import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
+import type {
+  Data, DataRoot, DataMinimal, DataMeta,
+} from '../../data.types.js';
 
 /**
  * Contact entity
@@ -48,4 +49,4 @@ export type ContactMinimal = DataMinimal<Contact, 'name'>;
 /**
  * Contact collection meta data.
  */
-export type ContactMeta = Meta<Contact>;
+export type ContactMeta = DataMeta<Contact>;

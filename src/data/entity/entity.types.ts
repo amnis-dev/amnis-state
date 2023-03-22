@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { EntityState } from '@reduxjs/toolkit';
 import type { UID, UIDList, DateJSON } from '../../core/index.js';
 import type { Data } from '../data.types.js';
 
@@ -59,38 +58,3 @@ export type Entity<C extends Data = Data> = C & {
    */
   $readers: UIDList;
 };
-
-/**
- * Meta information for an entity collection.
- */
-export interface Meta<C extends Data = Data> {
-  /**
-   * The entity id referencing the active entity.
-   */
-  active: UID<C> | null;
-
-  /**
-    * The id representing a focused entity.
-    */
-  focused: UID<C> | null;
-
-  /**
-   * List of ids considered to be selected.
-   */
-  selection: UID<C>[];
-
-  /**
-   * Record of original entity data since last updated from the api.
-   */
-  original: Record<UID<C>, Entity<C> | undefined>;
-
-  /**
-   * Property differences between current and original entities.
-   */
-  differences: Record<UID<C>, (keyof Entity<C>)[] | undefined>
-}
-
-/**
- * An entity state.
- */
-export type MetaState<C extends Data = Data> = EntityState<Entity<C>> & Meta<C>;

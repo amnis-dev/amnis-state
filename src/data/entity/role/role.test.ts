@@ -5,7 +5,7 @@ import type { RoleFsLimits } from './role.types.js';
  * ============================================================
  */
 test('role key should be is properly set', () => {
-  expect(roleState.key()).toEqual('role');
+  expect(roleState.key).toEqual('role');
 });
 
 /**

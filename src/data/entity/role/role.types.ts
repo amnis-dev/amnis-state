@@ -1,7 +1,11 @@
-import type { Meta } from '../entity.types.js';
 import type { Grant } from '../../grant/index.js';
 import type { UID } from '../../../core/index.js';
-import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
+import type {
+  Data,
+  DataMeta,
+  DataRoot,
+  DataMinimal,
+} from '../../data.types.js';
 
 /**
  * Role limits
@@ -56,7 +60,7 @@ export type RoleCombo = [string, UID<Role>[], Grant[]];
 /**
  * Role collection meta data.
  */
-export interface RoleMeta extends Meta<Role> {
+export interface RoleMeta extends DataMeta<Role> {
   /**
    * UUID to a tuple of role UIDs and a list of grants.
    */

@@ -1,4 +1,5 @@
 /* eslint-disable no-bitwise */
+import { dataSliceCreate } from '../data.slice.js';
 import type {
   Bearer,
 } from './bearer.types.js';
@@ -14,3 +15,8 @@ export function bearerCreate(
 
   return bearerNew;
 }
+
+export const bearerState = dataSliceCreate({
+  key: bearerKey,
+  create: bearerCreate,
+});

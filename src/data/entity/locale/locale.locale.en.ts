@@ -18,7 +18,7 @@ export const localeDataEnLogs = localeCreate({
  * Initial data for locale state.
  */
 export const localeDataEnCreate: StateCreator = {
-  [localeState.key()]: [
+  [localeState.key]: [
     localeDataEnLogs,
   ],
 };

@@ -1,8 +1,12 @@
 import type { DateJSON, UID, SURL } from '../../../core/index.js';
-import type { Meta } from '../entity.types.js';
 import type { User } from '../user/user.types.js';
 import type { Contact } from '../contact/index.js';
-import type { Data, DataMinimal, DataRoot } from '../../data.types.js';
+import type {
+  Data,
+  DataMeta,
+  DataMinimal,
+  DataRoot,
+} from '../../data.types.js';
 
 /**
  * Profile entity
@@ -67,4 +71,4 @@ export type ProfileMinimal = DataMinimal<Profile, 'nameDisplay' | '$user'>;
 /**
  * Profile collection meta data.
  */
-export type ProfileMeta = Meta<Profile>;
+export type ProfileMeta = DataMeta<Profile>;

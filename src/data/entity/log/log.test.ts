@@ -4,7 +4,7 @@ import { logCreate, logState } from './log.js';
  * ============================================================
  */
 test('log key should be is properly set', () => {
-  expect(logState.key()).toEqual('log');
+  expect(logState.key).toEqual('log');
 });
 
 /**

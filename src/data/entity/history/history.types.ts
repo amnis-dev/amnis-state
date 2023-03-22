@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Meta } from '../entity.types.js';
 import type { UID } from '../../../core/index.js';
 import type {
   StateCreator, StateDeleter, StateUpdater,
 } from '../../../state.types.js';
 import type { GrantTask } from '../../grant/index.js';
-import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
+import type {
+  Data, DataRoot, DataMinimal, DataMeta,
+} from '../../data.types.js';
 
 /**
  * List of State Mutators history can log.
@@ -45,4 +46,4 @@ export type HistoryMinimal = DataMinimal<History, '$subject' | 'task' | 'mutatio
 /**
  * History collection meta data.
  */
-export type HistoryMeta = Meta<History>;
+export type HistoryMeta = DataMeta<History>;

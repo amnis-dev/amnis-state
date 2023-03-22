@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import type { ActionReducerMapBuilder, EntityState, EntityStateAdapter } from '@reduxjs/toolkit';
-import type { State } from '../state.types.js';
 import type { UID } from '../core/index.js';
 
 export type Data = { $id: UID };
@@ -39,37 +38,6 @@ export type DataUpdater<D extends Data = Data> = { [key: string]: DataUpdate<D>[
  */
 export type DataDeleter = { [key: string]: UID[] };
 
-export interface DataReducerOptions {
-  save: boolean | Record<string, unknown>;
-}
-
-export interface DataReducerSettings<
-  D extends Data = Data,
-  EA extends EntityStateAdapter<D> = EntityStateAdapter<D>,
-  ARMB extends ActionReducerMapBuilder<
-  EntityState<D> & State
-  > = ActionReducerMapBuilder<EntityState<D> & State>,
-> {
-  key: string;
-  adapter: EA;
-  builder: ARMB;
-  options?: DataReducerOptions;
-}
-
-export type DataExtraReducerFunction<D extends Data = Data> = (
-  settings: DataReducerSettings<D>
-) => void;
-
-export interface DataExtraReducers<D extends Data = Data> {
-  cases: DataExtraReducerFunction<D>;
-  matchers: DataExtraReducerFunction<D>;
-}
-
-export type DataExtraReducersApply<D extends Data = Data> = (
-  settings: DataReducerSettings<D>,
-  reducers: DataExtraReducers<D>[]
-) => void;
-
 /**
  * Meta information for data collections.
  */
@@ -92,7 +60,7 @@ export interface DataMeta<D extends Data = Data> {
   /**
    * Record of original entity data since last updated from the api.
    */
-  original: Record<UID, D>;
+  original: Record<UID, D | undefined>;
 
   /**
    * Property differences between current and original entities.
@@ -104,3 +72,39 @@ export interface DataMeta<D extends Data = Data> {
  * Reducer state for data collections.
  */
 export type DataState<D extends Data = Data> = EntityState<D> & DataMeta<D>;
+
+export interface DataReducerOptions {
+  save: boolean | Record<string, unknown>;
+}
+
+export interface DataReducerSettings<
+  D extends Data = Data,
+  M extends Record<string, any> = object,
+  EA extends EntityStateAdapter<D> = EntityStateAdapter<D>,
+  ARMB extends ActionReducerMapBuilder<DataState<D> & M> = ActionReducerMapBuilder<DataState<D> & M>
+> {
+  key: string;
+  adapter: EA;
+  builder: ARMB;
+  options?: DataReducerOptions;
+}
+
+export type DataExtraReducerFunction<
+  D extends Data = Data,
+  M extends Record<string, any> = object,
+> = (
+  settings: DataReducerSettings<D, M>
+) => void;
+
+export interface DataExtraReducers<
+  D extends Data = Data,
+  M extends Record<string, any> = object,
+> {
+  cases: DataExtraReducerFunction<D, M>;
+  matchers: DataExtraReducerFunction<D, M>;
+}
+
+export type DataExtraReducersApply<D extends Data = Data> = (
+  settings: DataReducerSettings<D>,
+  reducers: DataExtraReducers<D>[]
+) => void;

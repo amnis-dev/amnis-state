@@ -1,5 +1,6 @@
 /* eslint-disable no-bitwise */
 import type { UID } from '../../index.js';
+import { dataSliceCreate } from '../data.slice.js';
 import type {
   Api, ApiCreator,
 } from './api.types.js';
@@ -16,3 +17,8 @@ export function apiCreate(
 
   return apiNew;
 }
+
+export const apiState = dataSliceCreate({
+  key: apiKey,
+  create: apiCreate,
+});

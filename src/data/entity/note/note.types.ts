@@ -1,6 +1,7 @@
-import type { Meta } from '../entity.types.js';
 import type { UID } from '../../../core/index.js';
-import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
+import type {
+  Data, DataRoot, DataMinimal, DataMeta,
+} from '../../data.types.js';
 
 /**
  * A message to aid memory about the historic change.
@@ -30,4 +31,4 @@ export type NoteMinimal = DataMinimal<Note, '$subject' | 'text'>;
 /**
  * Note collection meta data.
  */
-export type NoteMeta = Meta<Note>;
+export type NoteMeta = DataMeta<Note>;

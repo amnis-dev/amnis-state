@@ -21,9 +21,9 @@ export const systemRoot = (): SystemRoot => ({
   emailNotify: 'notify@system.test',
   emailAuth: 'auth@system.test',
   fileSizeMax: 4096,
-  $adminRole: uid(roleState.key()),
-  $execRole: uid(roleState.key()),
-  $anonymousRole: uid(roleState.key()),
+  $adminRole: uid(roleState.key),
+  $execRole: uid(roleState.key),
+  $anonymousRole: uid(roleState.key),
   $initialRoles: [],
 });
 

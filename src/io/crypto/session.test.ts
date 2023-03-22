@@ -4,7 +4,7 @@ import { sessionDecrypt, sessionEncrypt } from './session.js';
 
 test('should encrypt a session', async () => {
   const session = sessionState.create({
-    $subject: uid(userState.key()),
+    $subject: uid(userState.key),
     exp: dateNumeric('30m'),
   });
 
@@ -16,7 +16,7 @@ test('should encrypt a session', async () => {
 
 test('should encrypt and decrypt a session', async () => {
   const session = sessionState.create({
-    $subject: uid(userState.key()),
+    $subject: uid(userState.key),
     exp: dateNumeric('30m'),
   });
 
@@ -32,7 +32,7 @@ test('should encrypt and decrypt a session', async () => {
 
 test('should encrypt and not decrypt an expired session', async () => {
   const session = sessionState.create({
-    $subject: uid(userState.key()),
+    $subject: uid(userState.key),
     exp: dateNumeric(),
   });
 

@@ -5,19 +5,15 @@ import type {
   PayloadAction,
 } from '@reduxjs/toolkit';
 import type { UID } from '../../core/index.js';
-import { localStorageSaveState } from '../../localstorage.js';
 import { dataActions } from '../data.actions.js';
 import type {
   Data,
   DataDeleter,
-  DataExtraReducers,
+  DataReducerSettings,
   DataUpdater,
 } from '../data.types.js';
-import { diffCompare } from './diff.js';
-import { entityActions } from './entity.actions.js';
-import { metaInitial } from './entity.js';
 import type {
-  Entity, MetaState,
+  Entity,
 } from './entity.types.js';
 
 export interface MetaOptions {
@@ -49,58 +45,14 @@ function isDataDeleteAction(
   return action.type === dataActions.delete.type;
 }
 
-/**
- * Matcher for data wipe actions.
- */
-function isDataWipeAction(
-  action: Action<string>,
-): action is PayloadAction {
-  return action.type === dataActions.wipe.type;
-}
+export const entityExtraReducers = {
 
-export const entityExtraReducers: DataExtraReducers = {
+  cases: () => { /** noop */ },
 
-  cases: ({
+  matchers: <D extends Data>({
     key,
     builder,
-  }) => {
-    builder.addCase(entityActions.meta, (state, { payload }) => {
-      if (!payload[key]) {
-        return;
-      }
-
-      const meta = payload[key];
-      Object.keys(meta).forEach((metaKey) => {
-        /** @ts-ignore */
-        state[metaKey] = meta[metaKey];
-      });
-    });
-  },
-
-  matchers: ({
-    key,
-    builder,
-    options = { save: false },
-  }) => {
-    /**
-     * Save meta data
-     */
-    builder.addMatcher(
-      (action: Action): action is Action => action.type.startsWith(key),
-      (state) => {
-        if (!options.save) {
-          return;
-        }
-
-        const stateMeta = state as MetaState<Data>;
-
-        localStorageSaveState(key, {
-          original: stateMeta.original,
-          differences: stateMeta.differences,
-        });
-      },
-    );
-
+  }: DataReducerSettings<D>) => {
     /**
      * Data updates
      */
@@ -117,14 +69,7 @@ export const entityExtraReducers: DataExtraReducers = {
           return;
         }
 
-        /**
-         * Perform a diff compare.
-         */
-        const diffResult = diffCompare<Entity>(
-          { ...entity, ...changes },
-          state.original[$id] as Entity,
-          { includeEntityKeys: false },
-        );
+        const diffResult = state.differences[$id] ?? [];
 
         if (diffResult.length === 0 && !entity.committed) {
           changes.committed = true;
@@ -133,23 +78,7 @@ export const entityExtraReducers: DataExtraReducers = {
         if (diffResult.length > 0 && entity.committed) {
           changes.committed = false;
         }
-
-        if (diffResult.length) {
-          state.differences[$id] = diffResult;
-        }
-
-        if (!diffResult.length && state.differences[$id]) {
-          delete state.differences[$id];
-          delete state.original[$id];
-        }
       });
-
-      if (options.save) {
-        localStorageSaveState(key, {
-          original: state.original,
-          differences: state.differences,
-        });
-      }
     });
 
     /**
@@ -176,21 +105,6 @@ export const entityExtraReducers: DataExtraReducers = {
           payload[key].includes(selectionId)
         ));
       }
-    });
-
-    builder.addMatcher(isDataWipeAction, (state) => {
-      const metaDefault = metaInitial<Entity>();
-
-      state.active = metaDefault.active;
-      state.focused = metaDefault.focused;
-      state.selection = metaDefault.selection;
-
-      Object.keys(state.original).forEach((k) => {
-        delete state.original[k as keyof typeof state.original];
-      });
-      Object.keys(state.differences).forEach((k) => {
-        delete state.differences[k as keyof typeof state.differences];
-      });
     });
   },
 };

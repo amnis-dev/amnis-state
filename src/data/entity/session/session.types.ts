@@ -1,6 +1,5 @@
 import type { UID, DateNumeric } from '../../../core/index.js';
-import type { Data } from '../../data.types.js';
-import type { Meta } from '../entity.types.js';
+import type { Data, DataMeta } from '../../data.types.js';
 
 /**
  * A session object.
@@ -48,4 +47,4 @@ export interface Session extends Data {
 /**
  * Session collection meta data.
  */
-export type SessionMeta = Meta<Session>;
+export type SessionMeta = DataMeta<Session>;

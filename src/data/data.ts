@@ -24,7 +24,6 @@ import {
   systemState,
   auditState,
   historyState,
-  entityCreate,
   historyMake,
 } from './entity/index.js';
 import { cryptoWeb } from '../io/index.js';
@@ -37,65 +36,65 @@ export const dataInitial = async (): Promise<StateEntities> => {
    * Roles to be assigned to users
    */
   const roles: Entity<Role>[] = [
-    entityCreate(roleState.create({
+    roleState.create({
       name: 'Administrator',
       description: 'Most permissive role for overall system configuration and maintenance.',
       color: '#cc0000',
       fsLimits: [-1, -1, -1],
       grants: [
-        [systemState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [auditState.key(), GrantScope.Global, grantTask(0, 1, 1, 1)],
-        [historyState.key(), GrantScope.Global, grantTask(0, 1, 1, 1)],
-        [userState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [handleState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [credentialState.key(), GrantScope.Global, grantTask(0, 1, 0, 1)],
-        [roleState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [profileState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [contactState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [systemState.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [auditState.key, GrantScope.Global, grantTask(0, 1, 1, 1)],
+        [historyState.key, GrantScope.Global, grantTask(0, 1, 1, 1)],
+        [userState.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [handleState.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [credentialState.key, GrantScope.Global, grantTask(0, 1, 0, 1)],
+        [roleState.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [profileState.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [contactState.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
       ],
-    }), { committed: true, new: false }),
-    entityCreate(roleState.create({
+    }, { committed: true, new: false }),
+    roleState.create({
       name: 'Executive',
       description: 'Authoritative role for application configuration and maintenance.',
       color: '#3e3ee6',
       fsLimits: [-1, -1, -1],
       grants: [
-        [auditState.key(), GrantScope.Global, grantTask(0, 1, 0, 0)],
-        [historyState.key(), GrantScope.Global, grantTask(0, 1, 0, 0)],
-        [userState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [handleState.key(), GrantScope.Global, grantTask(0, 0, 1, 1)],
-        [credentialState.key(), GrantScope.Global, grantTask(0, 1, 0, 1)],
-        [roleState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [profileState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [contactState.key(), GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [auditState.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [historyState.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [userState.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [handleState.key, GrantScope.Global, grantTask(0, 0, 1, 1)],
+        [credentialState.key, GrantScope.Global, grantTask(0, 1, 0, 1)],
+        [roleState.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [profileState.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [contactState.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
       ],
-    }), { committed: true, new: false }),
-    entityCreate(roleState.create({
+    }, { committed: true, new: false }),
+    roleState.create({
       name: 'Root',
       description: 'Basis for standard authenticated use of the application.',
       color: '#000000',
       fsLimits: [32, 64, 1024],
       grants: [
-        [historyState.key(), GrantScope.Global, grantTask(0, 1, 0, 0)],
-        [userState.key(), GrantScope.Owned, grantTask(0, 1, 1, 0)],
-        [handleState.key(), GrantScope.Global, grantTask(0, 1, 0, 0)],
-        [credentialState.key(), GrantScope.Owned, grantTask(0, 1, 0, 1)],
-        [profileState.key(), GrantScope.Owned, grantTask(0, 1, 1, 0)],
-        [profileState.key(), GrantScope.Global, grantTask(0, 1, 0, 0)],
-        [contactState.key(), GrantScope.Owned, grantTask(0, 1, 1, 0)],
-        [contactState.key(), GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [historyState.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [userState.key, GrantScope.Owned, grantTask(0, 1, 1, 0)],
+        [handleState.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [credentialState.key, GrantScope.Owned, grantTask(0, 1, 0, 1)],
+        [profileState.key, GrantScope.Owned, grantTask(0, 1, 1, 0)],
+        [profileState.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [contactState.key, GrantScope.Owned, grantTask(0, 1, 1, 0)],
+        [contactState.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
       ],
-    }), { committed: true, new: false }),
-    entityCreate(roleState.create({
+    }, { committed: true, new: false }),
+    roleState.create({
       name: 'Anonymous',
       description: 'Permissions for accessing the application data without authentication.',
       color: '#000000',
       fsLimits: [0, 0, 0],
       grants: [
-        [handleState.key(), GrantScope.Global, grantTask(0, 1, 0, 0)],
-        [profileState.key(), GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [handleState.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [profileState.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
       ],
-    }), { committed: true, new: false }),
+    }, { committed: true, new: false }),
   ];
 
   /**
@@ -107,48 +106,48 @@ export const dataInitial = async (): Promise<StateEntities> => {
   const accounts = await accountsGet();
 
   const users: Entity<User>[] = [
-    entityCreate(userState.create({
+    userState.create({
       handle: accounts.admin.handle,
       password: await cryptoWeb.passHash(accounts.admin.password),
       email: 'admin@email.addr',
       emailVerified: true,
       $roles: [roles[0].$id],
       $permits: [],
-    }), { committed: true, new: false }),
-    entityCreate(userState.create({
+    }, { committed: true, new: false }),
+    userState.create({
       handle: accounts.exec.handle,
       password: await cryptoWeb.passHash(accounts.exec.password),
       email: 'exec@email.addr',
       emailVerified: true,
       $roles: [roles[1].$id],
       $permits: [],
-    }), { committed: true, new: false }),
-    entityCreate(userState.create({
+    }, { committed: true, new: false }),
+    userState.create({
       handle: accounts.user.handle,
       password: await cryptoWeb.passHash(accounts.user.password),
       email: 'user@email.addr',
       emailVerified: true,
       $roles: [roles[2].$id],
       $permits: [],
-    }), { committed: true, new: false }),
+    }, { committed: true, new: false }),
   ];
 
   /**
    * User handles.
    */
   const handles: Entity<Handle>[] = [
-    entityCreate(handleState.create({
+    handleState.create({
       name: users[0].handle,
       $subject: users[0].$id,
-    })),
-    entityCreate(handleState.create({
+    }),
+    handleState.create({
       name: users[1].handle,
       $subject: users[1].$id,
-    })),
-    entityCreate(handleState.create({
+    }),
+    handleState.create({
       name: users[2].handle,
       $subject: users[2].$id,
-    })),
+    }),
   ];
 
   /**
@@ -156,15 +155,15 @@ export const dataInitial = async (): Promise<StateEntities> => {
    * User credentials
    */
   const credentials: Entity<Credential>[] = [
-    entityCreate(
+    credentialState.create(
       accounts.admin.credential,
       { $owner: users[0].$id, committed: true, new: false },
     ),
-    entityCreate(
+    credentialState.create(
       accounts.exec.credential,
       { $owner: users[1].$id, committed: true, new: false },
     ),
-    entityCreate(
+    credentialState.create(
       accounts.user.credential,
       { $owner: users[2].$id, committed: true, new: false },
     ),
@@ -179,18 +178,18 @@ export const dataInitial = async (): Promise<StateEntities> => {
    * User contacts.
    */
   const contacts: Entity<Contact>[] = [
-    entityCreate(contactState.create({
+    contactState.create({
       name: 'Administrator Contact',
       emails: [users[0].email as string],
-    }), { $owner: users[0].$id, committed: true, new: false }),
-    entityCreate(contactState.create({
+    }, { $owner: users[0].$id, committed: true, new: false }),
+    contactState.create({
       name: 'Executive Contact',
       emails: [users[1].email as string],
-    }), { $owner: users[1].$id, committed: true, new: false }),
-    entityCreate(contactState.create({
+    }, { $owner: users[1].$id, committed: true, new: false }),
+    contactState.create({
       name: 'User Contact',
       emails: [users[2].email as string],
-    }), { $owner: users[2].$id, committed: true, new: false }),
+    }, { $owner: users[2].$id, committed: true, new: false }),
   ];
 
   /**
@@ -198,21 +197,21 @@ export const dataInitial = async (): Promise<StateEntities> => {
    * User profiles.
    */
   const profiles: Entity<Profile>[] = [
-    entityCreate(profileState.create({
+    profileState.create({
       $user: users[0].$id,
       $contact: contacts[0].$id,
       nameDisplay: 'Administrator',
-    }), { $owner: users[0].$id, committed: true, new: false }),
-    entityCreate(profileState.create({
+    }, { $owner: users[0].$id, committed: true, new: false }),
+    profileState.create({
       $user: users[1].$id,
       $contact: contacts[1].$id,
       nameDisplay: 'Executive',
-    }), { $owner: users[1].$id, committed: true, new: false }),
-    entityCreate(profileState.create({
+    }, { $owner: users[1].$id, committed: true, new: false }),
+    profileState.create({
       $user: users[2].$id,
       $contact: contacts[2].$id,
       nameDisplay: 'User',
-    }), { $owner: users[2].$id, committed: true, new: false }),
+    }, { $owner: users[2].$id, committed: true, new: false }),
   ];
 
   /**
@@ -220,24 +219,24 @@ export const dataInitial = async (): Promise<StateEntities> => {
    * System settings.
    */
   const systems: Entity<System>[] = [
-    entityCreate(systemState.create({
+    systemState.create({
       name: 'Core System',
       handle: 'core',
       $adminRole: roles[0].$id,
       $execRole: roles[1].$id,
       $anonymousRole: roles[3].$id,
       $initialRoles: [roles[2].$id],
-    }), { committed: true, new: false }),
+    }, { committed: true, new: false }),
   ];
 
   const stateEntitiesInital: StateEntities = {
-    [roleState.key()]: roles,
-    [userState.key()]: users,
-    [handleState.key()]: handles,
-    [credentialState.key()]: credentials,
-    [contactState.key()]: contacts,
-    [profileState.key()]: profiles,
-    [systemState.key()]: systems,
+    [roleState.key]: roles,
+    [userState.key]: users,
+    [handleState.key]: handles,
+    [credentialState.key]: credentials,
+    [contactState.key]: contacts,
+    [profileState.key]: profiles,
+    [systemState.key]: systems,
   };
 
   /**
@@ -246,7 +245,7 @@ export const dataInitial = async (): Promise<StateEntities> => {
   const stateEntities: StateEntities = {
     ...stateEntitiesInital,
     ...stateEntitiesCreate({
-      [historyState.key()]: historyMake(stateEntitiesInital, GrantTask.Create),
+      [historyState.key]: historyMake(stateEntitiesInital, GrantTask.Create),
     }, { committed: true, new: false }),
   };
 

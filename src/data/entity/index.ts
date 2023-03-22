@@ -1,8 +1,6 @@
 export * from './entity.types.js';
 export * from './entity.js';
 export * from './entity.reducers.js';
-export * from './entity.actions.js';
-// export * from './entity.selectors.js';
 export * from './entity.slice.js';
 export * from './diff.js';
 

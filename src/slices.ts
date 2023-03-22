@@ -1,9 +1,9 @@
 import {
-  apiSlice,
+  apiState,
   appSlice,
   auditState,
-  bearerSlice,
-  challengeSlice,
+  bearerState,
+  challengeState,
   contactState,
   credentialState,
   handleState,
@@ -11,7 +11,7 @@ import {
   keyState,
   localeState,
   logState,
-  otpSlice,
+  otpState,
   profileState,
   roleState,
   serviceState,
@@ -21,14 +21,18 @@ import {
   noteState,
 } from './data/index.js';
 
+const apiSlice = apiState.slice();
 const auditSlice = auditState.slice();
+const bearerSlice = bearerState.slice();
 const contactSlice = contactState.slice();
+const challengeSlice = challengeState.slice();
 const credentialSlice = credentialState.slice();
 const handleSlice = handleState.slice();
 const historySlice = historyState.slice();
 const keySlice = keyState.slice();
 const localeSlice = localeState.slice();
 const logSlice = logState.slice();
+const otpSlice = otpState.slice();
 const profileSlice = profileState.slice();
 const roleSlice = roleState.slice();
 const serviceSlice = serviceState.slice();

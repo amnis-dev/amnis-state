@@ -9,7 +9,7 @@ import {
  * ============================================================
  */
 test('note key should be is properly set', () => {
-  expect(noteState.key()).toEqual('note');
+  expect(noteState.key).toEqual('note');
 });
 
 /**
@@ -30,7 +30,7 @@ test('note should return the initial state', () => {
   const store = storeSetup();
 
   expect(
-    store.getState()[noteState.key()],
+    store.getState()[noteState.key],
   ).toEqual(noteState.initialState);
 });
 
@@ -40,10 +40,10 @@ test('note should return the initial state', () => {
 test('should handle creating a new note', () => {
   const store = storeSetup();
 
-  const action = noteState.actions().create(noteRoot);
+  const action = noteState.actions.create(noteRoot);
 
   store.dispatch(action);
-  const entities = noteState.selectors().selectAll(store.getState());
+  const entities = noteState.selectors.all(store.getState());
   expect(entities).toHaveLength(1);
 
   expect(entities[0]).toEqual(expect.objectContaining(noteRoot));

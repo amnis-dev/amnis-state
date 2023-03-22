@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Meta } from '../entity.types.js';
 import type { UID } from '../../../core/index.js';
-import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
+import type {
+  Data, DataRoot, DataMinimal, DataMeta,
+} from '../../data.types.js';
 
 /**
  * A data structure for audit information.
@@ -51,4 +52,4 @@ export type AuditMinimal = DataMinimal<Audit, 'action' | 'completed'>;
 /**
  * Audit collection meta data.
  */
-export type AuditMeta = Meta<Audit>;
+export type AuditMeta = DataMeta<Audit>;

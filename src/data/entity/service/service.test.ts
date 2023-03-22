@@ -4,7 +4,7 @@ import { serviceCreate, serviceState } from './service.js';
  * ============================================================
  */
 test('service key should be is properly set', () => {
-  expect(serviceState.key()).toEqual('service');
+  expect(serviceState.key).toEqual('service');
 });
 
 /**

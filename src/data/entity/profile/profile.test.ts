@@ -9,7 +9,7 @@ import {
  * ============================================================
  */
 test('profile key should be is properly set', () => {
-  expect(profileState.key()).toEqual('profile');
+  expect(profileState.key).toEqual('profile');
 });
 
 /**
@@ -18,7 +18,7 @@ test('profile key should be is properly set', () => {
 test('should create a profile', () => {
   const profile = profileCreate({
     nameDisplay: 'Newbie',
-    $user: uid(userState.key()),
+    $user: uid(userState.key),
   });
 
   expect(profile).toEqual(
@@ -36,7 +36,7 @@ test('profile should return the initial state', () => {
   const store = storeSetup();
 
   expect(
-    store.getState()[profileState.key()],
+    store.getState()[profileState.key],
   ).toEqual(profileState.initialState);
 });
 
@@ -46,10 +46,10 @@ test('profile should return the initial state', () => {
 test('should handle creating a new profile', () => {
   const store = storeSetup();
 
-  const action = profileState.actions().create(profileRoot);
+  const action = profileState.actions.create(profileRoot);
 
   store.dispatch(action);
-  const entities = profileState.selectors().selectAll(store.getState());
+  const entities = profileState.selectors.all(store.getState());
   expect(entities).toHaveLength(1);
 
   expect(entities[0]).toEqual(expect.objectContaining({
@@ -64,20 +64,20 @@ test('should handle creating a new profile', () => {
 test('should handle updating a profile', () => {
   const store = storeSetup();
 
-  const actionCreate = profileState.actions().create(profileRoot);
+  const actionCreate = profileState.actions.create(profileRoot);
 
   store.dispatch(actionCreate);
-  const entities1 = profileState.selectors().selectAll(store.getState());
+  const entities1 = profileState.selectors.all(store.getState());
   const profileId = entities1[0].$id;
 
   const newName = 'New Profile Name';
-  const actionUpdate = profileState.actions().update({
+  const actionUpdate = profileState.actions.update({
     $id: profileId,
     nameDisplay: newName,
   });
 
   store.dispatch(actionUpdate);
-  const entities2 = profileState.selectors().selectAll(store.getState());
+  const entities2 = profileState.selectors.all(store.getState());
 
   expect(entities2[0]).toEqual(expect.objectContaining({
     nameDisplay: newName,
@@ -85,8 +85,7 @@ test('should handle updating a profile', () => {
 
   expect(entities2[0]?.committed).toBe(false);
 
-  const diff = profileState.selectors().selectDifference(store.getState(), profileId);
-  console.log(JSON.stringify(diff, null, 2));
+  const diff = profileState.selectors.difference(store.getState(), profileId);
 
   expect(diff.original).toMatchObject(entities1[0]);
   expect(diff.keys).toHaveLength(1);
@@ -100,17 +99,17 @@ test('should handle updating a profile', () => {
   expect(diff.updater?.nameDisplay).toEqual(newName);
 
   const newName2 = 'Even Newer Profile Name';
-  const actionUpdate2 = profileState.actions().update({
+  const actionUpdate2 = profileState.actions.update({
     $id: profileId,
     nameDisplay: newName2,
   });
 
   store.dispatch(actionUpdate2);
-  const entities3 = profileState.selectors().selectAll(store.getState());
+  const entities3 = profileState.selectors.all(store.getState());
 
   expect(entities3[0]?.committed).toBe(false);
 
-  const diff2 = profileState.selectors().selectDifference(store.getState(), profileId);
+  const diff2 = profileState.selectors.difference(store.getState(), profileId);
 
   expect(diff2.original).toMatchObject(entities1[0]);
   expect(diff2.keys).toHaveLength(1);

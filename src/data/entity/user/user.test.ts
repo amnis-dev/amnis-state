@@ -4,7 +4,7 @@ import { userCreate, userState } from './user.js';
  * ============================================================
  */
 test('user key should be is properly set', () => {
-  expect(userState.key()).toEqual('user');
+  expect(userState.key).toEqual('user');
 });
 
 /**

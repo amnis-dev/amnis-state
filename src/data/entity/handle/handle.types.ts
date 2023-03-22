@@ -1,6 +1,7 @@
 import type { UID } from '../../../core/index.js';
-import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
-import type { Meta } from '../entity.types.js';
+import type {
+  Data, DataRoot, DataMinimal, DataMeta,
+} from '../../data.types.js';
 
 /**
  * Human-freindly name to reference a particular subject.
@@ -49,4 +50,4 @@ export type HandleMinimal = DataMinimal<Handle, 'name' | '$subject'>;
 /**
  * Handle collection meta data.
  */
-export type HandleMeta = Meta<Handle>;
+export type HandleMeta = DataMeta<Handle>;

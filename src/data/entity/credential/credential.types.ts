@@ -1,8 +1,9 @@
 import type {
   DateJSON, Encoding, IP, Name,
 } from '../../../core/index.js';
-import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
-import type { Meta } from '../entity.types.js';
+import type {
+  Data, DataRoot, DataMinimal, DataMeta,
+} from '../../data.types.js';
 
 /**
  * Entity that contains data to verify credentials.
@@ -42,4 +43,4 @@ export type CredentialMinimal = DataMinimal<Credential, 'ip' | 'name' | 'publicK
 /**
  * Credential collection meta data.
  */
-export type CredentialMeta = Meta<Credential>;
+export type CredentialMeta = DataMeta<Credential>;

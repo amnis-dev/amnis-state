@@ -62,7 +62,7 @@ export const localStorageLoadState = <T>(key: string): Partial<T> => {
 };
 
 /**
- * Saves all or pat of a state to local storage.
+ * Saves all or part of a state to local storage.
  */
 export const localStorageSaveState = async <T>(key: string, state: Partial<T>) => {
   try {
@@ -71,6 +71,13 @@ export const localStorageSaveState = async <T>(key: string, state: Partial<T>) =
   } catch (e) {
     console.error(`Could not save ${key} state data to LocalStorage.`);
   }
+};
+
+/**
+ * Deletes all of a state from local storage.
+ */
+export const localStorageDeleteState = async (key: string) => {
+  localStorage().removeItem(`state-${key}`);
 };
 
 /**
@@ -110,4 +117,11 @@ export const localStorageSaveEntities = async <T>(
   } catch (e) {
     console.error(`Could not save ${key} data to LocalStorage.`);
   }
+};
+
+/**
+ * Deletes entities from local storage.
+ */
+export const localStorageDeleteEntities = async (key: string) => {
+  localStorage().removeItem(`state-entities-${key}`);
 };

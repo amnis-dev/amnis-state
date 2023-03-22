@@ -5,7 +5,7 @@ import { systemCreate, systemState } from './system.js';
  * ============================================================
  */
 test('system key should be is properly set', () => {
-  expect(systemState.key()).toEqual('system');
+  expect(systemState.key).toEqual('system');
 });
 
 /**

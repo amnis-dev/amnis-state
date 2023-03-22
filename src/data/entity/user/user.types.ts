@@ -1,15 +1,12 @@
 import type {
   DateJSON, Email, Password, UIDList,
 } from '../../../core/index.js';
-import type {
-  Meta,
-} from '../entity.types.js';
 import type { Permit } from '../permit/index.js';
 import type { Credential } from '../credential/index.js';
 import type { Role } from '../role/index.js';
 import type { HandleName } from '../handle/index.js';
 import type {
-  Data, DataMinimal, DataRoot,
+  Data, DataMeta, DataMinimal, DataRoot,
 } from '../../data.types.js';
 
 /**
@@ -95,4 +92,4 @@ export type UserMinimal = DataMinimal<User, 'handle'>;
 /**
  * User collection meta data.
  */
-export type UserMeta = Meta<User>;
+export type UserMeta = DataMeta<User>;

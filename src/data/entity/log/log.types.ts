@@ -1,6 +1,7 @@
 import type { UID } from '../../../core/index.js';
-import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
-import type { Meta } from '../entity.types.js';
+import type {
+  Data, DataRoot, DataMinimal, DataMeta,
+} from '../../data.types.js';
 import type { User } from '../user/user.types.js';
 
 /**
@@ -51,4 +52,4 @@ export type LogMinimal = DataMinimal<Log, 'title' | 'description' | 'level'>;
 /**
  * Log collection meta data.
  */
-export type LogMeta = Meta<Log>;
+export type LogMeta = DataMeta<Log>;

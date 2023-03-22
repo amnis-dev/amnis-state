@@ -7,7 +7,7 @@ import { localeDataEnLogs } from './locale.locale.en.js';
  * ============================================================
  */
 test('locale key should be is properly set', () => {
-  expect(localeState.key()).toEqual('locale');
+  expect(localeState.key).toEqual('locale');
 });
 
 /**

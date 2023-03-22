@@ -5,7 +5,7 @@ import { sessionCreate, sessionState } from './session.js';
  * ============================================================
  */
 test('session key should be is properly set', () => {
-  expect(sessionState.key()).toEqual('session');
+  expect(sessionState.key).toEqual('session');
 });
 
 /**

@@ -5,8 +5,8 @@ import { systemState } from '../data/entity/system/index.js';
 test('should create initial node context', async () => {
   const context = await contextSetup({ initialize: true });
 
-  const systems = systemState.selectors().selectAll(context.store.getState());
-  const roles = roleState.selectors().selectAll(context.store.getState());
+  const systems = systemState.selectors.all(context.store.getState());
+  const roles = roleState.selectors.all(context.store.getState());
 
   expect(systems).toHaveLength(1);
   expect(roles).toHaveLength(4);

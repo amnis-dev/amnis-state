@@ -1,6 +1,7 @@
 import { nanoid } from '@reduxjs/toolkit';
 import { dateNumeric, uid } from '../../core/index.js';
 import type { Challenge } from './challenge.types.js';
+import { dataSliceCreate } from '../data.slice.js';
 
 export const challengeKey = 'challenge';
 
@@ -20,3 +21,8 @@ export const challengeCreate = (
 
   return challangeNew;
 };
+
+export const challengeState = dataSliceCreate({
+  key: challengeKey,
+  create: challengeCreate,
+});
