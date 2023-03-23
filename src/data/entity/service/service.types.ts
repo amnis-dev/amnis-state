@@ -1,4 +1,4 @@
-import type { DateJSON } from '../../../core/index.js';
+import type { DateJSON } from '../../../core/core.types.js';
 import type {
   Data, DataRoot, DataMinimal, DataMeta,
 } from '../../data.types.js';

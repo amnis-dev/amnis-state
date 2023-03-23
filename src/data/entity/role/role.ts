@@ -1,11 +1,14 @@
-import { nanoid } from '@reduxjs/toolkit';
+import { createAction, nanoid } from '@reduxjs/toolkit';
+import type { UID } from '../../../core/index.js';
 import { uid } from '../../../core/index.js';
 import type { Grant } from '../../grant/index.js';
 import { grantCombine } from '../../grant/index.js';
 import type {
-  Role, RoleRoot, RoleCombo, RoleMinimal, RoleFsLimits,
+  Role, RoleRoot, RoleCombo, RoleMinimal, RoleFsLimits, RoleMeta,
 } from './role.types.js';
 import { entitySliceCreate } from '../entity.slice.js';
+import type { State } from '../../../state.types.js';
+import type { DataState } from '../../data.types.js';
 
 const roleKey = 'role';
 
@@ -17,7 +20,7 @@ export const roleRoot = (): RoleRoot => ({
   grants: [],
 });
 
-export function roleCreate(
+function roleCreate(
   role: RoleMinimal,
 ): Role {
   return {
@@ -57,6 +60,25 @@ export function roleComboCreate(
   return combo;
 }
 
+/**
+ * Meta object for the role slice.
+ */
+const roleMeta: RoleMeta = {
+  combo: {},
+};
+
+/**
+ * Additional Role Actions
+ */
+const roleActions = {
+  /**
+   * Sets the one-time password value on the latest OTP.
+   */
+  insertCombo: createAction(`${roleKey}/insertCombo`, (combo: RoleCombo) => ({
+    payload: combo,
+  })),
+};
+
 export function roleFsLimitsCompress(
   fsLimitsArray: RoleFsLimits[],
 ): RoleFsLimits {
@@ -76,7 +98,46 @@ export function roleFsLimitsCompress(
   return fsLimitsResult;
 }
 
-export const roleState = entitySliceCreate({
+export const roleSlice = entitySliceCreate({
   key: roleKey,
   create: roleCreate,
+  meta: roleMeta,
+  actions: roleActions,
+  reducersExtras: [{
+    cases: ({
+      builder,
+    }) => {
+      builder.addCase(roleActions.insertCombo, (state, action) => {
+        const combo = action.payload;
+        const [comboId] = combo;
+
+        state.combo[comboId] = combo;
+      });
+    },
+    matchers: () => { /** noop */ },
+  }],
+  selectors: {
+    /**
+     * Selects a combo id by role ids.
+     */
+    selectComboIdByRoles: (state: State, $roles: UID<Role>[]) => {
+      const slice = state[roleKey] as RoleMeta & DataState<Role>;
+      const comboId = Object.keys(slice.combo).find(
+        (k) => (
+          slice.combo[k].length === $roles.length
+            && slice.combo[k][1].every((val, i) => val === $roles[i])
+        ),
+      );
+      return comboId;
+    },
+
+    /**
+   * Selects a combo id by role ids.
+   */
+    selectComboGrants: (state: State, $combo: string): Grant[] | undefined => {
+      const slice = state[roleKey] as RoleMeta & DataState<Role>;
+      const grants = slice.combo[$combo]?.[2];
+      return grants;
+    },
+  },
 });

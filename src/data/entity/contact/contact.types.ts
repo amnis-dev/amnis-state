@@ -1,4 +1,4 @@
-import type { SURL } from '../../../core/index.js';
+import type { SURL } from '../../../core/core.types.js';
 import type {
   Data, DataRoot, DataMinimal, DataMeta,
 } from '../../data.types.js';

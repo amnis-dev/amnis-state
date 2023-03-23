@@ -19,24 +19,119 @@ export type DataMinimal<
 > = Pick<D, K> & Omit<Partial<D>, K>;
 
 /**
+ * A collection of complete data objects.
+ */
+export type DataObjects<D extends Data = Data> = { [key: string]: D[] };
+
+/**
  * An update definition for an extended data object.
  */
-export type DataUpdate<D extends Data = Data> = Partial<D> & { $id: string };
+export type DataUpdate<D extends Data = Data> = Partial<Omit<D, '$id'>> & { $id: UID };
 
 /**
  * A collection of extended data objects to create.
  */
-export type DataCreator<D extends Data = Data> = { [key: string]: D[] };
+export type DataCreator<D extends Data = Data & Record<string, any>> = { [key: string]: D[] };
 
 /**
  * A collection of extended data objects to update.
  */
-export type DataUpdater<D extends Data = Data> = { [key: string]: DataUpdate<D>[] };
+export type DataUpdater<D extends Data = Data & Record<string, any>> = {
+  [key: string]: DataUpdate<D>[]
+};
 
 /**
  * A collection of extended data objects to delete.
  */
 export type DataDeleter = { [key: string]: UID[] };
+
+/**
+ * Filter object for a query.
+ */
+export interface DataFilter {
+  /**
+   * Matches values that are equal to a specified value.
+   */
+  $eq?: unknown;
+
+  /**
+   * Matches values that are greater than a specified value.
+   */
+  $gt?: number;
+
+  /**
+   * Matches values that are greater than or equal to a specified value.
+   */
+  $gte?: number;
+
+  /**
+   * Matches values that are less than a specified value.
+   */
+  $lt?: number;
+
+  /**
+   * Matches values that are less than or equal to a specified value.
+   */
+  $lte?: number;
+
+  /**
+   * Matches any of the values specified in an array.
+   */
+  $in?: unknown[];
+}
+
+/**
+  * StateQuery range
+  */
+export type DataRange = {
+  /**
+   * Start query at record value.
+   *
+   * @minimum 0
+   * @maximum 4096
+   * @multipleOf 1
+   */
+  start?: number;
+
+  /**
+   * Limit results of the query.
+   *
+   * @minimum 0
+   * @maximum 64
+   * @multipleOf 1
+   */
+  limit?: number;
+}
+
+export type DataQueryProps = {
+  [key: string]: DataFilter
+};
+
+export type DataQueryOptions = {
+  /**
+    * Query of keys.
+    */
+  $query?: DataQueryProps;
+
+  /**
+   * Range of query.
+   */
+  $range?: DataRange;
+
+  /**
+   * Depth to query for other referenced entities.
+   *
+   * @minimum 0
+   * @maximum 3
+   * @multipleOf 1
+   */
+  $depth?: number;
+};
+
+/**
+  * A query object to search for data.
+  */
+export type DataQuery = Record<string, DataQueryOptions>;
 
 /**
  * Meta information for data collections.

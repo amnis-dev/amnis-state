@@ -42,7 +42,7 @@ export const dataSliceCreate = <
   actions = {} as A,
   selectors = {} as S,
   reducersExtras = [],
-}: DataSliceOptions<K, DataExtended, C, M, A>) => {
+}: DataSliceOptions<K, DataExtended, C, M, A, S, ReturnType<C>>) => {
   type D = Data & ReturnType<C>;
 
   if (/^[a-z0-9]+$/i.test(key) === false) {
@@ -62,7 +62,7 @@ export const dataSliceCreate = <
   reducersExtraArray.push(...reducersExtras);
   reducersExtraArray.push(dataExtraReducers);
 
-  const sliceObject = createSlice({
+  const slice = createSlice({
     name: key,
     initialState,
     reducers: {},
@@ -74,13 +74,7 @@ export const dataSliceCreate = <
       }, reducersExtraArray);
     },
   });
-  const slice = () => sliceObject;
 
-  /**
-   * ==================================================
-   * ACTIONS
-   * --------------------------------------------------
-   */
   const actionsObject = {
     insert: (insert: D) => dataActions.create({
       [key]: [insert],
@@ -145,14 +139,18 @@ export const dataSliceCreate = <
    * --------------------------------------------------
    */
   const selectorsAdapter = adapter.getSelectors<State>((state) => state[key]);
-  const selectorsObject = {
+  const selectorsAdapterRenamed = {
     ids: selectorsAdapter.selectIds,
     entities: selectorsAdapter.selectEntities,
     all: selectorsAdapter.selectAll,
     total: selectorsAdapter.selectTotal,
     byId: selectorsAdapter.selectById,
-    ...dataSelectors<D>(key),
-    ...(selectors as S),
+  };
+  const selectorsData = dataSelectors<D>(key);
+  const selectorsObject = {
+    ...selectorsAdapterRenamed,
+    ...selectorsData,
+    ...selectors,
   };
 
   /**
@@ -162,10 +160,13 @@ export const dataSliceCreate = <
    */
   return {
     key,
+    name: key,
     initialState,
+    getInitialState: () => initialState,
     actions: actionsObject,
     selectors: selectorsObject,
     create: create as typeof create,
+    reducer: slice.reducer,
     slice,
   };
 };

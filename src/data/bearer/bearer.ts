@@ -16,7 +16,7 @@ export function bearerCreate(
   return bearerNew;
 }
 
-export const bearerState = dataSliceCreate({
+export const bearerSlice = dataSliceCreate({
   key: bearerKey,
   create: bearerCreate,
 });

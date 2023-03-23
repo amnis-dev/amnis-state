@@ -1,10 +1,10 @@
 import type {
   DateJSON, Email, Password, UIDList,
-} from '../../../core/index.js';
-import type { Permit } from '../permit/index.js';
-import type { Credential } from '../credential/index.js';
-import type { Role } from '../role/index.js';
-import type { HandleName } from '../handle/index.js';
+} from '../../../core/core.types.js';
+import type { Permit } from '../permit/permit.types.js';
+import type { Credential } from '../credential/credential.types.js';
+import type { Role } from '../role/role.types.js';
+import type { HandleName } from '../handle/handle.types.js';
 import type {
   Data, DataMeta, DataMinimal, DataRoot,
 } from '../../data.types.js';

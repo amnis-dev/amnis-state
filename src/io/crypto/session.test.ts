@@ -1,10 +1,10 @@
 import { dateNumeric, uid } from '../../core/index.js';
-import { sessionState, userState } from '../../data/index.js';
+import { sessionSlice, userSlice } from '../../data/index.js';
 import { sessionDecrypt, sessionEncrypt } from './session.js';
 
 test('should encrypt a session', async () => {
-  const session = sessionState.create({
-    $subject: uid(userState.key),
+  const session = sessionSlice.create({
+    $subject: uid(userSlice.key),
     exp: dateNumeric('30m'),
   });
 
@@ -15,8 +15,8 @@ test('should encrypt a session', async () => {
 });
 
 test('should encrypt and decrypt a session', async () => {
-  const session = sessionState.create({
-    $subject: uid(userState.key),
+  const session = sessionSlice.create({
+    $subject: uid(userSlice.key),
     exp: dateNumeric('30m'),
   });
 
@@ -31,8 +31,8 @@ test('should encrypt and decrypt a session', async () => {
 });
 
 test('should encrypt and not decrypt an expired session', async () => {
-  const session = sessionState.create({
-    $subject: uid(userState.key),
+  const session = sessionSlice.create({
+    $subject: uid(userSlice.key),
     exp: dateNumeric(),
   });
 

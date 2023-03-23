@@ -19,7 +19,7 @@ export function auditCreate(
   };
 }
 
-export const auditState = entitySliceCreate({
+export const auditSlice = entitySliceCreate({
   key: auditKey,
   create: auditCreate,
 });

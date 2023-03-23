@@ -1,18 +1,18 @@
-import { roleCreate, roleFsLimitsCompress, roleState } from './role.js';
+import { roleFsLimitsCompress, roleSlice } from './role.js';
 import type { RoleFsLimits } from './role.types.js';
 
 /**
  * ============================================================
  */
 test('role key should be is properly set', () => {
-  expect(roleState.key).toEqual('role');
+  expect(roleSlice.key).toEqual('role');
 });
 
 /**
  * ============================================================
  */
 test('should create a role', () => {
-  const role = roleCreate({
+  const role = roleSlice.create({
     name: 'Root Role',
   });
 

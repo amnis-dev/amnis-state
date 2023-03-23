@@ -1,14 +1,14 @@
 import type { UID } from '../../core/index.js';
 import { uidList } from '../../core/index.js';
 import { GrantScope } from '../../data/grant/index.js';
-import type { Entity } from '../../data/index.js';
+import type { DataDeleter, Entity, EntityObjects } from '../../data/index.js';
 import type { Database } from './database.types.js';
-import type { State, StateDeleter, StateEntities } from '../../state.types.js';
+import type { State } from '../../state.types.js';
 
 /**
  * Storage type.
  */
-export type MemoryStorage = State<Record<string, Entity>>;
+export type MemoryStorage = State<Record<UID, Entity | undefined>>;
 
 /**
  * Storage object for entities.
@@ -43,7 +43,7 @@ export const databaseMemory: Database = {
    * ----------------------------------------
    */
   create: async (state) => {
-    const result: StateEntities = {};
+    const result: EntityObjects = {};
 
     Object.keys(state).every((sliceKey) => {
       const col: Entity[] = state[sliceKey];
@@ -52,14 +52,14 @@ export const databaseMemory: Database = {
       }
       col.every((entity) => {
         const entityId = entity.$id;
-        if (!entity || !entityId) {
+        if (!entity) {
           return true;
         }
 
         const storageKey = sliceKey;
 
         if (!storage[storageKey]) {
-          storage[storageKey] = {};
+          storage[storageKey] = {} as Record<UID, Entity>;
         }
         if (storage[storageKey][entityId]) {
           return true;
@@ -81,11 +81,11 @@ export const databaseMemory: Database = {
    * READ
    * ----------------------------------------
    */
-  read: async (queryState, controls = {}) => {
+  read: async (querySlice, controls = {}) => {
     const { scope, subject } = controls;
-    const result: StateEntities = {};
+    const result: EntityObjects = {};
 
-    Object.keys(queryState).every((queryStateKey) => {
+    Object.keys(querySlice).every((queryStateKey) => {
       const storageKey = queryStateKey;
 
       /**
@@ -95,7 +95,7 @@ export const databaseMemory: Database = {
         return true;
       }
 
-      const query = queryState[queryStateKey]?.$query || {};
+      const query = querySlice[queryStateKey]?.$query || {};
 
       /**
        * Skip if the query is undefined or key doesn't exist on storage.
@@ -111,13 +111,13 @@ export const databaseMemory: Database = {
         query.delete = { $eq: false };
       }
 
-      result[queryStateKey] = Object.values(storage[storageKey]);
+      result[queryStateKey] = Object.values(storage[storageKey]) as Entity[];
 
       /**
        * Define the start index and limit.
        */
-      const start = queryState[queryStateKey].$range?.start ?? 0;
-      const limit = queryState[queryStateKey].$range?.limit ?? 20;
+      const start = querySlice[queryStateKey].$range?.start ?? 0;
+      const limit = querySlice[queryStateKey].$range?.limit ?? 20;
 
       /**
        * Loop through the query properties.
@@ -204,7 +204,7 @@ export const databaseMemory: Database = {
    */
   update: async (state, controls = {}) => {
     const { scope, subject } = controls;
-    const result: StateEntities = {};
+    const result: EntityObjects = {};
 
     Object.keys(state).every((sliceKey) => {
       const storageKey = sliceKey;
@@ -223,13 +223,14 @@ export const databaseMemory: Database = {
 
       col.every((entity) => {
         const entityId = entity.$id;
-        if (!entity || !entityId) {
+        if (!entity) {
           return true;
         }
         if (!storage[storageKey]) {
           return true;
         }
-        if (!storage[storageKey][entityId]) {
+        const storedEntity = storage[storageKey][entityId];
+        if (!storedEntity) {
           return true;
         }
         /**
@@ -239,18 +240,19 @@ export const databaseMemory: Database = {
         if (
           scope
           && scope[sliceKey] === GrantScope.Owned
-          && storage[storageKey][entityId].$owner !== subject
+          && storedEntity.$owner !== subject
         ) {
           return false;
         }
         if (!result[sliceKey]) {
           result[sliceKey] = [];
         }
-        storage[storageKey][entityId] = {
-          ...storage[storageKey][entityId],
+        const storedEntityNext = {
+          ...storedEntity,
           ...entity,
         };
-        result[sliceKey].push(storage[storageKey][entityId]);
+        storage[storageKey][entityId] = storedEntityNext;
+        result[sliceKey].push(storedEntityNext);
         return true;
       });
 
@@ -266,7 +268,7 @@ export const databaseMemory: Database = {
    */
   delete: async (state, controls = {}) => {
     const { scope, subject } = controls;
-    const result: StateDeleter = {};
+    const result: DataDeleter = {};
 
     Object.keys(state).every((sliceKey) => {
       const storageKey = sliceKey;
@@ -284,7 +286,8 @@ export const databaseMemory: Database = {
       const references = state[sliceKey];
 
       references.every((ref: UID) => {
-        if (!storage[storageKey][ref]) {
+        const storedEntity = storage[storageKey][ref];
+        if (!storedEntity) {
           return true;
         }
         /**
@@ -294,7 +297,7 @@ export const databaseMemory: Database = {
         if (
           scope
           && scope[sliceKey] === GrantScope.Owned
-          && storage[storageKey][ref].$owner !== subject
+          && storedEntity.$owner !== subject
         ) {
           return false;
         }

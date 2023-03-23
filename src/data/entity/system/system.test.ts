@@ -1,11 +1,11 @@
 import { uid } from '../../../core/index.js';
-import { systemCreate, systemState } from './system.js';
+import { systemCreate, systemSlice } from './system.js';
 
 /**
  * ============================================================
  */
 test('system key should be is properly set', () => {
-  expect(systemState.key).toEqual('system');
+  expect(systemSlice.key).toEqual('system');
 });
 
 /**

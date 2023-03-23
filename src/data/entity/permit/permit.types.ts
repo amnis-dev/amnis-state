@@ -1,6 +1,6 @@
-import type { UID } from '../../../core/index.js';
+import type { UID } from '../../../core/core.types.js';
 import type { Data } from '../../data.types.js';
-import type { GrantString } from '../../grant/index.js';
+import type { GrantString } from '../../grant/grant.types.js';
 
 /**
  * A permit is a list of grants for a specific identifier ID.

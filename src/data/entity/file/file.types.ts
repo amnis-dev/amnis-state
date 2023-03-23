@@ -1,6 +1,6 @@
-import type { UID } from '../../../core/index.js';
+import type { UID } from '../../../core/core.types.js';
 import type { Data, DataRoot, DataMinimal } from '../../data.types.js';
-import type { Profile } from '../profile/index.js';
+import type { Profile } from '../profile/profile.types.js';
 
 /**
  * Image Mime Types.

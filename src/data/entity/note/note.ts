@@ -19,7 +19,7 @@ export function noteCreate(
   };
 }
 
-export const noteState = entitySliceCreate({
+export const noteSlice = entitySliceCreate({
   key: noteKey,
   create: noteCreate,
 });

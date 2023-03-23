@@ -21,7 +21,7 @@ export function contactCreate(
   };
 }
 
-export const contactState = entitySliceCreate({
+export const contactSlice = entitySliceCreate({
   key: contactKey,
   create: contactCreate,
 });

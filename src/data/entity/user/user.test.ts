@@ -1,10 +1,10 @@
-import { userCreate, userState } from './user.js';
+import { userCreate, userSlice } from './user.js';
 
 /**
  * ============================================================
  */
 test('user key should be is properly set', () => {
-  expect(userState.key).toEqual('user');
+  expect(userSlice.key).toEqual('user');
 });
 
 /**

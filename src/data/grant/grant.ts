@@ -57,26 +57,6 @@ export function grantCombine(grants: Grant[]): Grant[] {
   return result;
 }
 
-// /**
-//  * Combines an array of grants from a list of roles.
-//  */
-// export const grantCombineFromRoles = (roles: Role[]) => {
-//   /**
-//    * Concat all the grants from the roles.
-//    */
-//   const grantsRaw = roles.reduce<Grant[]>((acc, role) => {
-//     acc.push(...role.grants);
-//     return acc;
-//   }, []);
-
-//   /**
-//    * Combine the grants.
-//    */
-//   const grants = grantCombine(grantsRaw);
-
-//   return grants;
-// };
-
 /**
  * Filter a state object by and grants and a task.
  */

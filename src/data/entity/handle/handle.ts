@@ -19,7 +19,7 @@ export function handleCreate(
   };
 }
 
-export const handleState = entitySliceCreate({
+export const handleSlice = entitySliceCreate({
   key: handleKey,
   create: handleCreate,
 });

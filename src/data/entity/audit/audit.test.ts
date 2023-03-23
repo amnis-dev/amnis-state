@@ -1,13 +1,13 @@
 import { storeSetup } from '../../../store.js';
 import {
-  auditCreate, auditState, auditRoot,
+  auditCreate, auditSlice, auditRoot,
 } from './audit.js';
 
 /**
  * ============================================================
  */
 test('audit key should be is properly set', () => {
-  expect(auditState.key).toEqual('audit');
+  expect(auditSlice.key).toEqual('audit');
 });
 
 /**
@@ -34,8 +34,8 @@ test('should return the initial state', () => {
   const store = storeSetup();
 
   expect(
-    store.getState()[auditState.key],
-  ).toEqual(auditState.initialState);
+    store.getState()[auditSlice.key],
+  ).toEqual(auditSlice.initialState);
 });
 
 /**
@@ -45,10 +45,10 @@ test('should handle creating a new entity', () => {
   const store = storeSetup();
 
   const base = auditRoot();
-  const action = auditState.actions.create(base);
+  const action = auditSlice.actions.create(base);
 
   store.dispatch(action);
-  const entities = auditState.selectors.all(store.getState());
+  const entities = auditSlice.selectors.all(store.getState());
   expect(entities).toHaveLength(1);
 
   expect(entities[0]).toEqual(expect.objectContaining(base));

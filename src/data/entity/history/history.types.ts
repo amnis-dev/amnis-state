@@ -1,17 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { UID } from '../../../core/index.js';
+import type { GrantTask } from '../../grant/grant.types.js';
 import type {
-  StateCreator, StateDeleter, StateUpdater,
-} from '../../../state.types.js';
-import type { GrantTask } from '../../grant/index.js';
-import type {
-  Data, DataRoot, DataMinimal, DataMeta,
+  Data,
+  DataRoot,
+  DataMinimal,
+  DataMeta,
+  DataCreator,
+  DataUpdater,
+  DataDeleter,
 } from '../../data.types.js';
 
 /**
  * List of State Mutators history can log.
  */
-export type HistoryStateMutator = StateCreator | StateUpdater | StateDeleter;
+export type HistoryStateMutator = DataCreator | DataUpdater | DataDeleter;
 
 /**
  * Historical updates to data.

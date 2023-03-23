@@ -17,7 +17,7 @@ export const credentialCreate = (
   $id: uid(credentialKey),
 });
 
-export const credentialState = entitySliceCreate({
+export const credentialSlice = entitySliceCreate({
   key: credentialKey,
   create: credentialCreate,
 });

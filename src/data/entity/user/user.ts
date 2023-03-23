@@ -43,7 +43,7 @@ export function userCreate(
   };
 }
 
-export const userState = entitySliceCreate({
+export const userSlice = entitySliceCreate({
   key: userKey,
   create: userCreate,
 });

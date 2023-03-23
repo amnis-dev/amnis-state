@@ -1,5 +1,5 @@
 import type { DataMinimal, DataRoot } from '../../data.types.js';
-import type { File } from '../file/index.js';
+import type { File } from '../file/file.types.js';
 
 export interface Image extends File {
   /**

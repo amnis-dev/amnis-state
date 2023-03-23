@@ -1,6 +1,6 @@
 import type { Role } from '../role/role.types.js';
-import type { Email, UID, UIDList } from '../../../core/index.js';
-import type { HandleName } from '../handle/index.js';
+import type { Email, UID, UIDList } from '../../../core/core.types.js';
+import type { HandleName } from '../handle/handle.types.js';
 import type {
   Data,
   DataMeta,

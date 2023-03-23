@@ -1,16 +1,16 @@
 import { GrantTask } from '../../grant/index.js';
 import { uid } from '../../../core/index.js';
-import type { StateDeleter, StateUpdater } from '../../../state.types.js';
 import {
-  historyCreate, historyRoot, historyMake, historyState,
+  historyCreate, historyRoot, historyMake, historySlice,
 } from './history.js';
 import { storeSetup } from '../../../store.js';
+import type { DataDeleter, DataUpdater } from '../../data.types.js';
 
 /**
  * ============================================================
  */
 test('history key should be is properly set', () => {
-  expect(historyState.key).toEqual('history');
+  expect(historySlice.key).toEqual('history');
 });
 
 /**
@@ -29,7 +29,7 @@ test('should create a history', () => {
 test('should make history from state updater', () => {
   const profileId1 = uid('profile');
   const profileId2 = uid('profile');
-  const stateUpdate: StateUpdater = {
+  const stateUpdate: DataUpdater = {
     profile: [{
       $id: profileId1,
       nameDisplay: 'Profile 1',
@@ -70,7 +70,7 @@ test('should make history from state updater', () => {
 test('should make history from state deleter', () => {
   const profileId1 = uid('profile');
   const profileId2 = uid('profile');
-  const stateDeleter: StateDeleter = {
+  const stateDeleter: DataDeleter = {
     profile: [profileId1, profileId2],
   };
 
@@ -98,8 +98,8 @@ test('should return the initial state', () => {
   const store = storeSetup();
 
   expect(
-    store.getState()[historyState.key],
-  ).toEqual(historyState.initialState);
+    store.getState()[historySlice.key],
+  ).toEqual(historySlice.initialState);
 });
 
 /**
@@ -109,10 +109,10 @@ test('should history creating a new entity', () => {
   const store = storeSetup();
 
   const base = historyRoot();
-  const action = historyState.actions.create(base);
+  const action = historySlice.actions.create(base);
 
   store.dispatch(action);
-  const entities = historyState.selectors.all(store.getState());
+  const entities = historySlice.selectors.all(store.getState());
   expect(entities).toHaveLength(1);
 
   expect(entities[0]).toEqual(expect.objectContaining(base));

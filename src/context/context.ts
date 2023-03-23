@@ -1,10 +1,11 @@
 import type { SchemaObject } from 'ajv';
+import type { EntityObjects } from '../data/index.js';
 import {
   dataInitial,
   dataActions,
   apiKey,
-  systemState,
-  roleState,
+  systemSlice,
+  roleSlice,
 } from '../data/index.js';
 import type {
   IoContext,
@@ -15,7 +16,6 @@ import {
   filesystemMemory,
   sendMemory,
 } from '../io/index.js';
-import type { StateEntities } from '../state.types.js';
 import { storeSetup } from '../store.js';
 import { validateSetup } from './validate.js';
 
@@ -34,7 +34,7 @@ export interface ContextOptions extends Omit<Partial<IoContext>, 'schemas' | 'va
   /**
    * Set initial entity data.
    */
-  data?: StateEntities;
+  data?: EntityObjects;
 }
 
 /**
@@ -54,34 +54,34 @@ export async function contextSetup(options: ContextOptions = {}): Promise<IoCont
 
   if (initialize) {
     const readResult = await database.read({
-      [systemState.key]: {},
+      [systemSlice.key]: {},
       [apiKey]: {},
-      [roleState.key]: {},
+      [roleSlice.key]: {},
     });
 
     /**
      * Initialize the system if one isn't found.
      */
-    if (!readResult[systemState.key]?.length) {
+    if (!readResult[systemSlice.key]?.length) {
       const createResult = await database.create(data);
 
       if (initialize === true) {
-        const system = createResult[systemState.key][0];
-        const serviceResult: StateEntities = {
-          [systemState.key]: createResult[systemState.key],
-          [roleState.key]: createResult[roleState.key],
+        const system = createResult[systemSlice.key][0];
+        const serviceResult: EntityObjects = {
+          [systemSlice.key]: createResult[systemSlice.key],
+          [roleSlice.key]: createResult[roleSlice.key],
         };
         store.dispatch(dataActions.create(serviceResult));
-        store.dispatch(systemState.actions.activeSet(system.$id));
+        store.dispatch(systemSlice.actions.activeSet(system.$id));
       }
     } else if (initialize === true) {
-      const system = readResult[systemState.key][0];
-      const serviceResult: StateEntities = {
-        [systemState.key]: readResult[systemState.key],
-        [roleState.key]: readResult[roleState.key],
+      const system = readResult[systemSlice.key][0];
+      const serviceResult: EntityObjects = {
+        [systemSlice.key]: readResult[systemSlice.key],
+        [roleSlice.key]: readResult[roleSlice.key],
       };
       store.dispatch(dataActions.create(serviceResult));
-      store.dispatch(systemState.actions.activeSet(system.$id));
+      store.dispatch(systemSlice.actions.activeSet(system.$id));
     }
   }
 

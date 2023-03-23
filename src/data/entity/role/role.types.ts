@@ -1,8 +1,7 @@
-import type { Grant } from '../../grant/index.js';
-import type { UID } from '../../../core/index.js';
+import type { Grant } from '../../grant/grant.types.js';
+import type { UID } from '../../../core/core.types.js';
 import type {
   Data,
-  DataMeta,
   DataRoot,
   DataMinimal,
 } from '../../data.types.js';
@@ -60,7 +59,7 @@ export type RoleCombo = [string, UID<Role>[], Grant[]];
 /**
  * Role collection meta data.
  */
-export interface RoleMeta extends DataMeta<Role> {
+export interface RoleMeta {
   /**
    * UUID to a tuple of role UIDs and a list of grants.
    */

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { AnyAction, Selector } from '@reduxjs/toolkit';
-import type { Data, DataMeta } from '../data.types.js';
+import type { Data } from '../data.types.js';
 import { entityCreate } from './entity.js';
 import { entityExtraReducers } from './entity.reducers.js';
 import type { Entity } from './entity.types.js';
@@ -9,6 +9,7 @@ import type { DataSliceOptions } from '../data.slice.js';
 import { dataSliceCreate } from '../data.slice.js';
 
 export const entitySliceCreate = <
+  M extends Record<string, any>,
   K extends string,
   DataExtended extends Data,
   C extends (minimal: any) => DataExtended,
@@ -21,7 +22,7 @@ export const entitySliceCreate = <
   actions = {} as A,
   selectors = {} as S,
   reducersExtras = [],
-}: DataSliceOptions<K, DataExtended, C, DataMeta<DataExtended>, A, S, Entity<ReturnType<C>>>) => {
+}: DataSliceOptions<K, DataExtended, C, M, A, S, Entity<ReturnType<C>>>) => {
   if (/^[a-z0-9]+$/i.test(key) === false) {
     throw new Error(`Entity key must be alphanumeric: ${key}`);
   }
@@ -59,11 +60,15 @@ export const entitySliceCreate = <
    */
   return {
     key: dataSlice.key,
+    name: dataSlice.key,
     initialState: dataSlice.initialState,
+    getInitialState: () => dataSlice.initialState,
     actions: actionsObject,
     selectors: selectorsObject,
-    create: createEntity,
-    slice: () => dataSlice.slice(),
+    create,
+    createEntity,
+    reducer: dataSlice.reducer,
+    slice: dataSlice.slice,
   };
 };
 

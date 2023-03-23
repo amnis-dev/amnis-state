@@ -1,8 +1,7 @@
-import type { Entity } from '../../data/entity/index.js';
+import type { Entity, EntityObjects } from '../../data/entity/index.js';
 import { entityCreate } from '../../data/entity/index.js';
-import type { StateEntities } from '../../state.types.js';
 import { uid } from '../../core/index.js';
-import type { Data } from '../../index.js';
+import type { Data } from '../../data/data.types.js';
 
 export interface TestDataTodo extends Data {
   title: string;
@@ -121,7 +120,7 @@ export const testDataOwned = testDataTodos.filter((t) => t.$owner === testDataSu
 /**
  * Mocked data for database testing.
  */
-export const testData: StateEntities = {
+export const testData: EntityObjects = {
   [testDataTodoKey]: testDataTodos,
 };
 

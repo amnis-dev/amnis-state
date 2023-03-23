@@ -11,7 +11,7 @@ const otpKey = 'otp';
 
 export const otpBase = (): Omit<Otp, '$id'> => ({
   $sub: uid('subject'),
-  len: 12,
+  len: 0,
   exp: dateNumeric('5m'),
   mth: OtpMethod.None,
 });
@@ -54,7 +54,7 @@ const otpActions = {
   })),
 };
 
-export const otpState = dataSliceCreate({
+export const otpSlice = dataSliceCreate({
   key: otpKey,
   create: otpCreate,
   meta,
@@ -140,6 +140,5 @@ export const otpState = dataSliceCreate({
       )) as Otp[];
       return otpsFound;
     },
-
   },
 });

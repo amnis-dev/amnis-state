@@ -47,7 +47,7 @@ export function historyMake(
   return histories;
 }
 
-export const historyState = entitySliceCreate({
+export const historySlice = entitySliceCreate({
   key: historyKey,
   create: historyCreate,
 });

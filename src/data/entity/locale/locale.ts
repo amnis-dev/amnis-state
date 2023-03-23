@@ -70,7 +70,7 @@ export function localeCreate(
   };
 }
 
-export const localeState = entitySliceCreate({
+export const localeSlice = entitySliceCreate({
   key: localeKey,
   create: localeCreate,
 });

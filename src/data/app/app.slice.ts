@@ -1,21 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
+import type { PayloadAction, Selector } from '@reduxjs/toolkit';
 import { appGet, appKey } from './app.js';
 import type { App, AppSystems } from './app.types.js';
-import type { RootState } from '../../store.js';
 import { localStorageSaveState } from '../../localstorage.js';
 
 /**
  * Initialized app state with meta information.
  */
-export const appInitialState: App = appGet();
+const initialState: App = appGet();
 
 /**
  * RTK App Slice
  */
-export const appSlice = createSlice({
+const slice = createSlice({
   name: appKey,
-  initialState: appInitialState,
+  initialState,
   reducers: {
     /**
      * Defines all possibly known systems on the network.
@@ -109,26 +108,26 @@ export const appSlice = createSlice({
 /**
  * App redux reducer.
  */
-export const appReducer = appSlice.reducer;
+const { reducer } = slice;
 
 /**
  * App redux actions.
  */
-export const appActions = appSlice.actions;
+const { actions } = slice;
 
 /**
  * App redux selectors.
  */
-export const appSelectors = {
+const selectors: Record<string, Selector> = {
   /**
    * Selects known application systems.
    */
-  selectSystems: (state: RootState) => state[appKey].systems,
+  systems: (state) => state[appKey].systems,
 
   /**
    * Selects the default system.
    */
-  selectSystemDefault: (state: RootState) => {
+  systemDefault: (state) => {
     const { systemDefault } = state[appKey];
     if (!systemDefault) {
       return undefined;
@@ -139,13 +138,19 @@ export const appSelectors = {
   /**
    * Selects the current route location.
    */
-  selectRouteLocation: (state: RootState) => state[appKey].location,
+  routeLocation: (state) => state[appKey].location,
 };
 
-/**
- * App redux selector keys.
- */
-export type AppSelector = Extract<keyof typeof appSelectors, string>;
+export const appSlice = {
+  key: appKey,
+  name: appKey,
+  initialState,
+  getInitialState: () => initialState,
+  actions,
+  selectors,
+  reducer,
+  slice,
+};
 
 /**
  * Export the slice as default.

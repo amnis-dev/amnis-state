@@ -21,7 +21,7 @@ export function serviceCreate(
   };
 }
 
-export const serviceState = entitySliceCreate({
+export const serviceSlice = entitySliceCreate({
   key: serviceKey,
   create: serviceCreate,
 });

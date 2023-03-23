@@ -1,4 +1,3 @@
-import type { StateEntities } from '../state.types.js';
 import {
   grantTask,
   GrantScope,
@@ -13,86 +12,88 @@ import type {
   Entity,
   Credential,
   Handle,
+  EntityObjects,
 } from './entity/index.js';
 import {
-  userState,
-  handleState,
-  credentialState,
-  roleState,
-  profileState,
-  contactState,
-  systemState,
-  auditState,
-  historyState,
+  entityCreate,
+  userSlice,
+  handleSlice,
+  credentialSlice,
+  roleSlice,
+  profileSlice,
+  contactSlice,
+  systemSlice,
+  auditSlice,
+  historySlice,
   historyMake,
 } from './entity/index.js';
 import { cryptoWeb } from '../io/index.js';
 import { accountsGet } from '../accounts.js';
 import { stateEntitiesCreate } from '../state.js';
 
-export const dataInitial = async (): Promise<StateEntities> => {
+export const dataInitial = async (): Promise<EntityObjects> => {
   /**
    * ================================================================================
    * Roles to be assigned to users
    */
   const roles: Entity<Role>[] = [
-    roleState.create({
+    roleSlice.createEntity({
       name: 'Administrator',
       description: 'Most permissive role for overall system configuration and maintenance.',
       color: '#cc0000',
       fsLimits: [-1, -1, -1],
       grants: [
-        [systemState.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [auditState.key, GrantScope.Global, grantTask(0, 1, 1, 1)],
-        [historyState.key, GrantScope.Global, grantTask(0, 1, 1, 1)],
-        [userState.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [handleState.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [credentialState.key, GrantScope.Global, grantTask(0, 1, 0, 1)],
-        [roleState.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [profileState.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [contactState.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [systemSlice.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [auditSlice.key, GrantScope.Global, grantTask(0, 1, 1, 1)],
+        [historySlice.key, GrantScope.Global, grantTask(0, 1, 1, 1)],
+        [userSlice.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [handleSlice.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [credentialSlice.key, GrantScope.Global, grantTask(0, 1, 0, 1)],
+        [roleSlice.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [profileSlice.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [contactSlice.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
       ],
     }, { committed: true, new: false }),
-    roleState.create({
+    roleSlice.createEntity({
       name: 'Executive',
       description: 'Authoritative role for application configuration and maintenance.',
       color: '#3e3ee6',
       fsLimits: [-1, -1, -1],
       grants: [
-        [auditState.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
-        [historyState.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
-        [userState.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [handleState.key, GrantScope.Global, grantTask(0, 0, 1, 1)],
-        [credentialState.key, GrantScope.Global, grantTask(0, 1, 0, 1)],
-        [roleState.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [profileState.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
-        [contactState.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [auditSlice.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [historySlice.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [userSlice.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [handleSlice.key, GrantScope.Global, grantTask(0, 0, 1, 1)],
+        [credentialSlice.key, GrantScope.Global, grantTask(0, 1, 0, 1)],
+        [roleSlice.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [profileSlice.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
+        [contactSlice.key, GrantScope.Global, grantTask(1, 1, 1, 1)],
       ],
     }, { committed: true, new: false }),
-    roleState.create({
+    roleSlice.createEntity({
       name: 'Root',
       description: 'Basis for standard authenticated use of the application.',
       color: '#000000',
       fsLimits: [32, 64, 1024],
       grants: [
-        [historyState.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
-        [userState.key, GrantScope.Owned, grantTask(0, 1, 1, 0)],
-        [handleState.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
-        [credentialState.key, GrantScope.Owned, grantTask(0, 1, 0, 1)],
-        [profileState.key, GrantScope.Owned, grantTask(0, 1, 1, 0)],
-        [profileState.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
-        [contactState.key, GrantScope.Owned, grantTask(0, 1, 1, 0)],
-        [contactState.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [historySlice.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [userSlice.key, GrantScope.Owned, grantTask(0, 1, 1, 0)],
+        [handleSlice.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [credentialSlice.key, GrantScope.Owned, grantTask(0, 1, 0, 1)],
+        [profileSlice.key, GrantScope.Owned, grantTask(0, 1, 1, 0)],
+        [profileSlice.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [contactSlice.key, GrantScope.Owned, grantTask(0, 1, 1, 0)],
+        [contactSlice.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
       ],
     }, { committed: true, new: false }),
-    roleState.create({
+    roleSlice.createEntity({
       name: 'Anonymous',
       description: 'Permissions for accessing the application data without authentication.',
       color: '#000000',
       fsLimits: [0, 0, 0],
       grants: [
-        [handleState.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
-        [profileState.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [handleSlice.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
+        [profileSlice.key, GrantScope.Global, grantTask(0, 1, 0, 0)],
       ],
     }, { committed: true, new: false }),
   ];
@@ -106,7 +107,7 @@ export const dataInitial = async (): Promise<StateEntities> => {
   const accounts = await accountsGet();
 
   const users: Entity<User>[] = [
-    userState.create({
+    userSlice.createEntity({
       handle: accounts.admin.handle,
       password: await cryptoWeb.passHash(accounts.admin.password),
       email: 'admin@email.addr',
@@ -114,7 +115,7 @@ export const dataInitial = async (): Promise<StateEntities> => {
       $roles: [roles[0].$id],
       $permits: [],
     }, { committed: true, new: false }),
-    userState.create({
+    userSlice.createEntity({
       handle: accounts.exec.handle,
       password: await cryptoWeb.passHash(accounts.exec.password),
       email: 'exec@email.addr',
@@ -122,7 +123,7 @@ export const dataInitial = async (): Promise<StateEntities> => {
       $roles: [roles[1].$id],
       $permits: [],
     }, { committed: true, new: false }),
-    userState.create({
+    userSlice.createEntity({
       handle: accounts.user.handle,
       password: await cryptoWeb.passHash(accounts.user.password),
       email: 'user@email.addr',
@@ -136,15 +137,15 @@ export const dataInitial = async (): Promise<StateEntities> => {
    * User handles.
    */
   const handles: Entity<Handle>[] = [
-    handleState.create({
+    handleSlice.createEntity({
       name: users[0].handle,
       $subject: users[0].$id,
     }),
-    handleState.create({
+    handleSlice.createEntity({
       name: users[1].handle,
       $subject: users[1].$id,
     }),
-    handleState.create({
+    handleSlice.createEntity({
       name: users[2].handle,
       $subject: users[2].$id,
     }),
@@ -155,15 +156,15 @@ export const dataInitial = async (): Promise<StateEntities> => {
    * User credentials
    */
   const credentials: Entity<Credential>[] = [
-    credentialState.create(
+    entityCreate(
       accounts.admin.credential,
       { $owner: users[0].$id, committed: true, new: false },
     ),
-    credentialState.create(
+    entityCreate(
       accounts.exec.credential,
       { $owner: users[1].$id, committed: true, new: false },
     ),
-    credentialState.create(
+    entityCreate(
       accounts.user.credential,
       { $owner: users[2].$id, committed: true, new: false },
     ),
@@ -178,15 +179,15 @@ export const dataInitial = async (): Promise<StateEntities> => {
    * User contacts.
    */
   const contacts: Entity<Contact>[] = [
-    contactState.create({
+    contactSlice.createEntity({
       name: 'Administrator Contact',
       emails: [users[0].email as string],
     }, { $owner: users[0].$id, committed: true, new: false }),
-    contactState.create({
+    contactSlice.createEntity({
       name: 'Executive Contact',
       emails: [users[1].email as string],
     }, { $owner: users[1].$id, committed: true, new: false }),
-    contactState.create({
+    contactSlice.createEntity({
       name: 'User Contact',
       emails: [users[2].email as string],
     }, { $owner: users[2].$id, committed: true, new: false }),
@@ -197,17 +198,17 @@ export const dataInitial = async (): Promise<StateEntities> => {
    * User profiles.
    */
   const profiles: Entity<Profile>[] = [
-    profileState.create({
+    profileSlice.createEntity({
       $user: users[0].$id,
       $contact: contacts[0].$id,
       nameDisplay: 'Administrator',
     }, { $owner: users[0].$id, committed: true, new: false }),
-    profileState.create({
+    profileSlice.createEntity({
       $user: users[1].$id,
       $contact: contacts[1].$id,
       nameDisplay: 'Executive',
     }, { $owner: users[1].$id, committed: true, new: false }),
-    profileState.create({
+    profileSlice.createEntity({
       $user: users[2].$id,
       $contact: contacts[2].$id,
       nameDisplay: 'User',
@@ -219,7 +220,7 @@ export const dataInitial = async (): Promise<StateEntities> => {
    * System settings.
    */
   const systems: Entity<System>[] = [
-    systemState.create({
+    systemSlice.createEntity({
       name: 'Core System',
       handle: 'core',
       $adminRole: roles[0].$id,
@@ -229,23 +230,23 @@ export const dataInitial = async (): Promise<StateEntities> => {
     }, { committed: true, new: false }),
   ];
 
-  const stateEntitiesInital: StateEntities = {
-    [roleState.key]: roles,
-    [userState.key]: users,
-    [handleState.key]: handles,
-    [credentialState.key]: credentials,
-    [contactState.key]: contacts,
-    [profileState.key]: profiles,
-    [systemState.key]: systems,
+  const stateEntitiesInital: EntityObjects = {
+    [roleSlice.key]: roles,
+    [userSlice.key]: users,
+    [handleSlice.key]: handles,
+    [credentialSlice.key]: credentials,
+    [contactSlice.key]: contacts,
+    [profileSlice.key]: profiles,
+    [systemSlice.key]: systems,
   };
 
   /**
    * Create this initial history.
    */
-  const stateEntities: StateEntities = {
+  const stateEntities: EntityObjects = {
     ...stateEntitiesInital,
     ...stateEntitiesCreate({
-      [historyState.key]: historyMake(stateEntitiesInital, GrantTask.Create),
+      [historySlice.key]: historyMake(stateEntitiesInital, GrantTask.Create),
     }, { committed: true, new: false }),
   };
 

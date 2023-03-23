@@ -1,13 +1,13 @@
 import { storeSetup } from '../../../store.js';
 import {
-  credentialCreate, credentialState, credentialRoot,
+  credentialCreate, credentialSlice, credentialRoot,
 } from './credential.js';
 
 /**
  * ============================================================
  */
 test('should properly set a key', () => {
-  expect(credentialState.key).toEqual('credential');
+  expect(credentialSlice.key).toEqual('credential');
 });
 
 /**
@@ -34,8 +34,8 @@ test('should return the initial state', () => {
   const store = storeSetup();
 
   expect(
-    store.getState()[credentialState.key],
-  ).toEqual(credentialState.initialState);
+    store.getState()[credentialSlice.key],
+  ).toEqual(credentialSlice.initialState);
 });
 
 /**
@@ -45,10 +45,10 @@ test('should handle creating a new entity', () => {
   const store = storeSetup();
 
   const base = credentialRoot();
-  const action = credentialState.actions.create(base);
+  const action = credentialSlice.actions.create(base);
 
   store.dispatch(action);
-  const entities = credentialState.selectors.all(store.getState());
+  const entities = credentialSlice.selectors.all(store.getState());
   expect(entities).toHaveLength(1);
 
   expect(entities[0]).toEqual(expect.objectContaining(base));

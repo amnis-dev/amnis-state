@@ -7,7 +7,7 @@ import type {
   Data,
   DataRoot,
   DataState,
-  DataUpdater,
+  DataUpdate,
 } from './data.types.js';
 
 /**
@@ -138,7 +138,7 @@ export interface EntityDifference<D extends Data> {
   original: D | undefined;
   current: D | undefined;
   changes: DataRoot<D>;
-  updater: DataUpdater<D>;
+  updater: DataUpdate<D>;
   keys: (keyof D)[];
 }
 

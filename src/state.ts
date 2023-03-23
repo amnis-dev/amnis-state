@@ -1,24 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { EntityState } from '@reduxjs/toolkit';
 import type {
-  Grant,
-  GrantTask,
   Entity,
   Data,
+  DataQuery,
+  DataCreator,
+  DataObjects,
+  EntityObjects,
 } from './data/index.js';
 import {
   entityCreate,
 } from './data/entity/entity.js';
 import type {
   State,
-  StateCreator,
-  StateEntities,
-  StateQuery,
-  StateScope,
 } from './state.types.js';
 
 function stateQueryReferenceMutate(
-  stateQuery: StateQuery,
+  query: DataQuery,
   identifier: string | string[],
 ) {
   let sliceKey = '';
@@ -36,8 +34,8 @@ function stateQueryReferenceMutate(
     return;
   }
 
-  if (!stateQuery[sliceKey]) {
-    stateQuery[sliceKey] = {
+  if (!query[sliceKey]) {
+    query[sliceKey] = {
       $query: {
         $id: {
           $in: [...ids],
@@ -45,8 +43,8 @@ function stateQueryReferenceMutate(
       },
     };
   } else {
-    stateQuery[sliceKey]?.$query?.$id?.$in?.forEach((ref) => ids.add(ref));
-    stateQuery[sliceKey] = {
+    query[sliceKey]?.$query?.$id?.$in?.forEach((ref) => ids.add(ref));
+    query[sliceKey] = {
       $query: {
         $id: {
           $in: [...ids],
@@ -60,8 +58,8 @@ function stateQueryReferenceMutate(
  * Creates a new state query based on the references in a state.
  * The new query will NOT include any references that already exist.
  */
-export function stateReferenceQuery(stateCreator: StateCreator): StateQuery {
-  const stateQuery: StateQuery = {};
+export function stateReferenceQuery(creator: DataCreator): DataQuery {
+  const stateQuery: DataQuery = {};
 
   const entityRefs: string[] = [];
   const references: string[] = [];
@@ -69,7 +67,7 @@ export function stateReferenceQuery(stateCreator: StateCreator): StateQuery {
   /**
    * Loop through each of the slice keys.
    */
-  Object.values(stateCreator).forEach((slice) => {
+  Object.values(creator).forEach((slice) => {
     /**
      * Check each entity on the slices.
      */
@@ -106,8 +104,8 @@ export function stateReferenceQuery(stateCreator: StateCreator): StateQuery {
 /**
  * Converts a redux state tree to a state create object type.
  */
-export function stateToCreate(state: State): StateCreator {
-  const stateCreator: StateCreator = {};
+export function stateToCreate(state: State): DataCreator {
+  const stateCreator: DataCreator = {};
 
   Object.keys(state).every((sliceKey) => {
     const slice = state[sliceKey] as EntityState<Data>;
@@ -125,31 +123,15 @@ export function stateToCreate(state: State): StateCreator {
 }
 
 /**
- * Creates a auth scope object from an array of grants.
- *
- * @deprecated
- */
-export function stateScopeCreate(grants: Grant[], attempt: GrantTask): StateScope {
-  const authScope: StateScope = {};
-  grants.forEach(([key, scope, task]) => {
-    // eslint-disable-next-line no-bitwise
-    if ((task & attempt) === attempt) {
-      authScope[key] = scope;
-    }
-  });
-  return authScope;
-}
-
-/**
  * Creates a state of new complete entities from a creator state.
  */
 export function stateEntitiesCreate(
-  stateCreator: StateCreator,
-  entityProps: Partial<Entity<Data>> = {},
-): StateEntities {
-  return Object.keys(stateCreator).reduce<StateEntities>((acc, sliceKey) => {
+  stateCreator: DataCreator,
+  props: Partial<Entity<Data>> = {},
+): EntityObjects {
+  return Object.keys(stateCreator).reduce<EntityObjects>((acc, sliceKey) => {
     acc[sliceKey] = stateCreator[sliceKey].map(
-      (entityCreator) => entityCreate(entityCreator, entityProps),
+      (entityCreator) => entityCreate(entityCreator, props),
     );
     return acc;
   }, {});
@@ -158,8 +140,10 @@ export function stateEntitiesCreate(
 /**
  * Merges two state entities.
  */
-export function stateEntitiesMerge(state1: StateEntities, state2: StateEntities): StateEntities {
-  const result = { ...state1 };
+export function stateMerge<
+  S extends DataObjects = DataObjects
+>(state1: S, state2: S): S {
+  const result: DataObjects = { ...state1 };
   Object.keys(state2).forEach((sliceKey) => {
     if (Array.isArray(result[sliceKey])) {
       result[sliceKey].push(...state2[sliceKey]);
@@ -167,5 +151,5 @@ export function stateEntitiesMerge(state1: StateEntities, state2: StateEntities)
       result[sliceKey] = [...state2[sliceKey]];
     }
   });
-  return result;
+  return result as S;
 }

@@ -88,93 +88,98 @@ export const dataExtraReducers = {
     });
 
     builder.addCase(dataActions.insert, (state, { payload }) => {
-      if (payload[key] && Array.isArray(payload[key])) {
-        /** @ts-ignore */
-        adapter.upsertMany(state, payload[key]);
-
-        // Saves data if needed.
-        dataSaveEntities(options, key, state);
+      if (!payload[key] || !Array.isArray(payload[key])) {
+        return;
       }
+      /** @ts-ignore */
+      adapter.upsertMany(state, payload[key]);
+
+      // Saves data if needed.
+      dataSaveEntities(options, key, state);
     });
 
     builder.addCase(dataActions.create, (state, { payload }) => {
-      if (payload[key] && Array.isArray(payload[key])) {
-        /** @ts-ignore */
-        adapter.upsertMany(state, payload[key]);
-
-        // Saves data if needed.
-        dataSaveEntities(options, key, state);
+      if (!payload[key] || !Array.isArray(payload[key])) {
+        return;
       }
+      /** @ts-ignore */
+      adapter.upsertMany(state, payload[key]);
+
+      // Saves data if needed.
+      dataSaveEntities(options, key, state);
     });
 
     builder.addCase(dataActions.update, (state, { payload }) => {
-      if (payload[key] && Array.isArray(payload[key])) {
-        /**
-         * Maps the updates to the adapter update format.
-         */
-        const updates = payload[key].map((update) => {
-          const { $id, ...changes } = update;
+      if (!payload[key] || !Array.isArray(payload[key])) {
+        return;
+      }
+      /**
+       * Maps the updates to the adapter update format.
+       */
+      const updates = payload[key].map((update) => {
+        const { $id, ...changes } = update;
 
-          if (state.original[$id] === undefined) {
-            state.original[$id] = { ...state.entities[$id] } as Draft<D>;
-          }
-          const entity = state.original[$id] as D | undefined;
+        const entity = state.entities[$id] as D | undefined;
 
-          if (!entity) {
-            return { id: $id, changes };
-          }
-
-          /**
-         * Perform a diff compare.
-         */
-          const diffResult = diffCompare<Data>(
-            { ...entity, ...changes },
-            state.original[$id] as Data,
-            { includeEntityKeys: false },
-          );
-
-          if (diffResult.length) {
-            state.differences[$id] = diffResult as Draft<keyof D>[];
-          }
-
-          if (!diffResult.length) {
-            if (state.differences[$id]) {
-              delete state.differences[$id];
-            }
-            if (state.original[$id]) {
-              delete state.original[$id];
-            }
-          }
-
+        if (!entity) {
           return { id: $id, changes };
-        });
-
-        /** @ts-ignore */
-        adapter.updateMany(state, updates);
-
-        /**
-         * Save meta information.
-         */
-        if (options.save) {
-          localStorageSaveState(key, {
-            original: state.original,
-            differences: state.differences,
-          });
         }
 
-        // Saves data if needed.
-        dataSaveEntities(options, key, state);
+        if (state.original[$id] === undefined) {
+          state.original[$id] = { ...entity } as Draft<D>;
+        }
+
+        /**
+         * Perform a diff compare.
+         */
+        const diffResult = diffCompare<Data>(
+          { ...entity, ...changes },
+          state.original[$id] as Data,
+          { includeEntityKeys: false },
+        );
+
+        if (diffResult.length) {
+          state.differences[$id] = diffResult as Draft<keyof D>[];
+        }
+
+        if (!diffResult.length) {
+          if (state.differences[$id]) {
+            delete state.differences[$id];
+          }
+          if (state.original[$id]) {
+            delete state.original[$id];
+          }
+        }
+
+        return { id: $id, changes };
+      });
+
+      /** @ts-ignore */
+      adapter.updateMany(state, updates);
+
+      /**
+         * Save meta information.
+         */
+      if (options.save) {
+        localStorageSaveState(key, {
+          original: state.original,
+          differences: state.differences,
+        });
       }
+
+      // Saves data if needed.
+      dataSaveEntities(options, key, state);
     });
 
     builder.addCase(dataActions.delete, (state, { payload }) => {
-      if (payload[key] && Array.isArray(payload[key])) {
-        /** @ts-ignore */
-        adapter.removeMany(state, payload[key]);
-
-        // Saves data if needed.
-        dataSaveEntities(options, key, state);
+      if (!payload[key] || !Array.isArray(payload[key])) {
+        return;
       }
+      /** @ts-ignore */
+      adapter.removeMany(state, payload[key]);
+
+      // Saves data if needed.
+      dataSaveEntities(options, key, state);
     });
 
     builder.addCase(dataActions.wipe, (state) => {

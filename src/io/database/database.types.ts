@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { UID } from '../../core/index.js';
+import type { UID } from '../../core/core.types.js';
+import type { EntityObjects } from '../../data/entity/entity.types.js';
+import type { DataDeleter, DataQuery, DataUpdater } from '../../data/data.types.js';
 import type {
   StateScope,
-  StateUpdater,
-  StateDeleter,
-  StateQuery,
-  StateEntities,
 } from '../../state.types.js';
 
 export interface DatabaseControls {
@@ -14,24 +12,24 @@ export interface DatabaseControls {
 }
 
 export type DatabaseCreateMethod = (
-  state: StateEntities,
+  state: EntityObjects,
   controls?: DatabaseControls
-) => Promise<StateEntities>;
+) => Promise<EntityObjects>;
 
 export type DatabaseReadMethod = (
-  select: StateQuery,
+  select: DataQuery,
   controls?: DatabaseControls
-) => Promise<StateEntities>;
+) => Promise<EntityObjects>;
 
 export type DatabaseUpdateMethod = (
-  state: StateUpdater,
+  state: DataUpdater,
   controls?: DatabaseControls
-) => Promise<StateEntities>;
+) => Promise<EntityObjects>;
 
 export type DatabaseDeleteMethod = (
-  references: StateDeleter,
+  references: DataDeleter,
   controls?: DatabaseControls
-) => Promise<StateDeleter>;
+) => Promise<DataDeleter>;
 
 /**
  * Core interface for database methods.

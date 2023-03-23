@@ -21,7 +21,7 @@ export function keyCreate(
   };
 }
 
-export const keyState = entitySliceCreate({
+export const keySlice = entitySliceCreate({
   key: keyKey,
   create: keyCreate,
 });

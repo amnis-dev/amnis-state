@@ -1,14 +1,14 @@
 import { uid } from '../../../index.js';
 import { storeSetup } from '../../../store.js';
 import {
-  handleCreate, handleState, handleRoot,
+  handleCreate, handleSlice, handleRoot,
 } from './handle.js';
 
 /**
  * ============================================================
  */
 test('should properly set a key', () => {
-  expect(handleState.key).toEqual('handle');
+  expect(handleSlice.key).toEqual('handle');
 });
 
 /**
@@ -37,8 +37,8 @@ test('should return the initial state', () => {
   const store = storeSetup();
 
   expect(
-    store.getState()[handleState.key],
-  ).toEqual(handleState.initialState);
+    store.getState()[handleSlice.key],
+  ).toEqual(handleSlice.initialState);
 });
 
 /**
@@ -48,10 +48,10 @@ test('should handle creating a new entity', () => {
   const store = storeSetup();
 
   const base = handleRoot();
-  const action = handleState.actions.create(base);
+  const action = handleSlice.actions.create(base);
 
   store.dispatch(action);
-  const entities = handleState.selectors.all(store.getState());
+  const entities = handleSlice.selectors.all(store.getState());
   expect(entities).toHaveLength(1);
 
   expect(entities[0]).toEqual(expect.objectContaining(base));

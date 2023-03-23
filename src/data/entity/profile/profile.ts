@@ -1,13 +1,13 @@
 import { uid } from '../../../core/index.js';
 import type { Profile, ProfileRoot, ProfileMinimal } from './profile.types.js';
 import { entitySliceCreate } from '../entity.slice.js';
-import { userState } from '../user/index.js';
+import { userSlice } from '../user/index.js';
 
 const profileKey = 'profile';
 
 export const profileRoot: ProfileRoot = {
   nameDisplay: 'Unnamed',
-  $user: uid(userState.key),
+  $user: uid(userSlice.key),
 };
 
 export function profileCreate(
@@ -20,7 +20,7 @@ export function profileCreate(
   };
 }
 
-export const profileState = entitySliceCreate({
+export const profileSlice = entitySliceCreate({
   key: profileKey,
   create: profileCreate,
 });

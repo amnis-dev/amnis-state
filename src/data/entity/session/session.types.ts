@@ -1,4 +1,4 @@
-import type { UID, DateNumeric } from '../../../core/index.js';
+import type { UID, DateNumeric } from '../../../core/core.types.js';
 import type { Data, DataMeta } from '../../data.types.js';
 
 /**

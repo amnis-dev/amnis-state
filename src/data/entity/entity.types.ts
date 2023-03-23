@@ -58,3 +58,8 @@ export type Entity<C extends Data = Data> = C & {
    */
   $readers: UIDList;
 };
+
+/**
+ * A record of complete entity objects.
+ */
+export type EntityObjects = Record<string, Entity[]>;

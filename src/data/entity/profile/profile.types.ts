@@ -1,6 +1,6 @@
-import type { DateJSON, UID, SURL } from '../../../core/index.js';
+import type { DateJSON, UID, SURL } from '../../../core/core.types.js';
 import type { User } from '../user/user.types.js';
-import type { Contact } from '../contact/index.js';
+import type { Contact } from '../contact/contact.types.js';
 import type {
   Data,
   DataMeta,

@@ -1,10 +1,10 @@
-import { serviceCreate, serviceState } from './service.js';
+import { serviceCreate, serviceSlice } from './service.js';
 
 /**
  * ============================================================
  */
 test('service key should be is properly set', () => {
-  expect(serviceState.key).toEqual('service');
+  expect(serviceSlice.key).toEqual('service');
 });
 
 /**

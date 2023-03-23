@@ -22,7 +22,7 @@ export const sessionCreate = (
   $id: uid(sessionKey),
 });
 
-export const sessionState = entitySliceCreate({
+export const sessionSlice = entitySliceCreate({
   key: sessionKey,
   create: sessionCreate,
 });

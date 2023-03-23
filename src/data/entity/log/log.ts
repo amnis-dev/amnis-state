@@ -22,7 +22,7 @@ export function logCreate(log: LogMinimal): Log {
   };
 }
 
-export const logState = entitySliceCreate({
+export const logSlice = entitySliceCreate({
   key: logKey,
   create: logCreate,
 });
