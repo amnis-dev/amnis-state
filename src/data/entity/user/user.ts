@@ -46,4 +46,8 @@ export function userCreate(
 export const userSlice = entitySliceCreate({
   key: userKey,
   create: userCreate,
+  /**
+   * Sort users by handle. A-Z.
+   */
+  sort: (a, b) => a.handle.localeCompare(b.handle),
 });

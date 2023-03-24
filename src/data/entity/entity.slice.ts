@@ -22,6 +22,7 @@ export const entitySliceCreate = <
   actions = {} as A,
   selectors = {} as S,
   reducersExtras = [],
+  sort = (a, b) => a.$id.localeCompare(b.$id),
 }: DataSliceOptions<K, DataExtended, C, M, A, S, Entity<ReturnType<C>>>) => {
   if (/^[a-z0-9]+$/i.test(key) === false) {
     throw new Error(`Entity key must be alphanumeric: ${key}`);
@@ -40,6 +41,7 @@ export const entitySliceCreate = <
     create: createEntity,
     meta,
     reducersExtras: [entityExtraReducers, ...reducersExtras],
+    sort,
   });
 
   const { action: actionsData, select: selectorsData } = dataSlice;

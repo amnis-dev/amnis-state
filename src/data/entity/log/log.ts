@@ -25,4 +25,12 @@ export function logCreate(log: LogMinimal): Log {
 export const logSlice = entitySliceCreate({
   key: logKey,
   create: logCreate,
+  /**
+   * Sort logs by created JSON date. Newest to oldest.
+   */
+  sort: (a, b) => {
+    const aDate = new Date(a.created);
+    const bDate = new Date(b.created);
+    return bDate.getTime() - aDate.getTime();
+  },
 });

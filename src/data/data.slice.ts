@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { AnyAction, Selector } from '@reduxjs/toolkit';
+import type { AnyAction, Comparer, Selector } from '@reduxjs/toolkit';
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import type {
   Data, DataExtraReducers, DataMeta, DataState, DataUpdate,
@@ -26,6 +26,7 @@ export interface DataSliceOptions<
   actions?: A;
   selectors?: S;
   reducersExtras?: DataExtraReducers<B, M>[];
+  sort?: Comparer<B>
 }
 
 export const dataSliceCreate = <
@@ -42,6 +43,7 @@ export const dataSliceCreate = <
   actions = {} as A,
   selectors = {} as S,
   reducersExtras = [],
+  sort = (a, b) => a.$id.localeCompare(b.$id),
 }: DataSliceOptions<K, DataExtended, C, M, A, S, ReturnType<C>>) => {
   type D = Data & ReturnType<C>;
 
@@ -51,7 +53,7 @@ export const dataSliceCreate = <
 
   const adapter = createEntityAdapter<D>({
     selectId: (entity) => entity.$id,
-    sortComparer: (a, b) => a.$id.localeCompare(b.$id),
+    sortComparer: sort,
   });
 
   const initialState = adapter.getInitialState(
