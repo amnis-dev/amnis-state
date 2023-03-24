@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction, Selector } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 import { appGet, appKey } from './app.js';
 import type { App, AppSystems } from './app.types.js';
 import { localStorageSaveState } from '../../localstorage.js';
+import type { State } from '../../state.types.js';
 
 /**
  * Initialized app state with meta information.
@@ -113,22 +114,26 @@ const { reducer } = slice;
 /**
  * App redux actions.
  */
-const { actions } = slice;
+const { actions: action } = slice;
 
 /**
  * App redux selectors.
  */
-const selectors: Record<string, Selector> = {
+const select = {
   /**
    * Selects known application systems.
    */
-  systems: (state) => state[appKey].systems,
+  systems: (state: State) => {
+    const appSlice = state[appKey] as App;
+    return appSlice.systems;
+  },
 
   /**
    * Selects the default system.
    */
-  systemDefault: (state) => {
-    const { systemDefault } = state[appKey];
+  systemDefault: (state: State) => {
+    const appSlice = state[appKey] as App;
+    const { systemDefault } = appSlice;
     if (!systemDefault) {
       return undefined;
     }
@@ -138,7 +143,10 @@ const selectors: Record<string, Selector> = {
   /**
    * Selects the current route location.
    */
-  routeLocation: (state) => state[appKey].location,
+  routeLocation: (state: State) => {
+    const appSlice = state[appKey] as App;
+    return appSlice.location;
+  },
 };
 
 export const appSlice = {
@@ -146,8 +154,8 @@ export const appSlice = {
   name: appKey,
   initialState,
   getInitialState: () => initialState,
-  actions,
-  selectors,
+  action,
+  select,
   reducer,
   slice,
 };
