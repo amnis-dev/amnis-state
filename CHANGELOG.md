@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.16.0](https://github.com/amnis-dev/amnis-state/compare/v0.15.9...v0.16.0) (2023-03-24)
+
+
+### Features
+
+* **Data:** Added more fundemental data slice creation ([62981e3](https://github.com/amnis-dev/amnis-state/commit/62981e37f35f8f4c295c8d0cdf5b11f37e1d6504))
+* **Entities:** Entity keys, actions, and selectors are now static ([a0fa762](https://github.com/amnis-dev/amnis-state/commit/a0fa76272db8633f7ebd0008558efe2deb8157c6))
+* **Profile:** Profile data now uses pnpm lint ([d2d9070](https://github.com/amnis-dev/amnis-state/commit/d2d9070bc8f51e601b62fd684b8a1565efcdc860))
+* **Reducers:** Added more advanced method for configuring reducers ([378d0d8](https://github.com/amnis-dev/amnis-state/commit/378d0d867673fe1dea753466c1a2bebf1e31097d))
+* **Refactor:** Completed refactor on baseline ([945c9b8](https://github.com/amnis-dev/amnis-state/commit/945c9b81d4779e196e24a05678faaae2f92ac312))
+* **Refactor:** Major refactor in entity states ([28c9c35](https://github.com/amnis-dev/amnis-state/commit/28c9c35d399c41ba9e2903dd468ac29f0fd45598))
+* **State:** Converted OTP to data reducer ([4c6176f](https://github.com/amnis-dev/amnis-state/commit/4c6176fbeb4fdbe43b3e58beac539ca6fb920522))
+* **State:** Greatly simplified entity and slice creations ([79f1146](https://github.com/amnis-dev/amnis-state/commit/79f1146a83fc77e883de2b307d79a2d8e7228a90))
+* **Store:** Updated store, slices, and sets ([3570c1f](https://github.com/amnis-dev/amnis-state/commit/3570c1f8dacff615c8888f0fd917297a080182d9))
+* **Types:** Reorganized type to make sense with the refactor ([cf13cf0](https://github.com/amnis-dev/amnis-state/commit/cf13cf06ebfe0e4706f62b66eb9f77a56e4042c9))
+
+
+### Bug Fixes
+
+* **Exports:** Reducer modules no longer have default exports ([5cf1d67](https://github.com/amnis-dev/amnis-state/commit/5cf1d67f41609b76d371ee31d2f81e6ee12796d7))
+* **Types:** Fixed typings for entitiy slices ([dbbda33](https://github.com/amnis-dev/amnis-state/commit/dbbda3301ee43749a31cf2859e434015e32c8b9b))
+
 ### [0.15.9](https://github.com/amnis-dev/amnis-state/compare/v0.15.8...v0.15.9) (2023-03-19)
 
 
