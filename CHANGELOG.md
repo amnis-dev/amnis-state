@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.1](https://github.com/amnis-dev/amnis-state/compare/v0.16.0...v0.16.1) (2023-03-24)
+
+
+### Bug Fixes
+
+* **App:** Resolved typing issues with app selectors ([c7b2cea](https://github.com/amnis-dev/amnis-state/commit/c7b2cea14674f7372d67bcc455080db4fc40973b))
+
 ## [0.16.0](https://github.com/amnis-dev/amnis-state/compare/v0.15.9...v0.16.0) (2023-03-24)
 
 
