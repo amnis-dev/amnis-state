@@ -150,8 +150,8 @@ const select = {
 };
 
 export const appSlice = {
-  key: appKey,
-  name: appKey,
+  key: appKey as typeof appKey,
+  name: appKey as typeof appKey,
   initialState,
   getInitialState: () => initialState,
   action,

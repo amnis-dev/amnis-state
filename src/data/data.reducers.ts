@@ -94,6 +94,14 @@ export const dataExtraReducers = {
       /** @ts-ignore */
       adapter.upsertMany(state, payload[key]);
 
+      /**
+       * Remove possible original and difference data.
+       */
+      payload[key].forEach(({ $id }) => {
+        delete state.original[$id];
+        delete state.differences[$id];
+      });
+
       // Saves data if needed.
       dataSaveEntities(options, key, state);
     });
@@ -104,6 +112,14 @@ export const dataExtraReducers = {
       }
       /** @ts-ignore */
       adapter.upsertMany(state, payload[key]);
+
+      /**
+       * Remove possible original and difference data.
+       */
+      payload[key].forEach(({ $id }) => {
+        delete state.original[$id];
+        delete state.differences[$id];
+      });
 
       // Saves data if needed.
       dataSaveEntities(options, key, state);
