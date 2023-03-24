@@ -62,8 +62,8 @@ export const entityExtraReducers = {
       }
 
       payload[key].forEach((update) => {
-        const { $id, ...changes } = update;
-        const entity = state.original[$id] as Entity | undefined;
+        const { $id } = update;
+        const entity = state.entities[$id] as Entity | undefined;
 
         if (!entity) {
           return;
@@ -72,11 +72,11 @@ export const entityExtraReducers = {
         const diffResult = state.differences[$id] ?? [];
 
         if (diffResult.length === 0 && !entity.committed) {
-          changes.committed = true;
+          entity.committed = true;
         }
 
         if (diffResult.length > 0 && entity.committed) {
-          changes.committed = false;
+          entity.committed = false;
         }
       });
     });

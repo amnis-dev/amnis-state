@@ -38,10 +38,10 @@ test('should key creating a new entity', () => {
   const store = storeSetup();
 
   const base = keyRoot();
-  const action = keySlice.actions.create(base);
+  const action = keySlice.action.create(base);
 
   store.dispatch(action);
-  const entities = keySlice.selectors.all(store.getState());
+  const entities = keySlice.select.all(store.getState());
   expect(entities).toHaveLength(1);
 
   expect(entities[0]).toEqual(expect.objectContaining(base));

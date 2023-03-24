@@ -72,7 +72,7 @@ export async function contextSetup(options: ContextOptions = {}): Promise<IoCont
           [roleSlice.key]: createResult[roleSlice.key],
         };
         store.dispatch(dataActions.create(serviceResult));
-        store.dispatch(systemSlice.actions.activeSet(system.$id));
+        store.dispatch(systemSlice.action.activeSet(system.$id));
       }
     } else if (initialize === true) {
       const system = readResult[systemSlice.key][0];
@@ -81,7 +81,7 @@ export async function contextSetup(options: ContextOptions = {}): Promise<IoCont
         [roleSlice.key]: readResult[roleSlice.key],
       };
       store.dispatch(dataActions.create(serviceResult));
-      store.dispatch(systemSlice.actions.activeSet(system.$id));
+      store.dispatch(systemSlice.action.activeSet(system.$id));
     }
   }
 

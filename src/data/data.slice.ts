@@ -59,8 +59,8 @@ export const dataSliceCreate = <
   ) as DataState<D> & M;
 
   const reducersExtraArray: DataExtraReducers<D, M>[] = [];
-  reducersExtraArray.push(...reducersExtras);
   reducersExtraArray.push(dataExtraReducers);
+  reducersExtraArray.push(...reducersExtras);
 
   const slice = createSlice({
     name: key,
@@ -163,8 +163,8 @@ export const dataSliceCreate = <
     name: key,
     initialState,
     getInitialState: () => initialState,
-    actions: actionsObject,
-    selectors: selectorsObject,
+    action: actionsObject,
+    select: selectorsObject,
     create: create as typeof create,
     reducer: slice.reducer,
     slice,

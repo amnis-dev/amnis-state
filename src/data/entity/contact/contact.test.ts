@@ -44,10 +44,10 @@ test('should handle creating a new entity', () => {
   const store = storeSetup();
 
   const base = contactRoot();
-  const action = contactSlice.actions.create(base);
+  const action = contactSlice.action.create(base);
 
   store.dispatch(action);
-  const entities = contactSlice.selectors.all(store.getState());
+  const entities = contactSlice.select.all(store.getState());
   expect(entities).toHaveLength(1);
 
   expect(entities[0]).toEqual(expect.objectContaining(base));

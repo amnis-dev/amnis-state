@@ -39,10 +39,10 @@ export const entitySliceCreate = <
     key,
     create: createEntity,
     meta,
-    reducersExtras: [...reducersExtras, entityExtraReducers],
+    reducersExtras: [entityExtraReducers, ...reducersExtras],
   });
 
-  const { actions: actionsData, selectors: selectorsData } = dataSlice;
+  const { action: actionsData, select: selectorsData } = dataSlice;
   const actionsObject = {
     ...actionsData,
     ...actions,
@@ -63,8 +63,8 @@ export const entitySliceCreate = <
     name: dataSlice.key,
     initialState: dataSlice.initialState,
     getInitialState: () => dataSlice.initialState,
-    actions: actionsObject,
-    selectors: selectorsObject,
+    action: actionsObject,
+    select: selectorsObject,
     create,
     createEntity,
     reducer: dataSlice.reducer,

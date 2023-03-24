@@ -45,10 +45,10 @@ test('should handle creating a new entity', () => {
   const store = storeSetup();
 
   const base = auditRoot();
-  const action = auditSlice.actions.create(base);
+  const action = auditSlice.action.create(base);
 
   store.dispatch(action);
-  const entities = auditSlice.selectors.all(store.getState());
+  const entities = auditSlice.select.all(store.getState());
   expect(entities).toHaveLength(1);
 
   expect(entities[0]).toEqual(expect.objectContaining(base));

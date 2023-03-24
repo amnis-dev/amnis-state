@@ -109,10 +109,10 @@ test('should history creating a new entity', () => {
   const store = storeSetup();
 
   const base = historyRoot();
-  const action = historySlice.actions.create(base);
+  const action = historySlice.action.create(base);
 
   store.dispatch(action);
-  const entities = historySlice.selectors.all(store.getState());
+  const entities = historySlice.select.all(store.getState());
   expect(entities).toHaveLength(1);
 
   expect(entities[0]).toEqual(expect.objectContaining(base));

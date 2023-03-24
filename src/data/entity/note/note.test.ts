@@ -40,10 +40,10 @@ test('note should return the initial state', () => {
 test('should handle creating a new note', () => {
   const store = storeSetup();
 
-  const action = noteSlice.actions.create(noteRoot);
+  const action = noteSlice.action.create(noteRoot);
 
   store.dispatch(action);
-  const entities = noteSlice.selectors.all(store.getState());
+  const entities = noteSlice.select.all(store.getState());
   expect(entities).toHaveLength(1);
 
   expect(entities[0]).toEqual(expect.objectContaining(noteRoot));
