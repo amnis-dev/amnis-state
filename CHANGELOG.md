@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.3](https://github.com/amnis-dev/amnis-state/compare/v0.16.2...v0.16.3) (2023-03-25)
+
+
+### Features
+
+* **Local Storage:** Added middleware for local storage management of uncommitted entities ([b36392e](https://github.com/amnis-dev/amnis-state/commit/b36392e33f1354eb0b051c33ecb37a9d5dd3e514))
+* **Sort:** Added sorting functionality to slices ([42908d6](https://github.com/amnis-dev/amnis-state/commit/42908d6dcfe821d02a09ca4e9b34ec6d158ff4bd))
+
 ### [0.16.2](https://github.com/amnis-dev/amnis-state/compare/v0.16.1...v0.16.2) (2023-03-24)
 
 
