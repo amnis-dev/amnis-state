@@ -18,7 +18,7 @@ export const entitySliceCreate = <
 >({
   key,
   create,
-  meta,
+  meta = {} as M,
   actions = {} as A,
   selectors = {} as S,
   reducersExtras = [],
@@ -39,7 +39,10 @@ export const entitySliceCreate = <
   const dataSlice = dataSliceCreate({
     key,
     create: createEntity,
-    meta,
+    meta: {
+      type: 'entity',
+      ...meta,
+    },
     reducersExtras: [entityExtraReducers, ...reducersExtras],
     sort,
   });

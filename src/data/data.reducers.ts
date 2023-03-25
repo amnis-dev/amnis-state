@@ -1,50 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import type {
-  Action,
   Draft,
-  EntityState,
 } from '@reduxjs/toolkit';
-import {
-  localStorageDeleteEntities,
-  localStorageDeleteState,
-  localStorageSaveEntities,
-  localStorageSaveState,
-} from '../localstorage.js';
 import { dataActions } from './data.actions.js';
 import type {
-  Data, DataExtraReducers, DataReducerOptions, DataReducerSettings,
+  Data,
+  DataExtraReducers,
+  DataReducerSettings,
 } from './data.types.js';
 import { diffCompare } from './entity/diff.js';
 import { dataMetaInitial } from './data.meta.js';
-
-async function dataSaveEntities(
-  { save }: DataReducerOptions,
-  key: string,
-  state: EntityState<Data> & any,
-) {
-  if (save !== false) {
-    const entities = Object.values(state.entities) as Data[];
-    if (typeof save === 'boolean') {
-      /** @ts-ignore */
-      localStorageSaveEntities(key, entities);
-    } else {
-      const entitiesFiltered = entities.filter(
-        (entity) => Object.keys(save).every((saveKey) => {
-          const k = saveKey as keyof Data;
-          if (entity[k] !== save[k]) {
-            return false;
-          }
-          return true;
-        }),
-      );
-
-      if (entitiesFiltered.length > 0) {
-        localStorageSaveEntities(key, entitiesFiltered);
-      }
-    }
-  }
-}
 
 /**
  * Applies a set a extra reducers to a data slice.
@@ -73,7 +39,6 @@ export const dataExtraReducers = {
     key,
     adapter,
     builder,
-    options = { save: false },
   }: DataReducerSettings<D>) => {
     builder.addCase(dataActions.meta, (state, { payload }) => {
       if (!payload[key]) {
@@ -101,9 +66,6 @@ export const dataExtraReducers = {
         delete state.original[$id];
         delete state.differences[$id];
       });
-
-      // Saves data if needed.
-      dataSaveEntities(options, key, state);
     });
 
     builder.addCase(dataActions.create, (state, { payload }) => {
@@ -120,9 +82,6 @@ export const dataExtraReducers = {
         delete state.original[$id];
         delete state.differences[$id];
       });
-
-      // Saves data if needed.
-      dataSaveEntities(options, key, state);
     });
 
     builder.addCase(dataActions.update, (state, { payload }) => {
@@ -172,19 +131,6 @@ export const dataExtraReducers = {
 
       /** @ts-ignore */
       adapter.updateMany(state, updates);
-
-      /**
-         * Save meta information.
-         */
-      if (options.save) {
-        localStorageSaveState(key, {
-          original: state.original,
-          differences: state.differences,
-        });
-      }
-
-      // Saves data if needed.
-      dataSaveEntities(options, key, state);
     });
 
     builder.addCase(dataActions.delete, (state, { payload }) => {
@@ -193,9 +139,6 @@ export const dataExtraReducers = {
       }
       /** @ts-ignore */
       adapter.removeMany(state, payload[key]);
-
-      // Saves data if needed.
-      dataSaveEntities(options, key, state);
     });
 
     builder.addCase(dataActions.wipe, (state) => {
@@ -214,24 +157,17 @@ export const dataExtraReducers = {
       Object.keys(state.differences).forEach((k) => {
         delete state.differences[k as keyof typeof state.differences];
       });
-
-      localStorageDeleteState(key);
-      localStorageDeleteEntities(key);
     });
   },
 
-  matchers: <D extends Data>({
-    key,
-    builder,
-    options = { save: false },
-  }: DataReducerSettings<D>) => {
-    builder.addMatcher(
-      (action: Action): action is Action => action.type.startsWith(key),
-      (state) => {
-        // Saves data if needed.
-        dataSaveEntities(options, key, state);
-      },
-    );
+  matchers: () => {
+    // builder.addMatcher(
+    //   (action: Action): action is Action => action.type.startsWith(key),
+    //   (state) => {
+    //     // Saves data if needed.
+    //     dataSaveEntities(options, key, state);
+    //   },
+    // );
   },
 
 };

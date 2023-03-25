@@ -138,6 +138,11 @@ export type DataQuery = Record<string, DataQueryOptions>;
  */
 export interface DataMeta<D extends Data = Data> {
   /**
+   * Type of data collection.
+   */
+  type: 'data' | 'entity';
+
+  /**
    * The entity id referencing the active entity.
    */
   active: UID | null;

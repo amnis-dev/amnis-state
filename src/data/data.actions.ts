@@ -8,7 +8,7 @@ import type {
   DataUpdater,
 } from './data.types.js';
 
-export type DataMetaSetter = Record<string, Partial<DataMeta<Data>>>;
+export type DataMetaSetter<D extends Data = Data> = Record<string, Partial<DataMeta<D>>>;
 
 export const dataActions = {
   /**

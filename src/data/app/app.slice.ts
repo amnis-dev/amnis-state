@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { appGet, appKey } from './app.js';
 import type { App, AppSystems } from './app.types.js';
-import { localStorageSaveState } from '../../localstorage.js';
 import type { State } from '../../state.types.js';
 
 /**
@@ -31,11 +30,6 @@ const slice = createSlice({
           state.systemDefault = name;
         }
       });
-
-      localStorageSaveState<App>(appKey, {
-        systems: state.systems,
-        systemDefault: state.systemDefault,
-      });
     },
 
     /**
@@ -55,11 +49,6 @@ const slice = createSlice({
       if (!state.systemDefault || setDefault === true) {
         state.systemDefault = name;
       }
-
-      localStorageSaveState<App>(appKey, {
-        systems: state.systems,
-        systemDefault: state.systemDefault,
-      });
     },
 
     /**
@@ -77,11 +66,6 @@ const slice = createSlice({
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { [action.payload]: _, ...systems } = state.systems;
       state.systems = systems;
-
-      localStorageSaveState<App>(appKey, {
-        systems: state.systems,
-        systemDefault: state.systemDefault,
-      });
     },
 
     /**
@@ -92,9 +76,6 @@ const slice = createSlice({
         return;
       }
       state.systemDefault = action.payload;
-      localStorageSaveState<App>(appKey, {
-        systemDefault: state.systemDefault,
-      });
     },
 
     /**

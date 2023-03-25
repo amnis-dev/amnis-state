@@ -71,7 +71,7 @@ export const dataInitial = async (): Promise<EntityObjects> => {
       ],
     }, { committed: true, new: false }),
     roleSlice.createEntity({
-      name: 'Root',
+      name: 'Base',
       description: 'Basis for standard authenticated use of the application.',
       color: '#000000',
       fsLimits: [32, 64, 1024],

@@ -15,6 +15,16 @@ export interface App {
   systemDefault?: keyof AppSystems;
 
   /**
+   * Enable or disable data comparison when performing update actions.
+   */
+  dataCompare: boolean;
+
+  /**
+   * Save data to local storage.
+   */
+  dataSave: boolean;
+
+  /**
    * Current route location of the application.
    */
   location: string;

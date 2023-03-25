@@ -1,4 +1,3 @@
-import { localStorageLoadState } from '../../localstorage.js';
 import type { App } from './app.types.js';
 
 /**
@@ -15,9 +14,13 @@ let app: App;
  * Initializes the application data.
  */
 const appInitialState = (): App => {
+  const isBrowser = typeof window !== 'undefined';
+
   const appDefault: App = {
     location: '/',
     systems: {},
+    dataCompare: isBrowser,
+    dataSave: isBrowser,
   };
 
   if (typeof process !== 'undefined' && process.env.NODE_ENV === 'development') {
@@ -27,10 +30,7 @@ const appInitialState = (): App => {
     appDefault.systemDefault = 'Local';
   }
 
-  // Load application data from localstorage.
-  const appStored = localStorageLoadState<App>(appKey);
-
-  return { ...appDefault, ...appStored };
+  return appDefault;
 };
 
 /**

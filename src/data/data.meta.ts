@@ -8,6 +8,7 @@ export function dataMetaInitial<D extends Data = Data>(
   meta: Partial<DataMeta<D>> = {},
 ): DataMeta<D> {
   return {
+    type: 'data',
     active: null,
     focused: null,
     selection: [],
