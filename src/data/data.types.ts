@@ -158,6 +158,11 @@ export interface DataMeta<D extends Data = Data> {
   selection: UID[];
 
   /**
+   * New data that has not been saved to the api.
+   */
+  new: Record<UID, boolean | undefined>;
+
+  /**
    * Record of original entity data since last updated from the api.
    */
   original: Record<UID, D | undefined>;

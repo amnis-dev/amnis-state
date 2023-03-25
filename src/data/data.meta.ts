@@ -12,6 +12,7 @@ export function dataMetaInitial<D extends Data = Data>(
     active: null,
     focused: null,
     selection: [],
+    new: {} as Record<UID, boolean>,
     original: {} as Record<UID, D>,
     differences: {} as Record<UID, (keyof D)[]>,
     ...meta,

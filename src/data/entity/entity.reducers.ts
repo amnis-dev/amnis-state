@@ -8,6 +8,7 @@ import type { UID } from '../../core/index.js';
 import { dataActions } from '../data.actions.js';
 import type {
   Data,
+  DataCreator,
   DataDeleter,
   DataReducerSettings,
   DataUpdater,
@@ -25,6 +26,15 @@ export interface MetaOptions {
 export interface CreatePayload<C extends Data> {
   entity: Entity<C>;
   meta?: MetaOptions;
+}
+
+/**
+ * Matcher for data create actions.
+ */
+function isDataCreatorAction(
+  action: Action<string>,
+): action is PayloadAction<DataCreator<Entity>> {
+  return action.type === dataActions.create.type;
 }
 
 /**
@@ -53,6 +63,22 @@ export const entityExtraReducers = {
     key,
     builder,
   }: DataReducerSettings<D>) => {
+    /**
+     * Data creates
+     */
+    builder.addMatcher(isDataCreatorAction, (state, { payload }) => {
+      if (!payload[key]) {
+        return;
+      }
+
+      payload[key].forEach((entity) => {
+        if (entity.new) {
+          state.new[entity.$id] = true;
+        } else if (state.new[entity.$id]) {
+          delete state.new[entity.$id];
+        }
+      });
+    });
     /**
      * Data updates
      */

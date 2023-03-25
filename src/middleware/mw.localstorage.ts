@@ -18,8 +18,6 @@ export const mwLocalStorage: Middleware = (store) => (next) => (action) => {
    * If the data in local storage has not been initialized, do so.
    */
   if (!localStorageInitialized && state[appSlice.key].dataSave) {
-    localStorageInitialized = true;
-
     /**
      * Load the entity data from local storage.
      */
@@ -45,6 +43,8 @@ export const mwLocalStorage: Middleware = (store) => (next) => (action) => {
     } catch (e) {
       localStorage().setItem('state-meta', '{}');
     }
+
+    localStorageInitialized = true;
   }
 
   /**
@@ -63,6 +63,9 @@ export const mwLocalStorage: Middleware = (store) => (next) => (action) => {
    * Save the entity data to local storage.
    */
   (async () => {
+    if (!localStorageInitialized) {
+      return;
+    }
     const entityObjects: EntityObjects = {};
     const dataMetaSetter: DataMetaSetter<Entity> = {};
     Object.keys(state).forEach((sliceKey) => {
@@ -72,7 +75,7 @@ export const mwLocalStorage: Middleware = (store) => (next) => (action) => {
       }
 
       const sliceEntityState: DataState<Entity> = sliceState as DataState<Entity>;
-      if (!sliceEntityState.differences) {
+      if (!sliceEntityState.differences || Object.keys(sliceEntityState.differences).length === 0) {
         return;
       }
       const $unsavedIds = Object.keys(sliceEntityState.differences);
