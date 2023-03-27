@@ -61,6 +61,7 @@ export const dataExtraReducers = {
         return;
       }
 
+      const updates: { id: any, [key: string]: any }[] = [];
       const upserts: Partial<D>[] = [];
       /**
        * Check if the entity is being modified, if so, set the original data.
@@ -71,17 +72,18 @@ export const dataExtraReducers = {
         if (state.original[entity.$id] && diffs) {
           const entityNext = { ...entity } as Partial<D>;
           diffs.forEach((prop) => {
-            if (entityNext[prop as keyof D]) {
-              delete entityNext[prop as keyof D];
-            }
+            delete entityNext[prop as keyof D];
           });
           state.original[entity.$id] = entity as Draft<D>;
-          upserts.push(entityNext);
+          const { $id, ...changes } = entityNext;
+          updates.push({ id: $id, changes });
         } else {
           upserts.push(entity as D);
         }
       });
 
+      /** @ts-ignore */
+      adapter.updateMany(state, updates);
       /** @ts-ignore */
       adapter.upsertMany(state, upserts);
     });
@@ -91,6 +93,7 @@ export const dataExtraReducers = {
         return;
       }
 
+      const updates: { id: any, [key: string]: any }[] = [];
       const upserts: Partial<D>[] = [];
       /**
        * Check if the entity is being modified, if so, set the original data.
@@ -101,17 +104,18 @@ export const dataExtraReducers = {
         if (state.original[entity.$id] && diffs) {
           const entityNext = { ...entity } as Partial<D>;
           diffs.forEach((prop) => {
-            if (entityNext[prop as keyof D]) {
-              delete entityNext[prop as keyof D];
-            }
+            delete entityNext[prop as keyof D];
           });
           state.original[entity.$id] = entity as Draft<D>;
-          upserts.push(entityNext);
+          const { $id, ...changes } = entityNext;
+          updates.push({ id: $id, changes });
         } else {
           upserts.push(entity as D);
         }
       });
 
+      /** @ts-ignore */
+      adapter.updateMany(state, updates);
       /** @ts-ignore */
       adapter.upsertMany(state, upserts);
     });
@@ -205,7 +209,7 @@ export const dataExtraReducers = {
     builder,
     options,
   }: DataReducerSettings<D>) => {
-    if (envRuntime() === 'node' || envWorker()) {
+    if (envRuntime() === 'node' || envWorker() || !options?.save) {
       return;
     }
 
@@ -213,10 +217,6 @@ export const dataExtraReducers = {
       (action: Action): action is PayloadAction => action.type.startsWith('@data/'),
       (state, action) => {
         if (typeof action.payload !== 'object' || !action.payload[key]) {
-          return;
-        }
-
-        if (!options?.save) {
           return;
         }
 
