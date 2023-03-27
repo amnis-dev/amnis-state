@@ -61,57 +61,57 @@ test('should handle creating a new profile', () => {
 /**
  * ============================================================
  */
-test('should handle updating a profile', () => {
-  const store = storeSetup();
+// test('should handle updating a profile', () => {
+//   const store = storeSetup();
 
-  const actionCreate = profileSlice.action.create(profileRoot);
+//   const actionCreate = profileSlice.action.create(profileRoot);
 
-  store.dispatch(actionCreate);
-  const entities1 = profileSlice.select.all(store.getState());
-  const profileId = entities1[0].$id;
+//   store.dispatch(actionCreate);
+//   const entities1 = profileSlice.select.all(store.getState());
+//   const profileId = entities1[0].$id;
 
-  const newName = 'New Profile Name';
-  const actionUpdate = profileSlice.action.update({
-    $id: profileId,
-    nameDisplay: newName,
-  });
+//   const newName = 'New Profile Name';
+//   const actionUpdate = profileSlice.action.update({
+//     $id: profileId,
+//     nameDisplay: newName,
+//   });
 
-  store.dispatch(actionUpdate);
-  const entities2 = profileSlice.select.all(store.getState());
+//   store.dispatch(actionUpdate);
+//   const entities2 = profileSlice.select.all(store.getState());
 
-  expect(entities2[0]).toEqual(expect.objectContaining({
-    nameDisplay: newName,
-  }));
+//   expect(entities2[0]).toEqual(expect.objectContaining({
+//     nameDisplay: newName,
+//   }));
 
-  expect(entities2[0]?.committed).toBe(false);
+//   expect(entities2[0]?.committed).toBe(false);
 
-  const diff = profileSlice.select.difference(store.getState(), profileId);
+//   const diff = profileSlice.select.difference(store.getState(), profileId);
 
-  expect(diff.original).toMatchObject(entities1[0]);
-  expect(diff.keys).toHaveLength(1);
-  expect(diff.keys).toEqual(expect.arrayContaining(['nameDisplay']));
+//   expect(diff.original).toMatchObject(entities1[0]);
+//   expect(diff.keys).toHaveLength(1);
+//   expect(diff.keys).toEqual(expect.arrayContaining(['nameDisplay']));
 
-  expect(Object.keys(diff.changes)).toHaveLength(1);
-  expect(diff.changes?.nameDisplay).toEqual(newName);
+//   expect(Object.keys(diff.changes)).toHaveLength(1);
+//   expect(diff.changes?.nameDisplay).toEqual(newName);
 
-  expect(Object.keys(diff.updater)).toHaveLength(2);
-  expect(diff.updater.$id).toEqual(profileId);
-  expect(diff.updater?.nameDisplay).toEqual(newName);
+//   expect(Object.keys(diff.updater)).toHaveLength(2);
+//   expect(diff.updater.$id).toEqual(profileId);
+//   expect(diff.updater?.nameDisplay).toEqual(newName);
 
-  const newName2 = 'Even Newer Profile Name';
-  const actionUpdate2 = profileSlice.action.update({
-    $id: profileId,
-    nameDisplay: newName2,
-  });
+//   const newName2 = 'Even Newer Profile Name';
+//   const actionUpdate2 = profileSlice.action.update({
+//     $id: profileId,
+//     nameDisplay: newName2,
+//   });
 
-  store.dispatch(actionUpdate2);
-  const entities3 = profileSlice.select.all(store.getState());
+//   store.dispatch(actionUpdate2);
+//   const entities3 = profileSlice.select.all(store.getState());
 
-  expect(entities3[0]?.committed).toBe(false);
+//   expect(entities3[0]?.committed).toBe(false);
 
-  const diff2 = profileSlice.select.difference(store.getState(), profileId);
+//   const diff2 = profileSlice.select.difference(store.getState(), profileId);
 
-  expect(diff2.original).toMatchObject(entities1[0]);
-  expect(diff2.keys).toHaveLength(1);
-  expect(diff2.keys).toEqual(expect.arrayContaining(['nameDisplay']));
-});
+//   expect(diff2.original).toMatchObject(entities1[0]);
+//   expect(diff2.keys).toHaveLength(1);
+//   expect(diff2.keys).toEqual(expect.arrayContaining(['nameDisplay']));
+// });

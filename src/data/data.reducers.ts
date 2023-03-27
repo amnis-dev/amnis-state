@@ -14,6 +14,7 @@ import type {
 import { diffCompare } from './entity/diff.js';
 import { dataMetaInitial } from './data.meta.js';
 import { localStorage } from '../localstorage.js';
+import { envRuntime, envWorker } from '../env.js';
 
 /**
  * Applies a set a extra reducers to a data slice.
@@ -125,6 +126,14 @@ export const dataExtraReducers = {
       const updates = payload[key].map((update) => {
         const { $id, ...changes } = update;
 
+        /**
+         * Node environments typically have no need to track changes.
+         * This is because the data is not persisted to local storage.
+         */
+        if (envRuntime() === 'node') {
+          return { id: $id, changes };
+        }
+
         const entity = state.entities[$id] as D | undefined;
 
         if (!entity) {
@@ -196,6 +205,10 @@ export const dataExtraReducers = {
     builder,
     options,
   }: DataReducerSettings<D>) => {
+    if (envWorker()) {
+      return;
+    }
+
     builder.addMatcher(
       (action: Action): action is PayloadAction => action.type.startsWith('@data/'),
       (state, action) => {
