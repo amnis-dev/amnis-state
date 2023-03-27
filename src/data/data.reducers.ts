@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import type {
+  Action,
   Draft,
+  PayloadAction,
 } from '@reduxjs/toolkit';
 import { dataActions } from './data.actions.js';
 import type {
@@ -11,6 +13,7 @@ import type {
 } from './data.types.js';
 import { diffCompare } from './entity/diff.js';
 import { dataMetaInitial } from './data.meta.js';
+import { localStorage } from '../localstorage.js';
 
 /**
  * Applies a set a extra reducers to a data slice.
@@ -160,14 +163,46 @@ export const dataExtraReducers = {
     });
   },
 
-  matchers: () => {
-    // builder.addMatcher(
-    //   (action: Action): action is Action => action.type.startsWith(key),
-    //   (state) => {
-    //     // Saves data if needed.
-    //     dataSaveEntities(options, key, state);
-    //   },
-    // );
+  matchers: <D extends Data>({
+    key,
+    builder,
+    options,
+  }: DataReducerSettings<D>) => {
+    builder.addMatcher(
+      (action: Action): action is PayloadAction => action.type.startsWith('@data/'),
+      (state, action) => {
+        if (typeof action.payload !== 'object' || !action.payload[key]) {
+          return;
+        }
+
+        if (!options?.save) {
+          return;
+        }
+
+        if (!state.differences) {
+          return;
+        }
+
+        const $ids = Object.keys(state.differences);
+
+        if (!$ids.length) {
+          return;
+        }
+
+        const entities = $ids.map(($id) => state.entities[$id]).filter((e) => !!e) as D[];
+
+        const meta = {
+          original: state.original,
+          differences: state.differences,
+        };
+
+        localStorage().setItem(`state-${key}-meta`, JSON.stringify(meta));
+
+        if ($ids.length === entities.length) {
+          localStorage().setItem(`state-${key}-entities`, JSON.stringify(entities));
+        }
+      },
+    );
   },
 
 };

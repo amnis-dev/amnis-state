@@ -6,6 +6,7 @@ import type { Credential } from './data/index.js';
 import { credentialSlice } from './data/entity/credential/index.js';
 import { cryptoWeb } from './io/crypto/index.js';
 import { base64Encode } from './core/index.js';
+import { localStorage } from './localstorage.js';
 
 export interface Account {
   handle: string;
@@ -14,9 +15,9 @@ export interface Account {
   privateKey: string;
 }
 
-let admin: Account;
-let exec: Account;
-let user: Account;
+let admin: Account = JSON.parse(localStorage().getItem('accounts-admin') || '{}');
+let exec: Account = JSON.parse(localStorage().getItem('accounts-exec') || '{}');
+let user: Account = JSON.parse(localStorage().getItem('accounts-user') || '{}');
 
 export const accountsSign = async (
   privateKeyWrapped: string,
@@ -52,7 +53,7 @@ export const accountsGet = async () => {
   /**
    * Administrator
    */
-  if (!admin) {
+  if (Object.keys(admin).length === 0) {
     const { credential, privateKey } = await accountsGenerateCrypto();
     admin = {
       handle: 'admin',
@@ -60,12 +61,13 @@ export const accountsGet = async () => {
       credential,
       privateKey,
     };
+    localStorage().setItem('accounts-admin', JSON.stringify(admin));
   }
 
   /**
    * Executive
    */
-  if (!exec) {
+  if (Object.keys(exec).length === 0) {
     const { credential, privateKey } = await accountsGenerateCrypto();
     exec = {
       handle: 'exec',
@@ -73,12 +75,13 @@ export const accountsGet = async () => {
       credential,
       privateKey,
     };
+    localStorage().setItem('accounts-exec', JSON.stringify(exec));
   }
 
   /**
    * User
    */
-  if (!user) {
+  if (Object.keys(user).length === 0) {
     const agent = await agentGet();
 
     user = {
@@ -87,6 +90,7 @@ export const accountsGet = async () => {
       password: 'passwd12',
       privateKey: agent.privateKey,
     };
+    localStorage().setItem('accounts-user', JSON.stringify(user));
   }
 
   return { admin, exec, user };

@@ -10,6 +10,7 @@ import { dataExtraReducers, extraReducersApply } from './data.reducers.js';
 import { dataActions } from './data.actions.js';
 import { dataSelectors } from './data.selectors.js';
 import { dataMetaInitial } from './data.meta.js';
+import { localStorage } from '../localstorage.js';
 
 export interface DataSliceOptions<
   K extends string = string,
@@ -26,7 +27,8 @@ export interface DataSliceOptions<
   actions?: A;
   selectors?: S;
   reducersExtras?: DataExtraReducers<B, M>[];
-  sort?: Comparer<B>
+  sort?: Comparer<B>;
+  persist?: boolean;
 }
 
 export const dataSliceCreate = <
@@ -44,6 +46,7 @@ export const dataSliceCreate = <
   selectors = {} as S,
   reducersExtras = [],
   sort = (a, b) => a.$id.localeCompare(b.$id),
+  persist = false,
 }: DataSliceOptions<K, DataExtended, C, M, A, S, ReturnType<C>>) => {
   type D = Data & ReturnType<C>;
 
@@ -51,14 +54,35 @@ export const dataSliceCreate = <
     throw new Error(`Data key must be alphanumeric: ${key}`);
   }
 
+  let storedMeta = {};
+  let storedEntities = [];
+  if (persist) {
+    try {
+      /**
+       * Load meta data from local storage.
+       */
+      storedMeta = JSON.parse(localStorage().getItem(`state-${key}-meta`) ?? '{}');
+
+      /**
+       * Load entities from local storage.
+       */
+      storedEntities = JSON.parse(localStorage().getItem(`state-${key}-entities`) ?? '[]');
+    } catch (e) {
+      console.error('There was an error loading the state data from local storage.');
+    }
+  }
+
   const adapter = createEntityAdapter<D>({
     selectId: (entity) => entity.$id,
     sortComparer: sort,
   });
 
-  const initialState = adapter.getInitialState(
-    dataMetaInitial(meta),
-  ) as DataState<D> & M;
+  const initialState = adapter.getInitialState({
+    ...dataMetaInitial(meta),
+    ...storedMeta,
+  }) as DataState<D> & M;
+
+  const nextState = adapter.upsertMany(initialState, storedEntities);
 
   const reducersExtraArray: DataExtraReducers<D, M>[] = [];
   reducersExtraArray.push(dataExtraReducers);
@@ -66,13 +90,16 @@ export const dataSliceCreate = <
 
   const slice = createSlice({
     name: key,
-    initialState,
+    initialState: nextState,
     reducers: {},
     extraReducers: (builder) => {
       extraReducersApply<D, M>({
         key,
         adapter,
         builder,
+        options: {
+          save: persist,
+        },
       }, reducersExtraArray);
     },
   });

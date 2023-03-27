@@ -4,16 +4,19 @@ import { GrantScope } from '../../data/grant/index.js';
 import type { DataDeleter, Entity, EntityObjects } from '../../data/index.js';
 import type { Database } from './database.types.js';
 import type { State } from '../../state.types.js';
+import { localStorage } from '../../localstorage.js';
 
 /**
  * Storage type.
  */
 export type MemoryStorage = State<Record<UID, Entity | undefined>>;
 
+const localMemoryDb = JSON.parse(localStorage().getItem('memory-db') ?? '{}');
+
 /**
  * Storage object for entities.
  */
-let storage: MemoryStorage = {};
+let storage: MemoryStorage = localMemoryDb;
 
 /**
  * Function to get memory storage.
@@ -35,7 +38,10 @@ export function databaseMemoryClear() {
  */
 export const databaseMemory: Database = {
   initialize: (initialStorage: MemoryStorage = {}) => {
-    storage = initialStorage;
+    if (Object.keys(storage).length === 0) {
+      storage = initialStorage;
+      localStorage().setItem('memory-db', JSON.stringify(storage));
+    }
   },
   /**
    * ================================================================================
@@ -73,6 +79,8 @@ export const databaseMemory: Database = {
       });
       return true;
     });
+
+    localStorage().setItem('memory-db', JSON.stringify(storage));
 
     return result;
   },
@@ -256,6 +264,8 @@ export const databaseMemory: Database = {
         return true;
       });
 
+      localStorage().setItem('memory-db', JSON.stringify(storage));
+
       return true;
     });
 
@@ -313,6 +323,8 @@ export const databaseMemory: Database = {
 
       return true;
     });
+
+    localStorage().setItem('memory-db', JSON.stringify(storage));
 
     return result;
   },
