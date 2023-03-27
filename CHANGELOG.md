@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.4](https://github.com/amnis-dev/amnis-state/compare/v0.16.3...v0.16.4) (2023-03-27)
+
+
+### Features
+
+* **Context:** Context wipes information on the store before initializing ([37351e4](https://github.com/amnis-dev/amnis-state/commit/37351e4ba91be29940c4305a8eeb6cf0ff877954))
+* **Differences:** Creator reducers now persist local changeS ([7809707](https://github.com/amnis-dev/amnis-state/commit/7809707b97632b65560506c104fd4952ff7128d4))
+* **Meta:** Added meta object to track new entities ([17469a5](https://github.com/amnis-dev/amnis-state/commit/17469a56f801137f340806fcba0fe5d9a18eb478))
+* **Storage:** Creating new data when is already exists will keep local modifications ([10faccd](https://github.com/amnis-dev/amnis-state/commit/10faccd1602acb15c8b1514f981bf91be07469fa))
+* **Storage:** Data that determined to not be saved is persisted in local storage ([ba88acc](https://github.com/amnis-dev/amnis-state/commit/ba88acc86f0a4ad8afa9ebba9daf86cc8a95314b))
+
+
+### Bug Fixes
+
+* **Storage:** Create action no longer overwrites local changes ([36e5627](https://github.com/amnis-dev/amnis-state/commit/36e5627a4d979238ddbc3301c42b9725eb73fe1a))
+* **Storage:** Local storage should not be read or saved in a web worker environment (such as API mocking) ([93f5674](https://github.com/amnis-dev/amnis-state/commit/93f56740860b6732a2138e21e9488d194e76ed46))
+
 ### [0.16.3](https://github.com/amnis-dev/amnis-state/compare/v0.16.2...v0.16.3) (2023-03-25)
 
 
