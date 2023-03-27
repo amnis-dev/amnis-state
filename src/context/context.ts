@@ -52,6 +52,11 @@ export async function contextSetup(options: ContextOptions = {}): Promise<IoCont
     send = sendMemory,
   } = options;
 
+  /**
+   * Clean the store.
+   */
+  store.dispatch(dataActions.wipe());
+
   if (initialize) {
     const readResult = await database.read({
       [systemSlice.key]: {},

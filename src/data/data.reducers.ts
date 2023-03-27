@@ -205,7 +205,7 @@ export const dataExtraReducers = {
     builder,
     options,
   }: DataReducerSettings<D>) => {
-    if (envWorker()) {
+    if (envRuntime() === 'node' || envWorker()) {
       return;
     }
 
