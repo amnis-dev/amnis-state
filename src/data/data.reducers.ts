@@ -59,32 +59,47 @@ export const dataExtraReducers = {
       if (!payload[key] || !Array.isArray(payload[key])) {
         return;
       }
-      /** @ts-ignore */
-      adapter.upsertMany(state, payload[key]);
 
+      const inserts: D[] = [];
       /**
-       * Remove possible original and difference data.
+       * Check if the entity is being modified, if so, set the original data.
+       * If not, add it to the inserts array to be upserted.
        */
-      payload[key].forEach(({ $id }) => {
-        delete state.original[$id];
-        delete state.differences[$id];
+      payload[key].forEach((entity) => {
+        if (state.original[entity.$id]) {
+          state.original[entity.$id] = entity as Draft<D>;
+        } else {
+          inserts.push(entity as D);
+        }
       });
+
+      /** @ts-ignore */
+      adapter.upsertMany(state, inserts);
     });
 
     builder.addCase(dataActions.create, (state, { payload }) => {
       if (!payload[key] || !Array.isArray(payload[key])) {
         return;
       }
-      /** @ts-ignore */
-      adapter.upsertMany(state, payload[key]);
 
+      const inserts: D[] = [];
       /**
-       * Remove possible original and difference data.
+       * Check if the entity is being modified, if so, apply it to the original data.
+       * If not, add it to the inserts array to be upserted.
        */
-      payload[key].forEach(({ $id }) => {
-        delete state.original[$id];
-        delete state.differences[$id];
+      payload[key].forEach((entity) => {
+        if (state.original[entity.$id]) {
+          state.original[entity.$id] = {
+            ...state.original[entity.$id],
+            ...entity,
+          } as Draft<D>;
+        } else {
+          inserts.push(entity as D);
+        }
       });
+
+      /** @ts-ignore */
+      adapter.upsertMany(state, inserts);
     });
 
     builder.addCase(dataActions.update, (state, { payload }) => {
