@@ -59,32 +59,16 @@ export const dataExtraReducers = {
       if (!payload[key] || !Array.isArray(payload[key])) {
         return;
       }
+      /** @ts-ignore */
+      adapter.upsertMany(state, payload[key]);
 
-      const updates: { id: any, [key: string]: any }[] = [];
-      const upserts: Partial<D>[] = [];
       /**
-       * Check if the entity is being modified, if so, set the original data.
-       * If not, add it to the upserts array to be upserted.
+       * Remove possible original and difference data.
        */
-      payload[key].forEach((entity) => {
-        const diffs = state.differences[entity.$id];
-        if (state.original[entity.$id] && diffs) {
-          const entityNext = { ...entity } as Partial<D>;
-          diffs.forEach((prop) => {
-            delete entityNext[prop as keyof D];
-          });
-          state.original[entity.$id] = entity as Draft<D>;
-          const { $id, ...changes } = entityNext;
-          updates.push({ id: $id, changes });
-        } else {
-          upserts.push(entity as D);
-        }
+      payload[key].forEach(({ $id }) => {
+        delete state.original[$id];
+        delete state.differences[$id];
       });
-
-      /** @ts-ignore */
-      adapter.updateMany(state, updates);
-      /** @ts-ignore */
-      adapter.upsertMany(state, upserts);
     });
 
     builder.addCase(dataActions.create, (state, { payload }) => {

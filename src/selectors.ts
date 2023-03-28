@@ -1,5 +1,5 @@
 import type { UID } from './core/core.types.js';
-import type { User } from './data/index.js';
+import type { DataState, Entity, User } from './data/index.js';
 import { systemSlice, userSlice } from './data/index.js';
 import type { RootState } from './store.js';
 
@@ -63,11 +63,29 @@ const isUserActiveExec = (state: RootState): boolean => {
   return isUserExec(state, userActive.$id);
 };
 
+const unsavedEntities = (state: RootState): Entity[] => {
+  const entities = Object.values(state).reduce<Entity[]>((acc, slice) => {
+    if (slice?.type !== 'entity' || slice?.differences === undefined) {
+      return acc;
+    }
+    const sliceEntity = slice as DataState<Entity>;
+
+    const unsaved = Object.keys(sliceEntity.differences)
+      .map(($id) => sliceEntity.entities[$id])
+      .filter((entity) => !!entity) as Entity[];
+
+    acc.push(...unsaved);
+    return acc;
+  }, [] as Entity[]);
+  return entities;
+};
+
 export const stateSelect = {
   isUserAdmin,
   isUserExec,
   isUserActiveAdmin,
   isUserActiveExec,
+  unsavedEntities,
 };
 
 export default stateSelect;

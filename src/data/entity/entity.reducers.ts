@@ -62,23 +62,37 @@ export const entityExtraReducers = {
   matchers: <D extends Data>({
     key,
     builder,
+    adapter,
   }: DataReducerSettings<D>) => {
     /**
      * Data creates
      */
-    builder.addMatcher(isDataCreatorAction, (state, { payload }) => {
-      if (!payload[key]) {
-        return;
-      }
-
-      payload[key].forEach((entity) => {
-        if (entity.new) {
-          state.new[entity.$id] = true;
-        } else if (state.new[entity.$id]) {
-          delete state.new[entity.$id];
+    builder.addMatcher(
+      isDataCreatorAction,
+      (state, { payload }) => {
+        if (!payload[key]) {
+          return;
         }
-      });
-    });
+
+        const updates: { id: string, changes: Partial<Entity> }[] = [];
+        payload[key].forEach((entity) => {
+          if (state.original[entity.$id]) {
+            updates.push({ id: entity.$id, changes: { committed: false } });
+          }
+
+          if (entity.new) {
+            state.new[entity.$id] = true;
+          } else if (state.new[entity.$id]) {
+            delete state.new[entity.$id];
+          }
+        });
+
+        if (updates.length > 0) {
+          /** @ts-ignore */
+          adapter.updateMany(state, updates);
+        }
+      },
+    );
     /**
      * Data updates
      */
