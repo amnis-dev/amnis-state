@@ -1,4 +1,5 @@
 import type { App } from './app.types.js';
+import { localStorage } from '../../localstorage.js';
 
 /**
  * Reducer key for the application state.
@@ -14,13 +15,11 @@ let app: App;
  * Initializes the application data.
  */
 const appInitialState = (): App => {
-  const isBrowser = typeof window !== 'undefined';
+  const location = typeof window === 'object' ? window.location.pathname : '/';
 
   const appDefault: App = {
-    location: '/',
+    location,
     systems: {},
-    dataCompare: isBrowser,
-    dataSave: isBrowser,
   };
 
   if (typeof process !== 'undefined' && process.env.NODE_ENV === 'development') {
@@ -30,7 +29,9 @@ const appInitialState = (): App => {
     appDefault.systemDefault = 'Local';
   }
 
-  return appDefault;
+  const appStored = JSON.parse(localStorage().getItem(`state-${appKey}`) ?? '{}');
+
+  return { ...appDefault, ...appStored };
 };
 
 /**

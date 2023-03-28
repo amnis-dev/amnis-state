@@ -3,6 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { appGet, appKey } from './app.js';
 import type { App, AppSystems } from './app.types.js';
 import type { State } from '../../state.types.js';
+import { localStorage } from '../../localstorage.js';
 
 /**
  * Initialized app state with meta information.
@@ -84,6 +85,17 @@ const slice = createSlice({
     navigate: (state, action: PayloadAction<string>) => {
       state.location = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    /**
+     * Match any app action and save the state to local storage.
+     */
+    builder.addMatcher(
+      (action) => action.type.startsWith(`${appKey}/`),
+      (state) => {
+        localStorage().setItem(`state-${appKey}`, JSON.stringify(state));
+      },
+    );
   },
 });
 

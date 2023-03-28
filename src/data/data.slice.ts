@@ -11,7 +11,6 @@ import { dataActions } from './data.actions.js';
 import { dataSelectors } from './data.selectors.js';
 import { dataMetaInitial } from './data.meta.js';
 import { localStorage } from '../localstorage.js';
-import { envWorker } from '../env.js';
 
 export interface DataSliceOptions<
   K extends string = string,
@@ -57,7 +56,7 @@ export const dataSliceCreate = <
 
   let storedMeta = {};
   let storedEntities = [];
-  if (persist && !envWorker()) {
+  if (persist) {
     try {
       /**
        * Load meta data from local storage.
