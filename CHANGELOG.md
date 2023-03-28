@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.5](https://github.com/amnis-dev/amnis-state/compare/v0.16.4...v0.16.5) (2023-03-28)
+
+
+### Features
+
+* **App:** Application settings are now persisted to local storage ([3f60a06](https://github.com/amnis-dev/amnis-state/commit/3f60a0631eacedbc9c2cbf65cc8433080916fc2e))
+
 ### [0.16.4](https://github.com/amnis-dev/amnis-state/compare/v0.16.3...v0.16.4) (2023-03-27)
 
 
