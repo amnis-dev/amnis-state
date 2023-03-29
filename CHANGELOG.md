@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.6](https://github.com/amnis-dev/amnis-state/compare/v0.16.5...v0.16.6) (2023-03-29)
+
+
+### Features
+
+* **Reducers:** Insert reducer is now destructive of local data while create is not ([faad54d](https://github.com/amnis-dev/amnis-state/commit/faad54db043b19ec8eecff8ea2b7346525ab99b0))
+* **Select:** Added state selector to fetch entities that are determined to be unsaved ([55c61a8](https://github.com/amnis-dev/amnis-state/commit/55c61a8f1a1df559a9a688973ddd14e989f65d08))
+
 ### [0.16.5](https://github.com/amnis-dev/amnis-state/compare/v0.16.4...v0.16.5) (2023-03-28)
 
 
