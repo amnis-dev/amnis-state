@@ -63,7 +63,7 @@ const isUserActiveExec = (state: RootState): boolean => {
   return isUserExec(state, userActive.$id);
 };
 
-const unsavedEntities = (state: RootState): Entity[] => {
+const stagedEntities = (state: RootState): Entity[] => {
   const entities = Object.values(state).reduce<Entity[]>((acc, slice) => {
     if (slice?.type !== 'entity' || slice?.differences === undefined) {
       return acc;
@@ -85,7 +85,7 @@ export const stateSelect = {
   isUserExec,
   isUserActiveAdmin,
   isUserActiveExec,
-  unsavedEntities,
+  stagedEntities,
 };
 
 export default stateSelect;
