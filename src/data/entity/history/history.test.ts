@@ -46,7 +46,7 @@ test('should make history from state updater', () => {
   expect(histories).toHaveLength(2);
   expect(histories[0]).toEqual({
     $id: expect.any(String),
-    $subject: profileId1,
+    $link: profileId1,
     task: GrantTask.Update,
     mutation: {
       $id: profileId1,
@@ -55,7 +55,7 @@ test('should make history from state updater', () => {
   });
   expect(histories[1]).toEqual({
     $id: expect.any(String),
-    $subject: profileId2,
+    $link: profileId2,
     task: GrantTask.Update,
     mutation: {
       $id: profileId2,
@@ -79,13 +79,13 @@ test('should make history from state deleter', () => {
   expect(histories).toHaveLength(2);
   expect(histories[0]).toEqual({
     $id: expect.any(String),
-    $subject: profileId1,
+    $link: profileId1,
     task: GrantTask.Delete,
     mutation: profileId1,
   });
   expect(histories[1]).toEqual({
     $id: expect.any(String),
-    $subject: profileId2,
+    $link: profileId2,
     task: GrantTask.Delete,
     mutation: profileId2,
   });

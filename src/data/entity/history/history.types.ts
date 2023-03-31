@@ -21,9 +21,9 @@ export type HistoryStateMutator = DataCreator | DataUpdater | DataDeleter;
  */
 export interface History extends Data {
   /**
-   * The subject that was updated.
+   * The entity this record is linked to.
    */
-  readonly $subject: UID;
+  readonly $link: UID;
 
   /**
    * The state task performed.
@@ -44,7 +44,7 @@ export type HistoryRoot = DataRoot<History>;
 /**
  * Root properties in order to create a log.
  */
-export type HistoryMinimal = DataMinimal<History, '$subject' | 'task' | 'mutation'>;
+export type HistoryMinimal = DataMinimal<History, '$link' | 'task' | 'mutation'>;
 
 /**
  * History collection meta data.

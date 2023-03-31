@@ -10,7 +10,7 @@ import { entitySliceCreate } from '../entity.slice.js';
 const historyKey = 'history';
 
 export const historyRoot = (): HistoryRoot => ({
-  $subject: uid(historyKey, 'null'),
+  $link: uid(historyKey, 'null'),
   task: GrantTask.None,
   mutation: null,
 });
@@ -35,9 +35,9 @@ export function historyMake(
 
   Object.values(state).forEach((mutators) => {
     mutators.forEach((mutation: any) => {
-      const $subject: UID = typeof mutation === 'object' ? mutation?.$id : mutation;
+      const $link: UID = typeof mutation === 'object' ? mutation?.$id : mutation;
       histories.push(historyCreate({
-        $subject,
+        $link,
         task,
         mutation,
       }));
