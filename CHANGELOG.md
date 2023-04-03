@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.7](https://github.com/amnis-dev/amnis-state/compare/v0.16.6...v0.16.7) (2023-04-03)
+
+
+### Features
+
+* **Data:** Added data utility functions ([3b96e38](https://github.com/amnis-dev/amnis-state/commit/3b96e38d1fbbbb653b65447889e3091e0f7bf4c0))
+
 ### [0.16.6](https://github.com/amnis-dev/amnis-state/compare/v0.16.5...v0.16.6) (2023-03-29)
 
 
