@@ -195,28 +195,22 @@ export const dataExtraReducers = {
           return;
         }
 
-        if (!state.differences) {
-          return;
-        }
+        (async () => {
+          const $ids = Object.keys(state.differences);
 
-        const $ids = Object.keys(state.differences);
+          const entities = $ids.map(($id) => state.entities[$id]).filter((e) => !!e) as D[];
 
-        if (!$ids.length) {
-          return;
-        }
+          const meta = {
+            original: state.original,
+            differences: state.differences,
+          };
 
-        const entities = $ids.map(($id) => state.entities[$id]).filter((e) => !!e) as D[];
+          localStorage().setItem(`state-${key}-meta`, JSON.stringify(meta));
 
-        const meta = {
-          original: state.original,
-          differences: state.differences,
-        };
-
-        localStorage().setItem(`state-${key}-meta`, JSON.stringify(meta));
-
-        if ($ids.length === entities.length) {
-          localStorage().setItem(`state-${key}-entities`, JSON.stringify(entities));
-        }
+          if ($ids.length === entities.length) {
+            localStorage().setItem(`state-${key}-entities`, JSON.stringify(entities));
+          }
+        })();
       },
     );
   },
