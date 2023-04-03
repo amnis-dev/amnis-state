@@ -28,6 +28,9 @@ jobs:
 
     steps:
 
+      - name: Update
+        run: sudo apt update
+
       - name: Install ffmpeg
         run: sudo apt install ffmpeg
 
