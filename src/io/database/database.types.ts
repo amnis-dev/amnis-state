@@ -38,7 +38,7 @@ export interface Database {
   /**
    * Method to implement database initialization.
    */
-  initialize: (...params: any[]) => void;
+  initialize: (...params: any[]) => Promise<void>;
 
   /**
    * Method for creating new records in the database.

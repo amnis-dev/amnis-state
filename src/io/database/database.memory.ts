@@ -37,7 +37,7 @@ export function databaseMemoryClear() {
  * Use this database interface for testing and mocking APIs.
  */
 export const databaseMemory: Database = {
-  initialize: (initialStorage: MemoryStorage = {}) => {
+  initialize: async (initialStorage: MemoryStorage = {}) => {
     if (Object.keys(storage).length === 0) {
       storage = initialStorage;
       localStorage().setItem('memory-db', JSON.stringify(storage));
@@ -51,15 +51,15 @@ export const databaseMemory: Database = {
   create: async (state) => {
     const result: EntityObjects = {};
 
-    Object.keys(state).every((sliceKey) => {
+    Object.keys(state).forEach((sliceKey) => {
       const col: Entity[] = state[sliceKey];
       if (!Array.isArray(col)) {
-        return true;
+        return;
       }
-      col.every((entity) => {
+      col.forEach((entity) => {
         const entityId = entity.$id;
         if (!entity) {
-          return true;
+          return;
         }
 
         const storageKey = sliceKey;
@@ -68,16 +68,14 @@ export const databaseMemory: Database = {
           storage[storageKey] = {} as Record<UID, Entity>;
         }
         if (storage[storageKey][entityId]) {
-          return true;
+          return;
         }
         if (!result[sliceKey]) {
           result[sliceKey] = [];
         }
         storage[storageKey][entityId] = entity;
         result[sliceKey].push(entity);
-        return true;
       });
-      return true;
     });
 
     localStorage().setItem('memory-db', JSON.stringify(storage));

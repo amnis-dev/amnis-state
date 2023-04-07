@@ -103,6 +103,23 @@ export type DataRange = {
   limit?: number;
 }
 
+/**
+ * Data ordering options.
+ */
+export type DataOrder = {
+  /**
+   * The key to order by.
+   */
+  key?: string;
+
+  /**
+   * The direction to order by.
+   * @default 'asc'
+   * @enum asc, desc
+   */
+  direction?: 'asc' | 'desc';
+};
+
 export type DataQueryProps = {
   [key: string]: DataFilter
 };
@@ -112,6 +129,11 @@ export type DataQueryOptions = {
     * Query of keys.
     */
   $query?: DataQueryProps;
+
+  /**
+   * Order of query.
+   */
+  $order?: DataOrder;
 
   /**
    * Range of query.
