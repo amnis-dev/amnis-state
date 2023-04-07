@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.8](https://github.com/amnis-dev/amnis-state/compare/v0.16.7...v0.16.8) (2023-04-07)
+
+
+### Features
+
+* **Database:** Added new query option to order items ([41a52a7](https://github.com/amnis-dev/amnis-state/commit/41a52a7ed1f1eac4bdfdec3721831359d0b4717d))
+
 ### [0.16.7](https://github.com/amnis-dev/amnis-state/compare/v0.16.6...v0.16.7) (2023-04-03)
 
 
