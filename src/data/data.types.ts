@@ -55,6 +55,11 @@ export interface DataFilter {
   $eq?: unknown;
 
   /**
+   * Matches values that do not equal to a specified value.
+   */
+  $neq?: unknown;
+
+  /**
    * Matches values that are greater than a specified value.
    */
   $gt?: number;
@@ -78,6 +83,11 @@ export interface DataFilter {
    * Matches any of the values specified in an array.
    */
   $in?: unknown[];
+
+  /**
+   * Matches any of the values specified not in an array.
+   */
+  $nin?: unknown[];
 }
 
 /**
@@ -109,6 +119,8 @@ export type DataRange = {
 export type DataOrder = {
   /**
    * The key to order by.
+   * @minimum 0
+   * @pattern ^[a-zA-Z_$][a-zA-Z_$0-9]+$
    */
   key?: string;
 

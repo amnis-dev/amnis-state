@@ -2,6 +2,7 @@ import type { UID } from '../../core/index.js';
 import { uidList } from '../../core/index.js';
 import { GrantScope } from '../../data/grant/index.js';
 import type { DataDeleter, Entity, EntityObjects } from '../../data/index.js';
+import { dataOrder } from '../../data/data.js';
 import type { Database } from './database.types.js';
 import type { State } from '../../state.types.js';
 import { localStorage } from '../../localstorage.js';
@@ -91,14 +92,14 @@ export const databaseMemory: Database = {
     const { scope, subject } = controls;
     const result: EntityObjects = {};
 
-    Object.keys(querySlice).every((queryStateKey) => {
+    Object.keys(querySlice).forEach((queryStateKey) => {
       const storageKey = queryStateKey;
 
       /**
        * Ensure this queryStateion is within auth scope.
        */
       if (scope && !scope[queryStateKey]) {
-        return true;
+        return;
       }
 
       const query = querySlice[queryStateKey]?.$query || {};
@@ -107,7 +108,7 @@ export const databaseMemory: Database = {
        * Skip if the query is undefined or key doesn't exist on storage.
        */
       if (!query || !storage[storageKey]) {
-        return true;
+        return;
       }
 
       /**
@@ -158,6 +159,10 @@ export const databaseMemory: Database = {
             matches += 1;
           }
 
+          if (filter.$neq !== undefined && filter.$neq !== entity[entityKey]) {
+            matches += 1;
+          }
+
           if (
             filter.$lt !== undefined
             && typeof entity[entityKey] === 'number'
@@ -194,11 +199,18 @@ export const databaseMemory: Database = {
             matches += 1;
           }
 
+          if (filter.$nin !== undefined && !filter.$nin.includes(entity[entityKey])) {
+            matches += 1;
+          }
+
           return matches === filterKeyLength;
         }).slice(start, limit + start);
-      });
 
-      return true;
+        /**
+         * Sort the result.
+         */
+        result[queryStateKey] = dataOrder(result[queryStateKey], querySlice[queryStateKey].$order);
+      });
     });
 
     return result;

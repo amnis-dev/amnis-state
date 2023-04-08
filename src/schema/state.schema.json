@@ -2038,6 +2038,10 @@
           "$ref": "#/definitions/DataQueryProps",
           "description": "Query of keys."
         },
+        "$order": {
+          "$ref": "#/definitions/DataOrder",
+          "description": "Order of query."
+        },
         "$range": {
           "$ref": "#/definitions/DataRange",
           "description": "Range of query."
@@ -2064,6 +2068,9 @@
         "$eq": {
           "description": "Matches values that are equal to a specified value."
         },
+        "$neq": {
+          "description": "Matches values that do not equal to a specified value."
+        },
         "$gt": {
           "type": "number",
           "description": "Matches values that are greater than a specified value."
@@ -2084,10 +2091,35 @@
           "type": "array",
           "items": {},
           "description": "Matches any of the values specified in an array."
+        },
+        "$nin": {
+          "type": "array",
+          "items": {},
+          "description": "Matches any of the values specified not in an array."
         }
       },
       "additionalProperties": false,
       "description": "Filter object for a query."
+    },
+    "DataOrder": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The key to order by."
+        },
+        "direction": {
+          "type": "string",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "description": "The direction to order by.",
+          "default": "asc"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Data ordering options."
     },
     "DataRange": {
       "type": "object",

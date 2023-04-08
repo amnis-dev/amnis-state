@@ -1,4 +1,9 @@
 /**
+ * Valid key value for a JSON object.
+ */
+export const regexJsonKey = /^[a-zA-Z_$][a-zA-Z_$0-9]+$/;
+
+/**
  * Unique identifier.
  */
 export const regexUuid = /^[A-Za-z0-9_-]{21,36}/;

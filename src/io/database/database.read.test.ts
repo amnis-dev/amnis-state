@@ -1,4 +1,5 @@
 import type { Entity } from '../../data/index.js';
+import { dataOrder } from '../../data/index.js';
 import { databaseMemory, databaseMemoryStorage } from './database.memory.js';
 import type { TestDataTodo } from './database.testdata.js';
 import {
@@ -30,7 +31,9 @@ test('should read all todos with empty query', async () => {
 
   expect(Object.keys(todos)).toHaveLength(1);
   expect(todos[testDataTodoKey]).toHaveLength(testData[testDataTodoKey].length);
-  expect(todos[testDataTodoKey]).toEqual(testData[testDataTodoKey]);
+  expect(todos[testDataTodoKey]).toEqual(
+    dataOrder(testData[testDataTodoKey]),
+  );
 });
 
 /**
@@ -52,7 +55,9 @@ test('should read all todos with limited results', async () => {
 
   expect(Object.keys(todos)).toHaveLength(1);
   expect(todos[testDataTodoKey]).toHaveLength(limit);
-  expect(todos[testDataTodoKey]).toEqual(testData[testDataTodoKey].slice(0, limit));
+  expect(todos[testDataTodoKey]).toEqual(
+    dataOrder(testData[testDataTodoKey].slice(0, limit)),
+  );
 });
 
 /**
@@ -76,7 +81,9 @@ test('should read all todos with limited results and a starting point', async ()
 
   expect(Object.keys(todos)).toHaveLength(1);
   expect(todos[testDataTodoKey]).toHaveLength(limit);
-  expect(todos[testDataTodoKey]).toEqual(testData[testDataTodoKey].slice(start, limit + start));
+  expect(todos[testDataTodoKey]).toEqual(
+    dataOrder(testData[testDataTodoKey].slice(start, limit + start)),
+  );
 });
 
 /**
@@ -122,7 +129,7 @@ test('should read todos with their respective priorities', async () => {
 
     expect(Object.keys(todos)).toHaveLength(1);
     expect(todos[testDataTodoKey]).toHaveLength(testDataTodoPriorities[i].length);
-    expect(todos[testDataTodoKey]).toEqual(testDataTodoPriorities[i]);
+    expect(todos[testDataTodoKey]).toEqual(dataOrder(testDataTodoPriorities[i]));
   }));
 });
 
@@ -143,7 +150,7 @@ test('should read todos with a priority less than 3', async () => {
     },
   });
 
-  const expectation = (testData[testDataTodoKey] as Entity<TestDataTodo>[]).filter(
+  const expectation = (dataOrder(testData[testDataTodoKey]) as Entity<TestDataTodo>[]).filter(
     (t) => t.priority < 3,
   );
 
@@ -169,7 +176,7 @@ test('should read todos with a priority less than or equal to 3', async () => {
     },
   });
 
-  const expectation = (testData[testDataTodoKey] as Entity<TestDataTodo>[]).filter(
+  const expectation = (dataOrder(testData[testDataTodoKey]) as Entity<TestDataTodo>[]).filter(
     (t) => t.priority <= 3,
   );
 
@@ -195,7 +202,7 @@ test('should read todos with a priority greater than 3', async () => {
     },
   });
 
-  const expectation = (testData[testDataTodoKey] as Entity<TestDataTodo>[]).filter(
+  const expectation = (dataOrder(testData[testDataTodoKey]) as Entity<TestDataTodo>[]).filter(
     (t) => t.priority > 3,
   );
 
@@ -221,7 +228,7 @@ test('should read todos with a priority greater than or equal to 3', async () =>
     },
   });
 
-  const expectation = (testData[testDataTodoKey] as Entity<TestDataTodo>[]).filter(
+  const expectation = (dataOrder(testData[testDataTodoKey]) as Entity<TestDataTodo>[]).filter(
     (t) => t.priority >= 3,
   );
 
