@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.9](https://github.com/amnis-dev/amnis-state/compare/v0.16.8...v0.16.9) (2023-04-09)
+
+
+### Features
+
+* **Database:** Added new query parameters and ability to sort results ([fa1ebb4](https://github.com/amnis-dev/amnis-state/commit/fa1ebb444c06bfa9073c4afc9ef82f04ba7451ee))
+* **Database:** Improved query capability for data ([72d358f](https://github.com/amnis-dev/amnis-state/commit/72d358fef56a012aa2c5eb88e90e7a39d9e5ec95))
+
 ### [0.16.8](https://github.com/amnis-dev/amnis-state/compare/v0.16.7...v0.16.8) (2023-04-07)
 
 
