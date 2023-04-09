@@ -133,7 +133,10 @@ export const databaseMemory: Database = {
         const entityKey = queryKey as keyof Entity;
         const filter = query[queryKey];
 
-        result[queryStateKey] = result[queryStateKey].filter((entity) => {
+        result[queryStateKey] = dataOrder(
+          result[queryStateKey],
+          querySlice[queryStateKey].$order,
+        ).slice(start, limit + start).filter((entity) => {
           /**
            * Check to ensure this entity is within the scope.
            * If the scope is owner only, the entity must have the owner id match the subject.
@@ -204,12 +207,7 @@ export const databaseMemory: Database = {
           }
 
           return matches === filterKeyLength;
-        }).slice(start, limit + start);
-
-        /**
-         * Sort the result.
-         */
-        result[queryStateKey] = dataOrder(result[queryStateKey], querySlice[queryStateKey].$order);
+        });
       });
     });
 

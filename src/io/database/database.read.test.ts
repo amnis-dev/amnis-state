@@ -56,7 +56,7 @@ test('should read all todos with limited results', async () => {
   expect(Object.keys(todos)).toHaveLength(1);
   expect(todos[testDataTodoKey]).toHaveLength(limit);
   expect(todos[testDataTodoKey]).toEqual(
-    dataOrder(testData[testDataTodoKey].slice(0, limit)),
+    dataOrder(testData[testDataTodoKey]).slice(0, limit),
   );
 });
 
@@ -82,7 +82,7 @@ test('should read all todos with limited results and a starting point', async ()
   expect(Object.keys(todos)).toHaveLength(1);
   expect(todos[testDataTodoKey]).toHaveLength(limit);
   expect(todos[testDataTodoKey]).toEqual(
-    dataOrder(testData[testDataTodoKey].slice(start, limit + start)),
+    dataOrder(testData[testDataTodoKey]).slice(start, limit + start),
   );
 });
 

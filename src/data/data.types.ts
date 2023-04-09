@@ -116,21 +116,21 @@ export type DataRange = {
 /**
  * Data ordering options.
  */
-export type DataOrder = {
+export type DataOrder = [
   /**
    * The key to order by.
    * @minimum 0
    * @pattern ^[a-zA-Z_$][a-zA-Z_$0-9]+$
    */
-  key?: string;
+  by: string,
 
   /**
    * The direction to order by.
    * @default 'asc'
    * @enum asc, desc
    */
-  direction?: 'asc' | 'desc';
-};
+  direction: 'asc' | 'desc',
+];
 
 export type DataQueryProps = {
   [key: string]: DataFilter
@@ -151,6 +151,14 @@ export type DataQueryOptions = {
    * Range of query.
    */
   $range?: DataRange;
+
+  /**
+   * Request a number of historic records with the results.
+   *
+   * @min 1
+   * @max 128
+   */
+  $history?: number;
 
   /**
    * Depth to query for other referenced entities.

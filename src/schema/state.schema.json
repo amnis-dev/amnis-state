@@ -2046,6 +2046,10 @@
           "$ref": "#/definitions/DataRange",
           "description": "Range of query."
         },
+        "$history": {
+          "type": "number",
+          "description": "Request a number ofhistoric records with the results."
+        },
         "$depth": {
           "type": "number",
           "description": "Depth to query for other referenced entities.",
@@ -2102,23 +2106,23 @@
       "description": "Filter object for a query."
     },
     "DataOrder": {
-      "type": "object",
-      "properties": {
-        "key": {
+      "type": "array",
+      "minItems": 2,
+      "items": [
+        {
           "type": "string",
-          "description": "The key to order by."
+          "title": "by"
         },
-        "direction": {
+        {
           "type": "string",
           "enum": [
             "asc",
             "desc"
           ],
-          "description": "The direction to order by.",
-          "default": "asc"
+          "title": "direction"
         }
-      },
-      "additionalProperties": false,
+      ],
+      "maxItems": 2,
       "description": "Data ordering options."
     },
     "DataRange": {

@@ -20,13 +20,11 @@ export const dataCamelToTitle = (str: string): string => {
 /**
  * Orders an array of data objects by the given order object.
  */
-export const dataOrder = <D extends Data>(data: D[], order: DataOrder = {}): D[] => {
-  const { key = '$id', direction = 'asc' } = order;
+export const dataOrder = <D extends Data>(data: D[], order: DataOrder = ['$id', 'asc']): D[] => {
+  const [by, direction] = order;
   const sorted = [...data].sort((a, b) => {
-    const aKey = a[key as keyof Data];
-    const bKey = b[key as keyof Data];
-    const aVal = typeof aKey === 'string' ? aKey.toLowerCase() : aKey;
-    const bVal = typeof bKey === 'string' ? bKey.toLowerCase() : bKey;
+    const aVal = a[by as keyof Data];
+    const bVal = b[by as keyof Data];
     if (aVal < bVal) {
       return direction === 'asc' ? -1 : 1;
     }
