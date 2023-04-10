@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.10](https://github.com/amnis-dev/amnis-state/compare/v0.16.9...v0.16.10) (2023-04-10)
+
+
+### Features
+
+* **History:** An entity's history can be fetched per query slice ([7d725af](https://github.com/amnis-dev/amnis-state/commit/7d725af4e6b190cc7402a5b424966c202e23df4a))
+
 ### [0.16.9](https://github.com/amnis-dev/amnis-state/compare/v0.16.8...v0.16.9) (2023-04-09)
 
 
