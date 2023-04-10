@@ -18,7 +18,7 @@ import type { Database } from './database/database.types.js';
 import type { Filesystem } from './filesystem/filesystem.types.js';
 import type { Crypto } from './crypto/crypto.types.js';
 import type { JWTAccess } from '../core/index.js';
-import type { Send } from './send/send.types.js';
+import type { Email } from './email/email.types.js';
 import type { StateScope } from '../state.types.js';
 
 /**
@@ -59,9 +59,9 @@ export interface IoContext {
   crypto: Crypto;
 
   /**
-   * An interface for sending messages to external systems.
+   * An interface for (e)mailing messages to external systems.
    */
-  send: Send;
+  email: Email;
 
   /**
    * Schemas for defining and validating input structures.

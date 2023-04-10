@@ -14,7 +14,7 @@ import {
   cryptoWeb,
   databaseMemory,
   filesystemMemory,
-  sendMemory,
+  emailMemory,
 } from '../io/index.js';
 import { storeSetup } from '../store.js';
 import { validateSetup } from './validate.js';
@@ -49,7 +49,7 @@ export async function contextSetup(options: ContextOptions = {}): Promise<IoCont
     crypto = cryptoWeb,
     initialize = true,
     data = await dataInitial(),
-    send = sendMemory,
+    email = emailMemory,
   } = options;
 
   /**
@@ -111,7 +111,7 @@ export async function contextSetup(options: ContextOptions = {}): Promise<IoCont
     database,
     filesystem,
     crypto,
-    send,
+    email,
   };
 }
 

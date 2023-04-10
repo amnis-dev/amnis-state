@@ -1,4 +1,4 @@
-const sendTemplates = {
+const emailTemplates = {
 /**
  * Template for sending a one-time passcode.
  *
@@ -17,9 +17,9 @@ This code will expire in ${lifetime}.\
 /**
  * Gets send templates.
  */
-export const sendGetTemplate = (key: keyof typeof sendTemplates) => sendTemplates[key];
+export const emailGetTemplate = (key: keyof typeof emailTemplates) => emailTemplates[key];
 
-export default sendGetTemplate;
+export default emailGetTemplate;
 
 /**
  * Sets a new template or overrites one.

@@ -1,12 +1,12 @@
 /**
- * Send template function.
+ * Email template function.
  */
-export type SendTemplate = (...args: string[]) => void;
+export type EmailTemplate = (...args: string[]) => void;
 
 /**
  * Properties of an email.
  */
-export interface SendEmailProps {
+export interface EmailSendProps {
   /**
    * The recipient of the email.
    */
@@ -41,11 +41,11 @@ export interface SendEmailProps {
 /**
  * Emailer method.
  */
-export type SendEmail = (email: SendEmailProps) => Promise<boolean>;
+export type EmailSend = (email: EmailSendProps) => Promise<boolean>;
 
 /**
  * I/O interface for sending emails, texts, or other types of communication methods.
  */
-export interface Send {
-  email: SendEmail;
+export interface Email {
+  send: EmailSend;
 }
