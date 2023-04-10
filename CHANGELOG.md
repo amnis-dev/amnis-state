@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.11](https://github.com/amnis-dev/amnis-state/compare/v0.16.10...v0.16.11) (2023-04-10)
+
+
+### Features
+
+* **Email:** Renamed send interface to email interface for clarity and specialization ([5aed35c](https://github.com/amnis-dev/amnis-state/commit/5aed35c5c648a8afec28e4801fd024ec9e1b5b06))
+* **Schema:** Data query for history is now a boolean ([713428b](https://github.com/amnis-dev/amnis-state/commit/713428b7beb05592ecc5780b1065b8875996afeb))
+
+
+### Bug Fixes
+
+* **Emailer:** Renamed email io interface to emailer to resolve naming conflicts ([c739e71](https://github.com/amnis-dev/amnis-state/commit/c739e716e4bdabb688ee1656e18c07ec4ef99340))
+
 ### [0.16.10](https://github.com/amnis-dev/amnis-state/compare/v0.16.9...v0.16.10) (2023-04-10)
 
 
