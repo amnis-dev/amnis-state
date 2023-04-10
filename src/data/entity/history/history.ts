@@ -50,4 +50,15 @@ export function historyMake(
 export const historySlice = entitySliceCreate({
   key: historyKey,
   create: historyCreate,
+  sort: (a, b) => {
+    const subjectA = a.$subject;
+    const subjectB = b.$subject;
+    if (subjectA < subjectB) {
+      return -1;
+    }
+    if (subjectA > subjectB) {
+      return 1;
+    }
+    return 0;
+  },
 });

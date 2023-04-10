@@ -154,11 +154,8 @@ export type DataQueryOptions = {
 
   /**
    * Request a number of historic records with the results.
-   *
-   * @min 1
-   * @max 128
    */
-  $history?: number;
+  $history?: boolean;
 
   /**
    * Depth to query for other referenced entities.

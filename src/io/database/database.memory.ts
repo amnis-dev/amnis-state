@@ -1,7 +1,9 @@
 import type { UID } from '../../core/index.js';
 import { uidList } from '../../core/index.js';
 import { GrantScope } from '../../data/grant/index.js';
-import type { DataDeleter, Entity, EntityObjects } from '../../data/index.js';
+import type {
+  DataDeleter, Entity, EntityObjects, History,
+} from '../../data/index.js';
 import { dataOrder } from '../../data/data.js';
 import type { Database } from './database.types.js';
 import type { State } from '../../state.types.js';
@@ -208,6 +210,17 @@ export const databaseMemory: Database = {
 
           return matches === filterKeyLength;
         });
+
+        if (querySlice[queryStateKey].$history) {
+          const storageHistory = storage.history as Record<UID, Entity<History>>;
+          if (storageHistory) {
+            const entitiyIds = result[queryStateKey].map((e) => e.$id);
+            const histories = Object.values(storageHistory).filter(
+              (h) => entitiyIds.includes(h.$subject),
+            );
+            result.history = histories;
+          }
+        }
       });
     });
 
