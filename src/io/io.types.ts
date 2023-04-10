@@ -18,7 +18,7 @@ import type { Database } from './database/database.types.js';
 import type { Filesystem } from './filesystem/filesystem.types.js';
 import type { Crypto } from './crypto/crypto.types.js';
 import type { JWTAccess } from '../core/index.js';
-import type { Email } from './email/email.types.js';
+import type { Emailer } from './emailer/emailer.types.js';
 import type { StateScope } from '../state.types.js';
 
 /**
@@ -61,7 +61,7 @@ export interface IoContext {
   /**
    * An interface for (e)mailing messages to external systems.
    */
-  email: Email;
+  emailer: Emailer;
 
   /**
    * Schemas for defining and validating input structures.

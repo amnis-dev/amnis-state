@@ -1,12 +1,12 @@
 /**
- * Email template function.
+ * Emailer template function.
  */
-export type EmailTemplate = (...args: string[]) => void;
+export type EmailerTemplate = (...args: string[]) => void;
 
 /**
  * Properties of an email.
  */
-export interface EmailSendProps {
+export interface EmailerSendProps {
   /**
    * The recipient of the email.
    */
@@ -23,7 +23,7 @@ export interface EmailSendProps {
   fromName?: string;
 
   /**
-   * Email subject.
+   * Emailer subject.
    */
   subject: string;
 
@@ -39,13 +39,13 @@ export interface EmailSendProps {
 }
 
 /**
- * Emailer method.
+ * Emailerer method.
  */
-export type EmailSend = (email: EmailSendProps) => Promise<boolean>;
+export type EmailerSend = (email: EmailerSendProps) => Promise<boolean>;
 
 /**
  * I/O interface for sending emails, texts, or other types of communication methods.
  */
-export interface Email {
-  send: EmailSend;
+export interface Emailer {
+  send: EmailerSend;
 }
