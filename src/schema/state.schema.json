@@ -2047,8 +2047,8 @@
           "description": "Range of query."
         },
         "$history": {
-          "type": "number",
-          "description": "Request a number ofhistoric records with the results."
+          "type": "boolean",
+          "description": "Request a number of historic records with the results."
         },
         "$depth": {
           "type": "number",
