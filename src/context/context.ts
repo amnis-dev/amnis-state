@@ -35,6 +35,11 @@ export interface ContextOptions extends Omit<Partial<IoContext>, 'schemas' | 'va
    * Set initial entity data.
    */
   data?: EntityObjects;
+
+  /**
+   * System handle to use for the initial system.
+   */
+  systemHandle?: string;
 }
 
 /**
@@ -50,6 +55,7 @@ export async function contextSetup(options: ContextOptions = {}): Promise<IoCont
     initialize = true,
     data = await dataInitial(),
     emailer = emailerMemory,
+    systemHandle = 'core',
   } = options;
 
   /**
@@ -59,7 +65,13 @@ export async function contextSetup(options: ContextOptions = {}): Promise<IoCont
 
   if (initialize) {
     const readResult = await database.read({
-      [systemSlice.key]: {},
+      [systemSlice.key]: {
+        $query: {
+          handle: {
+            $eq: systemHandle,
+          },
+        },
+      },
       [apiKey]: {},
       [roleSlice.key]: {},
     });

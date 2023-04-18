@@ -8,6 +8,7 @@ export default defineConfig({
     lib: {
       entry: {
         index: resolve(__dirname, 'src/index.ts'),
+        records: resolve(__dirname, 'src/records/index.ts'),
         schema: resolve(__dirname, 'src/schema/index.ts'),
         context: resolve(__dirname, 'src/context/index.ts'),
       },

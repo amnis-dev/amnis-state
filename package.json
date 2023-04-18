@@ -23,6 +23,11 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
+    "./records": {
+      "types": "./types/records/index.d.ts",
+      "import": "./dist/records.js",
+      "require": "./dist/records.cjs"
+    },
     "./schema": {
       "types": "./types/schema/index.d.ts",
       "import": "./dist/schema.js",
