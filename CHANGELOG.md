@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.12](https://github.com/amnis-dev/amnis-state/compare/v0.16.11...v0.16.12) (2023-04-18)
+
+
+### Features
+
+* **Records:** Added a initial data creation of production records ([000ecd1](https://github.com/amnis-dev/amnis-state/commit/000ecd13d9799ee31f716e1ce0f5fb70ed125e69))
+
 ### [0.16.11](https://github.com/amnis-dev/amnis-state/compare/v0.16.10...v0.16.11) (2023-04-10)
 
 
