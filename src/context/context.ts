@@ -1,5 +1,7 @@
 import type { SchemaObject } from 'ajv';
-import type { DataQueryProps, EntityObjects } from '../data/index.js';
+import type {
+  Entity, EntityObjects, System,
+} from '../data/index.js';
 import {
   dataInitial,
   dataActions,
@@ -27,11 +29,6 @@ export interface ContextOptions extends Omit<Partial<IoContext>, 'schemas' | 'va
   schemas?: SchemaObject[];
 
   /**
-   * Initializes with default data (if not already set)
-   */
-  initialize?: boolean | 'database';
-
-  /**
    * Set initial entity data.
    */
   data?: EntityObjects;
@@ -52,7 +49,6 @@ export async function contextSetup(options: ContextOptions = {}): Promise<IoCont
     database = databaseMemory,
     filesystem = filesystemMemory,
     crypto = cryptoWeb,
-    initialize = true,
     data = await dataInitial(),
     emailer = emailerMemory,
     systemHandle,
@@ -63,40 +59,33 @@ export async function contextSetup(options: ContextOptions = {}): Promise<IoCont
    */
   store.dispatch(dataActions.wipe());
 
-  if (initialize) {
-    const systemQuery: DataQueryProps = systemHandle ? { handle: { $eq: systemHandle } } : {};
-    const readResult = await database.read({
-      [systemSlice.key]: {
-        $query: systemQuery,
-      },
-      [apiKey]: {},
-      [roleSlice.key]: {},
-    });
+  const readResult = await database.read({
+    [systemSlice.key]: {},
+    [apiKey]: {},
+    [roleSlice.key]: {},
+  });
 
-    /**
-     * Initialize the system if one isn't found.
-     */
-    if (!readResult[systemSlice.key]?.length) {
-      const createResult = await database.create(data);
+  const systems = readResult[systemSlice.key] as Entity<System>[];
+  let system = systemHandle ? systems?.find((s) => s.handle === systemHandle) : systems?.[0];
 
-      if (initialize === true) {
-        const system = createResult[systemSlice.key][0];
-        const serviceResult: EntityObjects = {
-          [systemSlice.key]: createResult[systemSlice.key],
-          [roleSlice.key]: createResult[roleSlice.key],
-        };
-        store.dispatch(dataActions.create(serviceResult));
-        store.dispatch(systemSlice.action.activeSet(system.$id));
-      }
-    } else if (initialize === true) {
-      const system = readResult[systemSlice.key][0];
-      const serviceResult: EntityObjects = {
-        [systemSlice.key]: readResult[systemSlice.key],
-        [roleSlice.key]: readResult[roleSlice.key],
-      };
-      store.dispatch(dataActions.create(serviceResult));
-      store.dispatch(systemSlice.action.activeSet(system.$id));
-    }
+  /**
+   * Initialize the system if one isn't found.
+   */
+  if (systems?.length === 0) {
+    const createResult = await database.create(data);
+
+    system = createResult[systemSlice.key]?.[0] as Entity<System>;
+
+    const serviceResult: EntityObjects = {
+      [systemSlice.key]: createResult[systemSlice.key],
+      [roleSlice.key]: createResult[roleSlice.key],
+    };
+    store.dispatch(dataActions.create(serviceResult));
+    store.dispatch(systemSlice.action.activeSet(system.$id));
+  }
+
+  if (!system) {
+    throw new Error('Failed to read system.');
   }
 
   const schemaObjects = schemas.reduce<SchemaObject>(
