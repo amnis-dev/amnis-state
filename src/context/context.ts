@@ -1,5 +1,5 @@
 import type { SchemaObject } from 'ajv';
-import type { EntityObjects } from '../data/index.js';
+import type { DataQueryProps, EntityObjects } from '../data/index.js';
 import {
   dataInitial,
   dataActions,
@@ -55,7 +55,7 @@ export async function contextSetup(options: ContextOptions = {}): Promise<IoCont
     initialize = true,
     data = await dataInitial(),
     emailer = emailerMemory,
-    systemHandle = 'core',
+    systemHandle,
   } = options;
 
   /**
@@ -64,13 +64,10 @@ export async function contextSetup(options: ContextOptions = {}): Promise<IoCont
   store.dispatch(dataActions.wipe());
 
   if (initialize) {
+    const systemQuery: DataQueryProps = systemHandle ? { handle: { $eq: systemHandle } } : {};
     const readResult = await database.read({
       [systemSlice.key]: {
-        $query: {
-          handle: {
-            $eq: systemHandle,
-          },
-        },
+        $query: systemQuery,
       },
       [apiKey]: {},
       [roleSlice.key]: {},
