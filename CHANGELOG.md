@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.15](https://github.com/amnis-dev/amnis-state/compare/v0.16.14...v0.16.15) (2023-04-19)
+
+
+### Bug Fixes
+
+* **Context:** Fixed issue with iniitial data being created every startup ([098387a](https://github.com/amnis-dev/amnis-state/commit/098387a7a0ff4dbebb5e74e5bdc35d2ce39b837e))
+
 ### [0.16.14](https://github.com/amnis-dev/amnis-state/compare/v0.16.13...v0.16.14) (2023-04-19)
 
 
