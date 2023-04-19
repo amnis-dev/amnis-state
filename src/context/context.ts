@@ -5,7 +5,6 @@ import type {
 import {
   dataInitial,
   dataActions,
-  apiKey,
   systemSlice,
   roleSlice,
 } from '../data/index.js';
@@ -59,34 +58,35 @@ export async function contextSetup(options: ContextOptions = {}): Promise<IoCont
    */
   store.dispatch(dataActions.wipe());
 
-  const readResult = await database.read({
+  let dataResult = await database.read({
     [systemSlice.key]: {},
-    [apiKey]: {},
     [roleSlice.key]: {},
   });
 
-  const systems = readResult[systemSlice.key] as Entity<System>[];
+  const systems = dataResult[systemSlice.key] as Entity<System>[];
   let system = systemHandle ? systems?.find((s) => s.handle === systemHandle) : systems?.[0];
 
   /**
    * Initialize the system if one isn't found.
    */
   if (!systems || systems?.length === 0) {
-    const createResult = await database.create(data);
-
-    system = createResult[systemSlice.key]?.[0] as Entity<System>;
-
-    const serviceResult: EntityObjects = {
-      [systemSlice.key]: createResult[systemSlice.key],
-      [roleSlice.key]: createResult[roleSlice.key],
-    };
-    store.dispatch(dataActions.create(serviceResult));
-    store.dispatch(systemSlice.action.activeSet(system.$id));
+    dataResult = await database.create(data);
+    system = dataResult[systemSlice.key]?.[0] as Entity<System>;
   }
 
   if (!system) {
+    if (systemHandle) {
+      throw new Error(`Failed to read system with handle '${systemHandle}'.`);
+    }
     throw new Error('Failed to read system.');
   }
+
+  const serviceResult: EntityObjects = {
+    [systemSlice.key]: dataResult[systemSlice.key],
+    [roleSlice.key]: dataResult[roleSlice.key],
+  };
+  store.dispatch(dataActions.create(serviceResult));
+  store.dispatch(systemSlice.action.activeSet(system.$id));
 
   const schemaObjects = schemas.reduce<SchemaObject>(
     (acc, schema) => {
