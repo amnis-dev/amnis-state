@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.18](https://github.com/amnis-dev/amnis-state/compare/v0.16.17...v0.16.18) (2023-04-19)
+
+
+### Features
+
+* **Selectors:** Added new selectors for determining if a user is an administrator or executive ([8437057](https://github.com/amnis-dev/amnis-state/commit/843705788cb1e9dc1b3d97e223bbd86e7833a148))
+* **System:** Added CORS setting for the system ([bdb37f4](https://github.com/amnis-dev/amnis-state/commit/bdb37f437ce3339b87a5166e9b698af8ce04fcc6))
+
 ### [0.16.17](https://github.com/amnis-dev/amnis-state/compare/v0.16.16...v0.16.17) (2023-04-19)
 
 
