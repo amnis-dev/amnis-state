@@ -3,7 +3,7 @@ import { roleSlice } from '../data/entity/role/index.js';
 import { systemSlice } from '../data/entity/system/index.js';
 
 test('should create initial node context', async () => {
-  const context = await contextSetup({ initialize: true });
+  const context = await contextSetup();
 
   const systems = systemSlice.select.all(context.store.getState());
   const roles = roleSlice.select.all(context.store.getState());

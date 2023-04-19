@@ -71,7 +71,7 @@ export async function contextSetup(options: ContextOptions = {}): Promise<IoCont
   /**
    * Initialize the system if one isn't found.
    */
-  if (systems?.length === 0) {
+  if (!systems || systems?.length === 0) {
     const createResult = await database.create(data);
 
     system = createResult[systemSlice.key]?.[0] as Entity<System>;
