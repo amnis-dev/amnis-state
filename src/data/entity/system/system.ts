@@ -10,6 +10,7 @@ export const systemRoot = (): SystemRoot => ({
   name: '',
   handle: 'core',
   domain: '',
+  cors: [],
   sessionKey: 'coreSession',
   sessionExpires: 60,
   bearerExpires: 30,

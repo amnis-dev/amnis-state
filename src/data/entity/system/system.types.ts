@@ -25,6 +25,11 @@ export interface System extends Data {
   domain: string;
 
   /**
+   * Allowed CORS origins.
+   */
+  cors: string[];
+
+  /**
    * Name of the session key.
    */
   sessionKey: string;
