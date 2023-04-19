@@ -36,7 +36,6 @@ export type UIDTree<T = unknown> = [UID<T>, UID<T> | null][];
 /**
  * A string that represents a JSON Date.
  *
- * @format date-time
  * @pattern ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$
  * @errorMessage "Date format is invalid"
  */
@@ -62,7 +61,6 @@ export type SURL = string;
 /**
  * An email address
  *
- * @format email
  * @pattern ^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$
  * @maxLength 64
  * @errorMessage "The email address is poorly formatted"
@@ -72,7 +70,6 @@ export type Email = string;
 /**
  * A clear-text password.
  *
- * @format password
  * @minLength 4
  * @maxLength 32
  */
