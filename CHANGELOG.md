@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.14](https://github.com/amnis-dev/amnis-state/compare/v0.16.13...v0.16.14) (2023-04-19)
+
+
+### Features
+
+* **Types:** Removed format annotations due to issue with AJV validation ([0620771](https://github.com/amnis-dev/amnis-state/commit/062077188b77304bc7dd75798bdc3fea2ec83f86))
+
 ### [0.16.13](https://github.com/amnis-dev/amnis-state/compare/v0.16.12...v0.16.13) (2023-04-19)
 
 
