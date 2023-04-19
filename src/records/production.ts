@@ -41,6 +41,11 @@ export interface RecordsProductionOptions {
    * Name of the system.
    */
   systemName?: string;
+
+  /**
+   * Email domain for the system.
+   */
+  systemEmailDomain?: string;
 }
 
 /**
@@ -52,6 +57,8 @@ export async function recordsProduction({
   adminPassword = 'password',
   adminPublicKey,
   systemName = 'Core System',
+  systemEmailDomain = 'amnis.dev',
+
 }: RecordsProductionOptions): Promise<EntityObjects> {
   if (!adminEmail) {
     throw new Error('Missing admin email address');
@@ -200,14 +207,19 @@ export async function recordsProduction({
    * SYSTEM
    * ================================================================================
    */
+  const systemHandle = systemName.replaceAll(' ', '_').toLowerCase();
   const system = systemSlice.createEntity({
     name: systemName,
-    handle: systemName.replaceAll(' ', '_').toLowerCase(),
+    handle: systemHandle,
     $adminRole: roleAdministrator.$id,
     $execRole: roleExecutive.$id,
     $anonymousRole: roleAnonymous.$id,
     $initialRoles: [roleBasic.$id],
     registrationOpen: false,
+    sessionKey: `${systemHandle}_session`,
+    emailAuth: `auth@${systemEmailDomain}`,
+    emailNews: `news@${systemEmailDomain}`,
+    emailNotify: `notify@${systemEmailDomain}`,
   }, { committed: true, new: false });
 
   const systems = [system];
