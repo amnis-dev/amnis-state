@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.16](https://github.com/amnis-dev/amnis-state/compare/v0.16.15...v0.16.16) (2023-04-19)
+
+
+### Bug Fixes
+
+* **Context:** Context creation will fetch all systems and use a specific handle if specified ([877a8b7](https://github.com/amnis-dev/amnis-state/commit/877a8b7880ee03c23f135d260c5e8c577c94922e))
+
 ### [0.16.15](https://github.com/amnis-dev/amnis-state/compare/v0.16.14...v0.16.15) (2023-04-19)
 
 
