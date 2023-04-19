@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.13](https://github.com/amnis-dev/amnis-state/compare/v0.16.12...v0.16.13) (2023-04-19)
+
+
+### Features
+
+* **Records:** Added setting to define the system email domain ([1a2dc22](https://github.com/amnis-dev/amnis-state/commit/1a2dc2249d3ae94d7189af38ca8a6834caf5a133))
+
 ### [0.16.12](https://github.com/amnis-dev/amnis-state/compare/v0.16.11...v0.16.12) (2023-04-18)
 
 
