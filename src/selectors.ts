@@ -159,6 +159,33 @@ const isUserExec = (state: RootState, $userId: UID<User>): boolean => {
   return false;
 };
 
+/**
+ * Selects the flag indicating if the user is an administrator or executive.
+ */
+const isUserPrivileged = (state: RootState, $userId: UID<User>): boolean => {
+  const user = userSlice.select.byId(state, $userId);
+
+  if (!user) {
+    return false;
+  }
+
+  const systemActive = systemSlice.select.active(state);
+
+  if (!systemActive) {
+    return false;
+  }
+
+  if (user.$roles.includes(systemActive.$adminRole)) {
+    return true;
+  }
+
+  if (user.$roles.includes(systemActive.$execRole)) {
+    return true;
+  }
+
+  return false;
+};
+
 const isUserActiveAdmin = (state: RootState): boolean => {
   const userActive = userSlice.select.active(state);
 
@@ -177,6 +204,16 @@ const isUserActiveExec = (state: RootState): boolean => {
   }
 
   return isUserExec(state, userActive.$id);
+};
+
+const isUserActivePrivileged = (state: RootState): boolean => {
+  const userActive = userSlice.select.active(state);
+
+  if (!userActive) {
+    return false;
+  }
+
+  return isUserPrivileged(state, userActive.$id);
 };
 
 const stagedEntities = (state: RootState): Entity[] => {
@@ -204,8 +241,10 @@ export const stateSelect = {
   dataComparison,
   isUserAdmin,
   isUserExec,
+  isUserPrivileged,
   isUserActiveAdmin,
   isUserActiveExec,
+  isUserActivePrivileged,
   stagedEntities,
 };
 
