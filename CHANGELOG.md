@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.19](https://github.com/amnis-dev/amnis-state/compare/v0.16.18...v0.16.19) (2023-04-21)
+
+
+### Bug Fixes
+
+* **Otp:** Fixed issue with latest OTP not being set ([27aa80f](https://github.com/amnis-dev/amnis-state/commit/27aa80f58d99b9e38612649c260d2b947a9c5da7))
+
 ### [0.16.18](https://github.com/amnis-dev/amnis-state/compare/v0.16.17...v0.16.18) (2023-04-19)
 
 
