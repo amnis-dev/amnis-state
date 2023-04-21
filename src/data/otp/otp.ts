@@ -6,6 +6,7 @@ import { dataSliceCreate } from '../data.slice.js';
 import type { Otp, OtpMeta } from './otp.types.js';
 import { OtpMethod } from './otp.types.js';
 import type { DataState } from '../data.types.js';
+import { dataActions } from '../data.actions.js';
 
 const otpKey = 'otp';
 
@@ -62,6 +63,7 @@ export const otpSlice = dataSliceCreate({
   reducersExtras: [
     {
       cases: ({
+        key,
         builder,
         adapter,
       }) => {
@@ -95,6 +97,29 @@ export const otpSlice = dataSliceCreate({
 
           adapter.removeMany(state, expiredIds);
         });
+
+        /**
+         * Matches data create action and references the latest otp.
+         */
+        builder.addMatcher(
+          (action) => dataActions.create.match(action),
+          (state, { payload }) => {
+            if (
+              typeof payload !== 'object'
+            || payload[key] === undefined
+            ) {
+              return;
+            }
+
+            const otps = payload[key] as Otp[];
+            const otpLatest = otps[otps.length - 1];
+            if (!otpLatest) {
+              return;
+            }
+
+            state.latest = otpLatest.$id;
+          },
+        );
 
         /**
          * Matches and data action with this key in context.
