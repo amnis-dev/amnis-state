@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.20](https://github.com/amnis-dev/amnis-state/compare/v0.16.19...v0.16.20) (2023-04-23)
+
+
+### Features
+
+* **Local Information:** Added new global module for storing volatile local data ([2d33459](https://github.com/amnis-dev/amnis-state/commit/2d33459dd511e3532962823a59ff66ac5292f47c))
+* **String Utilities:** Added utility functions for manipulating strings ([ea4988f](https://github.com/amnis-dev/amnis-state/commit/ea4988f92e0e1698bce205b527f1ffd67564fa37))
+
 ### [0.16.19](https://github.com/amnis-dev/amnis-state/compare/v0.16.18...v0.16.19) (2023-04-21)
 
 
