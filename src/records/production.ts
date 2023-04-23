@@ -15,6 +15,7 @@ import {
 } from '../data/index.js';
 import { cryptoWeb } from '../io/index.js';
 import { stateEntitiesCreate } from '../state.js';
+import { camelize, snakeize } from '../string.util.js';
 
 export interface RecordsProductionOptions {
   /**
@@ -212,17 +213,17 @@ export async function recordsProduction({
    * SYSTEM
    * ================================================================================
    */
-  const systemHandle = systemName.replaceAll(' ', '_').toLowerCase();
   const system = systemSlice.createEntity({
     name: systemName,
-    handle: systemHandle,
+    handle: snakeize(systemName),
     cors: systemCors,
+    otpLength: 8,
     $adminRole: roleAdministrator.$id,
     $execRole: roleExecutive.$id,
     $anonymousRole: roleAnonymous.$id,
     $initialRoles: [roleBasic.$id],
     registrationOpen: false,
-    sessionKey: `${systemHandle}_session`,
+    sessionKey: camelize(systemName),
     emailAuth: `auth@${systemEmailDomain}`,
     emailNews: `news@${systemEmailDomain}`,
     emailNotify: `notify@${systemEmailDomain}`,

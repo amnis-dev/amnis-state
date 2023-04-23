@@ -1,3 +1,4 @@
+export * from './string.util.js';
 export * from './accounts.js';
 export * from './localstorage.js';
 export * from './state.types.js';
