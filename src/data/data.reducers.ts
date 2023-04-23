@@ -14,6 +14,7 @@ import type {
 import { diffCompare } from './entity/diff.js';
 import { dataMetaInitial } from './data.meta.js';
 import { localStorage } from '../localstorage.js';
+import { localInfoGet, localInfoSet } from '../localinfo.js';
 
 /**
  * Applies a set a extra reducers to a data slice.
@@ -49,9 +50,12 @@ export const dataExtraReducers = {
       }
 
       const meta = payload[key];
-      Object.keys(meta).forEach((metaKey) => {
+      Object.entries(meta).forEach(([metaKey, metaValue]) => {
+        if (key === 'user' && metaKey === 'active' && typeof metaValue === 'string') {
+          localInfoSet({ uid: metaValue as string });
+        }
         /** @ts-ignore */
-        state[metaKey] = meta[metaKey];
+        state[metaKey] = metaValue;
       });
     });
 
@@ -198,6 +202,10 @@ export const dataExtraReducers = {
         (async () => {
           const $ids = Object.keys(state.differences);
 
+          if (!$ids.length) {
+            return;
+          }
+
           const entities = $ids.map(($id) => state.entities[$id]).filter((e) => !!e) as D[];
 
           const meta = {
@@ -205,10 +213,10 @@ export const dataExtraReducers = {
             differences: state.differences,
           };
 
-          localStorage().setItem(`state-${key}-meta`, JSON.stringify(meta));
+          localStorage().setItem(`${localInfoGet().uid}-state-${key}-meta`, JSON.stringify(meta));
 
           if ($ids.length === entities.length) {
-            localStorage().setItem(`state-${key}-entities`, JSON.stringify(entities));
+            localStorage().setItem(`${localInfoGet().uid}-state-${key}-entities`, JSON.stringify(entities));
           }
         })();
       },

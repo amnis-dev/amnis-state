@@ -11,6 +11,7 @@ import { dataActions } from './data.actions.js';
 import { dataSelectors } from './data.selectors.js';
 import { dataMetaInitial } from './data.meta.js';
 import { localStorage } from '../localstorage.js';
+import { localInfoGet } from '../localinfo.js';
 
 export interface DataSliceOptions<
   K extends string = string,
@@ -61,12 +62,12 @@ export const dataSliceCreate = <
       /**
        * Load meta data from local storage.
        */
-      storedMeta = JSON.parse(localStorage().getItem(`state-${key}-meta`) ?? '{}');
+      storedMeta = JSON.parse(localStorage().getItem(`${localInfoGet().uid}-state-${key}-meta`) ?? '{}');
 
       /**
        * Load entities from local storage.
        */
-      storedEntities = JSON.parse(localStorage().getItem(`state-${key}-entities`) ?? '[]');
+      storedEntities = JSON.parse(localStorage().getItem(`${localInfoGet().uid}-state-${key}-entities`) ?? '[]');
     } catch (e) {
       console.error('There was an error loading the state data from local storage.');
     }
