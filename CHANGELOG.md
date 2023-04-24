@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.21](https://github.com/amnis-dev/amnis-state/compare/v0.16.20...v0.16.21) (2023-04-24)
+
+
+### Bug Fixes
+
+* **Storage:** Fixed issue with local storage not applying when accounts are changed ([4c54e46](https://github.com/amnis-dev/amnis-state/commit/4c54e46542ad56406ec2a02c7ab279980aa98634))
+
 ### [0.16.20](https://github.com/amnis-dev/amnis-state/compare/v0.16.19...v0.16.20) (2023-04-23)
 
 
