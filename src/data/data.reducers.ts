@@ -9,6 +9,7 @@ import { dataActions } from './data.actions.js';
 import type {
   Data,
   DataExtraReducers,
+  DataMeta,
   DataReducerSettings,
 } from './data.types.js';
 import { diffCompare } from './entity/diff.js';
@@ -50,10 +51,33 @@ export const dataExtraReducers = {
       }
 
       const meta = payload[key];
-      Object.entries(meta).forEach(([metaKey, metaValue]) => {
-        if (key === 'user' && metaKey === 'active' && typeof metaValue === 'string') {
-          localInfoSet({ uid: metaValue as string });
+
+      if (key === 'user' && meta.active && typeof meta.active === 'string') {
+        localInfoSet({ uid: meta.active as string });
+        try {
+          /**
+           * Load meta data from local storage.
+           */
+          const storedMeta = JSON.parse(localStorage().getItem(`${localInfoGet().uid}-state-${key}-meta`) ?? '{}') as Partial<DataMeta>;
+
+          /**
+           * Load entities from local storage.
+           */
+          const storedEntities = JSON.parse(localStorage().getItem(`${localInfoGet().uid}-state-${key}-entities`) ?? '[]') as Data[];
+
+          Object.entries(storedMeta).forEach(([metaKey, metaValue]) => {
+            /** @ts-ignore */
+            state[metaKey] = metaValue;
+          });
+
+          /** @ts-ignore */
+          adapter.setMany(state, storedEntities);
+        } catch (e) {
+          console.error('There was an error loading the state data from local storage.');
         }
+      }
+
+      Object.entries(meta).forEach(([metaKey, metaValue]) => {
         /** @ts-ignore */
         state[metaKey] = metaValue;
       });

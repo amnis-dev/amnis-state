@@ -98,6 +98,11 @@ export interface System extends Data {
   fileSizeMax: number;
 
   /**
+   * Flag to trust the proxy server for a forwarded IP address.
+   */
+  proxyTrust?: boolean;
+
+  /**
    * Role identifier that considers the user an administrator.
    * Administrators have complete control.
    */
