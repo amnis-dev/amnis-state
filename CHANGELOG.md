@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.22](https://github.com/amnis-dev/amnis-state/compare/v0.16.21...v0.16.22) (2023-04-26)
+
+
+### Bug Fixes
+
+* **Local Storage:** Now deletes items that are no longer needed ([873e8ce](https://github.com/amnis-dev/amnis-state/commit/873e8ce04c252b8391c96a9e3358f94486f3c17e))
+
 ### [0.16.21](https://github.com/amnis-dev/amnis-state/compare/v0.16.20...v0.16.21) (2023-04-24)
 
 
