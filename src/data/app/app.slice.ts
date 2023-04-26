@@ -24,7 +24,6 @@ const slice = createSlice({
       state,
       action: PayloadAction<{name: string, url: string}[]>,
     ) => {
-      state.systems = {};
       action.payload.forEach(({ name, url }, index) => {
         state.systems[name] = url;
         if (index === 0) {
@@ -33,6 +32,14 @@ const slice = createSlice({
           }
         }
       });
+    },
+
+    /**
+     * Clears all systems.
+     */
+    systemsClear: (state) => {
+      state.systems = {};
+      state.systemDefault = undefined;
     },
 
     /**
