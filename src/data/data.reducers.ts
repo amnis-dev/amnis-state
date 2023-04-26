@@ -227,6 +227,12 @@ export const dataExtraReducers = {
           const $ids = Object.keys(state.differences);
 
           if (!$ids.length) {
+            try {
+              localStorage().removeItem(`${localInfoGet().uid}-state-${key}-meta`);
+              localStorage().removeItem(`${localInfoGet().uid}-state-${key}-entities`);
+            } catch (e) {
+              return;
+            }
             return;
           }
 
