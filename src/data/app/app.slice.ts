@@ -28,7 +28,9 @@ const slice = createSlice({
       action.payload.forEach(({ name, url }, index) => {
         state.systems[name] = url;
         if (index === 0) {
-          state.systemDefault = name;
+          if (!state.systemDefault || !state.systems[state.systemDefault]) {
+            state.systemDefault = name;
+          }
         }
       });
     },
