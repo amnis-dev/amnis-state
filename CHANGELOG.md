@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.23](https://github.com/amnis-dev/amnis-state/compare/v0.16.22...v0.16.23) (2023-04-26)
+
+
+### Features
+
+* **App:** Added system clear action ([d69d787](https://github.com/amnis-dev/amnis-state/commit/d69d78724e28cd4b257a4f941e0e9b0bfbc90232))
+
+
+### Bug Fixes
+
+* **App:** System default will not be overritten if a default already exists. ([3465fb1](https://github.com/amnis-dev/amnis-state/commit/3465fb15a95fb3105d9ed16488caa5c90e72668e))
+
 ### [0.16.22](https://github.com/amnis-dev/amnis-state/compare/v0.16.21...v0.16.22) (2023-04-26)
 
 
