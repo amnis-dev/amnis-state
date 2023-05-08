@@ -5,7 +5,7 @@ import type { Data, DataOrder } from './data.types.js';
  * The ID slice key is returned if no name can be found.
  */
 export const dataName = <D extends Data & Record<string, any>>(data: D): string => {
-  const name = data.name || data.title || data.label || data.handle || data.nameDisplay || data.$id.split(':')[0];
+  const name = data.name || data.nameDisplay || data.handle || data.title || data.label || data.$id.split(':')[0];
   return name;
 };
 
