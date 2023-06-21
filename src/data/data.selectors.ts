@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import type { Dictionary } from '@reduxjs/toolkit';
 import { createSelector } from '@reduxjs/toolkit';
 import type { State } from '../state.types.js';
 import type { UID } from '../core/index.js';
@@ -27,7 +26,7 @@ const genSelectSlice = <C extends Data>(sliceKey: string) => (state: State) => {
  * Creates an entity dictionary selector.
  */
 const genSelectEntities = <D extends Data>(sliceKey: string) => (state: State) => (
-  genSelectSlice<D>(sliceKey)(state)?.entities ?? ({} as Dictionary<D>)
+  genSelectSlice<D>(sliceKey)(state)?.entities ?? ({} as Record<string, D>)
 );
 
 /**
@@ -124,6 +123,7 @@ const genSelectSelection = <E extends Data = Data>(
   genSelectSelectionIds<E>(sliceKey),
   genSelectEntities<E>(sliceKey),
   (selectionIds, entities) => {
+    /** @ts-ignore */
     const selections = selectionIds.map((selected) => entities[selected]) as E[];
 
     return selections;
@@ -149,7 +149,7 @@ const genSelectDifference = <D extends Data = Data>(
   sliceKey: string,
 ) => createSelector(
   [
-    (state, id) => id,
+    (state, id: string) => id,
     genSelectDifferences<D>(sliceKey),
     genSelectOriginals<D>(sliceKey),
     genSelectEntities<D>(sliceKey),
@@ -170,7 +170,7 @@ const genSelectDifference = <D extends Data = Data>(
       acc[k] = current[k];
       return acc;
     }, {} as DataRoot<D>);
-    const updater = { $id: id, ...changes };
+    const updater = { $id: id, ...changes } as DataUpdate<D>;
 
     return {
       original: original ? { ...original } : undefined,

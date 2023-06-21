@@ -59,7 +59,7 @@ export const entityExtraReducers = {
 
   cases: () => { /** noop */ },
 
-  matchers: <D extends Data>({
+  matchers: <D extends Entity>({
     key,
     builder,
     adapter,

@@ -215,7 +215,7 @@ export interface DataMeta<D extends Data = Data> {
 /**
  * Reducer state for data collections.
  */
-export type DataState<D extends Data = Data> = EntityState<D> & DataMeta<D>;
+export type DataState<D extends Data = Data> = EntityState<D, string> & DataMeta<D>;
 
 export interface DataReducerOptions {
   save: boolean | Record<string, unknown>;
@@ -224,7 +224,7 @@ export interface DataReducerOptions {
 export interface DataReducerSettings<
   D extends Data = Data,
   M extends Record<string, any> = object,
-  EA extends EntityStateAdapter<D> = EntityStateAdapter<D>,
+  EA extends EntityStateAdapter<D, string> = EntityStateAdapter<D, string>,
   ARMB extends ActionReducerMapBuilder<DataState<D> & M> = ActionReducerMapBuilder<DataState<D> & M>
 > {
   key: string;

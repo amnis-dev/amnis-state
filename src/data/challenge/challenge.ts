@@ -39,7 +39,7 @@ export const challengeSlice = dataSliceCreate({
          */
         builder.addMatcher(
           (action) => action.type.startsWith('@data'),
-          (state, { payload }) => {
+          (state, { payload }: Record<string, any>) => {
             if (
               typeof payload !== 'object'
               || payload[key] === undefined

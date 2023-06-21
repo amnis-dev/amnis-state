@@ -63,7 +63,6 @@ export const otpSlice = dataSliceCreate({
   reducersExtras: [
     {
       cases: ({
-        key,
         builder,
         adapter,
       }) => {
@@ -103,7 +102,7 @@ export const otpSlice = dataSliceCreate({
          */
         builder.addMatcher(
           (action) => dataActions.create.match(action),
-          (state, { payload }) => {
+          (state, { payload }: Record<string, any>) => {
             if (
               typeof payload !== 'object'
             || payload[key] === undefined
@@ -126,7 +125,7 @@ export const otpSlice = dataSliceCreate({
          */
         builder.addMatcher(
           (action) => action.type.startsWith('@data'),
-          (state, { payload }) => {
+          (state, { payload }: Record<string, any>) => {
             if (
               typeof payload !== 'object'
               || payload[key] === undefined

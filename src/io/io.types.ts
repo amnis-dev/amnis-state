@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { BaseQueryFn, FetchArgs } from '@reduxjs/toolkit/query';
-import type { ToolkitStore } from '@reduxjs/toolkit';
+import type { Store } from '@reduxjs/toolkit';
 
 import type { SchemaObject } from 'ajv';
 import type {
@@ -41,7 +41,7 @@ export interface IoContext {
   /**
    * Predicable application state.
    */
-  store: ToolkitStore;
+  store: Store;
 
   /**
    * Interface for storing structured data.

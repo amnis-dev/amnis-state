@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { AnyAction, Comparer, Selector } from '@reduxjs/toolkit';
+import type {
+  Action, Comparer, EntityState, Selector, Slice,
+} from '@reduxjs/toolkit';
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import type {
   Data, DataExtraReducers, DataMeta, DataState, DataUpdate,
@@ -13,12 +15,16 @@ import { dataMetaInitial } from './data.meta.js';
 import { localStorage } from '../localstorage.js';
 import { localInfoGet } from '../localinfo.js';
 
+type SliceSelectors<S> = {
+  [K: string]: (sliceState: S, ...args: any[]) => any;
+};
+
 export interface DataSliceOptions<
   K extends string = string,
   D extends Data = Data,
   C extends (minimal: any) => D = () => D,
   M extends Record<string, any> = object,
-  A extends Record<string, AnyAction> = Record<string, AnyAction>,
+  A extends Record<string, Action> = Record<string, Action>,
   S extends Record<string, Selector> = Record<string, Selector>,
   B extends ReturnType<C> = ReturnType<C>,
 > {
@@ -37,7 +43,7 @@ export const dataSliceCreate = <
   K extends string,
   DataExtended extends Data,
   C extends (minimal: any) => DataExtended,
-  A extends Record<string, AnyAction>,
+  A extends Record<string, Action>,
   S extends Record<string, Selector>,
 >({
   key,
@@ -73,7 +79,7 @@ export const dataSliceCreate = <
     }
   }
 
-  const adapter = createEntityAdapter<D>({
+  const adapter = createEntityAdapter<D, string>({
     selectId: (entity) => entity.$id,
     sortComparer: sort,
   });
@@ -103,7 +109,13 @@ export const dataSliceCreate = <
         },
       }, reducersExtraArray);
     },
-  });
+  }) as Slice<
+  EntityState<D, string> & DataMeta<D> & M,
+  Record<string, never>,
+  K,
+  K,
+  SliceSelectors<EntityState<D, string> & DataMeta<D> & M>
+  >;
 
   const actionsObject = {
     insert: (insert: D) => dataActions.create({

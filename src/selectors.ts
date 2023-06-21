@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createSelector } from '@reduxjs/toolkit';
 import type { UID } from './core/core.types.js';
 import type {
@@ -218,6 +219,7 @@ const isUserActivePrivileged = (state: RootState): boolean => {
 
 const stagedEntities = (state: RootState): Entity[] => {
   const entities = Object.values(state).reduce<Entity[]>((acc, slice) => {
+    /** @ts-ignore */
     if (slice?.type !== 'entity' || slice?.differences === undefined) {
       return acc;
     }

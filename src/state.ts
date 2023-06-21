@@ -108,7 +108,7 @@ export function stateToCreate(state: State): DataCreator {
   const stateCreator: DataCreator = {};
 
   Object.keys(state).every((sliceKey) => {
-    const slice = state[sliceKey] as EntityState<Data>;
+    const slice = state[sliceKey] as EntityState<Data, string>;
 
     if (!slice.entities) {
       return true;
