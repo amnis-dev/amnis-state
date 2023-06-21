@@ -13,7 +13,7 @@ export function handleCreate(
   handle: HandleMinimal,
 ): Handle {
   return {
-    ...handleRoot,
+    ...handleRoot(),
     ...handle,
     $id: uid(handleKey),
   };

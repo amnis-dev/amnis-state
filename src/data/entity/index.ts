@@ -5,6 +5,7 @@ export * from './entity.slice.js';
 export * from './diff.js';
 
 export * from './audit/index.js';
+export * from './bulletin/index.js';
 export * from './contact/index.js';
 export * from './credential/index.js';
 export * from './file/index.js';
