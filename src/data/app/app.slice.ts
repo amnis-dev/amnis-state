@@ -159,7 +159,6 @@ export const appSlice = {
   action,
   select,
   reducer,
-  slice,
 };
 
 /**
