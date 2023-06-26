@@ -65,8 +65,8 @@
     "@reduxjs/toolkit": "*"
   },
   "devDependencies": {
-    "@amnis/eslint-config-node": "^2.2.4",
-    "@amnis/tsconfig-node": "^2.2.4",
+    "@amnis/eslint-config-node": "^2.3.0",
+    "@amnis/tsconfig-node": "^2.3.0",
     "@reduxjs/toolkit": "2.0.0-beta.0",
     "@types/fluent-ffmpeg": "^2.1.21",
     "@types/fs-extra": "^11.0.1",
