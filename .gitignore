@@ -123,6 +123,9 @@ dist
 # OSX
 .DS_Store
 
+# Accept tar modules.
+!tar_modules/*
+
 # Yarn Zero-Installs
 .yarn/*
 !.yarn/cache
