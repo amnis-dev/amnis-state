@@ -3059,7 +3059,7 @@ packages:
     dev: true
 
   file:tar_modules/redux-toolkit-2.0.0-beta.0.tgz:
-    resolution: {integrity: sha512-LgigXCvN/FuXPJIMI8m2XPQT/BOOK+/oBlvTpSkrnHt9HtMqCM5aLmURLXqWgK+QROVHLmtp8jU7DNPNiJCdNA==, tarball: file:tar_modules/redux-toolkit-2.0.0-beta.0.tgz}
+    resolution: {integrity: sha512-D4qtFvjgB01Sp7efCR8N7j4GxVXZeP6+D7wXS8NJIYU8EYXuTvhRwFnF+ly02bReB66FbWwd89BB5yk/iZgF3Q==, tarball: file:tar_modules/redux-toolkit-2.0.0-beta.0.tgz}
     name: '@reduxjs/toolkit'
     version: 2.0.0-beta.0
     peerDependencies:
