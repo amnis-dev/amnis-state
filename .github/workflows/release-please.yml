@@ -13,7 +13,40 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: google-github-actions/release-please-action@v3
-        with:
-          release-type: node
-          package-name: release-please-action
+    - uses: google-github-actions/release-please-action@v3
+      with:
+        release-type: node
+        package-name: release-please-action
+
+    - name: Checkout Respository
+      if: ${{ steps.release.outputs.release_created }}
+      uses: actions/checkout@v3
+      
+
+    - uses: pnpm/action-setup@v2
+      if: ${{ steps.release.outputs.release_created }}
+      with:
+        version: latest
+
+    - name: Setup NodeJS with PNPM Caching
+      uses: actions/setup-node@v3
+      if: ${{ steps.release.outputs.release_created }}
+      with:
+        node-version: '18.x'
+        registry-url: 'https://registry.npmjs.org'
+        scope: '@amnis'
+        cache: 'pnpm'
+
+    - name: Install NodeJS Dependencies
+      if: ${{ steps.release.outputs.release_created }}
+      run: pnpm install --frozen-lockfile
+
+    - name: Build Project
+      if: ${{ steps.release.outputs.release_created }}
+      run: pnpm build
+
+    - name: Publish Project
+      if: ${{ steps.release.outputs.release_created }}
+      run: pnpm publish --access public
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
