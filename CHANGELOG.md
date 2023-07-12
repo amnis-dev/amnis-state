@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.17.0](https://github.com/amnis-dev/amnis-state/compare/v0.16.23...v0.17.0) (2023-07-12)
+
+
+### Features
+
+* **Data:** Added new Bulletin data type ([1390488](https://github.com/amnis-dev/amnis-state/commit/13904884628181a652469fe22565a7f858f10c2d))
+* **Data:** Priority of data names have been reorganized ([8102ae4](https://github.com/amnis-dev/amnis-state/commit/8102ae45a9f6534afb91bae10f999ce1bdec4253))
+* **Dependencies:** Updated core packages ([74c164d](https://github.com/amnis-dev/amnis-state/commit/74c164dcda043c4935c8db1cf9e5341c57d3cd9a))
+* **Package:** Updated shared linter and tsconfig ([c6ae1d0](https://github.com/amnis-dev/amnis-state/commit/c6ae1d0c083b04a3e151cc9b49f6d39f75128c95))
+* **Redux:** Updated redux to latest ([1007ae5](https://github.com/amnis-dev/amnis-state/commit/1007ae52ed34da2999e0b87e2a973db5e6471626))
+* **Workflow:** Added new release-please workflow for releases ([328512e](https://github.com/amnis-dev/amnis-state/commit/328512e811baf68cd387375aaefa17294fd8df99))
+* **Workflow:** Added release-please to integrity check workflow ([b9b5e4d](https://github.com/amnis-dev/amnis-state/commit/b9b5e4d5fa8dac0a0a7e48737beefa6cb56219e7))
+* **Workflow:** Integrity check ensures the releases are done when the branch is from the main ([c28ff3a](https://github.com/amnis-dev/amnis-state/commit/c28ff3aecf905a14d74014019abd80353e106e0c))
+
+
+### Bug Fixes
+
+* **Module:** Fixed issue with RTK type exports ([953a1b7](https://github.com/amnis-dev/amnis-state/commit/953a1b70479f23296b8f14569dbefff17c80badb))
+* **Package:** fixed issue with redux toolkit version ([2077777](https://github.com/amnis-dev/amnis-state/commit/20777774f76d566cbae3143d104ee8ee9c375bac))
+* **Package:** Removed outdated tool causing audit issues ([3ff19c3](https://github.com/amnis-dev/amnis-state/commit/3ff19c33e127d2a0a43409c85c5baa079f6a803d))
+* **Package:** Temporary fix of issues with redux toolkit beta. ([00cafc0](https://github.com/amnis-dev/amnis-state/commit/00cafc097f4707334bc85727572e7c4030060e99))
+* **Package:** Updated vulnerable package ([bfacb0e](https://github.com/amnis-dev/amnis-state/commit/bfacb0e488ef8bba455d85046235586c283277da))
+* **Types:** Removed slice from appSlice object ([5ff76d8](https://github.com/amnis-dev/amnis-state/commit/5ff76d8a5d3d2b8cadc49c9f1193366faa0c7d79))
+* **Types:** Resolved type issues with redux toolkit beta update ([e73607d](https://github.com/amnis-dev/amnis-state/commit/e73607da1138212f33caf900bf76a82771b376f8))
+* **Workflow:** Fixed issue with the release-please file extension ([b37645f](https://github.com/amnis-dev/amnis-state/commit/b37645ffd34cafb47f6c3a67122f8454977d70a8))
+
 ### [0.16.23](https://github.com/amnis-dev/amnis-state/compare/v0.16.22...v0.16.23) (2023-04-26)
 
 
