@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.18.0](https://github.com/amnis-dev/amnis-state/compare/v0.17.2...v0.18.0) (2023-07-14)
+
+
+### Features
+
+* **Package:** Added latest redux toolkit package ([e18cccb](https://github.com/amnis-dev/amnis-state/commit/e18cccbc632e2916555faea52e3622f56436d165))
+
 ## [0.17.2](https://github.com/amnis-dev/amnis-state/compare/v0.17.1...v0.17.2) (2023-07-12)
 
 
