@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.18.1](https://github.com/amnis-dev/amnis-state/compare/v0.18.0...v0.18.1) (2023-07-14)
+
+
+### Bug Fixes
+
+* **Workflow:** Fixed workflow ([c4adb6b](https://github.com/amnis-dev/amnis-state/commit/c4adb6b15ef087a7627a62ae3182d05daf63f80e))
+
 ## [0.18.0](https://github.com/amnis-dev/amnis-state/compare/v0.17.2...v0.18.0) (2023-07-14)
 
 
