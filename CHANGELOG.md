@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.19.0](https://github.com/amnis-dev/amnis-state/compare/v0.18.3...v0.19.0) (2023-07-18)
+
+
+### Features
+
+* Added new integrity check ([4c24ef6](https://github.com/amnis-dev/amnis-state/commit/4c24ef69cb05690225320e51c0c86017914c8d31))
+
 ## [0.18.3](https://github.com/amnis-dev/amnis-state/compare/v0.18.2...v0.18.3) (2023-07-18)
 
 
