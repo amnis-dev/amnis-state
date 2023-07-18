@@ -1,3 +1,6 @@
+import type { User } from '../../data/entity/user/user.types.js';
+import type { Otp } from '../../data/otp/otp.types.js';
+
 /**
  * Abstract emailer template interface.
  */
@@ -12,7 +15,7 @@ export interface EmailerTemplates {
   /**
    * One time password template.
    */
-  otp: EmailerTemplate<{ code: string, lifetime: string }>;
+  otp: EmailerTemplate<{ user?: User, otp: Otp }>;
 }
 
 /**
