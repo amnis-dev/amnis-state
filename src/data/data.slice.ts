@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type {
-  Action, Comparer, EntityState, Selector, Slice,
+  Action, Comparer, Selector,
 } from '@reduxjs/toolkit';
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import type {
@@ -14,10 +14,6 @@ import { dataSelectors } from './data.selectors.js';
 import { dataMetaInitial } from './data.meta.js';
 import { localStorage } from '../localstorage.js';
 import { localInfoGet } from '../localinfo.js';
-
-type SliceSelectors<S> = {
-  [K: string]: (sliceState: S, ...args: any[]) => any;
-};
 
 export interface DataSliceOptions<
   K extends string = string,
@@ -109,13 +105,7 @@ export const dataSliceCreate = <
         },
       }, reducersExtraArray);
     },
-  }) as Slice<
-  EntityState<D, string> & DataMeta<D> & M,
-  Record<string, never>,
-  K,
-  K,
-  SliceSelectors<EntityState<D, string> & DataMeta<D> & M>
-  >;
+  });
 
   const actionsObject = {
     insert: (insert: D) => dataActions.create({

@@ -15,8 +15,8 @@ devDependencies:
     specifier: ^2.3.0
     version: 2.3.0(typescript@4.9.5)
   '@reduxjs/toolkit':
-    specifier: file:./tar_modules/redux-toolkit-2.0.0-beta.0.tgz
-    version: file:tar_modules/redux-toolkit-2.0.0-beta.0.tgz
+    specifier: https://github.com/amnis-dev/packages/raw/main/redux-toolkit-2.0.0-beta.0-patched.tgz
+    version: '@github.com/amnis-dev/packages/raw/main/redux-toolkit-2.0.0-beta.0-patched.tgz'
   '@types/fluent-ffmpeg':
     specifier: ^2.1.21
     version: 2.1.21
@@ -3056,8 +3056,8 @@ packages:
     engines: {node: '>=12.20'}
     dev: true
 
-  file:tar_modules/redux-toolkit-2.0.0-beta.0.tgz:
-    resolution: {integrity: sha512-OEXsa4erX1IogFA8L767iiNN8+1VQzO7Kc4LtkGXAP3rSH5XL+VdKXae+iSw8tiiLBWVIq37bpkWlrni5V49yA==, tarball: file:tar_modules/redux-toolkit-2.0.0-beta.0.tgz}
+  '@github.com/amnis-dev/packages/raw/main/redux-toolkit-2.0.0-beta.0-patched.tgz':
+    resolution: {tarball: https://github.com/amnis-dev/packages/raw/main/redux-toolkit-2.0.0-beta.0-patched.tgz}
     name: '@reduxjs/toolkit'
     version: 2.0.0-beta.0
     peerDependencies:
