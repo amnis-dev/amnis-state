@@ -49,7 +49,7 @@ export async function contextSetup(options: ContextOptions = {}): Promise<IoCont
     filesystem = filesystemMemory,
     crypto = cryptoWeb,
     data = await dataInitial(),
-    emailer = emailerMemory,
+    emailer = emailerMemory(),
     systemHandle,
   } = options;
 

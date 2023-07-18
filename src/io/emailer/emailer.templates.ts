@@ -1,26 +1,16 @@
-const emailerTemplates = {
-/**
- * Template for sending a one-time passcode.
- *
- * Examples
- * ```
- * onetimePasscode('123456', '10 minutes');
- * ```
- */
-  onetimePasscode: (code: string, lifetime: string) => `\
-Your one-time passcode is ${code}.
- 
-This code will expire in ${lifetime}.\
-`,
+import type { EmailerTemplates } from './emailer.types.js';
+
+const emailerTemplateOtp: EmailerTemplates['otp'] = ({ otp }) => `\
+Your one-time passcode is ${otp.val}.
+
+This code will expire in ${Math.ceil((new Date(otp.exp).getTime() - new Date().getTime()) / 1000 / 60)} minutes.\
+`;
+
+export const emailerTemplates: EmailerTemplates = {
+  otp: emailerTemplateOtp,
 };
 
-/**
- * Gets send templates.
- */
-export const emailerGetTemplate = (key: keyof typeof emailerTemplates) => emailerTemplates[key];
-
-export default emailerGetTemplate;
-
+export default emailerTemplates;
 /**
  * Sets a new template or overrites one.
  */

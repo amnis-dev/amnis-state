@@ -1,12 +1,29 @@
+import type { User } from '../../data/entity/user/user.types.js';
+import type { Otp } from '../../data/otp/otp.types.js';
+
 /**
- * Emailer template function.
+ * Abstract emailer template interface.
  */
-export type EmailerTemplate = (...args: string[]) => void;
+export type EmailerTemplate<T extends Record<string, unknown>> = (params: T) => string;
+
+type ArgumentType<T> = T extends (arg1: infer U) => string ? U : never;
+
+/**
+ * Emailer templates.
+ */
+export interface EmailerTemplates {
+  /**
+   * One time password template.
+   */
+  otp: EmailerTemplate<{ user?: User, otp: Otp }>;
+}
 
 /**
  * Properties of an email.
  */
-export interface EmailerSendProps {
+export interface EmailerSendProps<
+  T extends EmailerTemplates = EmailerTemplates,
+> {
   /**
    * The recipient of the email.
    */
@@ -28,24 +45,32 @@ export interface EmailerSendProps {
   subject: string;
 
   /**
-   * Text version of the email.
+   * The template to use for the email.
    */
-  text: string;
+  template: keyof T;
 
   /**
-   * HTML version of the email.
+   * Parameters to pass into the template.
    */
-  html?: string;
+  params: ArgumentType<T[keyof T]>;
 }
 
 /**
  * Emailerer method.
  */
-export type EmailerSend = (email: EmailerSendProps) => Promise<boolean>;
+export type EmailerSend<
+  T extends EmailerTemplates = EmailerTemplates,
+> = (email: EmailerSendProps<T>) => Promise<boolean>;
 
 /**
  * I/O interface for sending emails, texts, or other types of communication methods.
  */
-export interface Emailer {
-  send: EmailerSend;
+export interface Emailer<
+  T extends EmailerTemplates = EmailerTemplates,
+> {
+  send: EmailerSend<T>;
 }
+
+export type EmailerCreate<
+  T extends EmailerTemplates = EmailerTemplates,
+> = (templates?: T) => Emailer<T>;

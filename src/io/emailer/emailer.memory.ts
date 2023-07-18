@@ -1,16 +1,48 @@
 import { nanoid } from '@reduxjs/toolkit';
-import { dateJSON } from '../../core/index.js';
 import type { DateJSON } from '../../core/index.js';
-import type { Emailer, EmailerSendProps } from './emailer.types.js';
+import { dateJSON } from '../../core/index.js';
+import type {
+  EmailerCreate,
+  EmailerTemplates,
+} from './emailer.types.js';
+import { emailerTemplates } from './emailer.templates.js';
 
-export interface EmailerInboxItem extends EmailerSendProps {
+/**
+ * Email interface
+ */
+interface EmailItem {
+  /**
+   * The recipient of the email.
+   */
+  to: string;
+
+  /**
+   * The verified sender of this email.
+   */
+  from: string;
+
+  /**
+   * Name of the sender.
+   */
+  fromName?: string;
+
+  /**
+   * Emailer subject.
+   */
+  subject: string;
+
+  /**
+   * Body of the email.
+   */
+  body: string;
+
   /**
    * Date-time received.
    */
   received: DateJSON;
 }
 
-export type Emailerbox = Record<string, EmailerInboxItem[]>;
+export type Emailerbox = Record<string, EmailItem[]>;
 
 export type EmailerSendCallback = (inbox: Emailerbox) => void;
 
@@ -32,17 +64,22 @@ export const emailerSendSubscribe = (callback: EmailerSendCallback): EmailerSend
   };
 };
 
-export const emailerMemory: Emailer = {
+export const emailerMemory: EmailerCreate = (templates: EmailerTemplates = emailerTemplates) => ({
   /**
    * Sends an emailer.
    */
   send: async (emailer) => {
     const emailerboxKey = emailer.to;
+
     if (!emailerboxes[emailerboxKey]) {
       emailerboxes[emailerboxKey] = [];
     }
+
+    const { template, params, ...restEmail } = emailer;
+
     emailerboxes[emailerboxKey].push({
-      ...emailer,
+      ...restEmail,
+      body: templates[template](params),
       received: dateJSON(),
     });
 
@@ -50,6 +87,6 @@ export const emailerMemory: Emailer = {
 
     return true;
   },
-};
+});
 
 export default emailerMemory;
