@@ -67,7 +67,7 @@
   "devDependencies": {
     "@amnis/eslint-config-node": "^2.3.0",
     "@amnis/tsconfig-node": "^2.3.0",
-    "@reduxjs/toolkit": "file:./tar_modules/redux-toolkit-2.0.0-beta.0.tgz",
+    "@reduxjs/toolkit": "https://github.com/amnis-dev/packages/raw/main/redux-toolkit-2.0.0-beta.0-patched.tgz",
     "@types/fluent-ffmpeg": "^2.1.21",
     "@types/fs-extra": "^11.0.1",
     "@types/glob": "^8.1.0",
